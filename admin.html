@@ -14,16 +14,11 @@
   content="#061b3a"
 >
 
-<title>Smart Review — Admin</title>
+<title>Smart Review — Administration</title>
 
 <style>
 
-/* =========================================================
-SMART REVIEW — ADMIN
-========================================================= */
-
 :root{
-
   --navy:#061b3a;
   --navy-2:#08264d;
   --navy-3:#0d376b;
@@ -33,23 +28,16 @@ SMART REVIEW — ADMIN
 
   --gold:#d99213;
   --gold-light:#ffcf55;
-  --gold-dark:#a86600;
 
-  --white:#ffffff;
+  --white:#fff;
   --ink:#071b3c;
-
   --muted:#65758c;
+
   --soft:#f5f7fa;
 
-  --danger:#d83b3b;
-  --success:#168a48;
-
+  --green:#168a48;
+  --red:#c93636;
 }
-
-
-/* =========================================================
-RESET
-========================================================= */
 
 *{
   box-sizing:border-box;
@@ -63,12 +51,7 @@ body{
   min-height:100%;
 }
 
-html{
-  background:var(--navy);
-}
-
 body{
-
   min-height:100vh;
   min-height:100dvh;
 
@@ -81,27 +64,17 @@ body{
     Arial,
     sans-serif;
 
-  -webkit-font-smoothing:antialiased;
-
   background:#f5f7fa;
-
   color:var(--ink);
 
+  -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
-
 }
 
-
-/* =========================================================
-APP
-========================================================= */
-
 .app{
-
   width:100%;
   min-height:100vh;
   min-height:100dvh;
-
 }
 
 
@@ -113,15 +86,14 @@ HEADER
 
   width:100%;
 
-  color:#fff;
-
   padding:
-    max(24px,env(safe-area-inset-top))
+    max(25px,env(safe-area-inset-top))
     18px
     28px;
 
-  background:
+  color:#fff;
 
+  background:
     radial-gradient(
       circle at 50% 0%,
       rgba(255,255,255,.10),
@@ -135,42 +107,9 @@ HEADER
       #092e5c 100%
     );
 
-  position:relative;
-
-  overflow:hidden;
-
 }
-
-
-.header::after{
-
-  content:"";
-
-  position:absolute;
-
-  width:280px;
-  height:280px;
-
-  left:50%;
-  top:-210px;
-
-  transform:translateX(-50%);
-
-  background:
-    rgba(38,117,255,.20);
-
-  filter:blur(55px);
-
-  border-radius:50%;
-
-}
-
 
 .header-inner{
-
-  position:relative;
-
-  z-index:2;
 
   width:100%;
   max-width:760px;
@@ -187,7 +126,6 @@ HEADER
 
 }
 
-
 .brand{
 
   display:flex;
@@ -198,15 +136,20 @@ HEADER
 
 }
 
-
 .brand-mark{
 
-  width:48px;
-  height:48px;
+  width:50px;
+  height:50px;
+
+  flex-shrink:0;
 
   border-radius:50%;
 
   background:#fff;
+
+  border:
+    2px solid
+    var(--gold);
 
   display:flex;
 
@@ -215,28 +158,14 @@ HEADER
 
   color:#4285f4;
 
-  font-size:30px;
+  font-size:31px;
 
   font-weight:900;
 
-  border:
-    2px solid
-    var(--gold);
-
   box-shadow:
-    0 8px 20px rgba(0,0,0,.25);
+    0 8px 22px rgba(0,0,0,.25);
 
 }
-
-
-.brand-text{
-
-  display:flex;
-
-  flex-direction:column;
-
-}
-
 
 .brand-name{
 
@@ -248,23 +177,25 @@ HEADER
 
 }
 
-
 .brand-sub{
-
-  font-size:11px;
-
-  letter-spacing:1.6px;
-
-  text-transform:uppercase;
-
-  color:#b9c7da;
 
   margin-top:3px;
 
+  color:#b9c7da;
+
+  font-size:11px;
+
+  font-weight:750;
+
+  letter-spacing:1.7px;
+
+  text-transform:uppercase;
+
 }
 
-
 .logout{
+
+  display:none;
 
   border:
     1px solid
@@ -281,9 +212,7 @@ HEADER
 
   font-size:14px;
 
-  font-weight:800;
-
-  cursor:pointer;
+  font-weight:850;
 
 }
 
@@ -295,7 +224,6 @@ MAIN
 main{
 
   width:100%;
-
   max-width:760px;
 
   margin:0 auto;
@@ -308,47 +236,95 @@ main{
 
 
 /* =========================================================
-LOGIN
+CARDS
 ========================================================= */
 
-.login-card{
+.card{
+
+  width:100%;
 
   background:#fff;
 
-  border-radius:26px;
+  border-radius:25px;
 
-  padding:27px 20px;
+  padding:24px 19px;
+
+  margin-bottom:18px;
 
   box-shadow:
-    0 15px 40px rgba(7,27,60,.12);
+    0 13px 36px rgba(7,27,60,.09);
 
 }
 
-
-.login-title{
-
-  font-size:29px;
-
-  font-weight:950;
+.card-title{
 
   color:var(--navy);
 
-  letter-spacing:-.8px;
+  font-size:26px;
 
-  margin-bottom:8px;
+  line-height:1.1;
+
+  font-weight:950;
+
+  letter-spacing:-.7px;
+
+  margin-bottom:7px;
+
+}
+
+.card-description{
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  line-height:1.5;
+
+  margin-bottom:22px;
 
 }
 
 
-.login-subtitle{
+/* =========================================================
+LOGIN
+========================================================= */
 
-  color:var(--muted);
+#dashboard{
+  display:none;
+}
 
-  font-size:15px;
+#loginCard{
+  display:block;
+}
 
-  line-height:1.5;
+.login-logo{
 
-  margin-bottom:25px;
+  width:70px;
+  height:70px;
+
+  margin-bottom:17px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  border:
+    3px solid
+    var(--gold);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  color:#4285f4;
+
+  font-size:43px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 9px 24px rgba(7,27,60,.16);
 
 }
 
@@ -358,15 +334,15 @@ FORM
 ========================================================= */
 
 .field{
-
+  width:100%;
   margin-bottom:17px;
-
 }
-
 
 .field label{
 
   display:block;
+
+  margin-bottom:8px;
 
   color:var(--navy);
 
@@ -374,10 +350,7 @@ FORM
 
   font-weight:850;
 
-  margin-bottom:8px;
-
 }
-
 
 input,
 textarea{
@@ -388,11 +361,11 @@ textarea{
     1.5px solid
     rgba(7,27,60,.13);
 
+  border-radius:16px;
+
   background:#f7f9fc;
 
   color:var(--ink);
-
-  border-radius:16px;
 
   padding:16px;
 
@@ -403,7 +376,6 @@ textarea{
   -webkit-appearance:none;
 
 }
-
 
 input:focus,
 textarea:focus{
@@ -417,7 +389,6 @@ textarea:focus{
 
 }
 
-
 textarea{
 
   min-height:120px;
@@ -428,14 +399,14 @@ textarea{
 
 
 /* =========================================================
-BUTTON
+BUTTONS
 ========================================================= */
 
 .button{
 
   width:100%;
 
-  min-height:58px;
+  min-height:59px;
 
   border:0;
 
@@ -446,8 +417,9 @@ BUTTON
   display:flex;
 
   align-items:center;
-
   justify-content:center;
+
+  text-decoration:none;
 
   font-size:17px;
 
@@ -461,57 +433,51 @@ BUTTON
 
 }
 
-
 .button:active{
-
   transform:scale(.975);
-
 }
-
 
 .primary{
 
   color:#fff;
 
   background:
-
     linear-gradient(
       135deg,
-      #0a2d59,
-      #0d407a,
-      #08294f
+      #0a2d59 0%,
+      #0d407a 52%,
+      #08294f 100%
     );
 
   border:
     2px solid
-    rgba(217,146,19,.85);
+    rgba(217,146,19,.88);
 
   box-shadow:
-    0 11px 25px rgba(7,27,60,.20);
+    0 12px 27px
+    rgba(7,27,60,.20);
 
 }
-
 
 .secondary{
 
   color:var(--navy);
 
-  background:#eef3fa;
+  background:#edf2f8;
 
 }
 
+.button:disabled{
 
-.danger{
+  opacity:.65;
 
-  color:#fff;
-
-  background:#c93636;
+  cursor:wait;
 
 }
 
 
 /* =========================================================
-ERROR / SUCCESS
+NOTICE
 ========================================================= */
 
 .notice{
@@ -520,15 +486,15 @@ ERROR / SUCCESS
 
   width:100%;
 
-  border-radius:15px;
-
-  padding:14px 15px;
-
   margin-bottom:18px;
+
+  padding:15px;
+
+  border-radius:16px;
 
   font-size:14px;
 
-  line-height:1.45;
+  line-height:1.5;
 
   font-weight:700;
 
@@ -536,96 +502,31 @@ ERROR / SUCCESS
 
 }
 
-
 .notice.show{
   display:block;
 }
 
-
 .notice.error{
+
+  color:#a82e2e;
 
   background:#fff0f0;
 
-  color:#b52f2f;
-
   border:
     1px solid
-    #f0c4c4;
+    #efc5c5;
 
 }
-
 
 .notice.success{
 
-  background:#edf9f2;
+  color:#14733f;
 
-  color:#167541;
+  background:#edf9f2;
 
   border:
     1px solid
-    #bde5ca;
-
-}
-
-
-/* =========================================================
-DASHBOARD
-========================================================= */
-
-.dashboard{
-
-  display:none;
-
-}
-
-
-.dashboard.show{
-
-  display:block;
-
-}
-
-
-.section-card{
-
-  background:#fff;
-
-  border-radius:25px;
-
-  padding:22px 18px;
-
-  margin-bottom:18px;
-
-  box-shadow:
-    0 12px 34px rgba(7,27,60,.09);
-
-}
-
-
-.section-title{
-
-  color:var(--navy);
-
-  font-size:23px;
-
-  font-weight:950;
-
-  letter-spacing:-.5px;
-
-  margin-bottom:6px;
-
-}
-
-
-.section-description{
-
-  color:var(--muted);
-
-  font-size:14px;
-
-  line-height:1.5;
-
-  margin-bottom:21px;
+    #bfe5cc;
 
 }
 
@@ -634,13 +535,13 @@ DASHBOARD
 USER
 ========================================================= */
 
-.user-line{
+.user-info{
 
-  color:#708097;
+  color:#718096;
 
   font-size:13px;
 
-  margin-top:8px;
+  margin-top:12px;
 
   overflow-wrap:anywhere;
 
@@ -648,7 +549,7 @@ USER
 
 
 /* =========================================================
-TEST CARD
+TEST ROW
 ========================================================= */
 
 .test-row{
@@ -659,19 +560,15 @@ TEST CARD
 
 }
 
-
 .test-row input{
-
   min-width:0;
-
 }
-
 
 .test-row .button{
 
   width:auto;
 
-  min-width:125px;
+  min-width:135px;
 
   flex-shrink:0;
 
@@ -679,7 +576,7 @@ TEST CARD
 
 
 /* =========================================================
-CARD RESULT
+RESULT
 ========================================================= */
 
 .result{
@@ -700,30 +597,25 @@ CARD RESULT
 
 }
 
-
 .result.show{
-
   display:block;
-
 }
-
 
 .result-label{
 
   color:#718096;
 
-  font-size:12px;
+  font-size:11px;
 
-  font-weight:800;
-
-  text-transform:uppercase;
+  font-weight:850;
 
   letter-spacing:1px;
+
+  text-transform:uppercase;
 
   margin-bottom:7px;
 
 }
-
 
 .result-code{
 
@@ -735,29 +627,9 @@ CARD RESULT
 
   letter-spacing:1px;
 
-  margin-bottom:12px;
+  margin-bottom:13px;
 
   overflow-wrap:anywhere;
-
-}
-
-
-.open-card{
-
-  text-decoration:none;
-
-}
-
-
-/* =========================================================
-LOADING
-========================================================= */
-
-.loading{
-
-  opacity:.7;
-
-  pointer-events:none;
 
 }
 
@@ -768,9 +640,11 @@ FOOTER
 
 .footer{
 
+  width:100%;
+
   text-align:center;
 
-  padding:20px 0 5px;
+  padding:10px 0 5px;
 
   color:#7a8799;
 
@@ -778,22 +652,8 @@ FOOTER
 
 }
 
-
 .footer strong{
-
   color:var(--navy);
-
-}
-
-
-/* =========================================================
-HIDDEN
-========================================================= */
-
-.hidden{
-
-  display:none !important;
-
 }
 
 
@@ -804,22 +664,12 @@ DESKTOP
 @media(min-width:700px){
 
   main{
-
     padding-left:20px;
     padding-right:20px;
-
   }
 
-  .section-card{
-
-    padding:27px;
-
-  }
-
-  .login-card{
-
-    padding:32px;
-
+  .card{
+    padding:28px;
   }
 
 }
@@ -831,36 +681,21 @@ SMALL PHONES
 
 @media(max-width:390px){
 
-  .header-inner{
-
-    align-items:flex-start;
-
-  }
-
   .brand-name{
-
     font-size:19px;
-
   }
 
   .logout{
-
     padding:9px 11px;
-
     font-size:13px;
-
   }
 
   .test-row{
-
     flex-direction:column;
-
   }
 
   .test-row .button{
-
     width:100%;
-
   }
 
 }
@@ -889,7 +724,7 @@ HEADER
         G
       </div>
 
-      <div class="brand-text">
+      <div>
 
         <div class="brand-name">
           Smart Review
@@ -906,8 +741,8 @@ HEADER
 
     <button
       type="button"
-      class="logout"
       id="logoutButton"
+      class="logout"
     >
       Déconnexion
     </button>
@@ -917,10 +752,6 @@ HEADER
 </header>
 
 
-
-<!-- =====================================================
-MAIN
-===================================================== -->
 
 <main>
 
@@ -942,29 +773,35 @@ LOGIN
 
 <section
   id="loginCard"
-  class="login-card"
+  class="card"
 >
 
-  <h1 class="login-title">
+  <div class="login-logo">
+    G
+  </div>
+
+
+  <h1 class="card-title">
     Connexion
   </h1>
 
-  <p class="login-subtitle">
-    Connectez-vous à votre espace Smart Review.
+
+  <p class="card-description">
+    Connectez-vous à votre espace d'administration Smart Review.
   </p>
 
 
   <div class="field">
 
-    <label for="loginEmail">
+    <label for="email">
       Email
     </label>
 
     <input
-      id="loginEmail"
+      id="email"
       type="email"
-      autocomplete="email"
       value="smartreviewdz@gmail.com"
+      autocomplete="email"
       placeholder="Votre email"
     >
 
@@ -973,12 +810,12 @@ LOGIN
 
   <div class="field">
 
-    <label for="loginPassword">
+    <label for="password">
       Mot de passe
     </label>
 
     <input
-      id="loginPassword"
+      id="password"
       type="password"
       autocomplete="current-password"
       placeholder="Votre mot de passe"
@@ -988,8 +825,8 @@ LOGIN
 
 
   <button
-    type="button"
     id="loginButton"
+    type="button"
     class="button primary"
   >
     Se connecter
@@ -997,8 +834,8 @@ LOGIN
 
 
   <div
-    id="loginStatus"
-    class="user-line"
+    id="loginInfo"
+    class="user-info"
   ></div>
 
 </section>
@@ -1011,7 +848,6 @@ DASHBOARD
 
 <section
   id="dashboard"
-  class="dashboard"
 >
 
 
@@ -1019,51 +855,50 @@ DASHBOARD
 WELCOME
 ===================================================== -->
 
-<div class="section-card">
+<section class="card">
 
-  <div class="section-title">
+  <h1 class="card-title">
     Tableau de bord
-  </div>
+  </h1>
 
-  <div class="section-description">
-    Gérez vos établissements et créez leurs cartes Smart Review.
-  </div>
+  <p class="card-description">
+    Gérez vos établissements et créez vos cartes Smart Review.
+  </p>
 
   <div
     id="loggedUser"
-    class="user-line"
+    class="user-info"
   ></div>
 
-</div>
+</section>
 
 
 
 <!-- =====================================================
-CREATE BUSINESS
+CREATE CARD
 ===================================================== -->
 
-<div class="section-card">
+<section class="card">
 
-  <div class="section-title">
+  <h2 class="card-title">
     Créer une carte
-  </div>
+  </h2>
 
-  <div class="section-description">
-    Ajoutez un établissement puis créez automatiquement sa carte Smart Review.
-  </div>
+  <p class="card-description">
+    Ajoutez votre établissement et créez automatiquement sa carte Smart Review.
+  </p>
 
 
   <div class="field">
 
-    <label for="businessNameInput">
+    <label for="businessName">
       Nom de l'établissement
     </label>
 
     <input
-      id="businessNameInput"
+      id="businessName"
       type="text"
       placeholder="Ex. Restaurant Le Jardin"
-      autocomplete="organization"
     >
 
   </div>
@@ -1071,15 +906,14 @@ CREATE BUSINESS
 
   <div class="field">
 
-    <label for="googleUrlInput">
+    <label for="googleUrl">
       Lien Google pour les avis
     </label>
 
     <input
-      id="googleUrlInput"
+      id="googleUrl"
       type="url"
-      placeholder="https://g.page/..."
-      inputmode="url"
+      placeholder="https://..."
     >
 
   </div>
@@ -1087,15 +921,14 @@ CREATE BUSINESS
 
   <div class="field">
 
-    <label for="whatsappInput">
+    <label for="whatsapp">
       Numéro WhatsApp
     </label>
 
     <input
-      id="whatsappInput"
+      id="whatsapp"
       type="tel"
       placeholder="Ex. 0550123456"
-      inputmode="tel"
     >
 
   </div>
@@ -1103,15 +936,14 @@ CREATE BUSINESS
 
   <div class="field">
 
-    <label for="websiteInput">
-      URL du site web
+    <label for="website">
+      URL
     </label>
 
     <input
-      id="websiteInput"
+      id="website"
       type="url"
       placeholder="https://..."
-      inputmode="url"
     >
 
   </div>
@@ -1119,60 +951,58 @@ CREATE BUSINESS
 
   <div class="field">
 
-    <label for="logoInput">
-      URL du logo
+    <label for="logo">
+      Logo URL
     </label>
 
     <input
-      id="logoInput"
+      id="logo"
       type="url"
       placeholder="https://..."
-      inputmode="url"
     >
 
   </div>
 
 
   <button
-    type="button"
     id="createButton"
+    type="button"
     class="button primary"
   >
     ✨ Créer ma carte
   </button>
 
-</div>
+</section>
 
 
 
 <!-- =====================================================
-TEST CARD
+TEST
 ===================================================== -->
 
-<div class="section-card">
+<section class="card">
 
-  <div class="section-title">
+  <h2 class="card-title">
     Tester une carte
-  </div>
+  </h2>
 
-  <div class="section-description">
-    Entrez le code d'une carte existante pour l'ouvrir immédiatement.
-  </div>
+  <p class="card-description">
+    Entrez le code de votre carte pour l'ouvrir.
+  </p>
 
 
   <div class="test-row">
 
     <input
-      id="testCardCode"
+      id="cardCode"
       type="text"
       placeholder="Ex. CARD001"
       autocomplete="off"
-      autocapitalize="characters"
     >
 
     <button
-      type="button"
       id="testButton"
+      type="button"
       class="button secondary"
     >
       Ouvrir la carte
@@ -1187,17 +1017,17 @@ TEST CARD
   >
 
     <div class="result-label">
-      Carte trouvée
+      Code de carte
     </div>
 
     <div
-      id="testCode"
+      id="resultCode"
       class="result-code"
     ></div>
 
     <a
-      id="openCardButton"
-      class="button primary open-card"
+      id="openCard"
+      class="button primary"
       href="#"
       target="_blank"
       rel="noopener"
@@ -1207,22 +1037,16 @@ TEST CARD
 
   </div>
 
-</div>
-
+</section>
 
 
 </section>
 
 
 
-<!-- =====================================================
-FOOTER
-===================================================== -->
-
 <div class="footer">
 
   <strong>Smart Review</strong><br>
-
   Better feedback. Better businesses.
 
 </div>
@@ -1234,10 +1058,20 @@ FOOTER
 
 
 
+<!-- =====================================================
+SUPABASE JS CLIENT
+Official Supabase browser library
+===================================================== -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
 <script>
 
 /* =========================================================
-SUPABASE CONFIG
+SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -1247,86 +1081,18 @@ const SUPABASE_KEY =
   "sb_publishable_4eVDX1IKZj7ClhpcjfiQFQ_hQ5Hr81k";
 
 
-/* =========================================================
-SUPABASE REQUEST
-========================================================= */
-
-async function supabaseRequest(
-  path,
-  options = {}
-){
-
-  const headers = {
-
-    "apikey":
-      SUPABASE_KEY,
-
-    "Content-Type":
-      "application/json",
-
-    ...(options.headers || {})
-
-  };
-
-
-  const response =
-    await fetch(
-      `${SUPABASE_URL}${path}`,
-      {
-        ...options,
-        headers
+const supabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY,
+    {
+      auth:{
+        persistSession:true,
+        autoRefreshToken:true,
+        detectSessionInUrl:true
       }
-    );
-
-
-  const text =
-    await response.text();
-
-
-  let data = null;
-
-
-  try{
-
-    data =
-      text
-        ? JSON.parse(text)
-        : null;
-
-  }
-
-  catch{
-
-    data = text;
-
-  }
-
-
-  if(!response.ok){
-
-    const error =
-      new Error(
-        data?.message ||
-        data?.msg ||
-        data?.error_description ||
-        text ||
-        `Erreur HTTP ${response.status}`
-      );
-
-    error.status =
-      response.status;
-
-    error.data =
-      data;
-
-    throw error;
-
-  }
-
-
-  return data;
-
-}
+    }
+  );
 
 
 /* =========================================================
@@ -1334,123 +1100,64 @@ ELEMENTS
 ========================================================= */
 
 const notice =
-  document.getElementById(
-    "notice"
-  );
-
+  document.getElementById("notice");
 
 const loginCard =
-  document.getElementById(
-    "loginCard"
-  );
-
+  document.getElementById("loginCard");
 
 const dashboard =
-  document.getElementById(
-    "dashboard"
-  );
+  document.getElementById("dashboard");
 
+const emailInput =
+  document.getElementById("email");
+
+const passwordInput =
+  document.getElementById("password");
 
 const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
-
-
-const loginEmail =
-  document.getElementById(
-    "loginEmail"
-  );
-
-
-const loginPassword =
-  document.getElementById(
-    "loginPassword"
-  );
-
-
-const loginStatus =
-  document.getElementById(
-    "loginStatus"
-  );
-
+  document.getElementById("loginButton");
 
 const logoutButton =
-  document.getElementById(
-    "logoutButton"
-  );
+  document.getElementById("logoutButton");
 
+const loginInfo =
+  document.getElementById("loginInfo");
 
 const loggedUser =
-  document.getElementById(
-    "loggedUser"
-  );
-
+  document.getElementById("loggedUser");
 
 const createButton =
-  document.getElementById(
-    "createButton"
-  );
+  document.getElementById("createButton");
 
+const businessName =
+  document.getElementById("businessName");
 
-const businessNameInput =
-  document.getElementById(
-    "businessNameInput"
-  );
+const googleUrl =
+  document.getElementById("googleUrl");
 
+const whatsapp =
+  document.getElementById("whatsapp");
 
-const googleUrlInput =
-  document.getElementById(
-    "googleUrlInput"
-  );
+const website =
+  document.getElementById("website");
 
+const logo =
+  document.getElementById("logo");
 
-const whatsappInput =
-  document.getElementById(
-    "whatsappInput"
-  );
-
-
-const websiteInput =
-  document.getElementById(
-    "websiteInput"
-  );
-
-
-const logoInput =
-  document.getElementById(
-    "logoInput"
-  );
-
-
-const testCardCode =
-  document.getElementById(
-    "testCardCode"
-  );
-
+const cardCode =
+  document.getElementById("cardCode");
 
 const testButton =
-  document.getElementById(
-    "testButton"
-  );
-
+  document.getElementById("testButton");
 
 const testResult =
-  document.getElementById(
-    "testResult"
-  );
+  document.getElementById("testResult");
 
+const resultCode =
+  document.getElementById("resultCode");
 
-const testCode =
-  document.getElementById(
-    "testCode"
-  );
-
-
-const openCardButton =
-  document.getElementById(
-    "openCardButton"
-  );
+const openCard =
+  document.getElementById("openCard");
 
 
 /* =========================================================
@@ -1458,12 +1165,12 @@ NOTICE
 ========================================================= */
 
 function showNotice(
-  message,
-  type = "error"
+  text,
+  type="error"
 ){
 
   notice.textContent =
-    message;
+    text;
 
   notice.className =
     `notice show ${type}`;
@@ -1471,40 +1178,55 @@ function showNotice(
 }
 
 
-function hideNotice(){
-
-  notice.className =
-    "notice";
+function clearNotice(){
 
   notice.textContent =
     "";
+
+  notice.className =
+    "notice";
 
 }
 
 
 /* =========================================================
-AUTH SESSION
+SHOW LOGIN
 ========================================================= */
 
-let currentSession =
-  null;
+function showLogin(){
 
-let currentUser =
-  null;
+  loginCard.style.display =
+    "block";
+
+  dashboard.style.display =
+    "none";
+
+  logoutButton.style.display =
+    "none";
+
+}
 
 
 /* =========================================================
-GET SESSION
+SHOW DASHBOARD
 ========================================================= */
 
-async function getSession(){
+function showDashboard(
+  user
+){
 
-  return supabaseRequest(
-    "/auth/v1/session",
-    {
-      method:"GET"
-    }
-  );
+  loginCard.style.display =
+    "none";
+
+  dashboard.style.display =
+    "block";
+
+  logoutButton.style.display =
+    "block";
+
+
+  loggedUser.textContent =
+    `Connecté : ${user.email || user.id}`;
 
 }
 
@@ -1515,13 +1237,14 @@ LOGIN
 
 async function login(){
 
-  hideNotice();
+  clearNotice();
+
 
   const email =
-    loginEmail.value.trim();
+    emailInput.value.trim();
 
   const password =
-    loginPassword.value;
+    passwordInput.value;
 
 
   if(!email){
@@ -1549,87 +1272,73 @@ async function login(){
   loginButton.disabled =
     true;
 
-  loginButton.classList.add(
-    "loading"
-  );
-
   loginButton.textContent =
     "Connexion…";
 
 
   try{
 
-    const data =
-      await supabaseRequest(
-        "/auth/v1/token?grant_type=password",
-        {
-          method:"POST",
+    const {
+      data,
+      error
+    } =
+      await supabase.auth.signInWithPassword({
 
-          body:
-            JSON.stringify({
-              email,
-              password
-            })
-        }
+        email:
+          email,
+
+        password:
+          password
+
+      });
+
+
+    if(error){
+
+      /*
+       * IMPORTANT:
+       * Show the REAL Supabase error.
+       * We no longer hide it.
+       */
+
+      console.error(
+        "SUPABASE LOGIN ERROR:",
+        error
       );
 
+      throw error;
 
-    if(!data?.access_token){
+    }
+
+
+    if(!data?.session){
 
       throw new Error(
-        "Connexion impossible."
+        "Supabase n'a pas créé de session."
       );
 
     }
 
 
-    currentSession =
-      data;
-
-    currentUser =
-      data.user;
-
-
-    /*
-     * IMPORTANT:
-     * Store the Supabase session locally.
-     * This is what allows the admin page to
-     * remember the login on the same browser.
-     */
-
-    localStorage.setItem(
-      "smartreview_access_token",
-      data.access_token
-    );
-
-    localStorage.setItem(
-      "smartreview_refresh_token",
-      data.refresh_token || ""
-    );
-
-    localStorage.setItem(
-      "smartreview_user",
-      JSON.stringify(
-        data.user || {}
-      )
+    showDashboard(
+      data.user
     );
 
 
-    showDashboard();
-
+    loginInfo.textContent =
+      "Connexion réussie.";
 
   }
 
   catch(error){
 
     console.error(
-      "LOGIN ERROR:",
       error
     );
 
 
     showNotice(
-      "Email ou mot de passe incorrect."
+      `Erreur Supabase : ${error.message || error}`
     );
 
   }
@@ -1638,10 +1347,6 @@ async function login(){
 
     loginButton.disabled =
       false;
-
-    loginButton.classList.remove(
-      "loading"
-    );
 
     loginButton.textContent =
       "Se connecter";
@@ -1652,352 +1357,94 @@ async function login(){
 
 
 /* =========================================================
-REFRESH SESSION
+LOGOUT
 ========================================================= */
 
-async function refreshSession(){
+async function logout(){
 
-  const refreshToken =
-    localStorage.getItem(
-      "smartreview_refresh_token"
-    );
+  clearNotice();
 
+  await supabase.auth.signOut();
 
-  if(!refreshToken){
-
-    return false;
-
-  }
-
-
-  try{
-
-    const data =
-      await supabaseRequest(
-        "/auth/v1/token?grant_type=refresh_token",
-        {
-          method:"POST",
-
-          body:
-            JSON.stringify({
-              refresh_token:
-                refreshToken
-            })
-        }
-      );
-
-
-    if(!data?.access_token){
-
-      return false;
-
-    }
-
-
-    currentSession =
-      data;
-
-    currentUser =
-      data.user;
-
-
-    localStorage.setItem(
-      "smartreview_access_token",
-      data.access_token
-    );
-
-
-    localStorage.setItem(
-      "smartreview_refresh_token",
-      data.refresh_token || refreshToken
-    );
-
-
-    localStorage.setItem(
-      "smartreview_user",
-      JSON.stringify(
-        data.user || {}
-      )
-    );
-
-
-    return true;
-
-  }
-
-  catch(error){
-
-    console.warn(
-      "SESSION REFRESH FAILED:",
-      error
-    );
-
-    return false;
-
-  }
+  showLogin();
 
 }
 
 
 /* =========================================================
-CHECK EXISTING LOGIN
+AUTH STATE
 ========================================================= */
 
-async function checkExistingLogin(){
+supabase.auth.onAuthStateChange(
+  (
+    event,
+    session
+  ) => {
 
-  hideNotice();
-
-
-  /*
-   * First try the existing stored session.
-   */
-
-  const accessToken =
-    localStorage.getItem(
-      "smartreview_access_token"
+    console.log(
+      "AUTH EVENT:",
+      event
     );
 
 
-  if(accessToken){
+    if(session?.user){
 
-    try{
-
-      const data =
-        await supabaseRequest(
-          "/auth/v1/user",
-          {
-            method:"GET",
-
-            headers:{
-              "Authorization":
-                `Bearer ${accessToken}`
-            }
-          }
-        );
-
-
-      if(data?.id){
-
-        currentUser =
-          data;
-
-        currentSession = {
-
-          access_token:
-            accessToken,
-
-          user:
-            data
-
-        };
-
-
-        showDashboard();
-
-        return;
-
-      }
-
-    }
-
-    catch(error){
-
-      console.warn(
-        "STORED SESSION INVALID:",
-        error
+      showDashboard(
+        session.user
       );
 
     }
 
+    else{
+
+      showLogin();
+
+    }
+
   }
+);
 
 
-  /*
-   * If access token expired,
-   * try refresh token.
-   */
+/* =========================================================
+INITIAL SESSION
+========================================================= */
 
-  const refreshed =
-    await refreshSession();
+async function checkSession(){
+
+  const {
+    data,
+    error
+  } =
+    await supabase.auth.getSession();
 
 
-  if(refreshed){
+  if(error){
 
-    showDashboard();
+    console.error(
+      "SESSION ERROR:",
+      error
+    );
+
+    showLogin();
 
     return;
 
   }
 
 
-  showLogin();
+  if(data?.session?.user){
 
-}
-
-
-/* =========================================================
-SHOW LOGIN
-========================================================= */
-
-function showLogin(){
-
-  loginCard
-    .classList
-    .remove("hidden");
-
-  loginCard.style.display =
-    "block";
-
-  dashboard
-    .classList
-    .remove("show");
-
-  dashboard.style.display =
-    "none";
-
-  logoutButton.style.display =
-    "none";
-
-}
-
-
-/* =========================================================
-SHOW DASHBOARD
-========================================================= */
-
-function showDashboard(){
-
-  loginCard.style.display =
-    "none";
-
-  dashboard
-    .classList
-    .add("show");
-
-  dashboard.style.display =
-    "block";
-
-  logoutButton.style.display =
-    "block";
-
-
-  const email =
-    currentUser?.email ||
-    "Utilisateur connecté";
-
-
-  loggedUser.textContent =
-    `Connecté : ${email}`;
-
-}
-
-
-/* =========================================================
-LOGOUT
-========================================================= */
-
-async function logout(){
-
-  try{
-
-    const accessToken =
-      localStorage.getItem(
-        "smartreview_access_token"
-      );
-
-
-    if(accessToken){
-
-      await fetch(
-        `${SUPABASE_URL}/auth/v1/logout`,
-        {
-          method:"POST",
-
-          headers:{
-
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${accessToken}`,
-
-            "Content-Type":
-              "application/json"
-
-          }
-        }
-      );
-
-    }
-
-  }
-
-  catch(error){
-
-    console.warn(
-      "LOGOUT ERROR:",
-      error
+    showDashboard(
+      data.session.user
     );
 
   }
 
+  else{
 
-  currentSession =
-    null;
-
-  currentUser =
-    null;
-
-
-  localStorage.removeItem(
-    "smartreview_access_token"
-  );
-
-  localStorage.removeItem(
-    "smartreview_refresh_token"
-  );
-
-  localStorage.removeItem(
-    "smartreview_user"
-  );
-
-
-  loginPassword.value =
-    "";
-
-  showLogin();
-
-}
-
-
-/* =========================================================
-GET AUTH HEADER
-========================================================= */
-
-function getAuthHeaders(){
-
-  const token =
-    currentSession?.access_token ||
-    localStorage.getItem(
-      "smartreview_access_token"
-    );
-
-
-  if(!token){
-
-    throw new Error(
-      "Session expirée. Veuillez vous reconnecter."
-    );
+    showLogin();
 
   }
-
-
-  return {
-
-    "Authorization":
-      `Bearer ${token}`
-
-  };
 
 }
 
@@ -2006,25 +1453,25 @@ function getAuthHeaders(){
 CREATE BUSINESS
 ========================================================= */
 
-async function createBusiness(){
+async function createBusinessRecord(){
 
-  hideNotice();
+  clearNotice();
 
 
   const name =
-    businessNameInput.value.trim();
+    businessName.value.trim();
 
-  const googleReviewUrl =
-    googleUrlInput.value.trim();
+  const google =
+    googleUrl.value.trim();
 
-  const whatsappNumber =
-    whatsappInput.value.trim();
+  const wa =
+    whatsapp.value.trim();
 
-  const websiteUrl =
-    websiteInput.value.trim();
+  const site =
+    website.value.trim();
 
   const logoUrl =
-    logoInput.value.trim();
+    logo.value.trim();
 
 
   if(!name){
@@ -2038,7 +1485,7 @@ async function createBusiness(){
   }
 
 
-  if(!googleReviewUrl){
+  if(!google){
 
     showNotice(
       "Veuillez entrer le lien Google pour les avis."
@@ -2049,7 +1496,7 @@ async function createBusiness(){
   }
 
 
-  if(!whatsappNumber){
+  if(!wa){
 
     showNotice(
       "Veuillez entrer le numéro WhatsApp."
@@ -2063,189 +1510,152 @@ async function createBusiness(){
   createButton.disabled =
     true;
 
-  createButton.classList.add(
-    "loading"
-  );
-
   createButton.textContent =
     "Création…";
 
 
   try{
 
-    /*
-     * Make sure we still have a valid session.
-     */
-
-    const accessToken =
-      localStorage.getItem(
-        "smartreview_access_token"
-      );
+    const {
+      data:{
+        user
+      }
+    } =
+      await supabase.auth.getUser();
 
 
-    if(!accessToken){
+    if(!user){
 
       throw new Error(
-        "Votre session a expiré. Veuillez vous reconnecter."
+        "Vous n'êtes pas connecté."
       );
 
     }
 
 
     /*
-     * CREATE BUSINESS
+     * Create business.
+     *
+     * The authenticated Supabase client automatically
+     * sends the user's JWT with this request.
      */
 
-    const business =
-      await supabaseRequest(
-        "/rest/v1/businesses",
-        {
-          method:"POST",
+    const {
+      data:
+        business,
+      error:
+        businessError
+    } =
+      await supabase
+        .from("businesses")
+        .insert({
 
-          headers:{
+          name:
+            name,
 
-            ...getAuthHeaders(),
+          google_review_url:
+            google,
 
-            "Prefer":
-              "return=representation"
+          whatsapp_number:
+            wa,
 
-          },
+          website_url:
+            site || null,
 
-          body:
-            JSON.stringify({
+          logo_url:
+            logoUrl || null
 
-              name:
-                name,
-
-              google_review_url:
-                googleReviewUrl,
-
-              whatsapp_number:
-                whatsappNumber,
-
-              website_url:
-                websiteUrl || null,
-
-              logo_url:
-                logoUrl || null
-
-            })
-
-        }
-      );
+        })
+        .select()
+        .single();
 
 
-    const createdBusiness =
-      Array.isArray(business)
-        ? business[0]
-        : business;
+    if(businessError){
 
-
-    if(!createdBusiness?.id){
-
-      throw new Error(
-        "L'établissement a été créé mais son identifiant est introuvable."
-      );
+      throw businessError;
 
     }
 
 
     /*
-     * CREATE CARD
+     * Generate card code.
      */
 
-    const generatedCode =
+    const code =
       await generateCardCode();
 
 
-    const card =
-      await supabaseRequest(
-        "/rest/v1/cards",
-        {
-          method:"POST",
+    /*
+     * Create card.
+     */
 
-          headers:{
+    const {
+      data:
+        card,
+      error:
+        cardError
+    } =
+      await supabase
+        .from("cards")
+        .insert({
 
-            ...getAuthHeaders(),
+          card_code:
+            code,
 
-            "Prefer":
-              "return=representation"
+          business_id:
+            business.id,
 
-          },
+          active:
+            true
 
-          body:
-            JSON.stringify({
-
-              card_code:
-                generatedCode,
-
-              business_id:
-                createdBusiness.id,
-
-              active:
-                true
-
-            })
-
-        }
-      );
+        })
+        .select()
+        .single();
 
 
-    const createdCard =
-      Array.isArray(card)
-        ? card[0]
-        : card;
+    if(cardError){
 
-
-    if(!createdCard){
-
-      throw new Error(
-        "L'établissement a été créé mais la carte n'a pas pu être créée."
-      );
+      throw cardError;
 
     }
 
 
-    /*
-     * SUCCESS
-     */
-
     showNotice(
-      `Carte créée avec succès !\n\nCode : ${generatedCode}`,
+      `Carte créée avec succès !\n\nCode : ${card.card_code}`,
       "success"
     );
 
 
     /*
-     * CLEAR FORM
+     * Clear form.
      */
 
-    businessNameInput.value =
+    businessName.value =
       "";
 
-    googleUrlInput.value =
+    googleUrl.value =
       "";
 
-    whatsappInput.value =
+    whatsapp.value =
       "";
 
-    websiteInput.value =
+    website.value =
       "";
 
-    logoInput.value =
+    logo.value =
       "";
 
 
     /*
-     * SHOW CARD
+     * Put code in test box.
      */
 
-    testCardCode.value =
-      generatedCode;
+    cardCode.value =
+      card.card_code;
 
 
-    await openTestCard(
-      generatedCode
+    await testCard(
+      card.card_code
     );
 
   }
@@ -2253,38 +1663,14 @@ async function createBusiness(){
   catch(error){
 
     console.error(
-      "CREATE ERROR:",
+      "CREATE BUSINESS ERROR:",
       error
     );
 
 
-    /*
-     * If authentication expired,
-     * force login.
-     */
-
-    if(
-      error.status === 401 ||
-      String(error.message)
-        .toLowerCase()
-        .includes("session")
-    ){
-
-      showLogin();
-
-      showNotice(
-        "Votre session a expiré. Veuillez vous reconnecter."
-      );
-
-    }
-
-    else{
-
-      showNotice(
-        `Erreur :\n${error.message || "Erreur inconnue."}`
-      );
-
-    }
+    showNotice(
+      `Erreur : ${error.message || error}`
+    );
 
   }
 
@@ -2292,10 +1678,6 @@ async function createBusiness(){
 
     createButton.disabled =
       false;
-
-    createButton.classList.remove(
-      "loading"
-    );
 
     createButton.textContent =
       "✨ Créer ma carte";
@@ -2306,19 +1688,18 @@ async function createBusiness(){
 
 
 /* =========================================================
-GENERATE CARD CODE
+GENERATE UNIQUE CARD CODE
 ========================================================= */
 
 async function generateCardCode(){
 
-  /*
-   * We generate a simple unique code locally.
-   * Example: CARD7F4A91
-   */
+  for(
+    let attempt = 0;
+    attempt < 20;
+    attempt++
+  ){
 
-  for(let attempt = 0; attempt < 10; attempt++){
-
-    const randomPart =
+    const random =
       Math.random()
         .toString(36)
         .substring(2,8)
@@ -2326,34 +1707,36 @@ async function generateCardCode(){
 
 
     const code =
-      `CARD${randomPart}`;
+      `CARD${random}`;
 
 
-    try{
+    const {
+      data,
+      error
+    } =
+      await supabase
+        .from("cards")
+        .select("id")
+        .eq(
+          "card_code",
+          code
+        )
+        .limit(1);
 
-      const existing =
-        await supabaseRequest(
-          `/rest/v1/cards?card_code=eq.${encodeURIComponent(code)}&select=id`
-        );
 
+    if(error){
 
-      if(
-        !existing ||
-        existing.length === 0
-      ){
-
-        return code;
-
-      }
+      throw error;
 
     }
 
-    catch(error){
 
-      console.warn(
-        "CARD CODE CHECK:",
-        error
-      );
+    if(
+      !data ||
+      data.length === 0
+    ){
+
+      return code;
 
     }
 
@@ -2368,43 +1751,15 @@ async function generateCardCode(){
 
 
 /* =========================================================
-GET CARD
+TEST CARD
 ========================================================= */
 
-async function getCard(
+async function testCard(
   code
 ){
 
-  const result =
-    await supabaseRequest(
-      `/rest/v1/cards?card_code=eq.${encodeURIComponent(code)}&select=*`
-    );
+  clearNotice();
 
-
-  if(
-    !result ||
-    result.length === 0
-  ){
-
-    throw new Error(
-      "Carte introuvable."
-    );
-
-  }
-
-
-  return result[0];
-
-}
-
-
-/* =========================================================
-OPEN TEST CARD
-========================================================= */
-
-async function openTestCard(
-  code
-){
 
   const cleanCode =
     String(code || "")
@@ -2425,50 +1780,92 @@ async function openTestCard(
   testButton.disabled =
     true;
 
-  testButton.classList.add(
-    "loading"
-  );
-
   testButton.textContent =
     "Recherche…";
 
 
   try{
 
-    const card =
-      await getCard(
-        cleanCode
+    /*
+     * Cards should be publicly readable for the
+     * customer-facing index.html.
+     */
+
+    const {
+      data,
+      error
+    } =
+      await supabase
+        .from("cards")
+        .select("card_code")
+        .eq(
+          "card_code",
+          cleanCode
+        )
+        .eq(
+          "active",
+          true
+        )
+        .limit(1);
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    if(!data || data.length === 0){
+
+      throw new Error(
+        "Carte introuvable ou inactive."
       );
 
-
-    const pageUrl =
-      `${window.location.origin}${window.location.pathname.replace(/admin\.html$/i,"")}index.html?card=${encodeURIComponent(card.card_code)}`;
+    }
 
 
-    testCode.textContent =
-      card.card_code;
+    const actualCode =
+      data[0].card_code;
 
 
-    openCardButton.href =
-      pageUrl;
+    const baseUrl =
+      window.location.href
+        .split("admin.html")[0];
 
 
-    testResult
-      .classList
-      .add("show");
+    const cardUrl =
+      `${baseUrl}index.html?card=${encodeURIComponent(actualCode)}`;
 
+
+    resultCode.textContent =
+      actualCode;
+
+    openCard.href =
+      cardUrl;
+
+
+    testResult.classList.add(
+      "show"
+    );
 
   }
 
   catch(error){
 
-    testResult
-      .classList
-      .remove("show");
+    console.error(
+      "TEST CARD ERROR:",
+      error
+    );
+
+
+    testResult.classList.remove(
+      "show"
+    );
 
 
     showNotice(
-      `Erreur : ${error.message}`
+      `Erreur : ${error.message || error}`
     );
 
   }
@@ -2477,10 +1874,6 @@ async function openTestCard(
 
     testButton.disabled =
       false;
-
-    testButton.classList.remove(
-      "loading"
-    );
 
     testButton.textContent =
       "Ouvrir la carte";
@@ -2500,7 +1893,7 @@ loginButton.addEventListener(
 );
 
 
-loginPassword.addEventListener(
+passwordInput.addEventListener(
   "keydown",
   event => {
 
@@ -2524,7 +1917,7 @@ logoutButton.addEventListener(
 
 createButton.addEventListener(
   "click",
-  createBusiness
+  createBusinessRecord
 );
 
 
@@ -2532,15 +1925,15 @@ testButton.addEventListener(
   "click",
   () => {
 
-    openTestCard(
-      testCardCode.value
+    testCard(
+      cardCode.value
     );
 
   }
 );
 
 
-testCardCode.addEventListener(
+cardCode.addEventListener(
   "keydown",
   event => {
 
@@ -2548,8 +1941,8 @@ testCardCode.addEventListener(
       event.key === "Enter"
     ){
 
-      openTestCard(
-        testCardCode.value
+      testCard(
+        cardCode.value
       );
 
     }
@@ -2562,11 +1955,7 @@ testCardCode.addEventListener(
 START
 ========================================================= */
 
-logoutButton.style.display =
-  "none";
-
-
-checkExistingLogin();
+checkSession();
 
 </script>
 
