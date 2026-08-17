@@ -164,9 +164,6 @@ linear-gradient(
 
 }
 
-
-/* premium texture */
-
 .hero::before{
 
 content:"";
@@ -196,9 +193,6 @@ transparent 82%
 );
 
 }
-
-
-/* subtle glow */
 
 .hero::after{
 
@@ -854,11 +848,6 @@ margin-bottom:7px;
 
 }
 
-
-/* =========================================================
-STAR BUTTON
-========================================================= */
-
 .star{
 
 appearance:none;
@@ -1037,11 +1026,6 @@ translateY(0);
 
 }
 
-
-/* =========================================================
-MESSAGE TITLE
-========================================================= */
-
 .message h2{
 
 color:var(--navy);
@@ -1058,11 +1042,6 @@ letter-spacing:-.55px;
 margin-bottom:9px;
 
 }
-
-
-/* =========================================================
-MESSAGE TEXT
-========================================================= */
 
 .message p{
 
@@ -1122,7 +1101,7 @@ scale(1);
 
 
 /* =========================================================
-BUTTON BASE
+BUTTON
 ========================================================= */
 
 .button{
@@ -1181,7 +1160,7 @@ scale(.975);
 
 
 /* =========================================================
-PREMIUM GOOGLE BUTTON
+GOOGLE BUTTON
 ========================================================= */
 
 .google{
@@ -1304,14 +1283,6 @@ left:120%;
 
 transform:translateY(0);
 
-box-shadow:
-
-0 12px 28px
-rgba(7,27,60,.22),
-
-0 0 0 3px
-rgba(217,146,19,.08);
-
 }
 
 76%{
@@ -1319,14 +1290,6 @@ rgba(217,146,19,.08);
 transform:
 translateY(-2px)
 scale(1.015);
-
-box-shadow:
-
-0 16px 34px
-rgba(7,27,60,.28),
-
-0 0 0 5px
-rgba(217,146,19,.15);
 
 }
 
@@ -1342,7 +1305,7 @@ scale(1);
 
 
 /* =========================================================
-WHATSAPP
+PRIVATE
 ========================================================= */
 
 .private{
@@ -1440,7 +1403,7 @@ rgba(22,93,255,.08);
 
 
 /* =========================================================
-SMART REVIEW FOOTER
+FOOTER
 ========================================================= */
 
 .brand-footer{
@@ -1491,54 +1454,6 @@ position:relative;
 overflow:hidden;
 
 }
-
-.brand-mini-line::after{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:-50%;
-
-width:40%;
-
-height:100%;
-
-background:
-rgba(255,255,255,.8);
-
-filter:blur(2px);
-
-animation:
-lineShine 3.5s
-ease-in-out
-infinite;
-
-}
-
-@keyframes lineShine{
-
-0%{
-
-left:-50%;
-
-}
-
-60%,
-100%{
-
-left:120%;
-
-}
-
-}
-
-
-/* =========================================================
-SMART REVIEW LOGO
-========================================================= */
 
 .smart-review{
 
@@ -1610,11 +1525,6 @@ background-position:
 
 }
 
-
-/* =========================================================
-SMART REVIEW SUBTITLE
-========================================================= */
-
 .smart-review-sub{
 
 margin-top:8px;
@@ -1634,8 +1544,14 @@ text-transform:uppercase;
 
 
 /* =========================================================
-ERROR
+STATUS
 ========================================================= */
+
+.hidden{
+
+display:none !important;
+
+}
 
 .error{
 
@@ -1644,17 +1560,6 @@ color:#d83b3b !important;
 font-weight:700;
 
 }
-
-.hidden{
-
-display:none !important;
-
-}
-
-
-/* =========================================================
-LOADING
-========================================================= */
 
 .loading{
 
@@ -1848,7 +1753,7 @@ margin-bottom:30px;
 
 
 /* =========================================================
-TABLETS / DESKTOP
+TABLETS
 ========================================================= */
 
 @media(width >= 700px){
@@ -1935,15 +1840,9 @@ transition-duration:.01ms !important;
 </style>
 </head>
 
-
 <body>
 
 <div class="app">
-
-
-<!-- =====================================================
-HERO
-===================================================== -->
 
 <section class="hero">
 
@@ -1984,12 +1883,7 @@ LAISSEZ-NOUS VOTRE AVIS SUR GOOGLE
 </section>
 
 
-<!-- =====================================================
-MAIN CONTENT
-===================================================== -->
-
 <main class="content">
-
 
 <section class="client-brand">
 
@@ -2005,14 +1899,12 @@ aria-label="Business logo"
 
 </div>
 
-
 <h2
 class="business-name"
 id="businessName"
 >
-Loading...
+Chargement...
 </h2>
-
 
 <p
 class="subtitle"
@@ -2028,10 +1920,6 @@ id="subtitle"
 </section>
 
 
-<!-- ===================================================
-FEEDBACK
-=================================================== -->
-
 <section
 id="feedbackArea"
 class="feedback-area hidden"
@@ -2040,7 +1928,6 @@ class="feedback-area hidden"
 <div class="rating-question">
 Comment avez-vous vécu votre expérience ?
 </div>
-
 
 <div
 class="stars"
@@ -2086,7 +1973,6 @@ aria-label="5 étoiles"
 
 </div>
 
-
 <div
 class="rating-text"
 id="ratingText"
@@ -2104,8 +1990,6 @@ id="message"
 
 <p id="messageText"></p>
 
-
-<!-- GOOGLE -->
 
 <div
 id="googleArea"
@@ -2127,8 +2011,6 @@ rel="noopener noreferrer"
 </div>
 
 
-<!-- PRIVATE FEEDBACK -->
-
 <div
 id="privateArea"
 class="hidden"
@@ -2139,7 +2021,6 @@ id="feedbackMessage"
 placeholder="Dites-nous ce qui s'est passé ou comment nous pouvons nous améliorer..."
 aria-label="Votre commentaire privé"
 ></textarea>
-
 
 <button
 type="button"
@@ -2153,15 +2034,10 @@ class="button private"
 
 </div>
 
-
 </section>
 
 </section>
 
-
-<!-- ===================================================
-SMART REVIEW
-=================================================== -->
 
 <footer class="brand-footer">
 
@@ -2177,7 +2053,6 @@ Better feedback. Better businesses.
 
 </footer>
 
-
 </main>
 
 </div>
@@ -2186,14 +2061,14 @@ Better feedback. Better businesses.
 <script>
 
 /* =========================================================
-SUPABASE CONFIG
+SUPABASE CONFIG — CURRENT PROJECT
 ========================================================= */
 
 const SUPABASE_URL =
-"https://mcujzqtfbwjttjieagas.supabase.co";
+"https://ptfijeyhgmtcsedyiwto.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_4eVDX1IKZj7ClhpcjfiQFQ_hQ5Hr81k";
+"sb_publishable_gtihO7sbuhLIOG7ausRhXg_sYupQjXZ";
 
 
 /* =========================================================
@@ -2213,7 +2088,7 @@ return params.get("card");
 
 
 /* =========================================================
-SUPABASE REST REQUEST
+SUPABASE REQUEST
 ========================================================= */
 
 async function supabaseRequest(
@@ -2229,96 +2104,53 @@ await fetch(
 ...options,
 
 headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":`Bearer ${SUPABASE_KEY}`,
-"Content-Type":"application/json",
+
+"apikey":
+SUPABASE_KEY,
+
+"Authorization":
+`Bearer ${SUPABASE_KEY}`,
+
+"Content-Type":
+"application/json",
+
 ...(options.headers || {})
+
 }
 
 }
 );
 
+const text =
+await response.text();
+
+let data;
+
+try{
+
+data =
+text ?
+JSON.parse(text) :
+null;
+
+}
+catch{
+
+data = text;
+
+}
 
 if(!response.ok){
 
-const error =
-await response.text();
-
 throw new Error(
-error || `Supabase error ${response.status}`
+typeof data === "string"
+? data
+: JSON.stringify(data)
 );
 
 }
 
-
-const contentType =
-response.headers.get("content-type") || "";
-
-if(
-contentType.includes("application/json")
-){
-
-return response.json();
-
-}
-
-return null;
-
-}
-
-
-/* =========================================================
-SUPABASE RPC
-========================================================= */
-
-async function supabaseRpc(
-functionName,
-parameters
-){
-
-const response =
-await fetch(
-`${SUPABASE_URL}/rest/v1/rpc/${functionName}`,
-{
-
-method:"POST",
-
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":`Bearer ${SUPABASE_KEY}`,
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify(parameters)
-
-}
-);
-
-
-if(!response.ok){
-
-const error =
-await response.text();
-
-throw new Error(
-`${functionName}: ${error}`
-);
-
-}
-
-
-const contentType =
-response.headers.get("content-type") || "";
-
-if(
-contentType.includes("application/json")
-){
-
-return response.json();
-
-}
-
-return null;
+return data;
 
 }
 
@@ -2332,122 +2164,6 @@ let currentBusiness = null;
 let currentCard = null;
 
 let selectedRating = null;
-
-let scanReported = false;
-
-let ratingReported = false;
-
-
-/* =========================================================
-REPORT CARD SCAN
-========================================================= */
-
-async function reportCardScan(){
-
-if(
-scanReported ||
-!currentCard
-){
-
-return;
-
-}
-
-try{
-
-await supabaseRpc(
-"report_card_scan",
-{
-card_id:currentCard.id
-}
-);
-
-scanReported = true;
-
-}
-catch(error){
-
-console.error(
-"Scan report failed:",
-error
-);
-
-}
-
-}
-
-
-/* =========================================================
-REPORT CARD RATING
-========================================================= */
-
-async function reportCardRating(
-rating
-){
-
-if(
-!currentCard ||
-!rating
-){
-
-return;
-
-}
-
-try{
-
-await supabaseRpc(
-"report_card_rating",
-{
-card_id:currentCard.id,
-rating:Number(rating)
-}
-);
-
-ratingReported = true;
-
-}
-catch(error){
-
-console.error(
-"Rating report failed:",
-error
-);
-
-}
-
-}
-
-
-/* =========================================================
-PRIVATE FEEDBACK
-========================================================= */
-
-async function submitPrivateFeedback(
-messageTextValue
-){
-
-if(
-!currentCard ||
-!selectedRating
-){
-
-throw new Error(
-"Informations de carte manquantes."
-);
-
-}
-
-return supabaseRpc(
-"submit_private_feedback",
-{
-card_id:currentCard.id,
-rating:Number(selectedRating),
-message:messageTextValue || ""
-}
-);
-
-}
 
 
 /* =========================================================
@@ -2475,19 +2191,13 @@ document.getElementById(
 );
 
 
-/* =======================================================
-NO CARD
-======================================================= */
-
 if(!cardCode){
 
 businessName.textContent =
 "Carte introuvable";
 
 subtitle.innerHTML =
-`<span class="error">
-Aucun code de carte n'a été fourni.
-</span>`;
+'<span class="error">Aucun code de carte n’a été fourni.</span>';
 
 return;
 
@@ -2501,52 +2211,57 @@ FIND CARD
 ===================================================== */
 
 const cards =
-await supabaseGetCards(
-cardCode
+await supabaseRequest(
+`cards?card_code=eq.${encodeURIComponent(cardCode)}&active=eq.true&select=*`
 );
 
 
 if(
+!Array.isArray(cards) ||
 !cards.length
 ){
 
 throw new Error(
-"Card not found"
+"Carte introuvable ou inactive."
 );
 
 }
 
 
-const card =
-cards[0];
-
 currentCard =
-card;
-
-
-/* =====================================================
-REPORT SCAN
-===================================================== */
-
-reportCardScan();
+cards[0];
 
 
 /* =====================================================
 FIND BUSINESS
 ===================================================== */
 
+const businessId =
+currentCard.business_id;
+
+
+if(!businessId){
+
+throw new Error(
+"La carte ne possède aucun établissement associé."
+);
+
+}
+
+
 const businesses =
 await supabaseRequest(
-`businesses?id=eq.${encodeURIComponent(card.business_id)}&select=*`
+`businesses?id=eq.${encodeURIComponent(businessId)}&select=*`
 );
 
 
 if(
+!Array.isArray(businesses) ||
 !businesses.length
 ){
 
 throw new Error(
-"Business not found"
+"Établissement introuvable."
 );
 
 }
@@ -2560,31 +2275,32 @@ businesses[0];
 BUSINESS NAME
 ===================================================== */
 
-businessName.textContent =
+const name =
 currentBusiness.name ||
 "Votre établissement";
 
+businessName.textContent =
+name;
 
 document.title =
-`${currentBusiness.name || "Business"} — Smart Review`;
-
+`${name} — Smart Review`;
 
 subtitle.textContent =
 "Votre opinion compte pour nous.";
 
 
 /* =====================================================
-CLIENT LOGO
+LOGO
 ===================================================== */
-
-if(
-currentBusiness.logo_url
-){
 
 const logo =
 document.getElementById(
 "logo"
 );
+
+if(
+currentBusiness.logo_url
+){
 
 logo.innerHTML =
 "";
@@ -2598,8 +2314,7 @@ image.src =
 currentBusiness.logo_url;
 
 image.alt =
-currentBusiness.name ||
-"Logo";
+name;
 
 image.onerror =
 function(){
@@ -2617,7 +2332,7 @@ image
 
 
 /* =====================================================
-GOOGLE REVIEW
+GOOGLE
 ===================================================== */
 
 const googleButton =
@@ -2625,13 +2340,28 @@ document.getElementById(
 "googleButton"
 );
 
+const googleUrl =
+currentBusiness.google_review_url;
+
+if(
+googleUrl &&
+typeof googleUrl === "string"
+){
+
 googleButton.href =
-currentBusiness.google_review_url ||
+googleUrl;
+
+}
+else{
+
+googleButton.href =
 "https://www.google.com/maps";
+
+}
 
 
 /* =====================================================
-SHOW FEEDBACK
+SHOW APP
 ===================================================== */
 
 feedbackArea
@@ -2642,7 +2372,7 @@ feedbackArea
 catch(error){
 
 console.error(
-"Load card error:",
+"Smart Review load error:",
 error
 );
 
@@ -2650,26 +2380,9 @@ businessName.textContent =
 "Carte introuvable";
 
 subtitle.innerHTML =
-`<span class="error">
-Cette carte est inactive ou n'existe pas.
-</span>`;
+'<span class="error">Cette carte est inactive ou n’existe pas.</span>';
 
 }
-
-}
-
-
-/* =========================================================
-GET CARD
-========================================================= */
-
-async function supabaseGetCards(
-cardCode
-){
-
-return supabaseRequest(
-`cards?card_code=eq.${encodeURIComponent(cardCode)}&active=eq.true&select=*`
-);
 
 }
 
@@ -2720,6 +2433,56 @@ document.getElementById(
 
 
 /* =========================================================
+REPORT RATING TO SUPABASE
+========================================================= */
+
+async function reportRating(
+rating
+){
+
+if(
+!currentCard
+){
+
+return;
+
+}
+
+try{
+
+await supabaseRequest(
+"rpc/report_card_rating",
+{
+
+method:"POST",
+
+body:JSON.stringify({
+
+p_card_code:
+currentCard.card_code,
+
+p_rating:
+rating
+
+})
+
+}
+);
+
+}
+catch(error){
+
+console.error(
+"Rating report failed:",
+error
+);
+
+}
+
+}
+
+
+/* =========================================================
 STAR CLICK
 ========================================================= */
 
@@ -2745,7 +2508,11 @@ s => {
 
 s.classList.toggle(
 "active",
-Number(s.dataset.rating) <= selectedRating
+
+Number(
+s.dataset.rating
+) <= selectedRating
+
 );
 
 }
@@ -2753,7 +2520,7 @@ Number(s.dataset.rating) <= selectedRating
 
 
 /* =================================================
-RATING LABEL
+TEXT
 ================================================= */
 
 const ratingLabels = {
@@ -2775,22 +2542,23 @@ const ratingLabels = {
 
 };
 
-
 ratingText.textContent =
-ratingLabels[selectedRating];
+ratingLabels[
+selectedRating
+];
 
 
 /* =================================================
-REPORT RATING
+REPORT
 ================================================= */
 
-await reportCardRating(
+reportRating(
 selectedRating
 );
 
 
 /* =================================================
-MESSAGE ANIMATION
+MESSAGE
 ================================================= */
 
 message.classList.remove(
@@ -2830,15 +2598,11 @@ messageText.textContent =
 
 googleArea
 .classList
-.add(
-"hidden"
-);
+.add("hidden");
 
 privateArea
 .classList
-.remove(
-"hidden"
-);
+.remove("hidden");
 
 feedbackMessage.value =
 "";
@@ -2854,15 +2618,12 @@ else{
 
 privateArea
 .classList
-.add(
-"hidden"
-);
+.add("hidden");
 
 googleArea
 .classList
-.remove(
-"hidden"
-);
+.remove("hidden");
+
 
 if(
 selectedRating === 3
@@ -2887,6 +2648,7 @@ messageTitle.textContent =
 
 }
 
+
 messageText.textContent =
 "Votre avis peut aider d'autres clients. Nous apprécierions beaucoup votre avis sur Google.";
 
@@ -2900,7 +2662,7 @@ messageText.textContent =
 
 
 /* =========================================================
-PRIVATE FEEDBACK BUTTON
+PRIVATE FEEDBACK
 ========================================================= */
 
 document
@@ -2922,10 +2684,6 @@ feedbackMessage
 .trim();
 
 
-/* =====================================================
-CHECK BUSINESS
-===================================================== */
-
 if(
 !currentBusiness ||
 !currentCard
@@ -2939,27 +2697,6 @@ return;
 
 }
 
-
-/* =====================================================
-CHECK RATING
-===================================================== */
-
-if(
-!selectedRating
-){
-
-alert(
-"Veuillez sélectionner une note."
-);
-
-return;
-
-}
-
-
-/* =====================================================
-CHECK WHATSAPP
-===================================================== */
 
 if(
 !currentBusiness.whatsapp_number
@@ -2975,55 +2712,46 @@ return;
 
 
 /* =====================================================
-SAVE PRIVATE FEEDBACK
+REPORT PRIVATE FEEDBACK
 ===================================================== */
-
-button.disabled =
-true;
-
-button.classList.add(
-"sending"
-);
-
-button.innerHTML =
-"✓ Enregistrement…";
-
 
 try{
 
-await submitPrivateFeedback(
+await supabaseRequest(
+"rpc/submit_private_feedback",
+{
+
+method:"POST",
+
+body:JSON.stringify({
+
+p_card_code:
+currentCard.card_code,
+
+p_rating:
+selectedRating,
+
+p_message:
 text
+
+})
+
+}
 );
 
 }
 catch(error){
 
 console.error(
-"Private feedback error:",
+"Private feedback report failed:",
 error
 );
-
-button.disabled =
-false;
-
-button.classList.remove(
-"sending"
-);
-
-button.innerHTML =
-"💬 Envoyer mon retour";
-
-alert(
-"Impossible d'enregistrer votre retour. Veuillez réessayer."
-);
-
-return;
 
 }
 
 
 /* =====================================================
-CLEAN NUMBER
+WHATSAPP NUMBER
 ===================================================== */
 
 let number =
@@ -3034,7 +2762,6 @@ currentBusiness.whatsapp_number
 /\D/g,
 ""
 );
-
 
 if(
 number.startsWith("0")
@@ -3048,7 +2775,7 @@ number.substring(1);
 
 
 /* =====================================================
-BUILD WHATSAPP MESSAGE
+MESSAGE
 ===================================================== */
 
 const businessName =
@@ -3075,7 +2802,19 @@ ${text}`;
 
 
 /* =====================================================
-WHATSAPP URL
+BUTTON
+===================================================== */
+
+button.classList.add(
+"sending"
+);
+
+button.innerHTML =
+"✓ Ouverture de WhatsApp…";
+
+
+/* =====================================================
+URL
 ===================================================== */
 
 const encodedMessage =
@@ -3088,12 +2827,8 @@ const whatsappURL =
 
 
 /* =====================================================
-OPEN WHATSAPP
+OPEN
 ===================================================== */
-
-button.innerHTML =
-"✓ Ouverture de WhatsApp…";
-
 
 setTimeout(
 () => {
