@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 
 <meta charset="UTF-8">
@@ -17,63 +16,51 @@
 
 <title>Smart Review — Administration</title>
 
-
 <style>
 
 /* =========================================================
-SMART REVIEW ADMIN V4
+   SMART REVIEW — ADMIN
+   PREMIUM MOBILE UI
 ========================================================= */
 
 :root{
-
   --navy:#061b3a;
-  --navy2:#08264d;
-  --navy3:#0d376b;
+  --navy-2:#08264d;
+  --navy-3:#0d376b;
 
   --blue:#165dff;
-  --blue2:#4285ff;
+  --blue-light:#4285ff;
 
   --gold:#d99213;
-  --goldLight:#ffcf55;
+  --gold-light:#ffcf55;
+  --gold-dark:#a86600;
 
-  --white:#ffffff;
+  --white:#fff;
   --ink:#071b3c;
-
   --muted:#65758c;
 
   --soft:#f5f7fa;
-
-  --green:#168548;
-  --red:#c73535;
-
+  --danger:#d83b3b;
+  --success:#168447;
 }
-
-
-/* =========================================================
-RESET
-========================================================= */
 
 *{
-
   box-sizing:border-box;
-
   margin:0;
   padding:0;
-
 }
-
 
 html,
 body{
-
   width:100%;
   min-height:100%;
-
 }
 
+html{
+  background:var(--navy);
+}
 
 body{
-
   min-height:100vh;
   min-height:100dvh;
 
@@ -86,157 +73,729 @@ body{
     Arial,
     sans-serif;
 
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+
   background:
-
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(22,93,255,.07),
-      transparent 35%
-    ),
-
-    #f5f7fa;
+    linear-gradient(
+      180deg,
+      #061b3a 0,
+      #08264d 260px,
+      #f5f7fa 500px
+    );
 
   color:var(--ink);
-
-  -webkit-font-smoothing:antialiased;
-
   overflow-x:hidden;
-
 }
 
+button,
+input{
+  font:inherit;
+}
 
 /* =========================================================
-HEADER
+   APP
+========================================================= */
+
+.app{
+  width:100%;
+  min-height:100vh;
+  min-height:100dvh;
+}
+
+/* =========================================================
+   HEADER
 ========================================================= */
 
 .header{
+  position:relative;
 
   width:100%;
 
+  padding:
+    max(28px,env(safe-area-inset-top))
+    18px
+    58px;
+
   color:#fff;
 
-  padding:
-
-    max(
-      24px,
-      env(safe-area-inset-top)
-    )
-
-    18px
-
-    30px;
+  text-align:center;
 
   background:
-
     radial-gradient(
       circle at 50% 0%,
-      rgba(255,255,255,.10),
-      transparent 32%
-    ),
-
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(30,111,255,.28),
-      transparent 55%
+      rgba(66,133,255,.20),
+      transparent 38%
     ),
 
     linear-gradient(
       180deg,
-      #061b3a 0%,
-      #08264d 65%,
-      #092e5c 100%
+      #061b3a,
+      #08264d
     );
 
+  overflow:hidden;
 }
 
+.header::before{
+  content:"";
 
-.header-inner{
+  position:absolute;
+  inset:0;
 
-  width:100%;
+  pointer-events:none;
+
+  opacity:.15;
+
+  background-image:
+    radial-gradient(
+      rgba(255,255,255,.18) .7px,
+      transparent .7px
+    );
+
+  background-size:13px 13px;
+}
+
+.header-content{
+  position:relative;
+  z-index:2;
 
   max-width:760px;
-
   margin:0 auto;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:15px;
-
 }
 
+/* =========================================================
+   GOOGLE MARK
+========================================================= */
 
-.brand{
+.google-mark{
+  width:82px;
+  height:82px;
 
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-}
-
-
-.brand-mark{
-
-  width:54px;
-  height:54px;
-
-  flex-shrink:0;
+  margin:0 auto 17px;
 
   border-radius:50%;
 
   background:#fff;
 
-  border:
-    3px solid
-    var(--gold);
-
   display:flex;
-
   align-items:center;
   justify-content:center;
 
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.28),
+    0 0 0 3px rgba(217,146,19,.95),
+    0 0 0 6px rgba(255,202,67,.20);
+}
+
+.google-letter{
   font-family:Arial,sans-serif;
 
-  font-size:34px;
+  font-size:55px;
+  font-weight:800;
+
+  line-height:1;
+
+  background:
+    conic-gradient(
+      from -35deg,
+      #4285f4 0deg 80deg,
+      #34a853 80deg 170deg,
+      #fbbc05 170deg 245deg,
+      #ea4335 245deg 320deg,
+      #4285f4 320deg 360deg
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  color:transparent;
+}
+
+.header h1{
+  position:relative;
+
+  font-size:
+    clamp(27px,7vw,38px);
+
+  line-height:1.08;
+
+  font-weight:950;
+
+  letter-spacing:-1px;
+
+  text-transform:uppercase;
+}
+
+.header p{
+  position:relative;
+
+  margin-top:12px;
+
+  color:#b8c8dc;
+
+  font-size:
+    clamp(14px,4vw,17px);
+
+  font-weight:600;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+  position:relative;
+  z-index:5;
+
+  width:100%;
+  max-width:760px;
+
+  margin:-28px auto 0;
+
+  padding:
+    0 16px
+    max(30px,env(safe-area-inset-bottom));
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.panel{
+  width:100%;
+
+  background:#fff;
+
+  border-radius:26px;
+
+  padding:22px 18px 24px;
+
+  box-shadow:
+    0 20px 45px rgba(7,27,60,.16),
+    0 2px 7px rgba(7,27,60,.06);
+
+  margin-bottom:18px;
+}
+
+.panel-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  color:var(--navy);
+
+  font-size:
+    clamp(22px,6vw,28px);
 
   font-weight:900;
 
-  color:#4285f4;
+  letter-spacing:-.5px;
 
-  box-shadow:
-
-    0 10px 27px
-    rgba(0,0,0,.28),
-
-    0 0 0 3px
-    rgba(255,207,85,.12);
-
+  margin-bottom:5px;
 }
 
+.panel-subtitle{
+  color:var(--muted);
 
-.brand-title{
+  font-size:15px;
 
-  font-size:22px;
+  line-height:1.45;
+
+  margin-bottom:22px;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.field{
+  margin-bottom:15px;
+}
+
+.field label{
+  display:block;
+
+  color:var(--navy);
+
+  font-size:14px;
+
+  font-weight:800;
+
+  margin-bottom:7px;
+}
+
+.field input{
+  width:100%;
+
+  min-height:57px;
+
+  padding:14px 16px;
+
+  border-radius:16px;
+
+  border:
+    1.5px solid
+    rgba(7,27,60,.12);
+
+  background:#f7f9fc;
+
+  color:var(--ink);
+
+  outline:none;
+
+  -webkit-appearance:none;
+
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
+}
+
+.field input:focus{
+  background:#fff;
+
+  border-color:
+    rgba(22,93,255,.60);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(22,93,255,.08);
+}
+
+.field input::placeholder{
+  color:#8a97a8;
+}
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.button{
+  width:100%;
+
+  min-height:62px;
+
+  border:0;
+  border-radius:18px;
+
+  padding:15px 18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  font-size:17px;
+  font-weight:900;
+
+  cursor:pointer;
+
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+
+  transition:
+    transform .15s ease,
+    box-shadow .2s ease,
+    opacity .2s ease;
+}
+
+.button:active{
+  transform:scale(.975);
+}
+
+.button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.primary{
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0a2d59,
+      #0d407a
+    );
+
+  border:
+    2px solid
+    rgba(217,146,19,.88);
+
+  box-shadow:
+    0 12px 27px rgba(7,27,60,.20);
+}
+
+.secondary{
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #165dff,
+      #0d46c7
+    );
+
+  box-shadow:
+    0 11px 25px
+    rgba(22,93,255,.22);
+}
+
+.logout{
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #5b1e28,
+      #39131b
+    );
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+  width:100%;
+
+  display:none;
+
+  padding:15px 16px;
+
+  border-radius:16px;
+
+  margin-bottom:17px;
+
+  font-size:14px;
+
+  line-height:1.5;
+
+  font-weight:700;
+
+  white-space:pre-wrap;
+
+  overflow-wrap:anywhere;
+}
+
+.status.show{
+  display:block;
+}
+
+.status.success{
+  color:#126b39;
+  background:#eaf8f0;
+  border:1px solid #b9e7ca;
+}
+
+.status.error{
+  color:#a52d2d;
+  background:#fff0f0;
+  border:1px solid #f0c0c0;
+}
+
+.status.info{
+  color:#174b8f;
+  background:#edf4ff;
+  border:1px solid #c7dbfa;
+}
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+#loginScreen{
+  display:block;
+}
+
+#adminScreen{
+  display:none;
+}
+
+.login-icon{
+  width:70px;
+  height:70px;
+
+  margin:0 auto 18px;
+
+  border-radius:22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#fff;
+
+  font-size:31px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0b315f,
+      #165dff
+    );
+
+  box-shadow:
+    0 12px 28px
+    rgba(7,27,60,.20);
+}
+
+.login-title{
+  text-align:center;
+
+  font-size:27px;
+  font-weight:950;
+
+  color:var(--navy);
+
+  margin-bottom:7px;
+}
+
+.login-text{
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:15px;
+
+  line-height:1.45;
+
+  margin-bottom:22px;
+}
+
+/* =========================================================
+   ADMIN TOP
+========================================================= */
+
+.admin-top{
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:12px;
+
+  margin-bottom:20px;
+}
+
+.admin-user{
+  min-width:0;
+}
+
+.admin-user small{
+  display:block;
+
+  color:#7b899b;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  margin-bottom:2px;
+}
+
+.admin-user strong{
+  display:block;
+
+  color:var(--navy);
+
+  font-size:15px;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.logout-small{
+  flex:0 0 auto;
+
+  border:0;
+
+  padding:10px 13px;
+
+  border-radius:12px;
+
+  background:#f2f4f7;
+
+  color:#6b2630;
+
+  font-size:13px;
+
+  font-weight:850;
+
+  cursor:pointer;
+}
+
+/* =========================================================
+   GENERATED CARD
+========================================================= */
+
+.card-result{
+  display:none;
+
+  margin-top:18px;
+
+  padding:18px;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f7faff,
+      #eef4fb
+    );
+
+  border:
+    1px solid
+    rgba(22,93,255,.10);
+}
+
+.card-result.show{
+  display:block;
+}
+
+.result-title{
+  color:var(--navy);
+
+  font-size:18px;
+
+  font-weight:900;
+
+  margin-bottom:10px;
+}
+
+.code-box{
+  width:100%;
+
+  padding:14px;
+
+  border-radius:14px;
+
+  background:#fff;
+
+  border:
+    1px dashed
+    rgba(7,27,60,.22);
+
+  text-align:center;
+
+  color:var(--navy);
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  overflow-wrap:anywhere;
+
+  margin-bottom:12px;
+}
+
+.url-box{
+  width:100%;
+
+  padding:12px;
+
+  border-radius:13px;
+
+  background:#fff;
+
+  color:#53657d;
+
+  font-size:12px;
+
+  line-height:1.45;
+
+  overflow-wrap:anywhere;
+
+  margin-bottom:13px;
+}
+
+.result-actions{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+}
+
+.result-actions .button{
+  min-height:53px;
+
+  font-size:14px;
+
+  border-radius:15px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+  text-align:center;
+
+  padding:12px 10px 35px;
+}
+
+.footer-line{
+  width:120px;
+  height:3px;
+
+  margin:0 auto 13px;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--gold),
+      var(--blue),
+      transparent
+    );
+}
+
+.footer-logo{
+  font-size:31px;
 
   line-height:1;
 
   font-weight:950;
 
-  letter-spacing:-.7px;
+  letter-spacing:-1px;
 
+  background:
+    linear-gradient(
+      110deg,
+      #a86c08,
+      #e3a51e,
+      #fff,
+      #356a9f,
+      #061b3a
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  color:transparent;
 }
 
+.footer-text{
+  margin-top:7px;
 
-.brand-sub{
-
-  margin-top:6px;
-
-  color:#c1cede;
+  color:#7b8797;
 
   font-size:10px;
 
@@ -245,684 +804,68 @@ HEADER
   letter-spacing:2px;
 
   text-transform:uppercase;
-
 }
-
-
-.logout{
-
-  display:none;
-
-  min-height:42px;
-
-  padding:9px 13px;
-
-  border-radius:13px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.30);
-
-  background:
-    rgba(255,255,255,.08);
-
-  color:#fff;
-
-  font-family:inherit;
-
-  font-size:13px;
-
-  font-weight:850;
-
-  cursor:pointer;
-
-}
-
 
 /* =========================================================
-MAIN
+   HIDDEN
 ========================================================= */
 
-main{
-
-  width:100%;
-
-  max-width:760px;
-
-  margin:0 auto;
-
-  padding:
-
-    20px 16px
-
-    max(
-      35px,
-      env(safe-area-inset-bottom)
-    );
-
+.hidden{
+  display:none !important;
 }
-
 
 /* =========================================================
-VERSION
-========================================================= */
-
-.version{
-
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:7px;
-
-  margin-bottom:18px;
-
-  padding:8px 11px;
-
-  border-radius:11px;
-
-  background:#eaf0f7;
-
-  color:#5d7089;
-
-  font-size:10px;
-
-  font-weight:900;
-
-  letter-spacing:.7px;
-
-  text-transform:uppercase;
-
-}
-
-
-.version-dot{
-
-  width:8px;
-  height:8px;
-
-  border-radius:50%;
-
-  background:var(--gold);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(217,146,19,.12);
-
-}
-
-
-/* =========================================================
-NOTICE
-========================================================= */
-
-.notice{
-
-  display:none;
-
-  width:100%;
-
-  margin-bottom:18px;
-
-  padding:16px;
-
-  border-radius:17px;
-
-  font-size:14px;
-
-  line-height:1.55;
-
-  font-weight:700;
-
-  white-space:pre-wrap;
-
-  overflow-wrap:anywhere;
-
-}
-
-
-.notice.show{
-
-  display:block;
-
-}
-
-
-.notice.error{
-
-  color:#a32e2e;
-
-  background:#fff0f0;
-
-  border:
-    1px solid
-    #efc6c6;
-
-}
-
-
-.notice.success{
-
-  color:#126d3c;
-
-  background:#edf9f1;
-
-  border:
-    1px solid
-    #bce3ca;
-
-}
-
-
-/* =========================================================
-CARD
-========================================================= */
-
-.card{
-
-  width:100%;
-
-  margin-bottom:18px;
-
-  padding:24px 19px;
-
-  background:#fff;
-
-  border-radius:25px;
-
-  box-shadow:
-
-    0 13px 35px
-    rgba(7,27,60,.09);
-
-}
-
-
-.card-title{
-
-  color:var(--navy);
-
-  font-size:26px;
-
-  line-height:1.1;
-
-  font-weight:950;
-
-  letter-spacing:-.7px;
-
-  margin-bottom:8px;
-
-}
-
-
-.card-description{
-
-  color:var(--muted);
-
-  font-size:14px;
-
-  line-height:1.55;
-
-  margin-bottom:21px;
-
-}
-
-
-/* =========================================================
-LOGIN LOGO
-========================================================= */
-
-.login-logo{
-
-  width:74px;
-  height:74px;
-
-  margin-bottom:18px;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  border:
-    3px solid
-    var(--gold);
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  font-family:Arial,sans-serif;
-
-  font-size:47px;
-
-  font-weight:900;
-
-  color:#4285f4;
-
-  box-shadow:
-
-    0 10px 27px
-    rgba(7,27,60,.15);
-
-}
-
-
-/* =========================================================
-FIELDS
-========================================================= */
-
-.field{
-
-  width:100%;
-
-  margin-bottom:17px;
-
-}
-
-
-.field label{
-
-  display:block;
-
-  margin-bottom:8px;
-
-  color:var(--navy);
-
-  font-size:14px;
-
-  font-weight:850;
-
-}
-
-
-input,
-textarea{
-
-  width:100%;
-
-  border:
-    1.5px solid
-    rgba(7,27,60,.13);
-
-  border-radius:16px;
-
-  background:#f7f9fc;
-
-  color:var(--ink);
-
-  padding:16px;
-
-  font-family:inherit;
-
-  font-size:16px;
-
-  outline:none;
-
-  -webkit-appearance:none;
-
-}
-
-
-input:focus,
-textarea:focus{
-
-  border-color:
-    rgba(22,93,255,.55);
-
-  box-shadow:
-
-    0 0 0 4px
-    rgba(22,93,255,.08);
-
-}
-
-
-textarea{
-
-  min-height:125px;
-
-  resize:vertical;
-
-}
-
-
-/* =========================================================
-BUTTON
-========================================================= */
-
-.button{
-
-  width:100%;
-
-  min-height:62px;
-
-  border:none;
-
-  border-radius:18px;
-
-  padding:15px 18px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  font-family:inherit;
-
-  font-size:17px;
-
-  font-weight:900;
-
-  cursor:pointer;
-
-  text-decoration:none;
-
-  transition:
-
-    transform .15s ease,
-
-    box-shadow .2s ease;
-
-  -webkit-tap-highlight-color:transparent;
-
-}
-
-
-.button:active{
-
-  transform:scale(.975);
-
-}
-
-
-.button:disabled{
-
-  opacity:.60;
-
-  cursor:wait;
-
-}
-
-
-.primary{
-
-  color:#fff;
-
-  background:
-
-    linear-gradient(
-      135deg,
-      #0a2d59 0%,
-      #0d407a 52%,
-      #08294f 100%
-    );
-
-  border:
-    2px solid
-    rgba(217,146,19,.88);
-
-  box-shadow:
-
-    0 12px 28px
-    rgba(7,27,60,.20);
-
-}
-
-
-.secondary{
-
-  color:var(--navy);
-
-  background:#edf2f8;
-
-}
-
-
-/* =========================================================
-AUTH DIAGNOSTIC
-========================================================= */
-
-.auth-status{
-
-  display:none;
-
-  margin-top:18px;
-
-  padding:17px;
-
-  border-radius:17px;
-
-  background:#f5f8fc;
-
-  border:
-    1px solid
-    rgba(7,27,60,.09);
-
-}
-
-
-.auth-status.show{
-
-  display:block;
-
-}
-
-
-.auth-status-title{
-
-  margin-bottom:9px;
-
-  color:var(--navy);
-
-  font-size:12px;
-
-  font-weight:900;
-
-  letter-spacing:1px;
-
-  text-transform:uppercase;
-
-}
-
-
-.auth-status-text{
-
-  color:#52657d;
-
-  font-size:13px;
-
-  line-height:1.55;
-
-  white-space:pre-wrap;
-
-  overflow-wrap:anywhere;
-
-}
-
-
-/* =========================================================
-USER
-========================================================= */
-
-.user-box{
-
-  margin-bottom:20px;
-
-  padding:14px;
-
-  border-radius:16px;
-
-  background:#f5f8fc;
-
-  color:#52657d;
-
-  font-size:13px;
-
-  line-height:1.5;
-
-  overflow-wrap:anywhere;
-
-}
-
-
-/* =========================================================
-TEST
-========================================================= */
-
-.test-row{
-
-  display:flex;
-
-  gap:10px;
-
-}
-
-
-.test-row input{
-
-  min-width:0;
-
-}
-
-
-.test-row .button{
-
-  width:auto;
-
-  min-width:150px;
-
-  flex-shrink:0;
-
-}
-
-
-.test-result{
-
-  display:none;
-
-  margin-top:17px;
-
-  padding:17px;
-
-  border-radius:17px;
-
-  background:#f5f8fc;
-
-  border:
-    1px solid
-    rgba(7,27,60,.09);
-
-}
-
-
-.test-result.show{
-
-  display:block;
-
-}
-
-
-.test-code{
-
-  color:var(--navy);
-
-  font-size:24px;
-
-  font-weight:950;
-
-  margin-bottom:13px;
-
-  overflow-wrap:anywhere;
-
-}
-
-
-/* =========================================================
-FOOTER
-========================================================= */
-
-.footer{
-
-  padding:8px 0 5px;
-
-  text-align:center;
-
-  color:#788598;
-
-  font-size:12px;
-
-  line-height:1.5;
-
-}
-
-
-.footer strong{
-
-  color:var(--navy);
-
-}
-
-
-/* =========================================================
-SMALL PHONES
+   SMALL PHONES
 ========================================================= */
 
 @media(max-width:390px){
 
-  .brand-title{
-
-    font-size:19px;
-
+  .panel{
+    padding:20px 15px 22px;
   }
 
-  .brand-sub{
-
-    font-size:9px;
-
+  .main{
+    padding-left:13px;
+    padding-right:13px;
   }
 
-  .logout{
-
-    padding:9px 10px;
-
-    font-size:12px;
-
-  }
-
-  .test-row{
-
-    flex-direction:column;
-
-  }
-
-  .test-row .button{
-
-    width:100%;
-
+  .result-actions{
+    grid-template-columns:1fr;
   }
 
 }
 
-
 /* =========================================================
-DESKTOP
+   TABLET
 ========================================================= */
 
 @media(min-width:700px){
 
-  main{
-
-    padding-left:20px;
-
-    padding-right:20px;
-
+  .header{
+    padding-bottom:75px;
   }
 
-  .card{
+  .main{
+    margin-top:-42px;
+  }
 
+  .panel{
     padding:28px;
+  }
 
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    transition:none !important;
+    animation:none !important;
   }
 
 }
@@ -931,103 +874,79 @@ DESKTOP
 
 </head>
 
-
 <body>
 
+<div class="app">
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
 
 <header class="header">
 
-  <div class="header-inner">
+  <div class="header-content">
 
-    <div class="brand">
-
-      <div class="brand-mark">
-        G
-      </div>
-
-      <div>
-
-        <div class="brand-title">
-          Smart Review
-        </div>
-
-        <div class="brand-sub">
-          Administration
-        </div>
-
-      </div>
-
+    <div class="google-mark">
+      <div class="google-letter">G</div>
     </div>
 
+    <h1>Smart Review</h1>
 
-    <button
-      id="logoutButton"
-      class="logout"
-      type="button"
-    >
-      Déconnexion
-    </button>
+    <p>
+      Tableau de bord administrateur
+    </p>
 
   </div>
 
 </header>
 
 
-<main>
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
+<main class="main">
 
 
-<div class="version">
-
-  <span class="version-dot"></span>
-
-  ADMIN V4 — CORRECT PROJECT
-
-</div>
-
-
-<div
-  id="notice"
-  class="notice"
-></div>
-
-
-<!-- =====================================================
-LOGIN
-===================================================== -->
+<!-- =======================================================
+     LOGIN SCREEN
+======================================================= -->
 
 <section
-  id="loginSection"
-  class="card"
+  id="loginScreen"
+  class="panel"
 >
 
-
-  <div class="login-logo">
-    G
+  <div class="login-icon">
+    🔐
   </div>
 
+  <h2 class="login-title">
+    Connexion administrateur
+  </h2>
 
-  <h1 class="card-title">
-    Connexion
-  </h1>
-
-
-  <p class="card-description">
-    Connectez-vous à votre espace Smart Review.
+  <p class="login-text">
+    Connectez-vous pour gérer vos établissements et créer vos cartes Smart Review.
   </p>
+
+
+  <div
+    id="loginStatus"
+    class="status"
+  ></div>
 
 
   <div class="field">
 
     <label for="email">
-      Email
+      Adresse e-mail
     </label>
 
     <input
       id="email"
       type="email"
       autocomplete="email"
-      value="smartreviewdz@gmail.com"
-      placeholder="Votre email"
+      placeholder="smartreviewdz@gmail.com"
     >
 
   </div>
@@ -1050,93 +969,92 @@ LOGIN
 
 
   <button
+    type="button"
     id="loginButton"
     class="button primary"
-    type="button"
   >
-    Se connecter
+    🔐 Se connecter
   </button>
 
+</section>
 
-  <div
-    id="authStatus"
-    class="auth-status"
-  >
 
-    <div class="auth-status-title">
-      Diagnostic Supabase
+
+<!-- =======================================================
+     ADMIN SCREEN
+======================================================= -->
+
+<section
+  id="adminScreen"
+>
+
+
+<!-- =====================================================
+     ADMIN USER
+===================================================== -->
+
+<div class="panel">
+
+  <div class="admin-top">
+
+    <div class="admin-user">
+
+      <small>
+        Connecté en tant que
+      </small>
+
+      <strong id="loggedUser">
+        —
+      </strong>
+
     </div>
 
-    <div
-      id="authStatusText"
-      class="auth-status-text"
-    ></div>
+    <button
+      type="button"
+      id="logoutButton"
+      class="logout-small"
+    >
+      Déconnexion
+    </button>
 
   </div>
 
 
-</section>
-
-
-<!-- =====================================================
-DASHBOARD
-===================================================== -->
-
-<section
-  id="dashboard"
-  style="display:none;"
->
-
-
-<section class="card">
-
-
-  <h1 class="card-title">
-    Tableau de bord
-  </h1>
-
-
-  <p class="card-description">
-    Gérez vos établissements et vos cartes Smart Review.
-  </p>
-
-
   <div
-    id="userBox"
-    class="user-box"
+    id="adminStatus"
+    class="status"
   ></div>
 
+</div>
 
-</section>
 
 
 <!-- =====================================================
-CREATE CARD
+     CREATE BUSINESS
 ===================================================== -->
 
-<section class="card">
+<section class="panel">
 
-
-  <h2 class="card-title">
-    Créer une carte
+  <h2 class="panel-title">
+    🏢 Créer une carte
   </h2>
 
-
-  <p class="card-description">
-    Entrez les informations de votre établissement.
+  <p class="panel-subtitle">
+    Ajoutez l'établissement puis Smart Review créera automatiquement son code de carte.
   </p>
 
 
   <div class="field">
 
     <label for="businessName">
-      Nom de l'établissement
+      Nom de l'établissement *
     </label>
 
     <input
       id="businessName"
       type="text"
-      placeholder="Ex. Restaurant Le Jardin"
+      autocomplete="organization"
+      placeholder="Ex. Restaurant La Perle"
     >
 
   </div>
@@ -1145,13 +1063,13 @@ CREATE CARD
   <div class="field">
 
     <label for="googleReviewUrl">
-      Lien Google pour les avis
+      Lien Google pour les avis *
     </label>
 
     <input
       id="googleReviewUrl"
       type="url"
-      placeholder="https://..."
+      placeholder="https://g.page/.../review"
     >
 
   </div>
@@ -1160,28 +1078,14 @@ CREATE CARD
   <div class="field">
 
     <label for="whatsappNumber">
-      Numéro WhatsApp
+      Numéro WhatsApp *
     </label>
 
     <input
       id="whatsappNumber"
       type="tel"
-      placeholder="Ex. 0550123456"
-    >
-
-  </div>
-
-
-  <div class="field">
-
-    <label for="websiteUrl">
-      URL
-    </label>
-
-    <input
-      id="websiteUrl"
-      type="url"
-      placeholder="https://..."
+      autocomplete="tel"
+      placeholder="0550123456 ou 213550123456"
     >
 
   </div>
@@ -1190,7 +1094,7 @@ CREATE CARD
   <div class="field">
 
     <label for="logoUrl">
-      Logo
+      URL du logo
     </label>
 
     <input
@@ -1203,111 +1107,138 @@ CREATE CARD
 
 
   <button
+    type="button"
     id="createButton"
     class="button primary"
-    type="button"
   >
     ✨ Créer ma carte
   </button>
 
 
+  <!-- GENERATED RESULT -->
+
+  <div
+    id="cardResult"
+    class="card-result"
+  >
+
+    <div class="result-title">
+      ✅ Carte créée avec succès
+    </div>
+
+    <div
+      id="createdCode"
+      class="code-box"
+    >
+      —
+    </div>
+
+    <div
+      id="createdUrl"
+      class="url-box"
+    >
+      —
+    </div>
+
+    <div class="result-actions">
+
+      <button
+        type="button"
+        id="openCreatedCard"
+        class="button secondary"
+      >
+        🔗 Ouvrir la carte
+      </button>
+
+      <button
+        type="button"
+        id="copyCreatedUrl"
+        class="button primary"
+      >
+        📋 Copier le lien
+      </button>
+
+    </div>
+
+  </div>
+
 </section>
+
 
 
 <!-- =====================================================
-TEST CARD
+     TEST CARD
 ===================================================== -->
 
-<section class="card">
+<section class="panel">
 
-
-  <h2 class="card-title">
-    Tester une carte
+  <h2 class="panel-title">
+    🧪 Tester une carte
   </h2>
 
-
-  <p class="card-description">
-    Entrez le code de la carte pour ouvrir la page client.
+  <p class="panel-subtitle">
+    Entrez le code d'une carte existante pour l'ouvrir directement.
   </p>
 
 
-  <div class="test-row">
+  <div class="field">
 
+    <label for="testCardCode">
+      Code de la carte
+    </label>
 
     <input
-      id="cardCode"
+      id="testCardCode"
       type="text"
-      placeholder="Ex. CARD001"
       autocomplete="off"
+      placeholder="Ex. CARD001"
     >
-
-
-    <button
-      id="testButton"
-      class="button secondary"
-      type="button"
-    >
-      Ouvrir la carte
-    </button>
-
 
   </div>
 
 
-  <div
-    id="testResult"
-    class="test-result"
+  <button
+    type="button"
+    id="openTestButton"
+    class="button secondary"
   >
-
-
-    <div class="auth-status-title">
-      Carte trouvée
-    </div>
-
-
-    <div
-      id="testCode"
-      class="test-code"
-    ></div>
-
-
-    <a
-      id="openCardButton"
-      class="button primary"
-      href="#"
-      target="_blank"
-      rel="noopener"
-    >
-      🔗 Ouvrir la carte
-    </a>
-
-
-  </div>
-
+    🚀 Ouvrir la carte
+  </button>
 
 </section>
 
 
 </section>
 
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
 
 <footer class="footer">
 
-  <strong>Smart Review</strong>
+  <div class="footer-line"></div>
 
-  <br>
+  <div class="footer-logo">
+    Smart Review
+  </div>
 
-  Better feedback. Better businesses.
+  <div class="footer-text">
+    Better feedback. Better businesses.
+  </div>
 
 </footer>
 
 
 </main>
 
+</div>
 
-<!-- =====================================================
-SUPABASE CLIENT
-===================================================== -->
+
+<!-- =======================================================
+     SUPABASE
+======================================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1315,297 +1246,426 @@ SUPABASE CLIENT
 <script>
 
 /* =========================================================
-SMART REVIEW ADMIN V4
-CORRECT SUPABASE PROJECT
-========================================================= */
-
-
-/* =========================================================
-SUPABASE CONFIG
+   SUPABASE CONFIGURATION
 ========================================================= */
 
 const SUPABASE_URL =
   "https://ptfijeyhgmtcsedyiwto.supabase.co";
 
-
 const SUPABASE_KEY =
-  "sb_publishable_4eVDX1IKZj7ClhpcjfiQFQ_hQ5Hr81k";
+  "sb_publishable_gtihO7sbuhLIOG7ausRhXg_sYupQjXZ";
 
 
-/* =========================================================
-CREATE SUPABASE CLIENT
-========================================================= */
+const {
+  createClient
+} = window.supabase;
 
-const supabaseClient =
-  window.supabase.createClient(
 
+const supabase =
+  createClient(
     SUPABASE_URL,
-
     SUPABASE_KEY,
-
     {
-
       auth:{
-
         persistSession:true,
-
         autoRefreshToken:true,
-
         detectSessionInUrl:true
-
       }
-
     }
-
   );
 
 
 /* =========================================================
-ELEMENTS
+   GITHUB CARD URL
 ========================================================= */
 
-const notice =
+const CARD_BASE_URL =
+  "https://smartreviewdz.github.io/Smart-Review-tst-/";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const loginScreen =
   document.getElementById(
-    "notice"
+    "loginScreen"
   );
 
-
-const loginSection =
+const adminScreen =
   document.getElementById(
-    "loginSection"
+    "adminScreen"
   );
 
-
-const dashboard =
+const loginStatus =
   document.getElementById(
-    "dashboard"
+    "loginStatus"
   );
 
+const adminStatus =
+  document.getElementById(
+    "adminStatus"
+  );
 
 const loginButton =
   document.getElementById(
     "loginButton"
   );
 
-
 const logoutButton =
   document.getElementById(
     "logoutButton"
   );
-
 
 const emailInput =
   document.getElementById(
     "email"
   );
 
-
 const passwordInput =
   document.getElementById(
     "password"
   );
 
-
-const authStatus =
+const loggedUser =
   document.getElementById(
-    "authStatus"
+    "loggedUser"
   );
-
-
-const authStatusText =
-  document.getElementById(
-    "authStatusText"
-  );
-
-
-const userBox =
-  document.getElementById(
-    "userBox"
-  );
-
 
 const createButton =
   document.getElementById(
     "createButton"
   );
 
-
 const businessNameInput =
   document.getElementById(
     "businessName"
   );
 
-
-const googleReviewUrlInput =
+const googleReviewInput =
   document.getElementById(
     "googleReviewUrl"
   );
 
-
-const whatsappNumberInput =
+const whatsappInput =
   document.getElementById(
     "whatsappNumber"
   );
-
-
-const websiteUrlInput =
-  document.getElementById(
-    "websiteUrl"
-  );
-
 
 const logoUrlInput =
   document.getElementById(
     "logoUrl"
   );
 
-
-const cardCodeInput =
+const cardResult =
   document.getElementById(
-    "cardCode"
+    "cardResult"
   );
 
-
-const testButton =
+const createdCode =
   document.getElementById(
-    "testButton"
+    "createdCode"
   );
 
-
-const testResult =
+const createdUrl =
   document.getElementById(
-    "testResult"
+    "createdUrl"
   );
 
-
-const testCode =
+const openCreatedCard =
   document.getElementById(
-    "testCode"
+    "openCreatedCard"
   );
 
-
-const openCardButton =
+const copyCreatedUrl =
   document.getElementById(
-    "openCardButton"
+    "copyCreatedUrl"
+  );
+
+const testCardCode =
+  document.getElementById(
+    "testCardCode"
+  );
+
+const openTestButton =
+  document.getElementById(
+    "openTestButton"
   );
 
 
 /* =========================================================
-NOTICE
+   STATUS HELPERS
 ========================================================= */
 
-function showError(message){
+function showStatus(
+  element,
+  message,
+  type = "info"
+){
 
-  notice.textContent =
+  element.textContent =
     message;
 
-  notice.className =
-    "notice show error";
+  element.className =
+    "status show " + type;
 
 }
 
 
-function showSuccess(message){
+function hideStatus(element){
 
-  notice.textContent =
-    message;
+  element.textContent = "";
 
-  notice.className =
-    "notice show success";
-
-}
-
-
-function clearNotice(){
-
-  notice.textContent =
-    "";
-
-  notice.className =
-    "notice";
+  element.className =
+    "status";
 
 }
 
 
 /* =========================================================
-AUTH DIAGNOSTIC
+   ERROR FORMATTER
 ========================================================= */
 
-function showAuthDiagnostic(message){
+function formatError(error){
 
-  authStatusText.textContent =
-    message;
+  if(!error){
 
-  authStatus.classList.add(
-    "show"
+    return "Erreur inconnue.";
+
+  }
+
+  let message =
+    error.message ||
+    String(error);
+
+  if(
+    message
+      .toLowerCase()
+      .includes("row-level security")
+  ){
+
+    return (
+      "Supabase a refusé l'opération à cause des règles RLS.\n\n" +
+      "L'utilisateur est bien connecté, mais la table concernée " +
+      "n'autorise pas encore le rôle authenticated à effectuer cette opération.\n\n" +
+      "Erreur Supabase : " +
+      message
+    );
+
+  }
+
+  return message;
+
+}
+
+
+/* =========================================================
+   UUID GENERATOR
+========================================================= */
+
+function createUUID(){
+
+  if(
+    window.crypto &&
+    typeof window.crypto.randomUUID === "function"
+  ){
+
+    return window.crypto.randomUUID();
+
+  }
+
+
+  return (
+    "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+  ).replace(
+    /[xy]/g,
+    function(c){
+
+      const r =
+        Math.random() * 16 | 0;
+
+      const v =
+        c === "x"
+          ? r
+          : (r & 0x3 | 0x8);
+
+      return v.toString(16);
+
+    }
   );
 
 }
 
 
 /* =========================================================
-SHOW LOGIN
+   CARD CODE
+========================================================= */
+
+function generateCardCode(){
+
+  const chars =
+    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+  let code =
+    "CARD";
+
+  for(
+    let i = 0;
+    i < 6;
+    i++
+  ){
+
+    code +=
+      chars[
+        Math.floor(
+          Math.random() *
+          chars.length
+        )
+      ];
+
+  }
+
+  return code;
+
+}
+
+
+/* =========================================================
+   CLEAN WHATSAPP
+========================================================= */
+
+function cleanWhatsAppNumber(value){
+
+  let number =
+    String(value || "")
+      .replace(/\D/g,"");
+
+
+  if(
+    number.startsWith("00")
+  ){
+
+    number =
+      number.substring(2);
+
+  }
+
+
+  if(
+    number.startsWith("0")
+  ){
+
+    number =
+      "213" +
+      number.substring(1);
+
+  }
+
+
+  return number;
+
+}
+
+
+/* =========================================================
+   SHOW ADMIN
+========================================================= */
+
+function showAdmin(user){
+
+  loginScreen.style.display =
+    "none";
+
+  adminScreen.style.display =
+    "block";
+
+  loggedUser.textContent =
+    user.email || "Utilisateur";
+
+}
+
+
+/* =========================================================
+   SHOW LOGIN
 ========================================================= */
 
 function showLogin(){
 
-  loginSection.style.display =
+  loginScreen.style.display =
     "block";
 
-  dashboard.style.display =
-    "none";
-
-  logoutButton.style.display =
+  adminScreen.style.display =
     "none";
 
 }
 
 
 /* =========================================================
-SHOW DASHBOARD
+   CHECK SESSION
 ========================================================= */
 
-function showDashboard(user){
+async function checkSession(){
 
-  loginSection.style.display =
-    "none";
-
-  dashboard.style.display =
-    "block";
-
-  logoutButton.style.display =
-    "block";
+  hideStatus(loginStatus);
+  hideStatus(adminStatus);
 
 
-  userBox.textContent =
+  const {
+    data,
+    error
+  } =
+    await supabase.auth.getSession();
 
-    "Connecté avec : " +
 
-    (
-      user.email ||
-      user.id
+  if(error){
+
+    console.error(
+      "Session error:",
+      error
     );
+
+    showLogin();
+
+    return;
+
+  }
+
+
+  const session =
+    data.session;
+
+
+  if(
+    session &&
+    session.user
+  ){
+
+    showAdmin(
+      session.user
+    );
+
+  }
+  else{
+
+    showLogin();
+
+  }
 
 }
 
 
 /* =========================================================
-LOGIN
+   LOGIN
 ========================================================= */
 
 async function login(){
 
-  clearNotice();
-
-
-  authStatus.classList.remove(
-    "show"
-  );
+  hideStatus(loginStatus);
 
 
   const email =
-    emailInput.value.trim();
-
+    emailInput.value
+      .trim();
 
   const password =
     passwordInput.value;
@@ -1613,8 +1673,10 @@ async function login(){
 
   if(!email){
 
-    showError(
-      "Veuillez entrer votre email."
+    showStatus(
+      loginStatus,
+      "Veuillez entrer votre adresse e-mail.",
+      "error"
     );
 
     return;
@@ -1624,8 +1686,10 @@ async function login(){
 
   if(!password){
 
-    showError(
-      "Veuillez entrer votre mot de passe."
+    showStatus(
+      loginStatus,
+      "Veuillez entrer votre mot de passe.",
+      "error"
     );
 
     return;
@@ -1636,117 +1700,36 @@ async function login(){
   loginButton.disabled =
     true;
 
-
   loginButton.textContent =
-    "Connexion…";
-
-
-  showAuthDiagnostic(
-
-    "Connexion à votre projet Supabase...\n\n" +
-
-    SUPABASE_URL
-
-  );
+    "⏳ Connexion…";
 
 
   try{
 
-
-    console.log(
-      "SMART REVIEW ADMIN V4"
-    );
-
-
-    console.log(
-      "SUPABASE PROJECT:",
-      SUPABASE_URL
-    );
-
-
-    console.log(
-      "LOGIN EMAIL:",
-      email
-    );
-
-
-    const result =
-
-      await supabaseClient.auth
+    const {
+      data,
+      error
+    } =
+      await supabase.auth
         .signInWithPassword({
-
-          email:email,
-
-          password:password
-
+          email,
+          password
         });
-
-
-    console.log(
-      "AUTH RESULT:",
-      result
-    );
-
-
-    const data =
-      result.data;
-
-
-    const error =
-      result.error;
 
 
     if(error){
 
       console.error(
-        "AUTH ERROR:",
+        "SUPABASE LOGIN ERROR:",
         error
       );
 
-
-      showAuthDiagnostic(
-
-        "SUPABASE A REFUSÉ LA CONNEXION.\n\n" +
-
-        "Projet : " +
-        SUPABASE_URL +
-
-        "\n\nCode : " +
-        (
-          error.code ||
-          "aucun"
-        ) +
-
-        "\n\nMessage : " +
-        (
-          error.message ||
-          "aucun"
-        ) +
-
-        "\n\nStatus : " +
-        (
-          error.status ||
-          "aucun"
-        ) +
-
-        "\n\nUser recherché : " +
-        email +
-
-        "\n\nFull error :\n" +
-
-        JSON.stringify(
-          error,
-          null,
-          2
-        )
-
+      showStatus(
+        loginStatus,
+        "Connexion refusée.\n\n" +
+        formatError(error),
+        "error"
       );
-
-
-      showError(
-        "Supabase a refusé la connexion. Consultez le diagnostic."
-      );
-
 
       return;
 
@@ -1755,112 +1738,52 @@ async function login(){
 
     if(
       !data ||
-      !data.session ||
-      !data.user
+      !data.user ||
+      !data.session
     ){
 
-      showAuthDiagnostic(
-
-        "Supabase a répondu mais aucune session n'a été créée.\n\n" +
-
-        JSON.stringify(
-          data,
-          null,
-          2
-        )
-
+      showStatus(
+        loginStatus,
+        "Supabase n'a pas retourné de session.",
+        "error"
       );
-
-
-      showError(
-        "Aucune session Supabase n'a été créée."
-      );
-
 
       return;
 
     }
 
 
-    showAuthDiagnostic(
-
-      "AUTHENTIFICATION RÉUSSIE.\n\n" +
-
-      "Projet : " +
-      SUPABASE_URL +
-
-      "\n\nUser ID : " +
-      data.user.id +
-
-      "\n\nEmail : " +
-      (
-        data.user.email ||
-        "aucun"
-      ) +
-
-      "\n\nSession créée : OUI"
-
-    );
+    passwordInput.value =
+      "";
 
 
-    showSuccess(
-      "Connexion réussie."
-    );
-
-
-    showDashboard(
+    showAdmin(
       data.user
     );
 
 
   }
-
   catch(error){
 
-
     console.error(
-      "UNEXPECTED AUTH ERROR:",
       error
     );
 
-
-    showAuthDiagnostic(
-
-      "ERREUR JAVASCRIPT.\n\n" +
-
-      (
-        error.message ||
-        String(error)
-      ) +
-
-      "\n\n" +
-
-      JSON.stringify(
-        error,
-        null,
-        2
-      )
-
+    showStatus(
+      loginStatus,
+      "Erreur de connexion.\n\n" +
+      formatError(error),
+      "error"
     );
-
-
-    showError(
-      "Erreur inattendue."
-    );
-
 
   }
-
   finally{
-
 
     loginButton.disabled =
       false;
 
-
     loginButton.textContent =
-      "Se connecter";
-
+      "🔐 Se connecter";
 
   }
 
@@ -1868,93 +1791,30 @@ async function login(){
 
 
 /* =========================================================
-LOGOUT
+   LOGOUT
 ========================================================= */
 
 async function logout(){
 
-  clearNotice();
+  logoutButton.disabled =
+    true;
+
+  logoutButton.textContent =
+    "Déconnexion…";
 
 
   try{
 
-    await supabaseClient.auth.signOut();
+    await supabase.auth.signOut();
 
   }
+  finally{
 
-  catch(error){
+    logoutButton.disabled =
+      false;
 
-    console.error(
-      error
-    );
-
-  }
-
-
-  showLogin();
-
-}
-
-
-/* =========================================================
-CHECK SESSION
-========================================================= */
-
-async function checkSession(){
-
-  try{
-
-
-    const result =
-
-      await supabaseClient.auth
-        .getSession();
-
-
-    if(
-      result.error
-    ){
-
-      console.error(
-        result.error
-      );
-
-      showLogin();
-
-      return;
-
-    }
-
-
-    const session =
-      result.data.session;
-
-
-    if(
-      session &&
-      session.user
-    ){
-
-      showDashboard(
-        session.user
-      );
-
-    }
-
-    else{
-
-      showLogin();
-
-    }
-
-
-  }
-
-  catch(error){
-
-    console.error(
-      error
-    );
+    logoutButton.textContent =
+      "Déconnexion";
 
     showLogin();
 
@@ -1964,97 +1824,46 @@ async function checkSession(){
 
 
 /* =========================================================
-AUTH STATE CHANGE
+   CREATE BUSINESS + CARD
 ========================================================= */
 
-supabaseClient.auth.onAuthStateChange(
+async function createBusinessAndCard(){
 
-  function(
-    event,
-    session
-  ){
+  hideStatus(adminStatus);
 
-    console.log(
-      "AUTH EVENT:",
-      event
-    );
-
-
-    if(
-      session &&
-      session.user
-    ){
-
-      showDashboard(
-        session.user
-      );
-
-    }
-
-    else{
-
-      showLogin();
-
-    }
-
-  }
-
-);
-
-
-/* =========================================================
-GENERATE CARD CODE
-========================================================= */
-
-function generateCardCode(){
-
-  const randomPart =
-
-    Math.random()
-      .toString(36)
-      .substring(2,8)
-      .toUpperCase();
-
-
-  return "CARD" +
-    randomPart;
-
-}
-
-
-/* =========================================================
-CREATE BUSINESS
-========================================================= */
-
-async function createBusiness(){
-
-  clearNotice();
+  cardResult.classList.remove(
+    "show"
+  );
 
 
   const name =
-    businessNameInput.value.trim();
-
+    businessNameInput.value
+      .trim();
 
   const googleReviewUrl =
-    googleReviewUrlInput.value.trim();
-
+    googleReviewInput.value
+      .trim();
 
   const whatsappNumber =
-    whatsappNumberInput.value.trim();
-
-
-  const websiteUrl =
-    websiteUrlInput.value.trim();
-
+    cleanWhatsAppNumber(
+      whatsappInput.value
+    );
 
   const logoUrl =
-    logoUrlInput.value.trim();
+    logoUrlInput.value
+      .trim();
 
+
+  /* =======================================================
+     VALIDATION
+  ======================================================= */
 
   if(!name){
 
-    showError(
-      "Veuillez entrer le nom de l'établissement."
+    showStatus(
+      adminStatus,
+      "Veuillez entrer le nom de l'établissement.",
+      "error"
     );
 
     return;
@@ -2064,8 +1873,10 @@ async function createBusiness(){
 
   if(!googleReviewUrl){
 
-    showError(
-      "Veuillez entrer le lien Google pour les avis."
+    showStatus(
+      adminStatus,
+      "Veuillez entrer le lien Google pour les avis.",
+      "error"
     );
 
     return;
@@ -2073,386 +1884,434 @@ async function createBusiness(){
   }
 
 
-  if(!whatsappNumber){
+  if(
+    !googleReviewUrl.startsWith(
+      "http://"
+    ) &&
+    !googleReviewUrl.startsWith(
+      "https://"
+    )
+  ){
 
-    showError(
-      "Veuillez entrer le numéro WhatsApp."
+    showStatus(
+      adminStatus,
+      "Le lien Google doit commencer par https://",
+      "error"
     );
 
     return;
 
   }
 
+
+  if(
+    !whatsappNumber ||
+    whatsappNumber.length < 10
+  ){
+
+    showStatus(
+      adminStatus,
+      "Veuillez entrer un numéro WhatsApp valide.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     VERIFY SESSION
+  ======================================================= */
+
+  const {
+    data: sessionData,
+    error: sessionError
+  } =
+    await supabase.auth.getSession();
+
+
+  if(sessionError){
+
+    showStatus(
+      adminStatus,
+      "Impossible de vérifier la session.\n\n" +
+      formatError(sessionError),
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const session =
+    sessionData.session;
+
+
+  if(
+    !session ||
+    !session.user
+  ){
+
+    showStatus(
+      adminStatus,
+      "Votre session a expiré. Veuillez vous reconnecter.",
+      "error"
+    );
+
+    showLogin();
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     START
+  ======================================================= */
 
   createButton.disabled =
     true;
 
-
   createButton.textContent =
-    "Création…";
+    "⏳ Création de la carte…";
 
 
   try{
 
+    /* =====================================================
+       CREATE OUR OWN UUID
+       This means we don't need SELECT permission just
+       to discover the new business ID.
+    ===================================================== */
 
-    const userResult =
-
-      await supabaseClient.auth
-        .getUser();
-
-
-    if(
-      userResult.error
-    ){
-
-      throw userResult.error;
-
-    }
+    const businessId =
+      createUUID();
 
 
-    if(
-      !userResult.data.user
-    ){
+    /* =====================================================
+       CREATE UNIQUE CARD CODE
+    ===================================================== */
 
-      throw new Error(
-        "Votre session Supabase n'est plus active."
-      );
-
-    }
-
-
-    /*
-    ========================================================
-    BUSINESS
-    ========================================================
-    */
-
-    const businessResult =
-
-      await supabaseClient
-        .from("businesses")
-        .insert({
-
-          name:name,
-
-          google_review_url:
-            googleReviewUrl,
-
-          whatsapp_number:
-            whatsappNumber,
-
-          website_url:
-            websiteUrl || null,
-
-          logo_url:
-            logoUrl || null
-
-        })
-        .select()
-        .single();
-
-
-    if(
-      businessResult.error
-    ){
-
-      throw businessResult.error;
-
-    }
-
-
-    const business =
-      businessResult.data;
-
-
-    /*
-    ========================================================
-    CARD
-    ========================================================
-    */
-
-    const generatedCode =
+    const cardCode =
       generateCardCode();
 
 
-    const cardResult =
+    /* =====================================================
+       INSERT BUSINESS
+    ===================================================== */
 
-      await supabaseClient
-        .from("cards")
-        .insert({
+    const businessPayload = {
 
-          card_code:
-            generatedCode,
+      id:
+        businessId,
 
-          business_id:
-            business.id,
+      name:
+        name,
 
-          active:true
+      google_review_url:
+        googleReviewUrl,
 
-        })
-        .select()
-        .single();
+      whatsapp_number:
+        whatsappNumber,
+
+      logo_url:
+        logoUrl || null
+
+    };
 
 
-    if(
-      cardResult.error
-    ){
+    const {
+      error: businessError
+    } =
+      await supabase
+        .from("businesses")
+        .insert(
+          businessPayload
+        );
 
-      throw cardResult.error;
+
+    if(businessError){
+
+      console.error(
+        "BUSINESS INSERT ERROR:",
+        businessError
+      );
+
+      throw businessError;
 
     }
 
 
-    const card =
-      cardResult.data;
+    /* =====================================================
+       INSERT CARD
+    ===================================================== */
+
+    const cardPayload = {
+
+      id:
+        createUUID(),
+
+      business_id:
+        businessId,
+
+      card_code:
+        cardCode,
+
+      active:
+        true
+
+    };
 
 
-    showSuccess(
+    const {
+      error: cardError
+    } =
+      await supabase
+        .from("cards")
+        .insert(
+          cardPayload
+        );
 
-      "Carte créée avec succès !\n\n" +
 
-      "Code de la carte : " +
-      card.card_code
+    if(cardError){
 
+      console.error(
+        "CARD INSERT ERROR:",
+        cardError
+      );
+
+      /*
+       * Try to remove the business if card creation failed.
+       * If DELETE is not permitted, the business remains but
+       * the actual card error is still displayed.
+       */
+
+      try{
+
+        await supabase
+          .from("businesses")
+          .delete()
+          .eq(
+            "id",
+            businessId
+          );
+
+      }
+      catch(cleanupError){
+
+        console.warn(
+          "Cleanup failed:",
+          cleanupError
+        );
+
+      }
+
+
+      throw cardError;
+
+    }
+
+
+    /* =====================================================
+       BUILD PUBLIC URL
+    ===================================================== */
+
+    const publicUrl =
+      CARD_BASE_URL +
+      "?card=" +
+      encodeURIComponent(
+        cardCode
+      );
+
+
+    /* =====================================================
+       SHOW RESULT
+    ===================================================== */
+
+    createdCode.textContent =
+      cardCode;
+
+    createdUrl.textContent =
+      publicUrl;
+
+    openCreatedCard.onclick =
+      function(){
+
+        window.open(
+          publicUrl,
+          "_blank",
+          "noopener"
+        );
+
+      };
+
+
+    cardResult.classList.add(
+      "show"
     );
 
 
-    cardCodeInput.value =
-      card.card_code;
+    showStatus(
+      adminStatus,
+      "Carte créée avec succès !\n\n" +
+      "Code : " +
+      cardCode,
+      "success"
+    );
 
+
+    /* =====================================================
+       CLEAR FORM
+    ===================================================== */
 
     businessNameInput.value =
       "";
 
-    googleReviewUrlInput.value =
+    googleReviewInput.value =
       "";
 
-    whatsappNumberInput.value =
-      "";
-
-    websiteUrlInput.value =
+    whatsappInput.value =
       "";
 
     logoUrlInput.value =
       "";
 
 
-    await testCard(
-      card.card_code
-    );
-
-
   }
-
   catch(error){
 
-
     console.error(
-      "CREATE BUSINESS ERROR:",
+      "CREATE CARD ERROR:",
       error
     );
 
 
-    showError(
-
-      "Erreur lors de la création :\n\n" +
-
-      (
-        error.message ||
-        String(error)
-      ) +
-
-      "\n\nCode : " +
-
-      (
-        error.code ||
-        "aucun"
-      )
-
+    showStatus(
+      adminStatus,
+      "Impossible de créer la carte.\n\n" +
+      formatError(error),
+      "error"
     );
 
-
   }
-
   finally{
-
 
     createButton.disabled =
       false;
 
-
     createButton.textContent =
       "✨ Créer ma carte";
 
-
   }
 
 }
 
 
 /* =========================================================
-TEST CARD
+   COPY CREATED URL
 ========================================================= */
 
-async function testCard(code){
+copyCreatedUrl.addEventListener(
+  "click",
+  async function(){
 
-  clearNotice();
-
-
-  const cleanCode =
-    String(
-      code || ""
-    ).trim();
+    const url =
+      createdUrl.textContent
+        .trim();
 
 
-  if(!cleanCode){
+    if(!url || url === "—"){
 
-    showError(
-      "Entrez un code de carte."
-    );
-
-    return;
-
-  }
-
-
-  testButton.disabled =
-    true;
-
-
-  testButton.textContent =
-    "Recherche…";
-
-
-  testResult.classList.remove(
-    "show"
-  );
-
-
-  try{
-
-
-    const result =
-
-      await supabaseClient
-        .from("cards")
-        .select(
-          "card_code,active"
-        )
-        .eq(
-          "card_code",
-          cleanCode
-        )
-        .eq(
-          "active",
-          true
-        )
-        .limit(1);
-
-
-    if(
-      result.error
-    ){
-
-      throw result.error;
+      return;
 
     }
 
 
-    if(
-      !result.data ||
-      result.data.length === 0
-    ){
+    try{
 
-      throw new Error(
-        "Carte introuvable ou inactive."
+      await navigator.clipboard.writeText(
+        url
+      );
+
+
+      copyCreatedUrl.textContent =
+        "✓ Lien copié";
+
+
+      setTimeout(
+        function(){
+
+          copyCreatedUrl.textContent =
+            "📋 Copier le lien";
+
+        },
+        1800
+      );
+
+    }
+    catch(error){
+
+      showStatus(
+        adminStatus,
+        "Impossible de copier automatiquement le lien.\n\n" +
+        url,
+        "info"
       );
 
     }
 
-
-    const foundCode =
-      result.data[0].card_code;
-
-
-    const baseUrl =
-
-      window.location.href
-        .split("admin.html")[0];
-
-
-    const cardUrl =
-
-      baseUrl +
-      "index.html?card=" +
-      encodeURIComponent(
-        foundCode
-      );
-
-
-    testCode.textContent =
-      foundCode;
-
-
-    openCardButton.href =
-      cardUrl;
-
-
-    testResult.classList.add(
-      "show"
-    );
-
-
   }
-
-  catch(error){
-
-
-    console.error(
-      "CARD ERROR:",
-      error
-    );
-
-
-    showError(
-
-      "Erreur lors de la recherche de la carte :\n\n" +
-
-      (
-        error.message ||
-        String(error)
-      ) +
-
-      "\n\nCode : " +
-
-      (
-        error.code ||
-        "aucun"
-      )
-
-    );
-
-
-  }
-
-  finally{
-
-
-    testButton.disabled =
-      false;
-
-
-    testButton.textContent =
-      "Ouvrir la carte";
-
-
-  }
-
-}
+);
 
 
 /* =========================================================
-EVENTS
+   OPEN TEST CARD
+========================================================= */
+
+openTestButton.addEventListener(
+  "click",
+  function(){
+
+    const code =
+      testCardCode.value
+        .trim();
+
+
+    if(!code){
+
+      showStatus(
+        adminStatus,
+        "Veuillez entrer un code de carte.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    const url =
+      CARD_BASE_URL +
+      "?card=" +
+      encodeURIComponent(
+        code
+      );
+
+
+    window.open(
+      url,
+      "_blank",
+      "noopener"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   BUTTON EVENTS
 ========================================================= */
 
 loginButton.addEventListener(
@@ -2469,21 +2328,13 @@ logoutButton.addEventListener(
 
 createButton.addEventListener(
   "click",
-  createBusiness
+  createBusinessAndCard
 );
 
 
-testButton.addEventListener(
-  "click",
-  function(){
-
-    testCard(
-      cardCodeInput.value
-    );
-
-  }
-);
-
+/* =========================================================
+   ENTER KEY LOGIN
+========================================================= */
 
 passwordInput.addEventListener(
   "keydown",
@@ -2501,7 +2352,11 @@ passwordInput.addEventListener(
 );
 
 
-cardCodeInput.addEventListener(
+/* =========================================================
+   ENTER KEY TEST CARD
+========================================================= */
+
+testCardCode.addEventListener(
   "keydown",
   function(event){
 
@@ -2509,9 +2364,7 @@ cardCodeInput.addEventListener(
       event.key === "Enter"
     ){
 
-      testCard(
-        cardCodeInput.value
-      );
+      openTestButton.click();
 
     }
 
@@ -2520,7 +2373,43 @@ cardCodeInput.addEventListener(
 
 
 /* =========================================================
-START
+   AUTH STATE LISTENER
+========================================================= */
+
+supabase.auth.onAuthStateChange(
+  function(
+    event,
+    session
+  ){
+
+    console.log(
+      "AUTH EVENT:",
+      event
+    );
+
+
+    if(
+      session &&
+      session.user
+    ){
+
+      showAdmin(
+        session.user
+      );
+
+    }
+    else{
+
+      showLogin();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   START
 ========================================================= */
 
 checkSession();
@@ -2528,5 +2417,4 @@ checkSession();
 </script>
 
 </body>
-
 </html>
