@@ -511,7 +511,6 @@ textarea:focus{
 
 </section>
 
-
 <main class="content">
 
 <section class="client-brand">
@@ -543,16 +542,14 @@ textarea:focus{
 
 </section>
 
-
 <section
   id="feedbackArea"
-  class="feedback-area hidden"
+  class="hidden feedback-area"
 >
 
   <div class="rating-question">
     Comment avez-vous vécu votre expérience ?
   </div>
-
 
   <div
     class="stars"
@@ -598,14 +595,12 @@ textarea:focus{
 
   </div>
 
-
   <div
     class="rating-text"
     id="ratingText"
   >
     Touchez une étoile pour commencer
   </div>
-
 
   <section
     class="message hidden"
@@ -615,7 +610,6 @@ textarea:focus{
     <h2 id="messageTitle"></h2>
 
     <p id="messageText"></p>
-
 
     <div
       id="googleArea"
@@ -633,7 +627,6 @@ textarea:focus{
       </a>
 
     </div>
-
 
     <div
       id="privateArea"
@@ -659,7 +652,6 @@ textarea:focus{
 
 </section>
 
-
 <footer class="brand-footer">
 
   <div class="brand-mini-line"></div>
@@ -678,11 +670,10 @@ textarea:focus{
 
 </div>
 
-
 <script>
 
 /* =========================================================
-   SUPABASE CONFIGURATION
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -693,7 +684,7 @@ const SUPABASE_KEY =
 
 
 /* =========================================================
-   GET CARD CODE
+   CARD CODE
 ========================================================= */
 
 function getCardCode(){
@@ -721,7 +712,6 @@ async function supabaseGet(endpoint){
       endpoint,
       {
         method:"GET",
-
         headers:{
           "apikey":SUPABASE_KEY,
           "Authorization":
@@ -732,10 +722,8 @@ async function supabaseGet(endpoint){
       }
     );
 
-
   const text =
     await response.text();
-
 
   if(!response.ok){
 
@@ -748,7 +736,6 @@ async function supabaseGet(endpoint){
 
   }
 
-
   return text
     ? JSON.parse(text)
     : [];
@@ -758,7 +745,6 @@ async function supabaseGet(endpoint){
 
 /* =========================================================
    SCAN
-   ONLY CALLED WHEN CARD PAGE LOADS
 ========================================================= */
 
 async function trackScan(cardCode){
@@ -766,7 +752,6 @@ async function trackScan(cardCode){
   if(!cardCode){
     return;
   }
-
 
   try{
 
@@ -776,7 +761,6 @@ async function trackScan(cardCode){
         "/rest/v1/rpc/report_card_scan",
         {
           method:"POST",
-
           headers:{
             "apikey":SUPABASE_KEY,
             "Authorization":
@@ -784,13 +768,11 @@ async function trackScan(cardCode){
             "Content-Type":
               "application/json"
           },
-
           body:JSON.stringify({
             p_card_code:cardCode
           })
         }
       );
-
 
     if(!response.ok){
 
@@ -800,14 +782,13 @@ async function trackScan(cardCode){
       );
 
       return;
-    }
 
+    }
 
     console.log(
       "Scan recorded:",
       cardCode
     );
-
 
   }catch(error){
 
@@ -823,8 +804,7 @@ async function trackScan(cardCode){
 
 /* =========================================================
    FINAL RATING
-   IMPORTANT:
-   THIS FUNCTION IS NEVER CALLED BY STAR CLICK.
+   ONLY CALLED WHEN USER SUBMITS.
 ========================================================= */
 
 async function trackRating(
@@ -837,7 +817,6 @@ async function trackRating(
     rating
   );
 
-
   if(
     !cardCode ||
     !rating
@@ -847,7 +826,6 @@ async function trackRating(
 
   }
 
-
   try{
 
     const response =
@@ -856,7 +834,6 @@ async function trackRating(
         "/rest/v1/rpc/report_card_rating",
         {
           method:"POST",
-
           headers:{
             "apikey":SUPABASE_KEY,
             "Authorization":
@@ -864,14 +841,12 @@ async function trackRating(
             "Content-Type":
               "application/json"
           },
-
           body:JSON.stringify({
             p_card_code:cardCode,
             p_rating:rating
           })
         }
       );
-
 
     if(!response.ok){
 
@@ -884,14 +859,12 @@ async function trackRating(
 
     }
 
-
     console.log(
       "FINAL RATING RECORDED:",
       rating
     );
 
     return true;
-
 
   }catch(error){
 
@@ -912,7 +885,6 @@ async function trackRating(
 ========================================================= */
 
 let currentBusiness = null;
-
 let selectedRating = null;
 
 
@@ -1017,10 +989,6 @@ async function loadCard(){
       " — Smart Review";
 
 
-    /* =========================
-       LOGO
-    ========================= */
-
     if(
       currentBusiness.logo_url
     ){
@@ -1058,10 +1026,6 @@ async function loadCard(){
 
     }
 
-
-    /* =========================
-       GOOGLE URL
-    ========================= */
 
     const googleButton =
       document.getElementById(
@@ -1153,10 +1117,7 @@ const googleButton =
 
 /* =========================================================
    STAR CLICK
-   =========================================================
-   ABSOLUTELY NO SUPABASE CALL HERE.
-
-   This only changes selectedRating.
+   NO DATABASE CALL.
 ========================================================= */
 
 stars.forEach(
@@ -1172,10 +1133,6 @@ stars.forEach(
           );
 
 
-        /* =========================
-           ONLY LOCAL STATE
-        ========================= */
-
         selectedRating =
           rating;
 
@@ -1185,10 +1142,6 @@ stars.forEach(
           selectedRating
         );
 
-
-        /* =========================
-           UPDATE VISUALS
-        ========================= */
 
         stars.forEach(
           item => {
@@ -1207,10 +1160,6 @@ stars.forEach(
           }
         );
 
-
-        /* =========================
-           UPDATE TEXT
-        ========================= */
 
         const labels = {
 
@@ -1235,10 +1184,6 @@ stars.forEach(
         ratingText.textContent =
           labels[selectedRating];
 
-
-        /* =========================
-           SHOW CORRESPONDING AREA
-        ========================= */
 
         message
           .classList
@@ -1309,9 +1254,7 @@ stars.forEach(
 
 
 /* =========================================================
-   PRIVATE FEEDBACK
-   =========================================================
-   DATABASE RATING CALL HAPPENS HERE ONLY.
+   WHATSAPP SUBMISSION
 ========================================================= */
 
 sendPrivate.addEventListener(
@@ -1379,18 +1322,11 @@ sendPrivate.addEventListener(
       "Envoi en cours...";
 
 
-    /* =======================================
-       CAPTURE FINAL RATING
-    ======================================= */
-
     const finalRating =
       selectedRating;
 
 
-    /* =======================================
-       THIS IS THE FIRST AND ONLY
-       RATING DATABASE CALL FOR THIS PATH
-    ======================================= */
+    /* Record final rating ONLY NOW */
 
     await trackRating(
       getCardCode(),
@@ -1398,30 +1334,24 @@ sendPrivate.addEventListener(
     );
 
 
-    /* =======================================
-       WHATSAPP
-    ======================================= */
+    /* =========================
+       CLEAN WHATSAPP NUMBER
+    ========================= */
 
     let number =
       String(
         currentBusiness.whatsapp_number
       )
+      .trim()
       .replace(
         /\D/g,
         ""
       );
 
 
-    if(
-      number.startsWith("0")
-    ){
-
-      number =
-        "213" +
-        number.substring(1);
-
-    }
-
+    /* =========================
+       BUILD MESSAGE
+    ========================= */
 
     let whatsappMessage =
       "🔒 Retour privé — " +
@@ -1450,13 +1380,23 @@ sendPrivate.addEventListener(
     }
 
 
+    /* =========================
+       WHATSAPP SEND URL
+    ========================= */
+
     const whatsappURL =
-      "https://wa.me/" +
+      "https://api.whatsapp.com/send?phone=" +
       number +
-      "?text=" +
+      "&text=" +
       encodeURIComponent(
         whatsappMessage
       );
+
+
+    console.log(
+      "Opening WhatsApp:",
+      whatsappURL
+    );
 
 
     window.location.href =
@@ -1467,9 +1407,7 @@ sendPrivate.addEventListener(
 
 
 /* =========================================================
-   GOOGLE BUTTON
-   =========================================================
-   DATABASE RATING CALL HAPPENS HERE ONLY.
+   GOOGLE SUBMISSION
 ========================================================= */
 
 googleButton.addEventListener(
@@ -1508,26 +1446,12 @@ googleButton.addEventListener(
       "true";
 
 
-    /* =======================================
-       FINAL RATING ONLY
-    ======================================= */
-
     const finalRating =
       selectedRating;
 
 
-    /* =======================================
-       RECORD ONLY WHEN GOOGLE IS CLICKED
-    ======================================= */
-
     await trackRating(
       getCardCode(),
-      finalRating
-    );
-
-
-    console.log(
-      "Google action completed with rating:",
       finalRating
     );
 
