@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta
+  name="theme-color"
+  content="#061b3a"
+>
+
+<title>Smart Review — Admin</title>
+
+<style>
+
+/* =========================================================
+SMART REVIEW ADMIN — PREMIUM MOBILE UI
+========================================================= */
+
+:root{
+
+--navy:#061b3a;
+--navy-2:#08264d;
+--navy-3:#0d376b;
+
+--blue:#165dff;
+--blue-light:#4285ff;
+
+--gold:#d99213;
+--gold-light:#ffcf55;
+--gold-dark:#a86600;
+
+--white:#ffffff;
+--ink:#071b3c;
+
+--muted:#65758c;
+
+--soft:#f5f7fa;
+
+--green:#159447;
+--red:#d83b3b;
+
+}
+
+
+/* =========================================================
+RESET
+========================================================= */
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+html,
+body{
+
+width:100%;
+min-height:100%;
+
+}
+
+html{
+
+background:var(--navy);
+
+}
+
+body{
+
+min-height:100vh;
+min-height:100dvh;
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Roboto,
+Helvetica,
+Arial,
+sans-serif;
+
+-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility;
+
+background:#fff;
+
+color:var(--ink);
+
+overflow-x:hidden;
+
+}
+
+
+/* =========================================================
+APP
+========================================================= */
+
+.app{
+
+width:100%;
+min-height:100vh;
+min-height:100dvh;
+
+background:#fff;
+
+}
+
+
+/* =========================================================
+HERO
+========================================================= */
+
+.hero{
+
+position:relative;
+
+width:100%;
+
+min-height:390px;
+
+color:#fff;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+text-align:center;
+
+padding:
+max(25px,env(safe-area-inset-top))
+18px
+95px;
+
+background:
+
+radial-gradient(
+circle at 50% 5%,
+rgba(255,255,255,.10),
+transparent 30%
+),
+
+radial-gradient(
+circle at 50% 105%,
+rgba(30,111,255,.30),
+transparent 55%
+),
+
+linear-gradient(
+180deg,
+#061b3a 0%,
+#08264d 65%,
+#092e5c 100%
+);
+
+}
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+pointer-events:none;
+
+opacity:.18;
+
+background-image:
+
+radial-gradient(
+rgba(255,255,255,.16) .7px,
+transparent .7px
+);
+
+background-size:13px 13px;
+
+mask-image:
+linear-gradient(
+to bottom,
+black,
+transparent 82%
+);
+
+}
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+width:260px;
+height:260px;
+
+top:-160px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:
+rgba(38,117,255,.18);
+
+filter:blur(55px);
+
+border-radius:50%;
+
+pointer-events:none;
+
+}
+
+
+/* =========================================================
+ADMIN MARK
+========================================================= */
+
+.admin-mark{
+
+position:relative;
+
+z-index:2;
+
+width:
+clamp(86px,24vw,112px);
+
+height:
+clamp(86px,24vw,112px);
+
+border-radius:50%;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+margin-top:3px;
+
+margin-bottom:19px;
+
+box-shadow:
+
+0 15px 34px
+rgba(0,0,0,.30),
+
+0 0 0 3px
+rgba(217,146,19,.95),
+
+0 0 0 6px
+rgba(255,202,67,.22);
+
+animation:
+adminEnter .7s
+cubic-bezier(.2,.8,.2,1)
+both;
+
+}
+
+.admin-mark::after{
+
+content:"";
+
+position:absolute;
+
+inset:8px;
+
+border-radius:50%;
+
+border:
+1px solid
+rgba(255,255,255,.9);
+
+opacity:.65;
+
+}
+
+.admin-icon{
+
+font-size:
+clamp(42px,11vw,58px);
+
+line-height:1;
+
+}
+
+@keyframes adminEnter{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(-20px)
+scale(.78);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0)
+scale(1);
+
+}
+
+}
+
+
+/* =========================================================
+HERO TITLE
+========================================================= */
+
+.hero-title{
+
+position:relative;
+
+z-index:2;
+
+max-width:600px;
+
+font-size:
+clamp(25px,7vw,36px);
+
+line-height:1.1;
+
+font-weight:900;
+
+letter-spacing:-.9px;
+
+text-transform:uppercase;
+
+text-shadow:
+0 4px 18px
+rgba(0,0,0,.30);
+
+}
+
+.hero-subtitle{
+
+position:relative;
+
+z-index:2;
+
+margin-top:13px;
+
+max-width:520px;
+
+font-size:
+clamp(15px,4.2vw,19px);
+
+line-height:1.45;
+
+font-weight:600;
+
+color:
+rgba(255,255,255,.78);
+
+}
+
+
+/* =========================================================
+WAVE
+========================================================= */
+
+.wave-blue{
+
+position:absolute;
+
+z-index:4;
+
+left:-5%;
+
+bottom:55px;
+
+width:110%;
+
+height:65px;
+
+background:
+
+linear-gradient(
+180deg,
+#0c63ff,
+#164fd1
+);
+
+clip-path:
+ellipse(
+69% 55%
+at 50% 100%
+);
+
+}
+
+.wave{
+
+position:absolute;
+
+z-index:5;
+
+left:-5%;
+
+bottom:-1px;
+
+width:110%;
+
+height:105px;
+
+background:#fff;
+
+clip-path:
+ellipse(
+73% 58%
+at 50% 100%
+);
+
+}
+
+
+/* =========================================================
+CONTENT
+========================================================= */
+
+.content{
+
+position:relative;
+
+z-index:10;
+
+background:#fff;
+
+width:100%;
+
+margin-top:-23px;
+
+padding:
+0
+18px
+max(35px,env(safe-area-inset-bottom));
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+
+/* =========================================================
+ADMIN CONTAINER
+========================================================= */
+
+.admin-container{
+
+width:100%;
+
+max-width:680px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+
+/* =========================================================
+WELCOME
+========================================================= */
+
+.welcome{
+
+width:100%;
+
+text-align:center;
+
+margin-bottom:24px;
+
+}
+
+.welcome h2{
+
+font-size:
+clamp(25px,7vw,34px);
+
+line-height:1.15;
+
+font-weight:900;
+
+letter-spacing:-.7px;
+
+color:var(--navy);
+
+margin-bottom:8px;
+
+}
+
+.welcome p{
+
+font-size:
+clamp(15px,4.2vw,18px);
+
+line-height:1.45;
+
+font-weight:600;
+
+color:#65758c;
+
+}
+
+
+/* =========================================================
+ADMIN CARD
+========================================================= */
+
+.admin-card{
+
+width:100%;
+
+background:#fff;
+
+border-radius:25px;
+
+border:
+1px solid
+rgba(7,27,60,.09);
+
+padding:22px;
+
+margin-bottom:18px;
+
+box-shadow:
+
+0 18px 45px
+rgba(7,27,60,.10),
+
+0 3px 10px
+rgba(7,27,60,.04);
+
+}
+
+.admin-card h3{
+
+font-size:
+clamp(20px,5.5vw,25px);
+
+line-height:1.2;
+
+font-weight:900;
+
+color:var(--navy);
+
+margin-bottom:7px;
+
+}
+
+.admin-card-description{
+
+color:#687990;
+
+font-size:15px;
+
+line-height:1.45;
+
+margin-bottom:18px;
+
+}
+
+
+/* =========================================================
+FORM LABEL
+========================================================= */
+
+.field{
+
+width:100%;
+
+margin-bottom:16px;
+
+}
+
+.field label{
+
+display:block;
+
+font-size:14px;
+
+font-weight:850;
+
+color:var(--navy);
+
+margin-bottom:7px;
+
+}
+
+
+/* =========================================================
+INPUT
+========================================================= */
+
+.input{
+
+width:100%;
+
+min-height:57px;
+
+border-radius:16px;
+
+border:
+1.5px solid
+rgba(7,27,60,.12);
+
+background:#f6f8fb;
+
+color:var(--ink);
+
+outline:none;
+
+padding:
+15px
+16px;
+
+font-size:17px;
+
+font-family:inherit;
+
+-webkit-appearance:none;
+
+}
+
+.input::placeholder{
+
+color:#8995a5;
+
+}
+
+.input:focus{
+
+border-color:
+rgba(22,93,255,.55);
+
+box-shadow:
+0 0 0 4px
+rgba(22,93,255,.08);
+
+}
+
+
+/* =========================================================
+TEXTAREA
+========================================================= */
+
+textarea.input{
+
+min-height:120px;
+
+resize:vertical;
+
+line-height:1.5;
+
+}
+
+
+/* =========================================================
+BUTTON
+========================================================= */
+
+.button{
+
+width:100%;
+
+min-height:64px;
+
+border-radius:19px;
+
+border:none;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+text-decoration:none;
+
+padding:
+16px
+20px;
+
+font-size:
+clamp(17px,4.7vw,20px);
+
+font-weight:900;
+
+font-family:inherit;
+
+cursor:pointer;
+
+position:relative;
+
+overflow:hidden;
+
+transition:
+transform .16s ease,
+box-shadow .22s ease,
+background .22s ease;
+
+-webkit-tap-highlight-color:transparent;
+
+touch-action:manipulation;
+
+}
+
+.button:active{
+
+transform:
+scale(.975);
+
+}
+
+.button:disabled{
+
+opacity:.65;
+
+pointer-events:none;
+
+}
+
+
+/* =========================================================
+PRIMARY BUTTON
+========================================================= */
+
+.primary{
+
+color:#fff;
+
+background:
+
+linear-gradient(
+135deg,
+#0a2d59 0%,
+#0d407a 52%,
+#08294f 100%
+);
+
+border:
+2px solid
+rgba(217,146,19,.88);
+
+box-shadow:
+
+0 12px 28px
+rgba(7,27,60,.22),
+
+0 0 0 3px
+rgba(217,146,19,.08);
+
+}
+
+.primary::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+right:0;
+
+top:0;
+
+height:4px;
+
+background:
+
+linear-gradient(
+90deg,
+var(--gold-dark),
+var(--gold-light),
+var(--gold-dark)
+);
+
+}
+
+
+/* =========================================================
+SECONDARY BUTTON
+========================================================= */
+
+.secondary{
+
+color:#fff;
+
+background:
+
+linear-gradient(
+135deg,
+#165dff,
+#0d47c9
+);
+
+box-shadow:
+
+0 11px 25px
+rgba(22,93,255,.22);
+
+}
+
+
+/* =========================================================
+GREEN BUTTON
+========================================================= */
+
+.success{
+
+color:#fff;
+
+background:
+
+linear-gradient(
+135deg,
+#159447,
+#087a37
+);
+
+box-shadow:
+
+0 11px 25px
+rgba(20,150,75,.22);
+
+}
+
+
+/* =========================================================
+DANGER BUTTON
+========================================================= */
+
+.danger{
+
+color:#fff;
+
+background:
+
+linear-gradient(
+135deg,
+#d83b3b,
+#a92525
+);
+
+box-shadow:
+
+0 11px 25px
+rgba(216,59,59,.18);
+
+}
+
+
+/* =========================================================
+BUTTON GROUP
+========================================================= */
+
+.button-group{
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+
+width:100%;
+
+}
+
+
+/* =========================================================
+STATUS
+========================================================= */
+
+.status{
+
+display:none;
+
+width:100%;
+
+padding:15px 16px;
+
+border-radius:16px;
+
+font-size:15px;
+
+font-weight:750;
+
+line-height:1.45;
+
+margin-top:15px;
+
+}
+
+.status.show{
+
+display:block;
+
+}
+
+.status.success-status{
+
+background:
+rgba(21,148,71,.09);
+
+color:#087a37;
+
+border:
+1px solid
+rgba(21,148,71,.18);
+
+}
+
+.status.error-status{
+
+background:
+rgba(216,59,59,.08);
+
+color:#b52c2c;
+
+border:
+1px solid
+rgba(216,59,59,.16);
+
+}
+
+.status.info-status{
+
+background:
+rgba(22,93,255,.08);
+
+color:#164fc5;
+
+border:
+1px solid
+rgba(22,93,255,.14);
+
+}
+
+
+/* =========================================================
+CARD RESULT
+========================================================= */
+
+.card-result{
+
+display:none;
+
+width:100%;
+
+margin-top:18px;
+
+padding:20px;
+
+border-radius:20px;
+
+background:
+linear-gradient(
+145deg,
+#f8fafc,
+#eef3f8
+);
+
+border:
+1px solid
+rgba(7,27,60,.08);
+
+}
+
+.card-result.show{
+
+display:block;
+
+animation:
+resultEnter .4s
+cubic-bezier(.2,.8,.2,1)
+both;
+
+}
+
+@keyframes resultEnter{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(12px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+}
+
+.card-result-title{
+
+font-size:20px;
+
+font-weight:900;
+
+color:var(--navy);
+
+margin-bottom:13px;
+
+}
+
+.card-code{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:10px;
+
+padding:13px 15px;
+
+border-radius:14px;
+
+background:#fff;
+
+border:
+1px solid
+rgba(7,27,60,.09);
+
+margin-bottom:12px;
+
+}
+
+.card-code strong{
+
+font-size:18px;
+
+color:var(--navy);
+
+word-break:break-all;
+
+}
+
+.copy-button{
+
+flex-shrink:0;
+
+border:0;
+
+border-radius:12px;
+
+padding:10px 13px;
+
+background:var(--navy);
+
+color:#fff;
+
+font-family:inherit;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.card-link{
+
+display:block;
+
+width:100%;
+
+padding:14px 15px;
+
+border-radius:14px;
+
+background:#fff;
+
+border:
+1px solid
+rgba(7,27,60,.09);
+
+color:var(--blue);
+
+font-size:14px;
+
+font-weight:700;
+
+line-height:1.45;
+
+word-break:break-all;
+
+text-decoration:none;
+
+margin-bottom:12px;
+
+}
+
+
+/* =========================================================
+STATS
+========================================================= */
+
+.stats-grid{
+
+width:100%;
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:10px;
+
+margin-top:17px;
+
+}
+
+.stat{
+
+background:#fff;
+
+border:
+1px solid
+rgba(7,27,60,.08);
+
+border-radius:16px;
+
+padding:14px 8px;
+
+text-align:center;
+
+}
+
+.stat-number{
+
+font-size:24px;
+
+font-weight:950;
+
+color:var(--navy);
+
+line-height:1;
+
+margin-bottom:6px;
+
+}
+
+.stat-label{
+
+font-size:11px;
+
+font-weight:750;
+
+color:#718096;
+
+text-transform:uppercase;
+
+letter-spacing:.5px;
+
+}
+
+
+/* =========================================================
+LOADING
+========================================================= */
+
+.loading{
+
+display:none;
+
+text-align:center;
+
+padding:10px;
+
+color:#65758c;
+
+font-size:15px;
+
+font-weight:700;
+
+}
+
+.loading.show{
+
+display:block;
+
+}
+
+.loading-dot{
+
+display:inline-block;
+
+width:7px;
+height:7px;
+
+margin:0 3px;
+
+border-radius:50%;
+
+background:var(--gold);
+
+animation:
+loadingPulse 1s
+infinite ease-in-out;
+
+}
+
+.loading-dot:nth-child(2){
+
+animation-delay:.15s;
+
+}
+
+.loading-dot:nth-child(3){
+
+animation-delay:.30s;
+
+}
+
+@keyframes loadingPulse{
+
+0%,
+80%,
+100%{
+
+opacity:.25;
+
+transform:scale(.7);
+
+}
+
+40%{
+
+opacity:1;
+
+transform:scale(1);
+
+}
+
+}
+
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.brand-footer{
+
+width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+margin-top:20px;
+
+padding-top:23px;
+
+border-top:
+1px solid
+rgba(7,27,60,.11);
+
+}
+
+.brand-mini-line{
+
+width:
+clamp(100px,27vw,155px);
+
+height:3px;
+
+margin-bottom:14px;
+
+border-radius:20px;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+var(--gold),
+var(--blue),
+transparent
+);
+
+}
+
+.smart-review{
+
+font-size:
+clamp(31px,8.5vw,45px);
+
+line-height:1;
+
+font-weight:950;
+
+letter-spacing:-1.5px;
+
+background:
+
+linear-gradient(
+110deg,
+#a86c08 0%,
+#e3a51e 18%,
+#fff 35%,
+#c5ced9 48%,
+#356a9f 70%,
+#061b3a 100%
+);
+
+background-size:
+240% 100%;
+
+-webkit-background-clip:text;
+background-clip:text;
+
+color:transparent;
+
+filter:
+drop-shadow(
+0 4px 8px
+rgba(7,27,60,.13)
+);
+
+animation:
+smartShimmer 5s
+ease-in-out
+infinite;
+
+}
+
+@keyframes smartShimmer{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.smart-review-sub{
+
+margin-top:8px;
+
+color:#6b788a;
+
+font-size:
+clamp(10px,2.8vw,13px);
+
+font-weight:750;
+
+letter-spacing:2px;
+
+text-transform:uppercase;
+
+}
+
+
+/* =========================================================
+DESKTOP
+========================================================= */
+
+@media(width >= 700px){
+
+.hero{
+
+min-height:460px;
+
+}
+
+.content{
+
+margin-top:-35px;
+
+padding-left:40px;
+padding-right:40px;
+
+}
+
+.admin-card{
+
+padding:28px;
+
+}
+
+}
+
+
+/* =========================================================
+REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+*,
+*::before,
+*::after{
+
+animation-duration:.01ms !important;
+
+animation-iteration-count:1 !important;
+
+transition-duration:.01ms !important;
+
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- =====================================================
+HERO
+===================================================== -->
+
+<section class="hero">
+
+<div class="admin-mark">
+
+<div class="admin-icon">
+⚙️
+</div>
+
+</div>
+
+<h1 class="hero-title">
+SMART REVIEW ADMIN
+</h1>
+
+<p class="hero-subtitle">
+Gérez vos établissements, vos cartes et vos liens de collecte d'avis.
+</p>
+
+<div class="wave-blue"></div>
+
+<div class="wave"></div>
+
+</section>
+
+
+<!-- =====================================================
+CONTENT
+===================================================== -->
+
+<main class="content">
+
+<div class="admin-container">
+
+
+<!-- ===================================================
+WELCOME
+=================================================== -->
+
+<section class="welcome">
+
+<h2>
+Tableau de bord
+</h2>
+
+<p>
+Créez une carte Smart Review et testez-la immédiatement.
+</p>
+
+</section>
+
+
+<!-- ===================================================
+CREATE CARD
+=================================================== -->
+
+<section class="admin-card">
+
+<h3>
+Créer une carte
+</h3>
+
+<p class="admin-card-description">
+Entrez les informations de votre établissement pour générer une nouvelle carte Smart Review.
+</p>
+
+
+<div class="field">
+
+<label for="businessName">
+Nom de l'établissement
+</label>
+
+<input
+id="businessName"
+class="input"
+type="text"
+placeholder="Ex. Restaurant Le Palais"
+autocomplete="organization"
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="googleReviewUrl">
+Lien Google pour les avis
+</label>
+
+<input
+id="googleReviewUrl"
+class="input"
+type="url"
+placeholder="https://g.page/r/..."
+autocomplete="url"
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="whatsappNumber">
+Numéro WhatsApp
+</label>
+
+<input
+id="whatsappNumber"
+class="input"
+type="tel"
+placeholder="Ex. 0550123456"
+autocomplete="tel"
+>
+
+</div>
+
+
+<div class="field">
+
+<label for="logoUrl">
+URL du logo <span style="font-weight:500;color:#8995a5;">(optionnel)</span>
+</label>
+
+<input
+id="logoUrl"
+class="input"
+type="url"
+placeholder="https://..."
+autocomplete="url"
+>
+
+</div>
+
+
+<div class="button-group">
+
+<button
+type="button"
+id="createButton"
+class="button primary"
+>
+
+✨ Créer ma carte
+
+</button>
+
+</div>
+
+
+<div
+id="loading"
+class="loading"
+>
+
+Création en cours
+
+<span class="loading-dot"></span>
+<span class="loading-dot"></span>
+<span class="loading-dot"></span>
+
+</div>
+
+
+<div
+id="status"
+class="status"
+></div>
+
+
+<!-- =================================================
+RESULT
+================================================= -->
+
+<div
+id="cardResult"
+class="card-result"
+>
+
+<div class="card-result-title">
+✓ Carte créée avec succès
+</div>
+
+
+<div class="card-code">
+
+<strong id="createdCardCode">
+—
+</strong>
+
+<button
+type="button"
+id="copyCode"
+class="copy-button"
+>
+Copier
+</button>
+
+</div>
+
+
+<a
+id="cardLink"
+class="card-link"
+href="#"
+target="_blank"
+rel="noopener noreferrer"
+>
+—
+</a>
+
+
+<div class="button-group">
+
+<a
+id="openCard"
+class="button success"
+href="#"
+target="_blank"
+rel="noopener noreferrer"
+>
+🚀 Ouvrir ma carte
+</a>
+
+</div>
+
+
+<div class="stats-grid">
+
+<div class="stat">
+
+<div
+class="stat-number"
+id="scanCount"
+>
+0
+</div>
+
+<div class="stat-label">
+Scans
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div
+class="stat-number"
+id="ratingCount"
+>
+0
+</div>
+
+<div class="stat-label">
+Avis
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div
+class="stat-number"
+id="averageRating"
+>
+—
+</div>
+
+<div class="stat-label">
+Moyenne
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================
+TEST CARD
+=================================================== -->
+
+<section class="admin-card">
+
+<h3>
+Tester une carte
+</h3>
+
+<p class="admin-card-description">
+Entrez un code de carte existant pour ouvrir directement la page client.
+</p>
+
+
+<div class="field">
+
+<label for="testCardCode">
+Code de carte
+</label>
+
+<input
+id="testCardCode"
+class="input"
+type="text"
+placeholder="Ex. CARD001"
+autocomplete="off"
+>
+
+</div>
+
+
+<button
+type="button"
+id="testButton"
+class="button secondary"
+>
+🔎 Ouvrir la carte
+</button>
+
+</section>
+
+
+<!-- ===================================================
+QUICK ACCESS
+=================================================== -->
+
+<section class="admin-card">
+
+<h3>
+Accès rapide
+</h3>
+
+<p class="admin-card-description">
+Utilisez ces actions pour naviguer dans votre système Smart Review.
+</p>
+
+
+<div class="button-group">
+
+<a
+class="button secondary"
+href="index.html"
+>
+🏠 Ouvrir la page principale
+</a>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================
+FOOTER
+=================================================== -->
+
+<footer class="brand-footer">
+
+<div class="brand-mini-line"></div>
+
+<div class="smart-review">
+Smart Review
+</div>
+
+<div class="smart-review-sub">
+Better feedback. Better businesses.
+</div>
+
+</footer>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+SUPABASE CONFIG
+========================================================= */
+
+const SUPABASE_URL =
+"https://mcujzqtfbwjttjieagas.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_4eVDX1IKZj7ClhpcjfiQFQ_hQ5Hr81k";
+
+
+/* =========================================================
+SUPABASE REQUEST
+========================================================= */
+
+async function supabaseRequest(
+endpoint,
+options = {}
+){
+
+const response =
+await fetch(
+`${SUPABASE_URL}/rest/v1/${endpoint}`,
+{
+
+...options,
+
+headers:{
+"apikey":SUPABASE_KEY,
+"Authorization":`Bearer ${SUPABASE_KEY}`,
+"Content-Type":"application/json",
+...(options.headers || {})
+}
+
+}
+);
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+throw new Error(
+error ||
+`Supabase error ${response.status}`
+);
+
+}
+
+
+const contentType =
+response.headers.get("content-type") || "";
+
+if(
+contentType.includes("application/json")
+){
+
+return response.json();
+
+}
+
+return null;
+
+}
+
+
+/* =========================================================
+SUPABASE RPC
+========================================================= */
+
+async function supabaseRpc(
+functionName,
+parameters
+){
+
+const response =
+await fetch(
+`${SUPABASE_URL}/rest/v1/rpc/${functionName}`,
+{
+
+method:"POST",
+
+headers:{
+"apikey":SUPABASE_KEY,
+"Authorization":`Bearer ${SUPABASE_KEY}`,
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(parameters)
+
+}
+);
+
+
+if(!response.ok){
+
+const error =
+await response.text();
+
+throw new Error(
+`${functionName}: ${error}`
+);
+
+}
+
+
+const contentType =
+response.headers.get("content-type") || "";
+
+if(
+contentType.includes("application/json")
+){
+
+return response.json();
+
+}
+
+return null;
+
+}
+
+
+/* =========================================================
+ELEMENTS
+========================================================= */
+
+const businessNameInput =
+document.getElementById(
+"businessName"
+);
+
+const googleReviewUrlInput =
+document.getElementById(
+"googleReviewUrl"
+);
+
+const whatsappNumberInput =
+document.getElementById(
+"whatsappNumber"
+);
+
+const logoUrlInput =
+document.getElementById(
+"logoUrl"
+);
+
+const createButton =
+document.getElementById(
+"createButton"
+);
+
+const loading =
+document.getElementById(
+"loading"
+);
+
+const status =
+document.getElementById(
+"status"
+);
+
+const cardResult =
+document.getElementById(
+"cardResult"
+);
+
+const createdCardCode =
+document.getElementById(
+"createdCardCode"
+);
+
+const cardLink =
+document.getElementById(
+"cardLink"
+);
+
+const openCard =
+document.getElementById(
+"openCard"
+);
+
+const copyCode =
+document.getElementById(
+"copyCode"
+);
+
+const testCardCode =
+document.getElementById(
+"testCardCode"
+);
+
+const testButton =
+document.getElementById(
+"testButton"
+);
+
+
+/* =========================================================
+STATUS
+========================================================= */
+
+function showStatus(
+message,
+type = "info"
+){
+
+status.textContent =
+message;
+
+status.className =
+"status show " +
+(
+type === "success"
+?
+"success-status"
+:
+type === "error"
+?
+"error-status"
+:
+"info-status"
+);
+
+}
+
+
+/* =========================================================
+GENERATE CARD CODE
+========================================================= */
+
+function generateCardCode(){
+
+const random =
+Math.random()
+.toString(36)
+.substring(2,8)
+.toUpperCase();
+
+return `CARD-${random}`;
+
+}
+
+
+/* =========================================================
+NORMALIZE WHATSAPP
+========================================================= */
+
+function normalizeWhatsApp(
+number
+){
+
+let clean =
+String(number || "")
+.replace(
+/\D/g,
+""
+);
+
+if(
+clean.startsWith("0")
+){
+
+clean =
+"213" +
+clean.substring(1);
+
+}
+
+return clean;
+
+}
+
+
+/* =========================================================
+CREATE BUSINESS
+========================================================= */
+
+async function createBusiness(){
+
+const name =
+businessNameInput
+.value
+.trim();
+
+const googleReviewUrl =
+googleReviewUrlInput
+.value
+.trim();
+
+const whatsappNumber =
+normalizeWhatsApp(
+whatsappNumberInput.value
+);
+
+const logoUrl =
+logoUrlInput
+.value
+.trim();
+
+
+/* =====================================================
+VALIDATION
+===================================================== */
+
+if(!name){
+
+showStatus(
+"Veuillez entrer le nom de l'établissement.",
+"error"
+);
+
+businessNameInput.focus();
+
+return;
+
+}
+
+if(!googleReviewUrl){
+
+showStatus(
+"Veuillez entrer le lien Google pour les avis.",
+"error"
+);
+
+googleReviewUrlInput.focus();
+
+return;
+
+}
+
+if(!whatsappNumber){
+
+showStatus(
+"Veuillez entrer le numéro WhatsApp.",
+"error"
+);
+
+whatsappNumberInput.focus();
+
+return;
+
+}
+
+
+/* =====================================================
+LOADING
+===================================================== */
+
+createButton.disabled =
+true;
+
+loading.classList.add(
+"show"
+);
+
+status.className =
+"status";
+
+cardResult.classList.remove(
+"show"
+);
+
+
+try{
+
+
+/* =====================================================
+CHECK EXISTING BUSINESS
+===================================================== */
+
+const existingBusinesses =
+await supabaseRequest(
+`businesses?name=eq.${encodeURIComponent(name)}&select=*`
+);
+
+
+/* =====================================================
+BUSINESS
+===================================================== */
+
+let business;
+
+if(
+existingBusinesses &&
+existingBusinesses.length
+){
+
+business =
+existingBusinesses[0];
+
+/* Update business */
+
+await supabaseRequest(
+`businesses?id=eq.${encodeURIComponent(business.id)}`,
+{
+method:"PATCH",
+
+headers:{
+"Prefer":"return=representation"
+},
+
+body:JSON.stringify({
+
+name:name,
+
+google_review_url:
+googleReviewUrl,
+
+whatsapp_number:
+whatsappNumber,
+
+logo_url:
+logoUrl || null
+
+})
+
+}
+);
+
+}
+else{
+
+/* Create business */
+
+const created =
+await supabaseRequest(
+"businesses",
+{
+method:"POST",
+
+headers:{
+"Prefer":"return=representation"
+},
+
+body:JSON.stringify({
+
+name:name,
+
+google_review_url:
+googleReviewUrl,
+
+whatsapp_number:
+whatsappNumber,
+
+logo_url:
+logoUrl || null
+
+})
+
+}
+);
+
+if(
+!created ||
+!created.length
+){
+
+throw new Error(
+"Impossible de créer l'établissement."
+);
+
+}
+
+business =
+created[0];
+
+}
+
+
+/* =====================================================
+GENERATE CARD CODE
+===================================================== */
+
+let cardCode =
+generateCardCode();
+
+
+/* =====================================================
+MAKE SURE CODE IS UNIQUE
+===================================================== */
+
+for(
+let attempt = 0;
+attempt < 5;
+attempt++
+){
+
+const existingCards =
+await supabaseRequest(
+`cards?card_code=eq.${encodeURIComponent(cardCode)}&select=id`
+);
+
+if(
+!existingCards.length
+){
+
+break;
+
+}
+
+cardCode =
+generateCardCode();
+
+}
+
+
+/* =====================================================
+CREATE CARD
+===================================================== */
+
+const createdCards =
+await supabaseRequest(
+"cards",
+{
+method:"POST",
+
+headers:{
+"Prefer":"return=representation"
+},
+
+body:JSON.stringify({
+
+card_code:cardCode,
+
+business_id:business.id,
+
+active:true
+
+})
+
+}
+);
+
+
+if(
+!createdCards ||
+!createdCards.length
+){
+
+throw new Error(
+"Impossible de créer la carte."
+);
+
+}
+
+
+/* =====================================================
+CARD URL
+===================================================== */
+
+const cardUrl =
+new URL(
+"index.html",
+window.location.href
+);
+
+cardUrl.searchParams.set(
+"card",
+cardCode
+);
+
+const finalUrl =
+cardUrl.href;
+
+
+/* =====================================================
+DISPLAY RESULT
+===================================================== */
+
+createdCardCode.textContent =
+cardCode;
+
+cardLink.textContent =
+finalUrl;
+
+cardLink.href =
+finalUrl;
+
+openCard.href =
+finalUrl;
+
+scanCount.textContent =
+"0";
+
+ratingCount.textContent =
+"0";
+
+averageRating.textContent =
+"—";
+
+cardResult.classList.add(
+"show"
+);
+
+showStatus(
+"Votre carte Smart Review a été créée avec succès.",
+"success"
+);
+
+
+/* =====================================================
+SAVE LAST CARD
+===================================================== */
+
+try{
+
+localStorage.setItem(
+"smart_review_last_card",
+JSON.stringify({
+
+cardCode:cardCode,
+
+businessId:business.id,
+
+businessName:name,
+
+url:finalUrl
+
+})
+);
+
+}
+catch(error){
+
+console.warn(
+"LocalStorage unavailable:",
+error
+);
+
+}
+
+}
+catch(error){
+
+console.error(
+"Create card error:",
+error
+);
+
+showStatus(
+"Erreur : " +
+(
+error.message ||
+"Impossible de créer la carte."
+),
+"error"
+);
+
+}
+finally{
+
+createButton.disabled =
+false;
+
+loading.classList.remove(
+"show"
+);
+
+}
+
+}
+
+
+/* =========================================================
+COPY CARD CODE
+========================================================= */
+
+copyCode.addEventListener(
+"click",
+async () => {
+
+const code =
+createdCardCode.textContent;
+
+if(
+!code ||
+code === "—"
+){
+
+return;
+
+}
+
+try{
+
+await navigator.clipboard.writeText(
+code
+);
+
+copyCode.textContent =
+"✓ Copié";
+
+setTimeout(
+() => {
+
+copyCode.textContent =
+"Copier";
+
+},
+1500
+);
+
+}
+catch(error){
+
+console.error(
+"Copy failed:",
+error
+);
+
+}
+
+}
+);
+
+
+/* =========================================================
+TEST CARD
+========================================================= */
+
+testButton.addEventListener(
+"click",
+() => {
+
+const code =
+testCardCode
+.value
+.trim();
+
+if(!code){
+
+showStatus(
+"Veuillez entrer un code de carte.",
+"error"
+);
+
+testCardCode.focus();
+
+return;
+
+}
+
+const url =
+new URL(
+"index.html",
+window.location.href
+);
+
+url.searchParams.set(
+"card",
+code
+);
+
+window.location.href =
+url.href;
+
+}
+);
+
+
+/* =========================================================
+CREATE BUTTON
+========================================================= */
+
+createButton.addEventListener(
+"click",
+createBusiness
+);
+
+
+/* =========================================================
+ENTER KEY
+========================================================= */
+
+[
+businessNameInput,
+googleReviewUrlInput,
+whatsappNumberInput,
+logoUrlInput
+]
+.forEach(
+input => {
+
+input.addEventListener(
+"keydown",
+event => {
+
+if(
+event.key === "Enter"
+){
+
+event.preventDefault();
+
+createBusiness();
+
+}
+
+});
+
+}
+);
+
+
+/* =========================================================
+LOAD LAST CARD
+========================================================= */
+
+function loadLastCard(){
+
+try{
+
+const saved =
+localStorage.getItem(
+"smart_review_last_card"
+);
+
+if(!saved){
+
+return;
+
+}
+
+const data =
+JSON.parse(saved);
+
+if(
+!data ||
+!data.cardCode ||
+!data.url
+){
+
+return;
+
+}
+
+createdCardCode.textContent =
+data.cardCode;
+
+cardLink.textContent =
+data.url;
+
+cardLink.href =
+data.url;
+
+openCard.href =
+data.url;
+
+cardResult.classList.add(
+"show"
+);
+
+}
+catch(error){
+
+console.warn(
+"Could not load previous card:",
+error
+);
+
+}
+
+}
+
+
+/* =========================================================
+START
+========================================================= */
+
+loadLastCard();
+
+</script>
+
+</body>
+  </html>
