@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -17,21 +16,46 @@
 
 <style>
 
+/* =========================================================
+   SMART REVIEW CONTROL CENTER
+   UI-FIRST ADMIN CONSOLE
+========================================================= */
+
 :root{
   --navy:#061b3a;
   --navy2:#08264d;
+  --navy3:#0d376b;
+
   --blue:#165dff;
   --blue2:#4285ff;
+  --blueSoft:#edf4ff;
+
   --gold:#d99213;
   --gold2:#ffcf55;
+  --goldSoft:#fff7df;
+
   --green:#16834b;
+  --greenSoft:#eaf8f0;
+
   --red:#c93434;
+  --redSoft:#fff0f0;
+
   --orange:#c87800;
+  --orangeSoft:#fff5df;
+
   --white:#fff;
   --ink:#071b3c;
   --muted:#68778d;
+  --muted2:#8794a5;
+
   --soft:#f4f7fb;
+  --soft2:#f8faff;
   --line:#e4e9f0;
+
+  --shadow:0 9px 30px rgba(7,27,60,.055);
+  --shadowStrong:0 18px 45px rgba(7,27,60,.14);
+
+  --radius:20px;
 }
 
 *{
@@ -55,14 +79,23 @@ body{
     Arial,
     sans-serif;
 
-  background:#f4f7fb;
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(22,93,255,.04),
+      transparent 35%
+    ),
+    var(--soft);
+
   color:var(--ink);
+
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 
 button,
-input{
+input,
+select{
   font:inherit;
 }
 
@@ -70,9 +103,17 @@ button{
   -webkit-tap-highlight-color:transparent;
 }
 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible{
+  outline:3px solid rgba(22,93,255,.16);
+  outline-offset:2px;
+}
+
 .hidden{
   display:none!important;
 }
+
 
 /* =========================================================
    LOGIN
@@ -81,14 +122,17 @@ button{
 .login-screen{
   min-height:100vh;
   min-height:100dvh;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   padding:25px 16px;
+
   background:
     radial-gradient(
       circle at 50% 0%,
-      rgba(38,117,255,.28),
+      rgba(38,117,255,.30),
       transparent 35%
     ),
     linear-gradient(
@@ -101,21 +145,31 @@ button{
 .login-box{
   width:100%;
   max-width:440px;
+
   background:#fff;
+
   border-radius:28px;
-  padding:28px 20px;
-  box-shadow:0 25px 70px rgba(0,0,0,.30);
+
+  padding:30px 20px;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.30);
 }
 
 .login-logo{
   width:76px;
   height:76px;
+
   border-radius:50%;
+
   background:#fff;
+
   margin:0 auto 16px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   box-shadow:
     0 12px 28px rgba(0,0,0,.20),
     0 0 0 3px rgba(217,146,19,.9);
@@ -125,6 +179,7 @@ button{
   font-size:51px;
   font-weight:950;
   line-height:1;
+
   background:
     conic-gradient(
       from -35deg,
@@ -134,6 +189,7 @@ button{
       #ea4335 245deg 320deg,
       #4285f4 320deg 360deg
     );
+
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -141,27 +197,38 @@ button{
 
 .login-box h1{
   text-align:center;
+
   color:var(--navy);
+
   font-size:29px;
   font-weight:950;
 }
 
 .login-box > p{
   text-align:center;
+
   color:var(--muted);
+
   font-size:14px;
+
   margin:8px 0 22px;
 }
 
 .login-error{
   display:none;
+
   background:#fff0f0;
   border:1px solid #efc1c1;
   color:#a52626;
+
   border-radius:14px;
+
   padding:13px;
+
   margin-bottom:15px;
+
   font-size:14px;
+
   white-space:pre-wrap;
 }
 
@@ -169,55 +236,90 @@ button{
   display:block;
 }
 
+
 /* =========================================================
-   LOGIN / FORMS
+   FORMS
 ========================================================= */
 
 .field{
-  margin-bottom:16px;
+  margin-bottom:15px;
 }
 
 .field label{
   display:block;
+
   font-size:13px;
   font-weight:850;
+
   color:var(--navy);
+
   margin-bottom:7px;
 }
 
-.field input{
+.field input,
+.field select{
   width:100%;
+
   min-height:52px;
+
   border-radius:14px;
+
   border:1px solid #d9e0e9;
+
   background:#f7f9fc;
+
   color:var(--ink);
+
   padding:13px 14px;
+
   outline:none;
 }
 
-.field input:focus{
+.field input:focus,
+.field select:focus{
   border-color:rgba(22,93,255,.55);
-  box-shadow:0 0 0 4px rgba(22,93,255,.08);
+
+  box-shadow:
+    0 0 0 4px rgba(22,93,255,.08);
+
   background:#fff;
 }
+
 
 /* =========================================================
    BUTTONS
 ========================================================= */
 
 .btn{
-  min-height:46px;
+  min-height:44px;
+
   border:0;
+
   border-radius:13px;
-  padding:10px 15px;
+
+  padding:10px 14px;
+
   display:inline-flex;
+
   align-items:center;
   justify-content:center;
-  gap:8px;
+
+  gap:7px;
+
   font-weight:850;
+
   cursor:pointer;
-  transition:.15s ease;
+
+  transition:
+    transform .14s ease,
+    box-shadow .14s ease,
+    opacity .14s ease,
+    background .14s ease;
+}
+
+.btn:hover{
+  box-shadow:
+    0 7px 18px rgba(7,27,60,.08);
 }
 
 .btn:active{
@@ -227,46 +329,69 @@ button{
 .btn:disabled{
   opacity:.5;
   cursor:not-allowed;
+  box-shadow:none;
 }
 
 .btn-primary{
-  width:100%;
-  min-height:58px;
   color:#fff;
-  background:linear-gradient(135deg,#0a2d59,#0d407a);
+
+  background:
+    linear-gradient(
+      135deg,
+      #0a2d59,
+      #0d407a
+    );
+
   border:2px solid rgba(217,146,19,.8);
-  box-shadow:0 10px 24px rgba(7,27,60,.15);
+
+  box-shadow:
+    0 10px 24px rgba(7,27,60,.15);
+}
+
+.btn-blue{
+  background:var(--blueSoft);
+
+  color:#1551bd;
+
+  border:1px solid #c9dcff;
 }
 
 .btn-soft{
   background:#f1f5fa;
+
   color:var(--navy);
+
   border:1px solid var(--line);
 }
 
-.btn-blue{
-  background:#edf4ff;
-  color:#1551bd;
-  border:1px solid #c9dcff;
-}
-
 .btn-green{
-  background:#eaf8f0;
+  background:var(--greenSoft);
+
   color:#116b3d;
+
   border:1px solid #b9e5ca;
 }
 
 .btn-red{
-  background:#fff0f0;
+  background:var(--redSoft);
+
   color:#a52626;
+
   border:1px solid #efc1c1;
 }
 
 .btn-gold{
-  background:#fff7df;
+  background:var(--goldSoft);
+
   color:#8a5900;
+
   border:1px solid #f1d27c;
 }
+
+.btn-full{
+  width:100%;
+}
+
 
 /* =========================================================
    APP
@@ -276,6 +401,11 @@ button{
   min-height:100vh;
   min-height:100dvh;
 }
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
 
 .top{
   background:
@@ -289,40 +419,53 @@ button{
       #061b3a,
       #08264d
     );
+
   color:#fff;
+
   padding:
-    max(18px,env(safe-area-inset-top))
+    max(16px,env(safe-area-inset-top))
     16px
     0;
 }
 
 .top-inner{
-  max-width:1100px;
+  max-width:1150px;
+
   margin:auto;
 }
 
 .brand-row{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:12px;
 }
 
 .brand{
   display:flex;
+
   align-items:center;
+
   gap:10px;
 }
 
 .brand-mark{
   width:43px;
   height:43px;
+
   border-radius:50%;
+
   background:#fff;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 0 0 2px rgba(217,146,19,.9);
+
+  box-shadow:
+    0 0 0 2px rgba(217,146,19,.9);
+
   flex:none;
 }
 
@@ -337,19 +480,33 @@ button{
 
 .brand-sub{
   color:#9fb2cb;
+
   font-size:11px;
+
   margin-top:1px;
 }
 
 .logout{
   background:rgba(255,255,255,.08);
+
   border:1px solid rgba(255,255,255,.16);
+
   color:#fff;
+
   border-radius:11px;
+
   padding:9px 11px;
+
   font-size:12px;
   font-weight:800;
+
+  cursor:pointer;
 }
+
+
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero{
   padding:24px 0 20px;
@@ -357,25 +514,68 @@ button{
 
 .hero small{
   color:#91a8c5;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.7px;
+
+  font-size:11px;
+
+  font-weight:850;
+
+  letter-spacing:1px;
+
   text-transform:uppercase;
 }
 
 .hero h1{
   margin-top:4px;
+
   font-size:30px;
+
   line-height:1.08;
+
   font-weight:950;
+
   letter-spacing:-.8px;
 }
 
 .hero p{
   margin-top:7px;
+
   color:#c2d0e1;
+
   font-size:13px;
 }
+
+
+/* =========================================================
+   SYSTEM PULSE
+========================================================= */
+
+.system-pulse{
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  margin-top:12px;
+
+  color:#b9c9dc;
+
+  font-size:11px;
+}
+
+.pulse-dot{
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:#31c778;
+
+  box-shadow:
+    0 0 0 4px rgba(49,199,120,.13),
+    0 0 12px rgba(49,199,120,.65);
+}
+
 
 /* =========================================================
    NAV
@@ -383,6 +583,7 @@ button{
 
 .nav-wrap{
   overflow-x:auto;
+
   scrollbar-width:none;
 }
 
@@ -392,38 +593,53 @@ button{
 
 .nav{
   display:flex;
+
   gap:7px;
+
   min-width:max-content;
+
   padding-bottom:12px;
 }
 
 .nav button{
   border:1px solid rgba(255,255,255,.12);
+
   background:rgba(255,255,255,.07);
+
   color:#cbd7e6;
+
   padding:10px 13px;
+
   border-radius:12px 12px 0 0;
+
   font-size:12px;
   font-weight:850;
+
+  cursor:pointer;
 }
 
 .nav button.active{
   background:#fff;
+
   color:var(--navy);
 }
+
 
 /* =========================================================
    MAIN
 ========================================================= */
 
 .main{
-  max-width:1100px;
+  max-width:1150px;
+
   margin:auto;
+
   padding:
     18px
     16px
     max(40px,env(safe-area-inset-bottom));
 }
+
 
 /* =========================================================
    STATUS
@@ -431,11 +647,16 @@ button{
 
 .status{
   display:none;
+
   padding:14px;
+
   border-radius:14px;
+
   margin-bottom:16px;
+
   font-size:13px;
   font-weight:700;
+
   white-space:pre-wrap;
 }
 
@@ -444,25 +665,32 @@ button{
 }
 
 .status.success{
-  background:#eaf8f0;
+  background:var(--greenSoft);
+
   border:1px solid #b9e5ca;
+
   color:#116b3d;
 }
 
 .status.error{
-  background:#fff0f0;
+  background:var(--redSoft);
+
   border:1px solid #efc1c1;
+
   color:#a52626;
 }
 
 .status.info{
-  background:#edf4ff;
+  background:var(--blueSoft);
+
   border:1px solid #c7dcff;
+
   color:#174f9f;
 }
 
+
 /* =========================================================
-   VIEW
+   VIEWS
 ========================================================= */
 
 .view{
@@ -473,25 +701,38 @@ button{
   display:block;
 }
 
+
+/* =========================================================
+   SECTION HEAD
+========================================================= */
+
 .section-head{
   display:flex;
+
   align-items:flex-end;
   justify-content:space-between;
+
   gap:12px;
+
   margin-bottom:15px;
 }
 
 .section-head h2{
   font-size:23px;
+
   font-weight:950;
+
   letter-spacing:-.5px;
 }
 
 .section-head p{
   color:var(--muted);
+
   font-size:13px;
+
   margin-top:3px;
 }
+
 
 /* =========================================================
    KPI
@@ -499,64 +740,116 @@ button{
 
 .kpis{
   display:grid;
+
   grid-template-columns:repeat(2,1fr);
+
   gap:10px;
+
   margin-bottom:17px;
 }
 
 .kpi{
   background:#fff;
+
   border:1px solid var(--line);
+
   border-radius:18px;
+
   padding:16px;
-  box-shadow:0 8px 25px rgba(7,27,60,.05);
+
+  box-shadow:var(--shadow);
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.kpi::after{
+  content:"";
+
+  position:absolute;
+
+  right:-18px;
+  top:-18px;
+
+  width:55px;
+  height:55px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(22,93,255,.09),
+      transparent 70%
+    );
 }
 
 .kpi-label{
   color:var(--muted);
-  font-size:11px;
-  font-weight:800;
+
+  font-size:10px;
+
+  font-weight:850;
+
   text-transform:uppercase;
-  letter-spacing:.4px;
+
+  letter-spacing:.5px;
 }
 
 .kpi-value{
   margin-top:4px;
+
   font-size:27px;
+
   font-weight:950;
+
   color:var(--navy);
 }
 
 .kpi-note{
   color:#8794a5;
+
   font-size:11px;
+
   margin-top:2px;
 }
 
+
 /* =========================================================
-   PANEL
+   PANELS
 ========================================================= */
 
 .panel{
   background:#fff;
+
   border:1px solid var(--line);
+
   border-radius:21px;
+
   padding:18px;
+
   margin-bottom:15px;
-  box-shadow:0 9px 30px rgba(7,27,60,.055);
+
+  box-shadow:var(--shadow);
 }
 
 .panel h3{
   font-size:17px;
+
   font-weight:950;
 }
 
 .panel-desc{
   color:var(--muted);
+
   font-size:12px;
+
   line-height:1.45;
+
   margin-top:4px;
 }
+
 
 /* =========================================================
    SEARCH
@@ -564,26 +857,53 @@ button{
 
 .search{
   position:relative;
+
   margin-bottom:15px;
 }
 
 .search input{
   width:100%;
+
   min-height:51px;
+
   border-radius:15px;
+
   border:1px solid var(--line);
+
   background:#fff;
-  padding:12px 15px 12px 43px;
+
+  padding:
+    12px
+    15px
+    12px
+    43px;
+
   outline:none;
+
+  box-shadow:
+    0 5px 20px rgba(7,27,60,.035);
+}
+
+.search input:focus{
+  border-color:#bfd4fa;
+
+  box-shadow:
+    0 0 0 4px rgba(22,93,255,.06);
 }
 
 .search span{
   position:absolute;
+
   left:15px;
   top:50%;
+
   transform:translateY(-50%);
+
   color:#8795a8;
+
+  pointer-events:none;
 }
+
 
 /* =========================================================
    BUSINESS
@@ -591,98 +911,221 @@ button{
 
 .business-card{
   background:#fff;
+
   border:1px solid var(--line);
+
   border-radius:20px;
+
   margin-bottom:13px;
+
   overflow:hidden;
-  box-shadow:0 8px 25px rgba(7,27,60,.045);
+
+  box-shadow:
+    0 8px 25px rgba(7,27,60,.045);
 }
 
 .business-head{
   padding:17px;
+
   display:flex;
+
   align-items:center;
+
   gap:12px;
 }
 
 .business-icon{
   width:46px;
   height:46px;
+
   border-radius:14px;
-  background:linear-gradient(145deg,#edf4ff,#dceaff);
+
+  background:
+    linear-gradient(
+      145deg,
+      #edf4ff,
+      #dceaff
+    );
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:21px;
+
   flex:none;
 }
 
 .business-main{
   min-width:0;
+
   flex:1;
 }
 
 .business-name{
   font-size:17px;
+
   font-weight:950;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
 }
 
 .business-meta{
   color:var(--muted);
+
   font-size:11px;
+
   margin-top:3px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  border-radius:20px;
-  padding:5px 8px;
-  font-size:10px;
-  font-weight:900;
-}
-
-.badge.active{
-  background:#eaf8f0;
-  color:#116b3d;
-}
-
-.badge.paused{
-  background:#fff7df;
-  color:#8a5900;
-}
-
-.badge.blocked{
-  background:#fff0f0;
-  color:#a52626;
 }
 
 .business-actions{
   display:flex;
+
   gap:7px;
-  padding:0 17px 15px;
+
+  padding:
+    0
+    17px
+    15px;
 }
 
 .business-actions .btn{
   flex:1;
 }
 
+.business-summary{
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:7px;
+
+  padding:
+    0
+    17px
+    15px;
+}
+
+.business-summary-item{
+  background:#f7f9fc;
+
+  border-radius:11px;
+
+  padding:9px;
+}
+
+.business-summary-item b{
+  display:block;
+
+  font-size:15px;
+}
+
+.business-summary-item span{
+  display:block;
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  margin-top:2px;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge{
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:4px;
+
+  border-radius:20px;
+
+  padding:5px 8px;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  white-space:nowrap;
+}
+
+.badge.active{
+  background:var(--greenSoft);
+
+  color:#116b3d;
+}
+
+.badge.paused{
+  background:var(--goldSoft);
+
+  color:#8a5900;
+}
+
+.badge.blocked{
+  background:var(--redSoft);
+
+  color:#a52626;
+}
+
+
+/* =========================================================
+   CARD LIST
+========================================================= */
+
 .cards-list{
   border-top:1px solid var(--line);
+
   background:#fafbfd;
+
   padding:10px;
+}
+
+.cards-list-title{
+  padding:
+    5px
+    5px
+    9px;
+
+  color:#7d8b9e;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  text-transform:uppercase;
+
+  letter-spacing:.6px;
 }
 
 .card-row{
   background:#fff;
+
   border:1px solid var(--line);
+
   border-radius:15px;
+
   padding:13px;
+
   margin-bottom:8px;
+
+  transition:
+    transform .14s ease,
+    box-shadow .14s ease;
+}
+
+.card-row:hover{
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 8px 22px rgba(7,27,60,.07);
 }
 
 .card-row:last-child{
@@ -691,8 +1134,10 @@ button{
 
 .card-top{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
 }
 
@@ -704,53 +1149,87 @@ button{
     Monaco,
     Consolas,
     monospace;
+
   font-size:14px;
+
   font-weight:900;
+
   letter-spacing:.5px;
+
   color:var(--navy);
+}
+
+.card-sub{
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:4px;
 }
 
 .card-stats{
   display:grid;
+
   grid-template-columns:repeat(3,1fr);
+
   gap:7px;
+
   margin-top:10px;
 }
 
 .mini-stat{
   background:#f6f8fb;
+
   border-radius:10px;
+
   padding:8px;
 }
 
 .mini-stat b{
   display:block;
+
   font-size:14px;
 }
 
 .mini-stat span{
   display:block;
+
   color:var(--muted);
+
   font-size:9px;
+
   margin-top:1px;
 }
 
 .card-row-actions{
   display:flex;
+
   gap:6px;
+
   margin-top:10px;
+
   overflow-x:auto;
+
+  scrollbar-width:none;
+}
+
+.card-row-actions::-webkit-scrollbar{
+  display:none;
 }
 
 .card-row-actions .btn{
   flex:none;
+
   min-height:38px;
+
   font-size:11px;
+
   padding:7px 10px;
 }
 
+
 /* =========================================================
-   CARD CONTROL CENTER
+   CONTROL CENTER
 ========================================================= */
 
 .control-hero{
@@ -760,35 +1239,65 @@ button{
       rgba(66,133,255,.25),
       transparent 40%
     ),
-    linear-gradient(145deg,#061b3a,#0d376b);
+    linear-gradient(
+      145deg,
+      #061b3a,
+      #0d376b
+    );
+
   color:#fff;
+
   border-radius:22px;
+
   padding:20px;
+
   margin-bottom:15px;
-  box-shadow:0 15px 35px rgba(7,27,60,.18);
+
+  box-shadow:
+    0 15px 35px rgba(7,27,60,.18);
 }
 
 .control-back{
   background:rgba(255,255,255,.08);
+
   border:1px solid rgba(255,255,255,.15);
+
   color:#fff;
+
   border-radius:10px;
+
   padding:8px 11px;
+
   font-size:11px;
+
   font-weight:800;
+
   margin-bottom:18px;
+
+  cursor:pointer;
 }
 
 .control-code{
-  font-family:monospace;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
   font-size:24px;
+
   font-weight:950;
+
   letter-spacing:1px;
 }
 
 .control-business{
   color:#b9c9dc;
+
   font-size:13px;
+
   margin-top:5px;
 }
 
@@ -798,146 +1307,256 @@ button{
 
 .control-grid{
   display:grid;
+
   grid-template-columns:repeat(2,1fr);
+
   gap:9px;
+
   margin-top:17px;
 }
 
 .control-stat{
   background:rgba(255,255,255,.08);
+
   border:1px solid rgba(255,255,255,.10);
+
   border-radius:13px;
+
   padding:12px;
 }
 
 .control-stat span{
   display:block;
+
   color:#9eb2ca;
+
   font-size:10px;
+
   text-transform:uppercase;
 }
 
 .control-stat b{
   display:block;
+
   font-size:22px;
+
   margin-top:2px;
 }
 
+
+/* =========================================================
+   RATING
+========================================================= */
+
 .rating-grid{
   display:grid;
+
   gap:9px;
+
   margin-top:14px;
 }
 
 .rating-line{
   display:grid;
+
   grid-template-columns:32px 1fr 35px;
+
   align-items:center;
+
   gap:8px;
+
   font-size:12px;
+
   font-weight:800;
 }
 
 .rating-track{
   height:8px;
+
   border-radius:20px;
+
   background:#edf0f4;
+
   overflow:hidden;
 }
 
 .rating-fill{
   height:100%;
-  background:linear-gradient(90deg,#ffbf31,#d99213);
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffbf31,
+      #d99213
+    );
+
   border-radius:20px;
 }
 
+
+/* =========================================================
+   ACTION GRID
+========================================================= */
+
 .action-grid{
   display:grid;
+
   grid-template-columns:repeat(2,1fr);
+
   gap:9px;
+
   margin-top:15px;
 }
 
 .action-grid .btn{
   width:100%;
+
   min-height:49px;
 }
 
+
 /* =========================================================
-   FORMS / CREATE
+   BUSINESS DETAIL HERO
 ========================================================= */
 
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:0 14px;
+.business-detail-hero{
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(66,133,255,.24),
+      transparent 42%
+    ),
+    linear-gradient(
+      145deg,
+      #061b3a,
+      #0d376b
+    );
+
+  color:#fff;
+
+  border-radius:22px;
+
+  padding:20px;
+
+  margin-bottom:15px;
+
+  box-shadow:var(--shadowStrong);
 }
+
+.business-detail-title{
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+}
+
+.business-detail-icon{
+  width:52px;
+  height:52px;
+
+  border-radius:16px;
+
+  background:rgba(255,255,255,.10);
+
+  border:1px solid rgba(255,255,255,.13);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:23px;
+
+  flex:none;
+}
+
+.business-detail-name{
+  font-size:22px;
+
+  font-weight:950;
+
+  line-height:1.1;
+}
+
+.business-detail-meta{
+  color:#afc0d5;
+
+  font-size:11px;
+
+  margin-top:4px;
+}
+
+.business-detail-stats{
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:8px;
+
+  margin-top:17px;
+}
+
+.business-detail-stat{
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.10);
+
+  border-radius:13px;
+
+  padding:11px;
+}
+
+.business-detail-stat span{
+  display:block;
+
+  color:#9eb2ca;
+
+  font-size:9px;
+
+  text-transform:uppercase;
+}
+
+.business-detail-stat b{
+  display:block;
+
+  font-size:20px;
+
+  margin-top:2px;
+}
+
+
+/* =========================================================
+   CREATE CARD BOX
+========================================================= */
 
 .create-card-box{
   background:#f7faff;
+
   border:1px solid #dce8f8;
+
   border-radius:17px;
+
   padding:15px;
+
   margin-top:15px;
 }
 
 .create-card-box h4{
   font-size:14px;
+
   font-weight:900;
 }
 
 .create-card-box p{
   color:var(--muted);
+
   font-size:11px;
+
   margin-top:3px;
+
   margin-bottom:13px;
 }
 
-/* =========================================================
-   ACTIVITY
-========================================================= */
-
-.activity{
-  display:grid;
-  gap:9px;
-}
-
-.activity-row{
-  display:flex;
-  gap:11px;
-  padding:12px 0;
-  border-bottom:1px solid var(--line);
-}
-
-.activity-row:last-child{
-  border-bottom:0;
-}
-
-.activity-icon{
-  width:35px;
-  height:35px;
-  border-radius:11px;
-  background:#edf4ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex:none;
-}
-
-.activity-text{
-  font-size:12px;
-  line-height:1.4;
-}
-
-.activity-text b{
-  font-weight:900;
-}
-
-.activity-time{
-  color:#8a96a7;
-  font-size:10px;
-  margin-top:2px;
-}
 
 /* =========================================================
    EMPTY
@@ -945,24 +1564,71 @@ button{
 
 .empty{
   text-align:center;
+
   padding:35px 18px;
+
   color:var(--muted);
 }
 
 .empty-icon{
   font-size:35px;
+
   margin-bottom:8px;
 }
 
 .empty h3{
   color:var(--navy);
+
   font-size:17px;
 }
 
 .empty p{
   font-size:12px;
+
   margin-top:5px;
+
+  line-height:1.45;
 }
+
+
+/* =========================================================
+   ACTIVITY / INFO
+========================================================= */
+
+.info-list{
+  display:grid;
+
+  gap:0;
+}
+
+.info-row{
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  padding:11px 0;
+
+  border-bottom:1px solid var(--line);
+
+  font-size:12px;
+}
+
+.info-row:last-child{
+  border-bottom:0;
+}
+
+.info-row span{
+  color:var(--muted);
+}
+
+.info-row b{
+  text-align:right;
+
+  word-break:break-word;
+}
+
 
 /* =========================================================
    MODAL
@@ -970,12 +1636,19 @@ button{
 
 .modal{
   position:fixed;
+
   inset:0;
+
   background:rgba(3,14,31,.62);
+
   z-index:100;
+
   display:none;
+
   align-items:flex-end;
+
   justify-content:center;
+
   padding:0;
 }
 
@@ -985,45 +1658,129 @@ button{
 
 .modal-box{
   width:100%;
-  max-width:600px;
+
+  max-width:680px;
+
   background:#fff;
+
   border-radius:25px 25px 0 0;
-  padding:21px 17px max(21px,env(safe-area-inset-bottom));
-  max-height:90vh;
+
+  padding:
+    21px
+    17px
+    max(21px,env(safe-area-inset-bottom));
+
+  max-height:92vh;
+
   overflow:auto;
+
+  box-shadow:
+    0 -10px 50px rgba(0,0,0,.20);
 }
 
 .modal-head{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
+
   margin-bottom:17px;
 }
 
 .modal-head h3{
   font-size:20px;
+
   font-weight:950;
 }
 
 .close{
   width:38px;
   height:38px;
+
   border:0;
+
   border-radius:11px;
+
   background:#f1f4f8;
+
   font-size:19px;
+
+  cursor:pointer;
 }
 
 .modal-actions{
   display:flex;
+
   gap:8px;
+
   margin-top:15px;
 }
 
 .modal-actions .btn{
   flex:1;
 }
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+  position:fixed;
+
+  left:50%;
+
+  bottom:
+    max(18px,env(safe-area-inset-bottom));
+
+  transform:
+    translate(-50%,20px);
+
+  z-index:300;
+
+  width:
+    min(
+      calc(100% - 30px),
+      460px
+    );
+
+  background:#061b3a;
+
+  color:#fff;
+
+  border:
+    1px solid
+    rgba(255,255,255,.12);
+
+  border-radius:15px;
+
+  padding:13px 15px;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.25);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease;
+}
+
+.toast.show{
+  opacity:1;
+
+  transform:
+    translate(-50%,0);
+}
+
 
 /* =========================================================
    DESKTOP
@@ -1035,10 +1792,6 @@ button{
     grid-template-columns:repeat(4,1fr);
   }
 
-  .form-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
   .control-grid{
     grid-template-columns:repeat(4,1fr);
   }
@@ -1047,8 +1800,13 @@ button{
     grid-template-columns:repeat(4,1fr);
   }
 
+  .business-detail-stats{
+    grid-template-columns:repeat(4,1fr);
+  }
+
   .modal{
     align-items:center;
+
     padding:20px;
   }
 
@@ -1058,16 +1816,59 @@ button{
 
 }
 
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media(min-width:1050px){
+
+  .main{
+    padding-left:0;
+    padding-right:0;
+  }
+
+  .kpis{
+    gap:13px;
+  }
+
+  .kpi{
+    padding:19px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    transition:none!important;
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
+
 
 <!-- =========================================================
      LOGIN
 ========================================================= -->
 
-<section id="loginScreen" class="login-screen">
+<section
+  id="loginScreen"
+  class="login-screen"
+>
 
   <div class="login-box">
 
@@ -1081,12 +1882,18 @@ button{
       Connectez-vous à votre centre de contrôle.
     </p>
 
-    <div id="loginError" class="login-error"></div>
+    <div
+      id="loginError"
+      class="login-error"
+    ></div>
 
     <form id="loginForm">
 
       <div class="field">
-        <label for="email">E-mail</label>
+
+        <label for="email">
+          E-mail
+        </label>
 
         <input
           id="email"
@@ -1095,10 +1902,15 @@ button{
           required
           placeholder="Votre adresse e-mail"
         >
+
       </div>
 
+
       <div class="field">
-        <label for="password">Mot de passe</label>
+
+        <label for="password">
+          Mot de passe
+        </label>
 
         <input
           id="password"
@@ -1107,11 +1919,13 @@ button{
           required
           placeholder="Votre mot de passe"
         >
+
       </div>
+
 
       <button
         id="loginButton"
-        class="btn btn-primary"
+        class="btn btn-primary btn-full"
         type="submit"
       >
         Se connecter
@@ -1124,11 +1938,20 @@ button{
 </section>
 
 
+
 <!-- =========================================================
-     APP
+     APPLICATION
 ========================================================= -->
 
-<div id="adminApp" class="app hidden">
+<div
+  id="adminApp"
+  class="app hidden"
+>
+
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
 
   <header class="top">
 
@@ -1143,6 +1966,7 @@ button{
           </div>
 
           <div>
+
             <div class="brand-name">
               Smart Review
             </div>
@@ -1150,9 +1974,11 @@ button{
             <div class="brand-sub">
               Control Center
             </div>
+
           </div>
 
         </div>
+
 
         <button
           id="logoutButton"
@@ -1176,8 +2002,18 @@ button{
         </h1>
 
         <p>
-          Gérez vos établissements, cartes et performances.
+          Votre réseau Smart Review, sous contrôle.
         </p>
+
+        <div class="system-pulse">
+
+          <span class="pulse-dot"></span>
+
+          <span>
+            Système opérationnel
+          </span>
+
+        </div>
 
       </div>
 
@@ -1214,14 +2050,23 @@ button{
   </header>
 
 
+
+  <!-- =======================================================
+       MAIN
+  ======================================================== -->
+
   <main class="main">
 
-    <div id="status" class="status"></div>
+    <div
+      id="status"
+      class="status"
+    ></div>
+
 
 
     <!-- =====================================================
          DASHBOARD
-    ===================================================== -->
+    ====================================================== -->
 
     <section
       id="view-dashboard"
@@ -1231,12 +2076,17 @@ button{
       <div class="section-head">
 
         <div>
-          <h2>Vue générale</h2>
+
+          <h2>
+            Vue générale
+          </h2>
 
           <p>
             Votre système Smart Review en un coup d'œil.
           </p>
+
         </div>
+
 
         <button
           id="refreshButton"
@@ -1249,69 +2099,93 @@ button{
       </div>
 
 
+
       <div class="kpis">
 
         <div class="kpi">
+
           <div class="kpi-label">
             Établissements
           </div>
 
-          <div id="kpiBusinesses" class="kpi-value">
+          <div
+            id="kpiBusinesses"
+            class="kpi-value"
+          >
             —
           </div>
 
           <div class="kpi-note">
             enregistrés
           </div>
+
         </div>
 
 
         <div class="kpi">
+
           <div class="kpi-label">
             Cartes actives
           </div>
 
-          <div id="kpiCards" class="kpi-value">
+          <div
+            id="kpiCards"
+            class="kpi-value"
+          >
             —
           </div>
 
           <div class="kpi-note">
             opérationnelles
           </div>
+
         </div>
 
 
         <div class="kpi">
+
           <div class="kpi-label">
             Scans
           </div>
 
-          <div id="kpiScans" class="kpi-value">
+          <div
+            id="kpiScans"
+            class="kpi-value"
+          >
             —
           </div>
 
           <div class="kpi-note">
             total
           </div>
+
         </div>
 
 
         <div class="kpi">
+
           <div class="kpi-label">
             Avis
           </div>
 
-          <div id="kpiRatings" class="kpi-value">
+          <div
+            id="kpiRatings"
+            class="kpi-value"
+          >
             —
           </div>
 
           <div class="kpi-note">
             ratings reçus
           </div>
+
         </div>
 
       </div>
 
+
+
+      <!-- QUICK ACTIONS -->
 
       <div class="panel">
 
@@ -1320,8 +2194,9 @@ button{
         </h3>
 
         <p class="panel-desc">
-          Les actions que vous utiliserez le plus.
+          Les commandes principales du système.
         </p>
+
 
         <div class="action-grid">
 
@@ -1332,6 +2207,7 @@ button{
             ＋ Établissement
           </button>
 
+
           <button
             class="btn btn-blue"
             onclick="openCreateCardPicker()"
@@ -1339,24 +2215,29 @@ button{
             ＋ Nouvelle carte
           </button>
 
+
           <button
             class="btn btn-soft"
             onclick="switchView('businesses')"
           >
-            🏢 Gérer les établissements
+            🏢 Établissements
           </button>
+
 
           <button
             class="btn btn-soft"
             onclick="switchView('cards')"
           >
-            💳 Gérer les cartes
+            💳 Toutes les cartes
           </button>
 
         </div>
 
       </div>
 
+
+
+      <!-- SYSTEM INTELLIGENCE -->
 
       <div class="panel">
 
@@ -1375,21 +2256,27 @@ button{
       </div>
 
 
+
+      <!-- BUSINESS OVERVIEW -->
+
       <div class="panel">
 
-        <div class="section-head" style="margin-bottom:7px;">
+        <div class="section-head">
 
           <div>
+
             <h3>
-              🏢 Vos établissements
+              🏢 Réseau d'établissements
             </h3>
 
             <p class="panel-desc">
-              Chaque établissement peut posséder plusieurs cartes.
+              Un établissement peut posséder plusieurs cartes indépendantes.
             </p>
+
           </div>
 
         </div>
+
 
         <div id="dashboardBusinesses"></div>
 
@@ -1398,9 +2285,10 @@ button{
     </section>
 
 
+
     <!-- =====================================================
          BUSINESSES
-    ===================================================== -->
+    ====================================================== -->
 
     <section
       id="view-businesses"
@@ -1410,12 +2298,17 @@ button{
       <div class="section-head">
 
         <div>
-          <h2>Établissements</h2>
+
+          <h2>
+            Établissements
+          </h2>
 
           <p>
-            Gérez vos établissements et leurs cartes.
+            Gérez les entreprises et leurs cartes.
           </p>
+
         </div>
+
 
         <button
           class="btn btn-primary"
@@ -1430,7 +2323,9 @@ button{
 
       <div class="search">
 
-        <span>🔎</span>
+        <span>
+          🔎
+        </span>
 
         <input
           id="businessSearch"
@@ -1446,9 +2341,10 @@ button{
     </section>
 
 
+
     <!-- =====================================================
          CARDS
-    ===================================================== -->
+    ====================================================== -->
 
     <section
       id="view-cards"
@@ -1458,12 +2354,17 @@ button{
       <div class="section-head">
 
         <div>
-          <h2>Cartes</h2>
+
+          <h2>
+            Cartes
+          </h2>
 
           <p>
-            Chaque carte possède ses propres statistiques.
+            Chaque carte possède ses propres données.
           </p>
+
         </div>
+
 
         <button
           class="btn btn-primary"
@@ -1478,7 +2379,9 @@ button{
 
       <div class="search">
 
-        <span>🔎</span>
+        <span>
+          🔎
+        </span>
 
         <input
           id="cardSearch"
@@ -1494,9 +2397,10 @@ button{
     </section>
 
 
+
     <!-- =====================================================
          ANALYTICS
-    ===================================================== -->
+    ====================================================== -->
 
     <section
       id="view-analytics"
@@ -1506,44 +2410,99 @@ button{
       <div class="section-head">
 
         <div>
-          <h2>Statistiques</h2>
+
+          <h2>
+            Statistiques
+          </h2>
 
           <p>
-            Vue globale des performances.
+            Performance globale de votre réseau.
           </p>
+
         </div>
 
       </div>
+
 
       <div class="kpis">
 
         <div class="kpi">
-          <div class="kpi-label">1★</div>
-          <div id="rating1" class="kpi-value">0</div>
+
+          <div class="kpi-label">
+            1★
+          </div>
+
+          <div
+            id="rating1"
+            class="kpi-value"
+          >
+            0
+          </div>
+
         </div>
 
-        <div class="kpi">
-          <div class="kpi-label">2★</div>
-          <div id="rating2" class="kpi-value">0</div>
-        </div>
 
         <div class="kpi">
-          <div class="kpi-label">3★</div>
-          <div id="rating3" class="kpi-value">0</div>
+
+          <div class="kpi-label">
+            2★
+          </div>
+
+          <div
+            id="rating2"
+            class="kpi-value"
+          >
+            0
+          </div>
+
         </div>
 
+
         <div class="kpi">
-          <div class="kpi-label">4★</div>
-          <div id="rating4" class="kpi-value">0</div>
+
+          <div class="kpi-label">
+            3★
+          </div>
+
+          <div
+            id="rating3"
+            class="kpi-value"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="kpi">
+
+          <div class="kpi-label">
+            4★
+          </div>
+
+          <div
+            id="rating4"
+            class="kpi-value"
+          >
+            0
+          </div>
+
         </div>
 
       </div>
+
+
 
       <div class="panel">
 
         <h3>
           ⭐ Distribution des avis
         </h3>
+
+        <p class="panel-desc">
+          Répartition de tous les ratings connus.
+        </p>
+
 
         <div
           id="globalRatingBars"
@@ -1552,11 +2511,30 @@ button{
 
       </div>
 
+
+
+      <div class="panel">
+
+        <h3>
+          🧠 Lecture rapide
+        </h3>
+
+        <p
+          id="analyticsSummary"
+          class="panel-desc"
+          style="margin-top:9px;"
+        >
+          —
+        </p>
+
+      </div>
+
     </section>
 
   </main>
 
 </div>
+
 
 
 <!-- =========================================================
@@ -1576,6 +2554,7 @@ button{
         Smart Review
       </h3>
 
+
       <button
         id="modalClose"
         class="close"
@@ -1586,11 +2565,24 @@ button{
 
     </div>
 
+
     <div id="modalBody"></div>
 
   </div>
 
 </div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
 
 
 <script>
@@ -1631,37 +2623,64 @@ let dashboardData = {
 
 let selectedCardId = null;
 
+let selectedBusinessId = null;
+
+let toastTimer = null;
+
 
 /* =========================================================
    ELEMENTS
 ========================================================= */
 
 const loginScreen =
-  document.getElementById("loginScreen");
+  document.getElementById(
+    "loginScreen"
+  );
 
 const adminApp =
-  document.getElementById("adminApp");
+  document.getElementById(
+    "adminApp"
+  );
 
 const loginForm =
-  document.getElementById("loginForm");
+  document.getElementById(
+    "loginForm"
+  );
 
 const loginButton =
-  document.getElementById("loginButton");
+  document.getElementById(
+    "loginButton"
+  );
 
 const loginError =
-  document.getElementById("loginError");
+  document.getElementById(
+    "loginError"
+  );
 
 const statusBox =
-  document.getElementById("status");
+  document.getElementById(
+    "status"
+  );
 
 const modal =
-  document.getElementById("modal");
+  document.getElementById(
+    "modal"
+  );
 
 const modalTitle =
-  document.getElementById("modalTitle");
+  document.getElementById(
+    "modalTitle"
+  );
 
 const modalBody =
-  document.getElementById("modalBody");
+  document.getElementById(
+    "modalBody"
+  );
+
+const toast =
+  document.getElementById(
+    "toast"
+  );
 
 
 /* =========================================================
@@ -1684,8 +2703,42 @@ function showStatus(
 
 function clearStatus(){
 
-  statusBox.textContent="";
-  statusBox.className="status";
+  statusBox.textContent = "";
+
+  statusBox.className =
+    "status";
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+  message
+){
+
+  clearTimeout(
+    toastTimer
+  );
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    "show"
+  );
+
+  toastTimer =
+    setTimeout(
+      () => {
+        toast.classList.remove(
+          "show"
+        );
+      },
+      2200
+    );
 
 }
 
@@ -1705,6 +2758,7 @@ async function getCurrentUser(){
   if(error){
 
     console.error(error);
+
     return null;
 
   }
@@ -1721,15 +2775,23 @@ async function showAdmin(){
 
   if(!user){
 
-    loginScreen.style.display="flex";
-    adminApp.classList.add("hidden");
+    loginScreen.style.display =
+      "flex";
+
+    adminApp.classList.add(
+      "hidden"
+    );
 
     return;
 
   }
 
-  loginScreen.style.display="none";
-  adminApp.classList.remove("hidden");
+  loginScreen.style.display =
+    "none";
+
+  adminApp.classList.remove(
+    "hidden"
+  );
 
   await loadEverything();
 
@@ -1750,8 +2812,12 @@ async function checkSession(){
 
       console.error(error);
 
-      loginScreen.style.display="flex";
-      adminApp.classList.add("hidden");
+      loginScreen.style.display =
+        "flex";
+
+      adminApp.classList.add(
+        "hidden"
+      );
 
       return;
 
@@ -1765,8 +2831,12 @@ async function checkSession(){
 
     else{
 
-      loginScreen.style.display="flex";
-      adminApp.classList.add("hidden");
+      loginScreen.style.display =
+        "flex";
+
+      adminApp.classList.add(
+        "hidden"
+      );
 
     }
 
@@ -1776,8 +2846,12 @@ async function checkSession(){
 
     console.error(error);
 
-    loginScreen.style.display="flex";
-    adminApp.classList.add("hidden");
+    loginScreen.style.display =
+      "flex";
+
+    adminApp.classList.add(
+      "hidden"
+    );
 
   }
 
@@ -1801,8 +2875,12 @@ supabaseClient.auth.onAuthStateChange(
 
     else{
 
-      loginScreen.style.display="flex";
-      adminApp.classList.add("hidden");
+      loginScreen.style.display =
+        "flex";
+
+      adminApp.classList.add(
+        "hidden"
+      );
 
     }
 
@@ -1820,18 +2898,26 @@ loginForm.addEventListener(
 
     event.preventDefault();
 
-    loginError.classList.remove("show");
+    loginError.classList.remove(
+      "show"
+    );
 
     const email =
-      document.getElementById("email")
-        .value.trim();
+      document
+        .getElementById("email")
+        .value
+        .trim();
 
     const password =
-      document.getElementById("password")
+      document
+        .getElementById("password")
         .value;
 
-    loginButton.disabled=true;
-    loginButton.textContent="Connexion…";
+    loginButton.disabled =
+      true;
+
+    loginButton.textContent =
+      "Connexion…";
 
     try{
 
@@ -1839,10 +2925,10 @@ loginForm.addEventListener(
         data,
         error
       } =
-        await supabaseClient.auth.signInWithPassword({
-          email,
-          password
-        });
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
 
       if(error){
 
@@ -1858,7 +2944,9 @@ loginForm.addEventListener(
 
       }
 
-      document.getElementById("password").value="";
+      document
+        .getElementById("password")
+        .value = "";
 
       await showAdmin();
 
@@ -1872,14 +2960,19 @@ loginForm.addEventListener(
         "Connexion refusée.\n\n" +
         error.message;
 
-      loginError.classList.add("show");
+      loginError.classList.add(
+        "show"
+      );
 
     }
 
     finally{
 
-      loginButton.disabled=false;
-      loginButton.textContent="Se connecter";
+      loginButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "Se connecter";
 
     }
 
@@ -1892,7 +2985,9 @@ loginForm.addEventListener(
 ========================================================= */
 
 document
-  .getElementById("logoutButton")
+  .getElementById(
+    "logoutButton"
+  )
   .addEventListener(
     "click",
     async () => {
@@ -1907,15 +3002,18 @@ document
    NAVIGATION
 ========================================================= */
 
-function switchView(view){
+function switchView(
+  view
+){
 
   document
     .querySelectorAll(".view")
-    .forEach(el => {
-
-      el.classList.remove("active");
-
-    });
+    .forEach(
+      element =>
+        element.classList.remove(
+          "active"
+        )
+    );
 
   const target =
     document.getElementById(
@@ -1924,20 +3022,24 @@ function switchView(view){
 
   if(target){
 
-    target.classList.add("active");
+    target.classList.add(
+      "active"
+    );
 
   }
 
   document
     .querySelectorAll(".nav button")
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.classList.toggle(
-        "active",
-        button.dataset.view === view
-      );
+        button.classList.toggle(
+          "active",
+          button.dataset.view === view
+        );
 
-    });
+      }
+    );
 
   window.scrollTo({
     top:0,
@@ -1949,16 +3051,19 @@ function switchView(view){
 
 document
   .querySelectorAll(".nav button")
-  .forEach(button => {
+  .forEach(
+    button => {
 
-    button.addEventListener(
-      "click",
-      () => switchView(
-        button.dataset.view
-      )
-    );
+      button.addEventListener(
+        "click",
+        () =>
+          switchView(
+            button.dataset.view
+          )
+      );
 
-  });
+    }
+  );
 
 
 /* =========================================================
@@ -1970,11 +3075,6 @@ async function loadEverything(){
   clearStatus();
 
   try{
-
-    /*
-      Main admin RPC.
-      This is already part of the system we created.
-    */
 
     const {
       data,
@@ -1999,10 +3099,6 @@ async function loadEverything(){
     dashboardData.cards =
       data?.cards || [];
 
-
-    /*
-      Safe card statistics RPC.
-    */
 
     const {
       data:stats,
@@ -2055,31 +3151,52 @@ async function loadEverything(){
 function mergeStats(){
 
   dashboardData.cards =
-    dashboardData.cards.map(card => {
+    dashboardData.cards.map(
+      card => {
 
-      const stats =
-        dashboardData.stats.find(
-          item =>
-            item.card_id === card.id
-        );
+        const stats =
+          dashboardData.stats.find(
+            item =>
+              item.card_id === card.id
+          );
 
-      return {
-        ...card,
-        total_scans:
-          Number(stats?.total_scans || 0),
-        rating_1:
-          Number(stats?.rating_1 || 0),
-        rating_2:
-          Number(stats?.rating_2 || 0),
-        rating_3:
-          Number(stats?.rating_3 || 0),
-        rating_4:
-          Number(stats?.rating_4 || 0),
-        rating_5:
-          Number(stats?.rating_5 || 0)
-      };
+        return {
+          ...card,
 
-    });
+          total_scans:
+            Number(
+              stats?.total_scans || 0
+            ),
+
+          rating_1:
+            Number(
+              stats?.rating_1 || 0
+            ),
+
+          rating_2:
+            Number(
+              stats?.rating_2 || 0
+            ),
+
+          rating_3:
+            Number(
+              stats?.rating_3 || 0
+            ),
+
+          rating_4:
+            Number(
+              stats?.rating_4 || 0
+            ),
+
+          rating_5:
+            Number(
+              stats?.rating_5 || 0
+            )
+
+        };
+
+      }
+    );
 
 }
 
@@ -2112,25 +3229,33 @@ function getBusinessCards(
 }
 
 
-function totalRatings(card){
+function totalRatings(
+  card
+){
 
   return (
-    card.rating_1 +
-    card.rating_2 +
-    card.rating_3 +
-    card.rating_4 +
-    card.rating_5
+    Number(card.rating_1 || 0) +
+    Number(card.rating_2 || 0) +
+    Number(card.rating_3 || 0) +
+    Number(card.rating_4 || 0) +
+    Number(card.rating_5 || 0)
   );
 
 }
 
 
-function averageRating(card){
+function averageRating(
+  card
+){
 
   const total =
     totalRatings(card);
 
-  if(!total) return "—";
+  if(!total){
+
+    return "—";
+
+  }
 
   const score =
     (
@@ -2146,14 +3271,93 @@ function averageRating(card){
 }
 
 
-function cardStatus(card){
+function totalScansForBusiness(
+  businessId
+){
+
+  return getBusinessCards(
+    businessId
+  ).reduce(
+    (sum,card) =>
+      sum +
+      Number(card.total_scans || 0),
+    0
+  );
+
+}
+
+
+function totalRatingsForBusiness(
+  businessId
+){
+
+  return getBusinessCards(
+    businessId
+  ).reduce(
+    (sum,card) =>
+      sum +
+      totalRatings(card),
+    0
+  );
+
+}
+
+
+function averageBusinessRating(
+  businessId
+){
+
+  const cards =
+    getBusinessCards(
+      businessId
+    );
+
+  const total =
+    cards.reduce(
+      (sum,card) =>
+        sum + totalRatings(card),
+      0
+    );
+
+  if(!total){
+
+    return "—";
+
+  }
+
+  const weighted =
+    cards.reduce(
+      (sum,card) =>
+        sum +
+        (
+          card.rating_1 * 1 +
+          card.rating_2 * 2 +
+          card.rating_3 * 3 +
+          card.rating_4 * 4 +
+          card.rating_5 * 5
+        ),
+      0
+    );
+
+  return (
+    weighted / total
+  ).toFixed(1);
+
+}
+
+
+function cardStatus(
+  card
+){
 
   if(card.active){
+
     return `
       <span class="badge active">
         ● Active
       </span>
     `;
+
   }
 
   return `
@@ -2165,14 +3369,31 @@ function cardStatus(card){
 }
 
 
-function escapeHtml(value){
+function escapeHtml(
+  value
+){
 
   return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
 
@@ -2184,9 +3405,13 @@ function escapeHtml(value){
 function renderAll(){
 
   renderKPIs();
+
   renderDashboardBusinesses();
+
   renderBusinesses();
+
   renderCards();
+
   renderAnalytics();
 
 }
@@ -2209,14 +3434,16 @@ function renderKPIs(){
   const scans =
     dashboardData.cards.reduce(
       (sum,card) =>
-        sum + card.total_scans,
+        sum +
+        Number(card.total_scans || 0),
       0
     );
 
   const ratings =
     dashboardData.cards.reduce(
       (sum,card) =>
-        sum + totalRatings(card),
+        sum +
+        totalRatings(card),
       0
     );
 
@@ -2248,7 +3475,9 @@ function renderKPIs(){
     `${dashboardData.cards.length} carte(s), ` +
     `${activeCards} carte(s) active(s), ` +
     `${scans} scan(s) et ` +
-    `${ratings} rating(s).`;
+    `${ratings} rating(s). ` +
+    `Chaque carte conserve ses statistiques indépendamment.`;
+
 }
 
 
@@ -2270,10 +3499,25 @@ function businessHtml(
       card => card.active
     ).length;
 
+  const scans =
+    totalScansForBusiness(
+      business.id
+    );
+
+  const ratings =
+    totalRatingsForBusiness(
+      business.id
+    );
+
+  const average =
+    averageBusinessRating(
+      business.id
+    );
+
   return `
     <article
       class="business-card"
-      data-business-id="${business.id}"
+      data-business-id="${escapeHtml(business.id)}"
     >
 
       <div class="business-head">
@@ -2302,18 +3546,47 @@ function businessHtml(
       </div>
 
 
+      <div class="business-summary">
+
+        <div class="business-summary-item">
+          <b>${scans}</b>
+          <span>Scans</span>
+        </div>
+
+        <div class="business-summary-item">
+          <b>${ratings}</b>
+          <span>Avis</span>
+        </div>
+
+        <div class="business-summary-item">
+          <b>⭐ ${average}</b>
+          <span>Moyenne</span>
+        </div>
+
+      </div>
+
+
       <div class="business-actions">
 
         <button
           class="btn btn-blue"
-          onclick="openEditBusiness('${business.id}')"
+          onclick="openBusinessDetail('${escapeHtml(business.id)}')"
+        >
+          🎛️ Control Center
+        </button>
+
+
+        <button
+          class="btn btn-soft"
+          onclick="openEditBusiness('${escapeHtml(business.id)}')"
         >
           ✏️ Modifier
         </button>
 
+
         <button
           class="btn btn-primary"
-          onclick="openAddCard('${business.id}')"
+          onclick="openAddCard('${escapeHtml(business.id)}')"
         >
           ＋ Carte
         </button>
@@ -2323,18 +3596,32 @@ function businessHtml(
 
       <div class="cards-list">
 
+        <div class="cards-list-title">
+          💳 Cartes de cet établissement
+        </div>
+
         ${
           cards.length
           ?
-          cards.map(cardHtml).join("")
+          cards.map(
+            cardHtml
+          ).join("")
           :
           `
             <div class="empty">
-              <div class="empty-icon">💳</div>
-              <h3>Aucune carte</h3>
+
+              <div class="empty-icon">
+                💳
+              </div>
+
+              <h3>
+                Aucune carte
+              </h3>
+
               <p>
                 Ajoutez la première carte de cet établissement.
               </p>
+
             </div>
           `
         }
@@ -2355,13 +3642,30 @@ function cardHtml(
   card
 ){
 
+  const business =
+    getBusiness(
+      card.business_id
+    );
+
   return `
     <div class="card-row">
 
       <div class="card-top">
 
-        <div class="card-code">
-          ${escapeHtml(card.card_code)}
+        <div>
+
+          <div class="card-code">
+            ${escapeHtml(card.card_code)}
+          </div>
+
+          <div class="card-sub">
+            ${
+              escapeHtml(
+                business?.name || "Établissement"
+              )
+            }
+          </div>
+
         </div>
 
         ${cardStatus(card)}
@@ -2372,18 +3676,41 @@ function cardHtml(
       <div class="card-stats">
 
         <div class="mini-stat">
-          <b>${card.total_scans}</b>
-          <span>Scans</span>
+
+          <b>
+            ${Number(card.total_scans || 0)}
+          </b>
+
+          <span>
+            Scans
+          </span>
+
         </div>
 
-        <div class="mini-stat">
-          <b>${totalRatings(card)}</b>
-          <span>Avis</span>
-        </div>
 
         <div class="mini-stat">
-          <b>⭐ ${averageRating(card)}</b>
-          <span>Moyenne</span>
+
+          <b>
+            ${totalRatings(card)}
+          </b>
+
+          <span>
+            Avis
+          </span>
+
+        </div>
+
+
+        <div class="mini-stat">
+
+          <b>
+            ⭐ ${averageRating(card)}
+          </b>
+
+          <span>
+            Moyenne
+          </span>
+
         </div>
 
       </div>
@@ -2393,21 +3720,23 @@ function cardHtml(
 
         <button
           class="btn btn-blue"
-          onclick="openCardControl('${card.id}')"
+          onclick="openCardControl('${escapeHtml(card.id)}')"
         >
           🎛️ Gérer
         </button>
 
+
         <button
           class="btn btn-soft"
-          onclick="openCustomerCard('${card.card_code}')"
+          onclick="openCustomerCard('${escapeHtml(card.card_code)}')"
         >
           🔗 Ouvrir
         </button>
 
+
         <button
           class="btn btn-soft"
-          onclick="copyCardLink('${card.card_code}')"
+          onclick="copyCardLink('${escapeHtml(card.card_code)}')"
         >
           📋 Copier
         </button>
@@ -2435,11 +3764,19 @@ function renderDashboardBusinesses(){
 
     box.innerHTML = `
       <div class="empty">
-        <div class="empty-icon">🏢</div>
-        <h3>Aucun établissement</h3>
+
+        <div class="empty-icon">
+          🏢
+        </div>
+
+        <h3>
+          Aucun établissement
+        </h3>
+
         <p>
           Commencez par créer votre premier établissement.
         </p>
+
       </div>
     `;
 
@@ -2450,7 +3787,9 @@ function renderDashboardBusinesses(){
   box.innerHTML =
     dashboardData.businesses
       .slice(0,5)
-      .map(businessHtml)
+      .map(
+        businessHtml
+      )
       .join("");
 
 }
@@ -2469,33 +3808,50 @@ function renderBusinesses(){
 
   const query =
     (
-      document.getElementById(
-        "businessSearch"
-      )?.value || ""
+      document
+        .getElementById(
+          "businessSearch"
+        )
+        ?.value ||
+      ""
     )
       .trim()
       .toLowerCase();
+
 
   const businesses =
     dashboardData.businesses.filter(
       business =>
         !query ||
-        business.name
+        String(
+          business.name || ""
+        )
           .toLowerCase()
           .includes(query)
     );
+
 
   if(!businesses.length){
 
     box.innerHTML = `
       <div class="panel">
+
         <div class="empty">
-          <div class="empty-icon">🔎</div>
-          <h3>Aucun résultat</h3>
+
+          <div class="empty-icon">
+            🔎
+          </div>
+
+          <h3>
+            Aucun résultat
+          </h3>
+
           <p>
             Aucun établissement ne correspond à votre recherche.
           </p>
+
         </div>
+
       </div>
     `;
 
@@ -2503,9 +3859,12 @@ function renderBusinesses(){
 
   }
 
+
   box.innerHTML =
     businesses
-      .map(businessHtml)
+      .map(
+        businessHtml
+      )
       .join("");
 
 }
@@ -2524,48 +3883,68 @@ function renderCards(){
 
   const query =
     (
-      document.getElementById(
-        "cardSearch"
-      )?.value || ""
+      document
+        .getElementById(
+          "cardSearch"
+        )
+        ?.value ||
+      ""
     )
       .trim()
       .toLowerCase();
 
-  const cards =
-    dashboardData.cards.filter(card => {
 
-      const business =
-        getBusiness(
-          card.business_id
+  const cards =
+    dashboardData.cards.filter(
+      card => {
+
+        const business =
+          getBusiness(
+            card.business_id
+          );
+
+        const businessName =
+          business?.name || "";
+
+        return (
+          !query ||
+
+          String(
+            card.card_code || ""
+          )
+            .toLowerCase()
+            .includes(query) ||
+
+          businessName
+            .toLowerCase()
+            .includes(query)
         );
 
-      const businessName =
-        business?.name || "";
-
-      return (
-        !query ||
-        card.card_code
-          .toLowerCase()
-          .includes(query) ||
-        businessName
-          .toLowerCase()
-          .includes(query)
-      );
-
-    });
+      }
+    );
 
 
   if(!cards.length){
 
     box.innerHTML = `
       <div class="panel">
+
         <div class="empty">
-          <div class="empty-icon">💳</div>
-          <h3>Aucune carte trouvée</h3>
+
+          <div class="empty-icon">
+            💳
+          </div>
+
+          <h3>
+            Aucune carte trouvée
+          </h3>
+
           <p>
             Essayez un autre code ou nom d'établissement.
           </p>
+
         </div>
+
       </div>
     `;
 
@@ -2575,94 +3954,123 @@ function renderCards(){
 
 
   box.innerHTML =
-    cards.map(card => {
+    cards
+      .map(
+        card => {
 
-      const business =
-        getBusiness(
-          card.business_id
-        );
+          const business =
+            getBusiness(
+              card.business_id
+            );
 
-      return `
-        <div class="panel">
+          return `
+            <div class="panel">
 
-          <div class="card-top">
+              <div class="card-top">
 
-            <div>
+                <div>
 
-              <div class="card-code">
-                ${escapeHtml(card.card_code)}
+                  <div class="card-code">
+                    ${escapeHtml(card.card_code)}
+                  </div>
+
+                  <div
+                    style="
+                      color:var(--muted);
+                      font-size:12px;
+                      margin-top:4px;
+                    "
+                  >
+                    🏢
+                    ${escapeHtml(
+                      business?.name ||
+                      "Établissement inconnu"
+                    )}
+                  </div>
+
+                </div>
+
+                ${cardStatus(card)}
+
               </div>
 
-              <div
-                style="
-                  color:var(--muted);
-                  font-size:12px;
-                  margin-top:4px;
-                "
-              >
-                🏢
-                ${escapeHtml(
-                  business?.name || "Établissement inconnu"
-                )}
+
+              <div class="card-stats">
+
+                <div class="mini-stat">
+
+                  <b>
+                    ${card.total_scans}
+                  </b>
+
+                  <span>
+                    Scans
+                  </span>
+
+                </div>
+
+
+                <div class="mini-stat">
+
+                  <b>
+                    ${totalRatings(card)}
+                  </b>
+
+                  <span>
+                    Avis
+                  </span>
+
+                </div>
+
+
+                <div class="mini-stat">
+
+                  <b>
+                    ⭐ ${averageRating(card)}
+                  </b>
+
+                  <span>
+                    Moyenne
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="card-row-actions">
+
+                <button
+                  class="btn btn-primary"
+                  onclick="openCardControl('${escapeHtml(card.id)}')"
+                >
+                  🎛️ Control Center
+                </button>
+
+
+                <button
+                  class="btn btn-soft"
+                  onclick="openCustomerCard('${escapeHtml(card.card_code)}')"
+                >
+                  🔗 Ouvrir
+                </button>
+
+
+                <button
+                  class="btn btn-soft"
+                  onclick="copyCardLink('${escapeHtml(card.card_code)}')"
+                >
+                  📋 Copier
+                </button>
+
               </div>
 
             </div>
+          `;
 
-            ${cardStatus(card)}
-
-          </div>
-
-
-          <div class="card-stats">
-
-            <div class="mini-stat">
-              <b>${card.total_scans}</b>
-              <span>Scans</span>
-            </div>
-
-            <div class="mini-stat">
-              <b>${totalRatings(card)}</b>
-              <span>Avis</span>
-            </div>
-
-            <div class="mini-stat">
-              <b>⭐ ${averageRating(card)}</b>
-              <span>Moyenne</span>
-            </div>
-
-          </div>
-
-
-          <div class="card-row-actions">
-
-            <button
-              class="btn btn-primary"
-              onclick="openCardControl('${card.id}')"
-            >
-              🎛️ Control Center
-            </button>
-
-            <button
-              class="btn btn-soft"
-              onclick="openCustomerCard('${card.card_code}')"
-            >
-              🔗 Ouvrir
-            </button>
-
-            <button
-              class="btn btn-soft"
-              onclick="copyCardLink('${card.card_code}')"
-            >
-              📋 Copier
-            </button>
-
-          </div>
-
-        </div>
-      `;
-
-    })
-    .join("");
+        }
+      )
+      .join("");
 
 }
 
@@ -2671,7 +4079,7 @@ function renderCards(){
    ANALYTICS
 ========================================================= */
 
-function renderAnalytics(){
+function getGlobalRatingTotals(){
 
   const totals = {
     1:0,
@@ -2681,38 +4089,62 @@ function renderAnalytics(){
     5:0
   };
 
-  dashboardData.cards.forEach(card => {
+  dashboardData.cards.forEach(
+    card => {
 
-    totals[1] += card.rating_1;
-    totals[2] += card.rating_2;
-    totals[3] += card.rating_3;
-    totals[4] += card.rating_4;
-    totals[5] += card.rating_5;
+      totals[1] +=
+        Number(card.rating_1 || 0);
 
-  });
+      totals[2] +=
+        Number(card.rating_2 || 0);
 
+      totals[3] +=
+        Number(card.rating_3 || 0);
+
+      totals[4] +=
+        Number(card.rating_4 || 0);
+
+      totals[5] +=
+        Number(card.rating_5 || 0);
+
+    }
+  );
+
+  return totals;
+
+}
+
+
+function renderAnalytics(){
+
+  const totals =
+    getGlobalRatingTotals();
 
   document.getElementById(
     "rating1"
-  ).textContent = totals[1];
+  ).textContent =
+    totals[1];
 
   document.getElementById(
     "rating2"
-  ).textContent = totals[2];
+  ).textContent =
+    totals[2];
 
   document.getElementById(
     "rating3"
-  ).textContent = totals[3];
+  ).textContent =
+    totals[3];
 
   document.getElementById(
     "rating4"
-  ).textContent = totals[4];
+  ).textContent =
+    totals[4];
 
 
   const total =
     Object.values(totals)
       .reduce(
-        (a,b) => a+b,
+        (a,b) => a + b,
         0
       );
 
@@ -2721,39 +4153,75 @@ function renderAnalytics(){
     "globalRatingBars"
   ).innerHTML =
     [5,4,3,2,1]
-      .map(star => {
+      .map(
+        star => {
 
-        const value =
-          totals[star];
+          const value =
+            totals[star];
 
-        const percent =
-          total
-          ? (value / total) * 100
-          : 0;
+          const percent =
+            total
+            ? (
+                value /
+                total
+              ) * 100
+            : 0;
 
-        return `
-          <div class="rating-line">
+          return `
+            <div class="rating-line">
 
-            <span>
-              ${star}★
-            </span>
+              <span>
+                ${star}★
+              </span>
 
-            <div class="rating-track">
-              <div
-                class="rating-fill"
-                style="width:${percent}%"
-              ></div>
+              <div class="rating-track">
+
+                <div
+                  class="rating-fill"
+                  style="width:${percent}%"
+                ></div>
+
+              </div>
+
+              <span>
+                ${value}
+              </span>
+
             </div>
+          `;
 
-            <span>
-              ${value}
-            </span>
-
-          </div>
-        `;
-
-      })
+        }
+      )
       .join("");
+
+
+  let summary =
+    "Aucun rating enregistré pour le moment.";
+
+  if(total){
+
+    const weighted =
+      (
+        totals[1] * 1 +
+        totals[2] * 2 +
+        totals[3] * 3 +
+        totals[4] * 4 +
+        totals[5] * 5
+      );
+
+    const average =
+      weighted / total;
+
+    summary =
+      `${total} rating(s) au total, avec une moyenne globale de ⭐ ${average.toFixed(1)}. ` +
+      `Les statistiques affichées sont calculées à partir des données réelles des cartes.`;
+
+  }
+
+  document.getElementById(
+    "analyticsSummary"
+  ).textContent =
+    summary;
 
 }
 
@@ -2763,14 +4231,19 @@ function renderAnalytics(){
 ========================================================= */
 
 document
-  .getElementById("businessSearch")
+  .getElementById(
+    "businessSearch"
+  )
   .addEventListener(
     "input",
     renderBusinesses
   );
 
+
 document
-  .getElementById("cardSearch")
+  .getElementById(
+    "cardSearch"
+  )
   .addEventListener(
     "input",
     renderCards
@@ -2782,7 +4255,9 @@ document
 ========================================================= */
 
 document
-  .getElementById("refreshButton")
+  .getElementById(
+    "refreshButton"
+  )
   .addEventListener(
     "click",
     async () => {
@@ -2792,13 +4267,19 @@ document
           "refreshButton"
         );
 
-      button.disabled=true;
-      button.textContent="⏳ Actualisation…";
+      button.disabled =
+        true;
+
+      button.textContent =
+        "⏳ Actualisation…";
 
       await loadEverything();
 
-      button.disabled=false;
-      button.textContent="🔄 Actualiser";
+      button.disabled =
+        false;
+
+      button.textContent =
+        "🔄 Actualiser";
 
     }
   );
@@ -2867,6 +4348,10 @@ async function copyCardLink(
       "success"
     );
 
+    showToast(
+      "Lien copié."
+    );
+
   }
 
   catch(error){
@@ -2877,6 +4362,48 @@ async function copyCardLink(
     );
 
   }
+
+}
+
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+async function shareCard(
+  code
+){
+
+  const url =
+    getCustomerUrl(code);
+
+  if(navigator.share){
+
+    try{
+
+      await navigator.share({
+        title:"Smart Review",
+        text:"Ma carte Smart Review",
+        url
+      });
+
+    }
+
+    catch(error){
+
+      console.log(
+        "Share cancelled"
+      );
+
+    }
+
+    return;
+
+  }
+
+  await copyCardLink(
+    code
+  );
 
 }
 
@@ -2896,20 +4423,26 @@ function openModal(
   modalBody.innerHTML =
     body;
 
-  modal.classList.add("show");
+  modal.classList.add(
+    "show"
+  );
 
 }
 
 
 function closeModal(){
 
-  modal.classList.remove("show");
+  modal.classList.remove(
+    "show"
+  );
 
 }
 
 
 document
-  .getElementById("modalClose")
+  .getElementById(
+    "modalClose"
+  )
   .addEventListener(
     "click",
     closeModal
@@ -2920,7 +4453,9 @@ modal.addEventListener(
   "click",
   event => {
 
-    if(event.target === modal){
+    if(
+      event.target === modal
+    ){
 
       closeModal();
 
@@ -2928,6 +4463,292 @@ modal.addEventListener(
 
   }
 );
+
+
+/* =========================================================
+   BUSINESS DETAIL
+========================================================= */
+
+function openBusinessDetail(
+  businessId
+){
+
+  const business =
+    getBusiness(
+      businessId
+    );
+
+  if(!business){
+
+    showStatus(
+      "Établissement introuvable.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  selectedBusinessId =
+    businessId;
+
+
+  const cards =
+    getBusinessCards(
+      businessId
+    );
+
+  const scans =
+    totalScansForBusiness(
+      businessId
+    );
+
+  const ratings =
+    totalRatingsForBusiness(
+      businessId
+    );
+
+  const average =
+    averageBusinessRating(
+      businessId
+    );
+
+
+  const active =
+    cards.filter(
+      card => card.active
+    ).length;
+
+
+  openModal(
+    "🏢 Business Control Center",
+    `
+
+      <div class="business-detail-hero">
+
+        <button
+          class="control-back"
+          onclick="closeModal()"
+        >
+          ← Fermer
+        </button>
+
+
+        <div class="business-detail-title">
+
+          <div class="business-detail-icon">
+            🏢
+          </div>
+
+          <div>
+
+            <div class="business-detail-name">
+              ${escapeHtml(business.name)}
+            </div>
+
+            <div class="business-detail-meta">
+              ${cards.length} carte(s)
+              · ${active} active(s)
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="business-detail-stats">
+
+          <div class="business-detail-stat">
+
+            <span>
+              Cartes
+            </span>
+
+            <b>
+              ${cards.length}
+            </b>
+
+          </div>
+
+
+          <div class="business-detail-stat">
+
+            <span>
+              Scans
+            </span>
+
+            <b>
+              ${scans}
+            </b>
+
+          </div>
+
+
+          <div class="business-detail-stat">
+
+            <span>
+              Avis
+            </span>
+
+            <b>
+              ${ratings}
+            </b>
+
+          </div>
+
+
+          <div class="business-detail-stat">
+
+            <span>
+              Moyenne
+            </span>
+
+            <b>
+              ⭐ ${average}
+            </b>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="panel">
+
+        <h3>
+          💳 Cartes de cet établissement
+        </h3>
+
+        <p class="panel-desc">
+          Chaque carte fonctionne indépendamment tout en restant rattachée
+          à cet établissement.
+        </p>
+
+
+        <div style="margin-top:14px;">
+
+          ${
+            cards.length
+            ?
+            cards.map(
+              cardHtml
+            ).join("")
+            :
+            `
+              <div class="empty">
+
+                <div class="empty-icon">
+                  💳
+                </div>
+
+                <h3>
+                  Aucune carte
+                </h3>
+
+                <p>
+                  Cet établissement ne possède encore aucune carte.
+                </p>
+
+              </div>
+            `
+          }
+
+        </div>
+
+      </div>
+
+
+
+      <div class="panel">
+
+        <h3>
+          ⚡ Actions établissement
+        </h3>
+
+
+        <div class="action-grid">
+
+          <button
+            class="btn btn-primary"
+            onclick="
+              closeModal();
+              openAddCard('${escapeHtml(business.id)}');
+            "
+          >
+            ＋ Nouvelle carte
+          </button>
+
+
+          <button
+            class="btn btn-blue"
+            onclick="
+              closeModal();
+              openEditBusiness('${escapeHtml(business.id)}');
+            "
+          >
+            ✏️ Modifier
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="panel">
+
+        <h3>
+          🔐 Informations
+        </h3>
+
+
+        <div class="info-list">
+
+          <div class="info-row">
+            <span>Nom</span>
+            <b>${escapeHtml(business.name)}</b>
+          </div>
+
+
+          <div class="info-row">
+            <span>Google Reviews</span>
+            <b>
+              ${escapeHtml(
+                business.google_review_url || "—"
+              )}
+            </b>
+          </div>
+
+
+          <div class="info-row">
+            <span>WhatsApp</span>
+            <b>
+              ${escapeHtml(
+                business.whatsapp_number || "—"
+              )}
+            </b>
+          </div>
+
+
+          <div class="info-row">
+            <span>Site web</span>
+            <b>
+              ${escapeHtml(
+                business.website_url || "—"
+              )}
+            </b>
+          </div>
+
+        </div>
+
+      </div>
+
+    `
+  );
+
+}
 
 
 /* =========================================================
@@ -2939,6 +4760,7 @@ function openCreateBusiness(){
   openModal(
     "＋ Nouvel établissement",
     `
+
       <form id="businessCreateForm">
 
         <div class="field">
@@ -3018,13 +4840,14 @@ function openCreateBusiness(){
 
 
         <button
-          class="btn btn-primary"
+          class="btn btn-primary btn-full"
           type="submit"
         >
           Créer l'établissement
         </button>
 
       </form>
+
     `
   );
 
@@ -3056,51 +4879,64 @@ async function createBusiness(
       "button"
     );
 
-  button.disabled=true;
-  button.textContent="Création…";
+  button.disabled =
+    true;
+
+  button.textContent =
+    "Création…";
 
   try{
 
     const {
-      data,
       error
     } =
       await supabaseClient
         .from("businesses")
         .insert({
+
           name:
             document
-              .getElementById("newBusinessName")
+              .getElementById(
+                "newBusinessName"
+              )
               .value
               .trim(),
 
           google_review_url:
             document
-              .getElementById("newGoogleUrl")
+              .getElementById(
+                "newGoogleUrl"
+              )
               .value
               .trim(),
 
           whatsapp_number:
             document
-              .getElementById("newWhatsapp")
+              .getElementById(
+                "newWhatsapp"
+              )
               .value
               .trim(),
 
           website_url:
             document
-              .getElementById("newWebsite")
+              .getElementById(
+                "newWebsite"
+              )
               .value
-              .trim() || null,
+              .trim() ||
+            null,
 
           logo_url:
             document
-              .getElementById("newLogo")
+              .getElementById(
+                "newLogo"
+              )
               .value
-              .trim() || null
+              .trim() ||
+            null
 
-        })
-        .select()
-        .single();
+        });
 
 
     if(error){
@@ -3114,11 +4950,17 @@ async function createBusiness(
 
     await loadEverything();
 
-    switchView("businesses");
+    switchView(
+      "businesses"
+    );
 
     showStatus(
       "Établissement créé avec succès.",
       "success"
+    );
+
+    showToast(
+      "Établissement créé."
     );
 
   }
@@ -3137,7 +4979,11 @@ async function createBusiness(
 
   finally{
 
-    button.disabled=false;
+    button.disabled =
+      false;
+
+    button.textContent =
+      "Créer l'établissement";
 
   }
 
@@ -3167,6 +5013,7 @@ function openEditBusiness(
   openModal(
     "✏️ Modifier l'établissement",
     `
+
       <form id="businessEditForm">
 
         <div class="field">
@@ -3177,7 +5024,9 @@ function openEditBusiness(
 
           <input
             id="editBusinessName"
-            value="${escapeHtml(business.name)}"
+            value="${escapeHtml(
+              business.name
+            )}"
             required
           >
 
@@ -3254,13 +5103,14 @@ function openEditBusiness(
 
 
         <button
-          class="btn btn-primary"
+          class="btn btn-primary btn-full"
           type="submit"
         >
           Enregistrer
         </button>
 
       </form>
+
     `
   );
 
@@ -3280,8 +5130,11 @@ function openEditBusiness(
             "button"
           );
 
-        button.disabled=true;
-        button.textContent="Enregistrement…";
+        button.disabled =
+          true;
+
+        button.textContent =
+          "Enregistrement…";
 
 
         try{
@@ -3323,7 +5176,8 @@ function openEditBusiness(
                       "editWebsite"
                     )
                     .value
-                    .trim() || null,
+                    .trim() ||
+                  null,
 
                 logo_url:
                   document
@@ -3331,7 +5185,8 @@ function openEditBusiness(
                       "editLogo"
                     )
                     .value
-                    .trim() || null
+                    .trim() ||
+                  null
 
               })
               .eq(
@@ -3356,6 +5211,10 @@ function openEditBusiness(
             "success"
           );
 
+          showToast(
+            "Établissement mis à jour."
+          );
+
         }
 
         catch(error){
@@ -3372,7 +5231,11 @@ function openEditBusiness(
 
         finally{
 
-          button.disabled=false;
+          button.disabled =
+            false;
+
+          button.textContent =
+            "Enregistrer";
 
         }
 
@@ -3383,7 +5246,7 @@ function openEditBusiness(
 
 
 /* =========================================================
-   ADD CARD PICKER
+   CARD PICKER
 ========================================================= */
 
 function openCreateCardPicker(){
@@ -3405,12 +5268,14 @@ function openCreateCardPicker(){
   openModal(
     "💳 Nouvelle carte",
     `
-      <p class="panel-desc" style="margin-bottom:15px;">
+
+      <p class="panel-desc">
         Choisissez l'établissement auquel cette carte sera rattachée.
-        Un établissement peut avoir autant de cartes que nécessaire.
+        Un établissement peut posséder plusieurs cartes.
       </p>
 
-      <div class="field">
+
+      <div class="field" style="margin-top:16px;">
 
         <label>
           Établissement
@@ -3418,22 +5283,20 @@ function openCreateCardPicker(){
 
         <select
           id="cardBusinessSelect"
-          style="
-            width:100%;
-            min-height:52px;
-            border-radius:14px;
-            border:1px solid #d9e0e9;
-            background:#f7f9fc;
-            padding:12px;
-          "
         >
 
           ${
             dashboardData.businesses
               .map(
                 business => `
-                  <option value="${business.id}">
-                    ${escapeHtml(business.name)}
+                  <option
+                    value="${escapeHtml(
+                      business.id
+                    )}"
+                  >
+                    ${escapeHtml(
+                      business.name
+                    )}
                   </option>
                 `
               )
@@ -3446,17 +5309,22 @@ function openCreateCardPicker(){
 
 
       <button
-        class="btn btn-primary"
+        class="btn btn-primary btn-full"
         type="button"
         onclick="
           const id =
-            document.getElementById('cardBusinessSelect').value;
+            document.getElementById(
+              'cardBusinessSelect'
+            ).value;
+
           closeModal();
+
           openAddCard(id);
         "
       >
         Continuer →
       </button>
+
     `
   );
 
@@ -3488,19 +5356,30 @@ function openAddCard(
   }
 
 
+  const existingCards =
+    getBusinessCards(
+      businessId
+    ).length;
+
+
   openModal(
     "＋ Ajouter une carte",
     `
+
       <div class="create-card-box">
 
         <h4>
-          🏢 ${escapeHtml(business.name)}
+          🏢 ${escapeHtml(
+            business.name
+          )}
         </h4>
 
         <p>
-          Cette carte sera liée à cet établissement.
-          Elle aura ses propres scans et ratings.
+          Cet établissement possède actuellement
+          ${existingCards} carte(s).
+          La nouvelle carte aura ses propres statistiques.
         </p>
+
 
         <form id="addCardForm">
 
@@ -3508,21 +5387,23 @@ function openAddCard(
 
             <label>
               Code de carte
-              <span style="color:#8793a3;">
+              <span
+                style="color:#8793a3;"
+              >
                 (optionnel)
               </span>
             </label>
 
             <input
               id="customCardCode"
-              placeholder="Laisser vide pour générer automatiquement"
+              placeholder="Ex. CARD002"
             >
 
           </div>
 
 
           <button
-            class="btn btn-primary"
+            class="btn btn-primary btn-full"
             type="submit"
           >
             Créer la carte
@@ -3531,6 +5412,7 @@ function openAddCard(
         </form>
 
       </div>
+
     `
   );
 
@@ -3567,8 +5449,11 @@ async function createCard(
       "button"
     );
 
-  button.disabled=true;
-  button.textContent="Création…";
+  button.disabled =
+    true;
+
+  button.textContent =
+    "Création…";
 
 
   try{
@@ -3627,16 +5512,31 @@ async function createCard(
 
     await loadEverything();
 
-    switchView("cards");
+    switchView(
+      "cards"
+    );
 
     showStatus(
       `Carte ${code} créée avec succès.`,
       "success"
     );
 
-    openCardControl(
-      data.id
+    showToast(
+      `Carte ${code} créée.`
     );
+
+
+    if(data?.id){
+
+      setTimeout(
+        () =>
+          openCardControl(
+            data.id
+          ),
+        150
+      );
+
+    }
 
   }
 
@@ -3654,7 +5554,11 @@ async function createCard(
 
   finally{
 
-    button.disabled=false;
+    button.disabled =
+      false;
+
+    button.textContent =
+      "Créer la carte";
 
   }
 
@@ -3701,42 +5605,49 @@ function openCardControl(
 
   const ratings =
     [5,4,3,2,1]
-      .map(star => {
+      .map(
+        star => {
 
-        const value =
-          card[
-            "rating_" + star
-          ];
+          const value =
+            Number(
+              card[
+                "rating_" + star
+              ] || 0
+            );
 
-        const percent =
-          total
-          ? (value / total) * 100
-          : 0;
+          const percent =
+            total
+            ? (
+                value /
+                total
+              ) * 100
+            : 0;
 
-        return `
-          <div class="rating-line">
+          return `
+            <div class="rating-line">
 
-            <span>
-              ${star}★
-            </span>
+              <span>
+                ${star}★
+              </span>
 
-            <div class="rating-track">
+              <div class="rating-track">
 
-              <div
-                class="rating-fill"
-                style="width:${percent}%"
-              ></div>
+                <div
+                  class="rating-fill"
+                  style="width:${percent}%"
+                ></div>
+
+              </div>
+
+              <span>
+                ${value}
+              </span>
 
             </div>
+          `;
 
-            <span>
-              ${value}
-            </span>
-
-          </div>
-        `;
-
-      })
+        }
+      )
       .join("");
 
 
@@ -3755,18 +5666,23 @@ function openCardControl(
 
 
         <div class="control-code">
-          ${escapeHtml(card.card_code)}
+          ${escapeHtml(
+            card.card_code
+          )}
         </div>
+
 
         <div class="control-business">
           🏢
           ${escapeHtml(
-            business?.name || "Établissement inconnu"
+            business?.name ||
+            "Établissement inconnu"
           )}
         </div>
 
 
         <div class="control-status">
+
           ${
             card.active
             ?
@@ -3782,31 +5698,61 @@ function openCardControl(
               </span>
             `
           }
+
         </div>
 
 
         <div class="control-grid">
 
           <div class="control-stat">
-            <span>Scans</span>
-            <b>${card.total_scans}</b>
+
+            <span>
+              Scans
+            </span>
+
+            <b>
+              ${card.total_scans}
+            </b>
+
           </div>
 
-          <div class="control-stat">
-            <span>Avis</span>
-            <b>${total}</b>
-          </div>
 
           <div class="control-stat">
-            <span>Moyenne</span>
-            <b>⭐ ${averageRating(card)}</b>
+
+            <span>
+              Avis
+            </span>
+
+            <b>
+              ${total}
+            </b>
+
           </div>
 
+
           <div class="control-stat">
-            <span>Statut</span>
+
+            <span>
+              Moyenne
+            </span>
+
+            <b>
+              ⭐ ${averageRating(card)}
+            </b>
+
+          </div>
+
+
+          <div class="control-stat">
+
+            <span>
+              Statut
+            </span>
+
             <b>
               ${card.active ? "ON" : "OFF"}
             </b>
+
           </div>
 
         </div>
@@ -3814,21 +5760,24 @@ function openCardControl(
       </div>
 
 
+
       <div class="panel">
 
         <h3>
-          ⭐ Ratings
+          ⭐ Ratings de cette carte
         </h3>
 
         <p class="panel-desc">
-          Distribution des ratings pour cette carte uniquement.
+          Ces données appartiennent uniquement à cette carte.
         </p>
+
 
         <div class="rating-grid">
           ${ratings}
         </div>
 
       </div>
+
 
 
       <div class="panel">
@@ -3838,7 +5787,7 @@ function openCardControl(
         </h3>
 
         <p class="panel-desc">
-          Contrôlez cette carte sans toucher aux autres cartes
+          Contrôlez cette carte sans modifier les autres cartes
           du même établissement.
         </p>
 
@@ -3848,7 +5797,9 @@ function openCardControl(
           <button
             class="btn btn-blue"
             onclick="
-              openCustomerCard('${escapeHtml(card.card_code)}')
+              openCustomerCard(
+                '${escapeHtml(card.card_code)}'
+              )
             "
           >
             🔗 Ouvrir
@@ -3858,7 +5809,9 @@ function openCardControl(
           <button
             class="btn btn-soft"
             onclick="
-              copyCardLink('${escapeHtml(card.card_code)}')
+              copyCardLink(
+                '${escapeHtml(card.card_code)}'
+              )
             "
           >
             📋 Copier
@@ -3868,7 +5821,9 @@ function openCardControl(
           <button
             class="btn btn-soft"
             onclick="
-              shareCard('${escapeHtml(card.card_code)}')
+              shareCard(
+                '${escapeHtml(card.card_code)}'
+              )
             "
           >
             📲 Partager
@@ -3878,7 +5833,9 @@ function openCardControl(
           <button
             class="btn btn-gold"
             onclick="
-              refreshCardControl('${card.id}')
+              refreshCardControl(
+                '${escapeHtml(card.id)}'
+              )
             "
           >
             🔄 Actualiser
@@ -3892,7 +5849,9 @@ function openCardControl(
               : "btn-green"
             }"
             onclick="
-              toggleCard('${card.id}')
+              toggleCard(
+                '${escapeHtml(card.id)}'
+              )
             "
           >
             ${
@@ -3907,211 +5866,25 @@ function openCardControl(
       </div>
 
 
+
       <div class="panel">
 
         <h3>
-          🔐 Informations
+          📊 Données détaillées
         </h3>
 
-        <p class="panel-desc">
 
-          ID : ${escapeHtml(card.id)}
+        <div class="info-list">
 
-          <br><br>
+          <div class="info-row">
+            <span>Code</span>
+            <b>
+              ${escapeHtml(
+                card.card_code
+              )}
+            </b>
+          </div>
 
-          Code : ${escapeHtml(card.card_code)}
 
-          <br><br>
-
-          Établissement :
-          ${escapeHtml(
-            business?.name || "—"
-          )}
-
-          <br><br>
-
-          Créée le :
-          ${
-            card.created_at
-            ? new Date(
-                card.created_at
-              ).toLocaleString("fr-FR")
-            : "—"
-          }
-
-        </p>
-
-      </div>
-
-    `
-  );
-
-}
-
-
-/* =========================================================
-   SHARE
-========================================================= */
-
-async function shareCard(
-  code
-){
-
-  const url =
-    getCustomerUrl(code);
-
-  if(
-    navigator.share
-  ){
-
-    try{
-
-      await navigator.share({
-        title:"Smart Review",
-        text:"Ma carte Smart Review",
-        url
-      });
-
-    }
-
-    catch(error){
-
-      console.log(
-        "Share cancelled"
-      );
-
-    }
-
-    return;
-
-  }
-
-
-  await copyCardLink(code);
-
-}
-
-
-/* =========================================================
-   TOGGLE CARD
-========================================================= */
-
-async function toggleCard(
-  cardId
-){
-
-  const card =
-    dashboardData.cards.find(
-      item =>
-        item.id === cardId
-    );
-
-  if(!card){
-
-    return;
-
-  }
-
-
-  const action =
-    card.active
-    ? "mettre en pause"
-    : "réactiver";
-
-
-  const confirmed =
-    window.confirm(
-      `Voulez-vous ${action} la carte ${card.card_code} ?`
-    );
-
-
-  if(!confirmed){
-
-    return;
-
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("cards")
-        .update({
-          active:
-            !card.active
-        })
-        .eq(
-          "id",
-          cardId
-        );
-
-
-    if(error){
-
-      throw error;
-
-    }
-
-
-    closeModal();
-
-    await loadEverything();
-
-    showStatus(
-      card.active
-      ? "Carte mise en pause."
-      : "Carte réactivée.",
-      "success"
-    );
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    showStatus(
-      "Impossible de modifier le statut de la carte.\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   REFRESH CARD
-========================================================= */
-
-async function refreshCardControl(
-  cardId
-){
-
-  await loadEverything();
-
-  closeModal();
-
-  setTimeout(
-    () =>
-      openCardControl(cardId),
-    100
-  );
-
-}
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-checkSession();
-
-</script>
-
-</body>
-</html>
+          <div class="info-row">
+            <span>Sc
