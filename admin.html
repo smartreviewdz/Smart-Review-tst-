@@ -9,25 +9,47 @@
   content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#061b3a">
+<meta
+  name="theme-color"
+  content="#061b3a"
+>
 
 <title>Smart Review — Admin</title>
 
 <style>
 
+/* =========================================================
+SMART REVIEW — ADMIN
+========================================================= */
+
 :root{
+
   --navy:#061b3a;
-  --navy2:#08264d;
+  --navy-2:#08264d;
+  --navy-3:#0d376b;
+
   --blue:#165dff;
+  --blue-light:#4285ff;
+
   --gold:#d99213;
   --gold-light:#ffcf55;
-  --white:#fff;
+  --gold-dark:#a86600;
+
+  --white:#ffffff;
   --ink:#071b3c;
+
   --muted:#65758c;
   --soft:#f5f7fa;
-  --green:#159447;
-  --red:#d83b3b;
+
+  --danger:#d83b3b;
+  --success:#168a48;
+
 }
+
+
+/* =========================================================
+RESET
+========================================================= */
 
 *{
   box-sizing:border-box;
@@ -35,7 +57,8 @@
   padding:0;
 }
 
-html,body{
+html,
+body{
   width:100%;
   min-height:100%;
 }
@@ -45,8 +68,10 @@ html{
 }
 
 body{
+
   min-height:100vh;
   min-height:100dvh;
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -55,168 +80,15 @@ body{
     Helvetica,
     Arial,
     sans-serif;
+
   -webkit-font-smoothing:antialiased;
-  background:#fff;
+
+  background:#f5f7fa;
+
   color:var(--ink);
+
   overflow-x:hidden;
-}
 
-.hidden{
-  display:none !important;
-}
-
-
-/* =========================================================
-LOGIN
-========================================================= */
-
-.login-screen{
-  min-height:100vh;
-  min-height:100dvh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:
-    max(24px,env(safe-area-inset-top))
-    18px
-    max(24px,env(safe-area-inset-bottom));
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(45,120,255,.25),
-      transparent 35%
-    ),
-    linear-gradient(
-      180deg,
-      #061b3a,
-      #08264d
-    );
-}
-
-.login-card{
-  width:100%;
-  max-width:460px;
-  background:#fff;
-  border-radius:28px;
-  padding:30px 22px 25px;
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.30);
-  text-align:center;
-}
-
-.login-logo{
-  width:94px;
-  height:94px;
-  margin:0 auto 20px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#fff;
-  border:3px solid var(--gold);
-  box-shadow:
-    0 12px 30px rgba(0,0,0,.20),
-    0 0 0 5px rgba(255,207,85,.18);
-  font-size:47px;
-}
-
-.login-title{
-  color:var(--navy);
-  font-size:30px;
-  font-weight:950;
-  letter-spacing:-1px;
-  margin-bottom:7px;
-}
-
-.login-subtitle{
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.45;
-  font-weight:600;
-  margin-bottom:25px;
-}
-
-.login-field{
-  text-align:left;
-  margin-bottom:15px;
-}
-
-.login-field label{
-  display:block;
-  color:var(--navy);
-  font-size:14px;
-  font-weight:850;
-  margin-bottom:7px;
-}
-
-input{
-  width:100%;
-  min-height:58px;
-  border-radius:16px;
-  border:1.5px solid rgba(7,27,60,.13);
-  background:#f6f8fb;
-  color:var(--ink);
-  outline:none;
-  padding:15px 16px;
-  font-size:17px;
-  font-family:inherit;
-}
-
-input:focus{
-  border-color:rgba(22,93,255,.55);
-  box-shadow:0 0 0 4px rgba(22,93,255,.08);
-}
-
-.login-button{
-  width:100%;
-  min-height:64px;
-  margin-top:7px;
-  border:0;
-  border-radius:19px;
-  color:#fff;
-  background:
-    linear-gradient(
-      135deg,
-      #0a2d59,
-      #0d407a,
-      #08294f
-    );
-  border:2px solid rgba(217,146,19,.88);
-  font-size:19px;
-  font-weight:900;
-  font-family:inherit;
-  cursor:pointer;
-}
-
-.login-button:disabled{
-  opacity:.6;
-}
-
-.login-status{
-  display:none;
-  margin-top:16px;
-  padding:14px;
-  border-radius:15px;
-  font-size:14px;
-  font-weight:700;
-  line-height:1.45;
-  text-align:left;
-}
-
-.login-status.show{
-  display:block;
-}
-
-.login-status.error{
-  color:#b52c2c;
-  background:rgba(216,59,59,.08);
-  border:1px solid rgba(216,59,59,.15);
-}
-
-.login-status.success{
-  color:#087a37;
-  background:rgba(21,148,71,.09);
-  border:1px solid rgba(21,148,71,.15);
 }
 
 
@@ -225,417 +97,655 @@ APP
 ========================================================= */
 
 .app{
+
   width:100%;
   min-height:100vh;
   min-height:100dvh;
-  background:#fff;
+
 }
 
 
 /* =========================================================
-HERO
+HEADER
 ========================================================= */
 
-.hero{
-  position:relative;
+.header{
+
   width:100%;
-  min-height:390px;
+
   color:#fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
+
   padding:
-    max(25px,env(safe-area-inset-top))
+    max(24px,env(safe-area-inset-top))
     18px
-    100px;
+    28px;
+
   background:
+
     radial-gradient(
-      circle at 50% 5%,
+      circle at 50% 0%,
       rgba(255,255,255,.10),
-      transparent 30%
+      transparent 32%
     ),
-    radial-gradient(
-      circle at 50% 105%,
-      rgba(30,111,255,.30),
-      transparent 55%
-    ),
+
     linear-gradient(
       180deg,
       #061b3a 0%,
       #08264d 65%,
       #092e5c 100%
     );
+
+  position:relative;
+
+  overflow:hidden;
+
 }
 
-.hero::before{
+
+.header::after{
+
   content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.18;
-  background-image:
-    radial-gradient(
-      rgba(255,255,255,.16) .7px,
-      transparent .7px
-    );
-  background-size:13px 13px;
-}
 
-.hero-icon{
-  position:relative;
-  z-index:2;
-  width:96px;
-  height:96px;
-  margin-top:3px;
-  margin-bottom:20px;
+  position:absolute;
+
+  width:280px;
+  height:280px;
+
+  left:50%;
+  top:-210px;
+
+  transform:translateX(-50%);
+
+  background:
+    rgba(38,117,255,.20);
+
+  filter:blur(55px);
+
   border-radius:50%;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:3px solid var(--gold);
-  box-shadow:
-    0 15px 34px rgba(0,0,0,.30),
-    0 0 0 6px rgba(255,207,85,.18);
-  font-size:48px;
+
 }
 
-.hero-title{
+
+.header-inner{
+
   position:relative;
+
   z-index:2;
-  max-width:600px;
-  font-size:clamp(26px,7vw,38px);
-  line-height:1.1;
-  font-weight:950;
-  letter-spacing:-1px;
-  text-transform:uppercase;
-}
 
-.hero-subtitle{
-  position:relative;
-  z-index:2;
-  margin-top:13px;
-  max-width:530px;
-  color:rgba(255,255,255,.78);
-  font-size:16px;
-  line-height:1.45;
-  font-weight:600;
-}
-
-.wave-blue{
-  position:absolute;
-  z-index:4;
-  left:-5%;
-  bottom:55px;
-  width:110%;
-  height:65px;
-  background:linear-gradient(
-    180deg,
-    #0c63ff,
-    #164fd1
-  );
-  clip-path:ellipse(
-    69% 55% at 50% 100%
-  );
-}
-
-.wave{
-  position:absolute;
-  z-index:5;
-  left:-5%;
-  bottom:-1px;
-  width:110%;
-  height:105px;
-  background:#fff;
-  clip-path:ellipse(
-    73% 58% at 50% 100%
-  );
-}
-
-
-/* =========================================================
-CONTENT
-========================================================= */
-
-.content{
-  position:relative;
-  z-index:10;
   width:100%;
-  margin-top:-25px;
-  padding:
-    0
-    18px
-    max(35px,env(safe-area-inset-bottom));
+  max-width:760px;
+
+  margin:0 auto;
+
   display:flex;
-  justify-content:center;
-}
 
-.container{
-  width:100%;
-  max-width:680px;
-}
-
-
-/* =========================================================
-TOP BAR
-========================================================= */
-
-.topbar{
-  display:flex;
   align-items:center;
+
   justify-content:space-between;
-  gap:12px;
-  margin-bottom:22px;
+
+  gap:15px;
+
 }
 
-.dashboard-title{
-  color:var(--navy);
-  font-size:clamp(25px,7vw,34px);
-  line-height:1.1;
-  font-weight:950;
-  letter-spacing:-.8px;
+
+.brand{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
 }
+
+
+.brand-mark{
+
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  color:#4285f4;
+
+  font-size:30px;
+
+  font-weight:900;
+
+  border:
+    2px solid
+    var(--gold);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.25);
+
+}
+
+
+.brand-text{
+
+  display:flex;
+
+  flex-direction:column;
+
+}
+
+
+.brand-name{
+
+  font-size:22px;
+
+  font-weight:950;
+
+  letter-spacing:-.6px;
+
+}
+
+
+.brand-sub{
+
+  font-size:11px;
+
+  letter-spacing:1.6px;
+
+  text-transform:uppercase;
+
+  color:#b9c7da;
+
+  margin-top:3px;
+
+}
+
 
 .logout{
-  flex-shrink:0;
-  border:0;
+
+  border:
+    1px solid
+    rgba(255,255,255,.25);
+
+  background:
+    rgba(255,255,255,.08);
+
+  color:#fff;
+
   border-radius:13px;
-  padding:10px 13px;
-  background:#eef2f7;
-  color:var(--navy);
-  font-family:inherit;
-  font-weight:850;
+
+  padding:11px 15px;
+
+  font-size:14px;
+
+  font-weight:800;
+
   cursor:pointer;
+
 }
 
 
 /* =========================================================
-CARDS
+MAIN
 ========================================================= */
 
-.panel{
+main{
+
   width:100%;
+
+  max-width:760px;
+
+  margin:0 auto;
+
+  padding:
+    22px 16px
+    max(35px,env(safe-area-inset-bottom));
+
+}
+
+
+/* =========================================================
+LOGIN
+========================================================= */
+
+.login-card{
+
   background:#fff;
-  border-radius:25px;
-  border:1px solid rgba(7,27,60,.09);
-  padding:22px;
-  margin-bottom:18px;
+
+  border-radius:26px;
+
+  padding:27px 20px;
+
   box-shadow:
-    0 18px 45px rgba(7,27,60,.10),
-    0 3px 10px rgba(7,27,60,.04);
+    0 15px 40px rgba(7,27,60,.12);
+
 }
 
-.panel h2{
-  color:var(--navy);
-  font-size:23px;
-  line-height:1.2;
+
+.login-title{
+
+  font-size:29px;
+
   font-weight:950;
-  margin-bottom:7px;
+
+  color:var(--navy);
+
+  letter-spacing:-.8px;
+
+  margin-bottom:8px;
+
 }
 
-.panel-description{
+
+.login-subtitle{
+
   color:var(--muted);
+
   font-size:15px;
-  line-height:1.45;
-  margin-bottom:19px;
+
+  line-height:1.5;
+
+  margin-bottom:25px;
+
 }
+
+
+/* =========================================================
+FORM
+========================================================= */
 
 .field{
-  margin-bottom:16px;
+
+  margin-bottom:17px;
+
 }
+
 
 .field label{
+
   display:block;
+
   color:var(--navy);
+
   font-size:14px;
+
   font-weight:850;
-  margin-bottom:7px;
+
+  margin-bottom:8px;
+
 }
+
+
+input,
+textarea{
+
+  width:100%;
+
+  border:
+    1.5px solid
+    rgba(7,27,60,.13);
+
+  background:#f7f9fc;
+
+  color:var(--ink);
+
+  border-radius:16px;
+
+  padding:16px;
+
+  font-size:16px;
+
+  outline:none;
+
+  -webkit-appearance:none;
+
+}
+
+
+input:focus,
+textarea:focus{
+
+  border-color:
+    rgba(22,93,255,.55);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(22,93,255,.08);
+
+}
+
 
 textarea{
-  width:100%;
+
   min-height:120px;
+
   resize:vertical;
-  border-radius:16px;
-  border:1.5px solid rgba(7,27,60,.13);
-  background:#f6f8fb;
-  color:var(--ink);
-  outline:none;
-  padding:15px 16px;
-  font-size:17px;
-  line-height:1.5;
-  font-family:inherit;
+
 }
 
-textarea:focus{
-  border-color:rgba(22,93,255,.55);
-  box-shadow:0 0 0 4px rgba(22,93,255,.08);
-}
+
+/* =========================================================
+BUTTON
+========================================================= */
 
 .button{
+
   width:100%;
-  min-height:64px;
-  border-radius:19px;
-  border:none;
+
+  min-height:58px;
+
+  border:0;
+
+  border-radius:17px;
+
+  padding:15px 18px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
-  padding:16px 20px;
-  font-size:18px;
+
+  font-size:17px;
+
   font-weight:900;
-  font-family:inherit;
+
   cursor:pointer;
-  text-decoration:none;
-  transition:transform .16s ease;
+
+  transition:
+    transform .15s ease,
+    box-shadow .2s ease;
+
 }
+
 
 .button:active{
+
   transform:scale(.975);
+
 }
 
-.button:disabled{
-  opacity:.6;
-  pointer-events:none;
-}
 
 .primary{
+
   color:#fff;
+
   background:
+
     linear-gradient(
       135deg,
       #0a2d59,
       #0d407a,
       #08294f
     );
-  border:2px solid rgba(217,146,19,.88);
+
+  border:
+    2px solid
+    rgba(217,146,19,.85);
+
   box-shadow:
-    0 12px 28px rgba(7,27,60,.22);
+    0 11px 25px rgba(7,27,60,.20);
+
 }
+
 
 .secondary{
+
+  color:var(--navy);
+
+  background:#eef3fa;
+
+}
+
+
+.danger{
+
   color:#fff;
-  background:
-    linear-gradient(
-      135deg,
-      #165dff,
-      #0d47c9
-    );
-  box-shadow:
-    0 11px 25px rgba(22,93,255,.22);
-}
 
-.success{
-  color:#fff;
-  background:
-    linear-gradient(
-      135deg,
-      #159447,
-      #087a37
-    );
-}
+  background:#c93636;
 
-.status{
-  display:none;
-  width:100%;
-  margin-top:15px;
-  padding:14px 15px;
-  border-radius:15px;
-  font-size:14px;
-  font-weight:750;
-  line-height:1.45;
-  word-break:break-word;
-}
-
-.status.show{
-  display:block;
-}
-
-.status.error{
-  color:#b52c2c;
-  background:rgba(216,59,59,.08);
-  border:1px solid rgba(216,59,59,.15);
-}
-
-.status.success-status{
-  color:#087a37;
-  background:rgba(21,148,71,.09);
-  border:1px solid rgba(21,148,71,.15);
 }
 
 
 /* =========================================================
-RESULT
+ERROR / SUCCESS
+========================================================= */
+
+.notice{
+
+  display:none;
+
+  width:100%;
+
+  border-radius:15px;
+
+  padding:14px 15px;
+
+  margin-bottom:18px;
+
+  font-size:14px;
+
+  line-height:1.45;
+
+  font-weight:700;
+
+  white-space:pre-wrap;
+
+}
+
+
+.notice.show{
+  display:block;
+}
+
+
+.notice.error{
+
+  background:#fff0f0;
+
+  color:#b52f2f;
+
+  border:
+    1px solid
+    #f0c4c4;
+
+}
+
+
+.notice.success{
+
+  background:#edf9f2;
+
+  color:#167541;
+
+  border:
+    1px solid
+    #bde5ca;
+
+}
+
+
+/* =========================================================
+DASHBOARD
+========================================================= */
+
+.dashboard{
+
+  display:none;
+
+}
+
+
+.dashboard.show{
+
+  display:block;
+
+}
+
+
+.section-card{
+
+  background:#fff;
+
+  border-radius:25px;
+
+  padding:22px 18px;
+
+  margin-bottom:18px;
+
+  box-shadow:
+    0 12px 34px rgba(7,27,60,.09);
+
+}
+
+
+.section-title{
+
+  color:var(--navy);
+
+  font-size:23px;
+
+  font-weight:950;
+
+  letter-spacing:-.5px;
+
+  margin-bottom:6px;
+
+}
+
+
+.section-description{
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  line-height:1.5;
+
+  margin-bottom:21px;
+
+}
+
+
+/* =========================================================
+USER
+========================================================= */
+
+.user-line{
+
+  color:#708097;
+
+  font-size:13px;
+
+  margin-top:8px;
+
+  overflow-wrap:anywhere;
+
+}
+
+
+/* =========================================================
+TEST CARD
+========================================================= */
+
+.test-row{
+
+  display:flex;
+
+  gap:10px;
+
+}
+
+
+.test-row input{
+
+  min-width:0;
+
+}
+
+
+.test-row .button{
+
+  width:auto;
+
+  min-width:125px;
+
+  flex-shrink:0;
+
+}
+
+
+/* =========================================================
+CARD RESULT
 ========================================================= */
 
 .result{
+
   display:none;
-  margin-top:18px;
-  padding:19px;
-  border-radius:20px;
-  background:linear-gradient(
-    145deg,
-    #f8fafc,
-    #eef3f8
-  );
-  border:1px solid rgba(7,27,60,.08);
+
+  margin-top:17px;
+
+  padding:17px;
+
+  border-radius:17px;
+
+  background:#f5f8fc;
+
+  border:
+    1px solid
+    rgba(7,27,60,.09);
+
 }
+
 
 .result.show{
+
   display:block;
+
 }
 
-.result-title{
-  color:var(--navy);
-  font-size:20px;
-  font-weight:950;
-  margin-bottom:13px;
-}
 
-.code-box{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:13px 15px;
-  border-radius:14px;
-  background:#fff;
-  border:1px solid rgba(7,27,60,.09);
-  margin-bottom:12px;
-}
+.result-label{
 
-.code-box strong{
-  color:var(--navy);
-  font-size:18px;
-  word-break:break-all;
-}
+  color:#718096;
 
-.copy{
-  flex-shrink:0;
-  border:0;
-  border-radius:11px;
-  padding:10px 12px;
-  background:var(--navy);
-  color:#fff;
-  font-family:inherit;
+  font-size:12px;
+
   font-weight:800;
-  cursor:pointer;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+
+  margin-bottom:7px;
+
 }
 
-.card-url{
-  display:block;
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  background:#fff;
-  border:1px solid rgba(7,27,60,.09);
-  color:var(--blue);
-  font-size:14px;
-  font-weight:700;
-  line-height:1.45;
-  word-break:break-all;
-  text-decoration:none;
+
+.result-code{
+
+  color:var(--navy);
+
+  font-size:23px;
+
+  font-weight:950;
+
+  letter-spacing:1px;
+
   margin-bottom:12px;
+
+  overflow-wrap:anywhere;
+
+}
+
+
+.open-card{
+
+  text-decoration:none;
+
 }
 
 
@@ -644,44 +754,11 @@ LOADING
 ========================================================= */
 
 .loading{
-  display:none;
-  text-align:center;
-  color:var(--muted);
-  padding-top:13px;
-  font-weight:700;
-}
 
-.loading.show{
-  display:block;
-}
+  opacity:.7;
 
-.dot{
-  display:inline-block;
-  width:7px;
-  height:7px;
-  margin:0 2px;
-  border-radius:50%;
-  background:var(--gold);
-  animation:pulse 1s infinite ease-in-out;
-}
+  pointer-events:none;
 
-.dot:nth-child(2){
-  animation-delay:.15s;
-}
-
-.dot:nth-child(3){
-  animation-delay:.3s;
-}
-
-@keyframes pulse{
-  0%,80%,100%{
-    opacity:.25;
-    transform:scale(.7);
-  }
-  40%{
-    opacity:1;
-    transform:scale(1);
-  }
 }
 
 
@@ -690,447 +767,468 @@ FOOTER
 ========================================================= */
 
 .footer{
+
   text-align:center;
-  margin-top:25px;
-  padding-top:23px;
-  border-top:1px solid rgba(7,27,60,.11);
-  padding-bottom:20px;
+
+  padding:20px 0 5px;
+
+  color:#7a8799;
+
+  font-size:12px;
+
 }
 
-.footer-line{
-  width:130px;
-  height:3px;
-  margin:0 auto 13px;
-  border-radius:20px;
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      var(--gold),
-      var(--blue),
-      transparent
-    );
+
+.footer strong{
+
+  color:var(--navy);
+
 }
 
-.brand{
-  font-size:38px;
-  font-weight:950;
-  letter-spacing:-1.5px;
-  background:
-    linear-gradient(
-      110deg,
-      #a86c08,
-      #e3a51e,
-      #fff,
-      #356a9f,
-      #061b3a
-    );
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+
+/* =========================================================
+HIDDEN
+========================================================= */
+
+.hidden{
+
+  display:none !important;
+
 }
 
-.brand-sub{
-  margin-top:7px;
-  color:#6b788a;
-  font-size:11px;
-  font-weight:750;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
+
+/* =========================================================
+DESKTOP
+========================================================= */
 
 @media(min-width:700px){
 
-  .hero{
-    min-height:460px;
+  main{
+
+    padding-left:20px;
+    padding-right:20px;
+
   }
 
-  .content{
-    margin-top:-35px;
-    padding-left:40px;
-    padding-right:40px;
+  .section-card{
+
+    padding:27px;
+
   }
 
-  .panel{
-    padding:28px;
+  .login-card{
+
+    padding:32px;
+
   }
+
+}
+
+
+/* =========================================================
+SMALL PHONES
+========================================================= */
+
+@media(max-width:390px){
+
+  .header-inner{
+
+    align-items:flex-start;
+
+  }
+
+  .brand-name{
+
+    font-size:19px;
+
+  }
+
+  .logout{
+
+    padding:9px 11px;
+
+    font-size:13px;
+
+  }
+
+  .test-row{
+
+    flex-direction:column;
+
+  }
+
+  .test-row .button{
+
+    width:100%;
+
+  }
+
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+<div class="app">
 
-<!-- =========================================================
-LOGIN SCREEN
-========================================================= -->
 
-<section
-  id="loginScreen"
-  class="login-screen"
->
+<!-- =====================================================
+HEADER
+===================================================== -->
 
-  <div class="login-card">
+<header class="header">
 
-    <div class="login-logo">
-      🔐
+  <div class="header-inner">
+
+    <div class="brand">
+
+      <div class="brand-mark">
+        G
+      </div>
+
+      <div class="brand-text">
+
+        <div class="brand-name">
+          Smart Review
+        </div>
+
+        <div class="brand-sub">
+          Administration
+        </div>
+
+      </div>
+
     </div>
 
-    <h1 class="login-title">
-      Smart Review
-    </h1>
 
-    <p class="login-subtitle">
-      Connexion administrateur
-    </p>
-
-
-    <form id="loginForm">
-
-      <div class="login-field">
-
-        <label for="loginEmail">
-          Adresse email
-        </label>
-
-        <input
-          id="loginEmail"
-          type="email"
-          placeholder="Votre email"
-          autocomplete="email"
-          required
-        >
-
-      </div>
-
-
-      <div class="login-field">
-
-        <label for="loginPassword">
-          Mot de passe
-        </label>
-
-        <input
-          id="loginPassword"
-          type="password"
-          placeholder="Votre mot de passe"
-          autocomplete="current-password"
-          required
-        >
-
-      </div>
-
-
-      <button
-        id="loginButton"
-        class="login-button"
-        type="submit"
-      >
-        🔐 Se connecter
-      </button>
-
-    </form>
-
-
-    <div
-      id="loginStatus"
-      class="login-status"
-    ></div>
+    <button
+      type="button"
+      class="logout"
+      id="logoutButton"
+    >
+      Déconnexion
+    </button>
 
   </div>
+
+</header>
+
+
+
+<!-- =====================================================
+MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+NOTICE
+===================================================== -->
+
+<div
+  id="notice"
+  class="notice"
+></div>
+
+
+
+<!-- =====================================================
+LOGIN
+===================================================== -->
+
+<section
+  id="loginCard"
+  class="login-card"
+>
+
+  <h1 class="login-title">
+    Connexion
+  </h1>
+
+  <p class="login-subtitle">
+    Connectez-vous à votre espace Smart Review.
+  </p>
+
+
+  <div class="field">
+
+    <label for="loginEmail">
+      Email
+    </label>
+
+    <input
+      id="loginEmail"
+      type="email"
+      autocomplete="email"
+      value="smartreviewdz@gmail.com"
+      placeholder="Votre email"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="loginPassword">
+      Mot de passe
+    </label>
+
+    <input
+      id="loginPassword"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Votre mot de passe"
+    >
+
+  </div>
+
+
+  <button
+    type="button"
+    id="loginButton"
+    class="button primary"
+  >
+    Se connecter
+  </button>
+
+
+  <div
+    id="loginStatus"
+    class="user-line"
+  ></div>
 
 </section>
 
 
 
-<!-- =========================================================
-ADMIN APP
-========================================================= -->
+<!-- =====================================================
+DASHBOARD
+===================================================== -->
 
-<div
-  id="adminApp"
-  class="app hidden"
+<section
+  id="dashboard"
+  class="dashboard"
 >
 
 
-  <section class="hero">
+<!-- =====================================================
+WELCOME
+===================================================== -->
 
-    <div class="hero-icon">
-      ⚙️
+<div class="section-card">
+
+  <div class="section-title">
+    Tableau de bord
+  </div>
+
+  <div class="section-description">
+    Gérez vos établissements et créez leurs cartes Smart Review.
+  </div>
+
+  <div
+    id="loggedUser"
+    class="user-line"
+  ></div>
+
+</div>
+
+
+
+<!-- =====================================================
+CREATE BUSINESS
+===================================================== -->
+
+<div class="section-card">
+
+  <div class="section-title">
+    Créer une carte
+  </div>
+
+  <div class="section-description">
+    Ajoutez un établissement puis créez automatiquement sa carte Smart Review.
+  </div>
+
+
+  <div class="field">
+
+    <label for="businessNameInput">
+      Nom de l'établissement
+    </label>
+
+    <input
+      id="businessNameInput"
+      type="text"
+      placeholder="Ex. Restaurant Le Jardin"
+      autocomplete="organization"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="googleUrlInput">
+      Lien Google pour les avis
+    </label>
+
+    <input
+      id="googleUrlInput"
+      type="url"
+      placeholder="https://g.page/..."
+      inputmode="url"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="whatsappInput">
+      Numéro WhatsApp
+    </label>
+
+    <input
+      id="whatsappInput"
+      type="tel"
+      placeholder="Ex. 0550123456"
+      inputmode="tel"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="websiteInput">
+      URL du site web
+    </label>
+
+    <input
+      id="websiteInput"
+      type="url"
+      placeholder="https://..."
+      inputmode="url"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="logoInput">
+      URL du logo
+    </label>
+
+    <input
+      id="logoInput"
+      type="url"
+      placeholder="https://..."
+      inputmode="url"
+    >
+
+  </div>
+
+
+  <button
+    type="button"
+    id="createButton"
+    class="button primary"
+  >
+    ✨ Créer ma carte
+  </button>
+
+</div>
+
+
+
+<!-- =====================================================
+TEST CARD
+===================================================== -->
+
+<div class="section-card">
+
+  <div class="section-title">
+    Tester une carte
+  </div>
+
+  <div class="section-description">
+    Entrez le code d'une carte existante pour l'ouvrir immédiatement.
+  </div>
+
+
+  <div class="test-row">
+
+    <input
+      id="testCardCode"
+      type="text"
+      placeholder="Ex. CARD001"
+      autocomplete="off"
+      autocapitalize="characters"
+    >
+
+    <button
+      type="button"
+      id="testButton"
+      class="button secondary"
+    >
+      Ouvrir la carte
+    </button>
+
+  </div>
+
+
+  <div
+    id="testResult"
+    class="result"
+  >
+
+    <div class="result-label">
+      Carte trouvée
     </div>
 
-    <h1 class="hero-title">
-      SMART REVIEW ADMIN
-    </h1>
+    <div
+      id="testCode"
+      class="result-code"
+    ></div>
 
-    <p class="hero-subtitle">
-      Gérez vos établissements, vos cartes et vos liens d'avis.
-    </p>
+    <a
+      id="openCardButton"
+      class="button primary open-card"
+      href="#"
+      target="_blank"
+      rel="noopener"
+    >
+      🔗 Ouvrir la carte
+    </a>
 
-    <div class="wave-blue"></div>
+  </div>
 
-    <div class="wave"></div>
+</div>
 
-  </section>
 
 
+</section>
 
-  <main class="content">
 
-    <div class="container">
 
+<!-- =====================================================
+FOOTER
+===================================================== -->
 
-      <!-- ===================================================
-      TOP
-      =================================================== -->
+<div class="footer">
 
-      <div class="topbar">
+  <strong>Smart Review</strong><br>
 
-        <h2 class="dashboard-title">
-          Tableau de bord
-        </h2>
+  Better feedback. Better businesses.
 
-        <button
-          id="logoutButton"
-          class="logout"
-          type="button"
-        >
-          Déconnexion
-        </button>
+</div>
 
-      </div>
 
-
-
-      <!-- ===================================================
-      CREATE CARD
-      =================================================== -->
-
-      <section class="panel">
-
-        <h2>
-          Créer une carte
-        </h2>
-
-        <p class="panel-description">
-          Entrez les informations de l'établissement pour générer sa carte Smart Review.
-        </p>
-
-
-        <div class="field">
-
-          <label for="businessName">
-            Nom de l'établissement
-          </label>
-
-          <input
-            id="businessName"
-            type="text"
-            placeholder="Ex. Restaurant Le Palais"
-            autocomplete="organization"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="googleReviewUrl">
-            Lien Google pour les avis
-          </label>
-
-          <input
-            id="googleReviewUrl"
-            type="url"
-            placeholder="https://g.page/r/..."
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="whatsappNumber">
-            Numéro WhatsApp
-          </label>
-
-          <input
-            id="whatsappNumber"
-            type="tel"
-            placeholder="Ex. 0550123456"
-            autocomplete="tel"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="logoUrl">
-            URL du logo
-            <span style="font-weight:500;color:#8995a5;">
-              (optionnel)
-            </span>
-          </label>
-
-          <input
-            id="logoUrl"
-            type="url"
-            placeholder="https://..."
-          >
-
-        </div>
-
-
-        <button
-          id="createButton"
-          class="button primary"
-          type="button"
-        >
-          ✨ Créer ma carte
-        </button>
-
-
-        <div
-          id="createLoading"
-          class="loading"
-        >
-
-          Création en cours
-
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-
-        </div>
-
-
-        <div
-          id="createStatus"
-          class="status"
-        ></div>
-
-
-        <div
-          id="result"
-          class="result"
-        >
-
-          <div class="result-title">
-            ✓ Carte créée avec succès
-          </div>
-
-
-          <div class="code-box">
-
-            <strong id="createdCode">
-              —
-            </strong>
-
-            <button
-              id="copyCode"
-              class="copy"
-              type="button"
-            >
-              Copier
-            </button>
-
-          </div>
-
-
-          <a
-            id="cardUrl"
-            class="card-url"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            —
-          </a>
-
-
-          <a
-            id="openCard"
-            class="button success"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            🚀 Ouvrir ma carte
-          </a>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- ===================================================
-      TEST CARD
-      =================================================== -->
-
-      <section class="panel">
-
-        <h2>
-          Tester une carte
-        </h2>
-
-        <p class="panel-description">
-          Entrez le code d'une carte existante pour ouvrir sa page client.
-        </p>
-
-
-        <div class="field">
-
-          <label for="testCardCode">
-            Code de la carte
-          </label>
-
-          <input
-            id="testCardCode"
-            type="text"
-            placeholder="Ex. CARD001"
-          >
-
-        </div>
-
-
-        <button
-          id="testButton"
-          class="button secondary"
-          type="button"
-        >
-          🔎 Ouvrir la carte
-        </button>
-
-      </section>
-
-
-
-      <!-- ===================================================
-      FOOTER
-      =================================================== -->
-
-      <footer class="footer">
-
-        <div class="footer-line"></div>
-
-        <div class="brand">
-          Smart Review
-        </div>
-
-        <div class="brand-sub">
-          Better feedback. Better businesses.
-        </div>
-
-      </footer>
-
-
-    </div>
-
-  </main>
+</main>
 
 </div>
 
@@ -1143,127 +1241,10 @@ SUPABASE CONFIG
 ========================================================= */
 
 const SUPABASE_URL =
-"https://mcujzqtfbwjttjieagas.supabase.co";
+  "https://mcujzqtfbwjttjieagas.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_4eVDX1IKZj7ClhpcjfiQFQ_hQ5Hr81k";
-
-
-/* =========================================================
-ELEMENTS
-========================================================= */
-
-const loginScreen =
-document.getElementById("loginScreen");
-
-const adminApp =
-document.getElementById("adminApp");
-
-const loginForm =
-document.getElementById("loginForm");
-
-const loginEmail =
-document.getElementById("loginEmail");
-
-const loginPassword =
-document.getElementById("loginPassword");
-
-const loginButton =
-document.getElementById("loginButton");
-
-const loginStatus =
-document.getElementById("loginStatus");
-
-const logoutButton =
-document.getElementById("logoutButton");
-
-const businessName =
-document.getElementById("businessName");
-
-const googleReviewUrl =
-document.getElementById("googleReviewUrl");
-
-const whatsappNumber =
-document.getElementById("whatsappNumber");
-
-const logoUrl =
-document.getElementById("logoUrl");
-
-const createButton =
-document.getElementById("createButton");
-
-const createLoading =
-document.getElementById("createLoading");
-
-const createStatus =
-document.getElementById("createStatus");
-
-const result =
-document.getElementById("result");
-
-const createdCode =
-document.getElementById("createdCode");
-
-const cardUrl =
-document.getElementById("cardUrl");
-
-const openCard =
-document.getElementById("openCard");
-
-const copyCode =
-document.getElementById("copyCode");
-
-const testCardCode =
-document.getElementById("testCardCode");
-
-const testButton =
-document.getElementById("testButton");
-
-
-/* =========================================================
-SESSION STORAGE
-========================================================= */
-
-const SESSION_KEY =
-"smart_review_supabase_session";
-
-
-/* =========================================================
-STATUS
-========================================================= */
-
-function showLoginStatus(
-  text,
-  type
-){
-
-  loginStatus.textContent =
-  text;
-
-  loginStatus.className =
-  "login-status show " +
-  type;
-
-}
-
-
-function showCreateStatus(
-  text,
-  type
-){
-
-  createStatus.textContent =
-  text;
-
-  createStatus.className =
-  "status show " +
-  (
-    type === "error"
-    ? "error"
-    : "success-status"
-  );
-
-}
+  "sb_publishable_4eVDX1IKZj7ClhpcjfiQFQ_hQ5Hr81k";
 
 
 /* =========================================================
@@ -1275,47 +1256,255 @@ async function supabaseRequest(
   options = {}
 ){
 
+  const headers = {
+
+    "apikey":
+      SUPABASE_KEY,
+
+    "Content-Type":
+      "application/json",
+
+    ...(options.headers || {})
+
+  };
+
+
   const response =
-  await fetch(
-    SUPABASE_URL + path,
-    options
-  );
+    await fetch(
+      `${SUPABASE_URL}${path}`,
+      {
+        ...options,
+        headers
+      }
+    );
+
 
   const text =
-  await response.text();
+    await response.text();
+
 
   let data = null;
 
+
   try{
+
     data =
-    text
-    ? JSON.parse(text)
-    : null;
+      text
+        ? JSON.parse(text)
+        : null;
+
   }
+
   catch{
+
     data = text;
+
   }
+
 
   if(!response.ok){
 
-    const message =
-    data &&
-    typeof data === "object"
-    ? (
-        data.message ||
-        data.msg ||
-        JSON.stringify(data)
-      )
-    : String(data);
+    const error =
+      new Error(
+        data?.message ||
+        data?.msg ||
+        data?.error_description ||
+        text ||
+        `Erreur HTTP ${response.status}`
+      );
 
-    throw new Error(
-      message ||
-      `Erreur HTTP ${response.status}`
-    );
+    error.status =
+      response.status;
+
+    error.data =
+      data;
+
+    throw error;
 
   }
 
+
   return data;
+
+}
+
+
+/* =========================================================
+ELEMENTS
+========================================================= */
+
+const notice =
+  document.getElementById(
+    "notice"
+  );
+
+
+const loginCard =
+  document.getElementById(
+    "loginCard"
+  );
+
+
+const dashboard =
+  document.getElementById(
+    "dashboard"
+  );
+
+
+const loginButton =
+  document.getElementById(
+    "loginButton"
+  );
+
+
+const loginEmail =
+  document.getElementById(
+    "loginEmail"
+  );
+
+
+const loginPassword =
+  document.getElementById(
+    "loginPassword"
+  );
+
+
+const loginStatus =
+  document.getElementById(
+    "loginStatus"
+  );
+
+
+const logoutButton =
+  document.getElementById(
+    "logoutButton"
+  );
+
+
+const loggedUser =
+  document.getElementById(
+    "loggedUser"
+  );
+
+
+const createButton =
+  document.getElementById(
+    "createButton"
+  );
+
+
+const businessNameInput =
+  document.getElementById(
+    "businessNameInput"
+  );
+
+
+const googleUrlInput =
+  document.getElementById(
+    "googleUrlInput"
+  );
+
+
+const whatsappInput =
+  document.getElementById(
+    "whatsappInput"
+  );
+
+
+const websiteInput =
+  document.getElementById(
+    "websiteInput"
+  );
+
+
+const logoInput =
+  document.getElementById(
+    "logoInput"
+  );
+
+
+const testCardCode =
+  document.getElementById(
+    "testCardCode"
+  );
+
+
+const testButton =
+  document.getElementById(
+    "testButton"
+  );
+
+
+const testResult =
+  document.getElementById(
+    "testResult"
+  );
+
+
+const testCode =
+  document.getElementById(
+    "testCode"
+  );
+
+
+const openCardButton =
+  document.getElementById(
+    "openCardButton"
+  );
+
+
+/* =========================================================
+NOTICE
+========================================================= */
+
+function showNotice(
+  message,
+  type = "error"
+){
+
+  notice.textContent =
+    message;
+
+  notice.className =
+    `notice show ${type}`;
+
+}
+
+
+function hideNotice(){
+
+  notice.className =
+    "notice";
+
+  notice.textContent =
+    "";
+
+}
+
+
+/* =========================================================
+AUTH SESSION
+========================================================= */
+
+let currentSession =
+  null;
+
+let currentUser =
+  null;
+
+
+/* =========================================================
+GET SESSION
+========================================================= */
+
+async function getSession(){
+
+  return supabaseRequest(
+    "/auth/v1/session",
+    {
+      method:"GET"
+    }
+  );
 
 }
 
@@ -1324,46 +1513,324 @@ async function supabaseRequest(
 LOGIN
 ========================================================= */
 
-async function login(
-  email,
-  password
-){
+async function login(){
 
-  return supabaseRequest(
-    "/auth/v1/token?grant_type=password",
-    {
+  hideNotice();
 
-      method:"POST",
+  const email =
+    loginEmail.value.trim();
 
-      headers:{
-        "apikey":SUPABASE_KEY,
-        "Content-Type":"application/json"
-      },
+  const password =
+    loginPassword.value;
 
-      body:JSON.stringify({
-        email:email,
-        password:password
-      })
+
+  if(!email){
+
+    showNotice(
+      "Veuillez entrer votre email."
+    );
+
+    return;
+
+  }
+
+
+  if(!password){
+
+    showNotice(
+      "Veuillez entrer votre mot de passe."
+    );
+
+    return;
+
+  }
+
+
+  loginButton.disabled =
+    true;
+
+  loginButton.classList.add(
+    "loading"
+  );
+
+  loginButton.textContent =
+    "Connexion…";
+
+
+  try{
+
+    const data =
+      await supabaseRequest(
+        "/auth/v1/token?grant_type=password",
+        {
+          method:"POST",
+
+          body:
+            JSON.stringify({
+              email,
+              password
+            })
+        }
+      );
+
+
+    if(!data?.access_token){
+
+      throw new Error(
+        "Connexion impossible."
+      );
 
     }
-  );
+
+
+    currentSession =
+      data;
+
+    currentUser =
+      data.user;
+
+
+    /*
+     * IMPORTANT:
+     * Store the Supabase session locally.
+     * This is what allows the admin page to
+     * remember the login on the same browser.
+     */
+
+    localStorage.setItem(
+      "smartreview_access_token",
+      data.access_token
+    );
+
+    localStorage.setItem(
+      "smartreview_refresh_token",
+      data.refresh_token || ""
+    );
+
+    localStorage.setItem(
+      "smartreview_user",
+      JSON.stringify(
+        data.user || {}
+      )
+    );
+
+
+    showDashboard();
+
+
+  }
+
+  catch(error){
+
+    console.error(
+      "LOGIN ERROR:",
+      error
+    );
+
+
+    showNotice(
+      "Email ou mot de passe incorrect."
+    );
+
+  }
+
+  finally{
+
+    loginButton.disabled =
+      false;
+
+    loginButton.classList.remove(
+      "loading"
+    );
+
+    loginButton.textContent =
+      "Se connecter";
+
+  }
 
 }
 
 
 /* =========================================================
-SHOW ADMIN
+REFRESH SESSION
 ========================================================= */
 
-function showAdmin(){
+async function refreshSession(){
 
-  loginScreen.classList.add(
-    "hidden"
-  );
+  const refreshToken =
+    localStorage.getItem(
+      "smartreview_refresh_token"
+    );
 
-  adminApp.classList.remove(
-    "hidden"
-  );
+
+  if(!refreshToken){
+
+    return false;
+
+  }
+
+
+  try{
+
+    const data =
+      await supabaseRequest(
+        "/auth/v1/token?grant_type=refresh_token",
+        {
+          method:"POST",
+
+          body:
+            JSON.stringify({
+              refresh_token:
+                refreshToken
+            })
+        }
+      );
+
+
+    if(!data?.access_token){
+
+      return false;
+
+    }
+
+
+    currentSession =
+      data;
+
+    currentUser =
+      data.user;
+
+
+    localStorage.setItem(
+      "smartreview_access_token",
+      data.access_token
+    );
+
+
+    localStorage.setItem(
+      "smartreview_refresh_token",
+      data.refresh_token || refreshToken
+    );
+
+
+    localStorage.setItem(
+      "smartreview_user",
+      JSON.stringify(
+        data.user || {}
+      )
+    );
+
+
+    return true;
+
+  }
+
+  catch(error){
+
+    console.warn(
+      "SESSION REFRESH FAILED:",
+      error
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+CHECK EXISTING LOGIN
+========================================================= */
+
+async function checkExistingLogin(){
+
+  hideNotice();
+
+
+  /*
+   * First try the existing stored session.
+   */
+
+  const accessToken =
+    localStorage.getItem(
+      "smartreview_access_token"
+    );
+
+
+  if(accessToken){
+
+    try{
+
+      const data =
+        await supabaseRequest(
+          "/auth/v1/user",
+          {
+            method:"GET",
+
+            headers:{
+              "Authorization":
+                `Bearer ${accessToken}`
+            }
+          }
+        );
+
+
+      if(data?.id){
+
+        currentUser =
+          data;
+
+        currentSession = {
+
+          access_token:
+            accessToken,
+
+          user:
+            data
+
+        };
+
+
+        showDashboard();
+
+        return;
+
+      }
+
+    }
+
+    catch(error){
+
+      console.warn(
+        "STORED SESSION INVALID:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /*
+   * If access token expired,
+   * try refresh token.
+   */
+
+  const refreshed =
+    await refreshSession();
+
+
+  if(refreshed){
+
+    showDashboard();
+
+    return;
+
+  }
+
+
+  showLogin();
 
 }
 
@@ -1374,538 +1841,464 @@ SHOW LOGIN
 
 function showLogin(){
 
-  adminApp.classList.add(
-    "hidden"
-  );
+  loginCard
+    .classList
+    .remove("hidden");
 
-  loginScreen.classList.remove(
-    "hidden"
-  );
+  loginCard.style.display =
+    "block";
 
-}
+  dashboard
+    .classList
+    .remove("show");
 
+  dashboard.style.display =
+    "none";
 
-/* =========================================================
-SAVE SESSION
-========================================================= */
-
-function saveSession(
-  session
-){
-
-  localStorage.setItem(
-    SESSION_KEY,
-    JSON.stringify(session)
-  );
+  logoutButton.style.display =
+    "none";
 
 }
 
 
 /* =========================================================
-GET SESSION
+SHOW DASHBOARD
 ========================================================= */
 
-function getSession(){
+function showDashboard(){
 
-  try{
+  loginCard.style.display =
+    "none";
 
-    const saved =
-    localStorage.getItem(
-      SESSION_KEY
-    );
+  dashboard
+    .classList
+    .add("show");
 
-    if(!saved){
-      return null;
-    }
+  dashboard.style.display =
+    "block";
 
-    return JSON.parse(saved);
+  logoutButton.style.display =
+    "block";
 
-  }
-  catch{
 
-    return null;
+  const email =
+    currentUser?.email ||
+    "Utilisateur connecté";
 
-  }
+
+  loggedUser.textContent =
+    `Connecté : ${email}`;
 
 }
-
-
-/* =========================================================
-CLEAR SESSION
-========================================================= */
-
-function clearSession(){
-
-  localStorage.removeItem(
-    SESSION_KEY
-  );
-
-}
-
-
-/* =========================================================
-LOGIN FORM
-========================================================= */
-
-loginForm.addEventListener(
-  "submit",
-  async function(event){
-
-    event.preventDefault();
-
-    const email =
-    loginEmail.value.trim();
-
-    const password =
-    loginPassword.value;
-
-    if(!email || !password){
-
-      showLoginStatus(
-        "Veuillez entrer votre email et votre mot de passe.",
-        "error"
-      );
-
-      return;
-
-    }
-
-    loginButton.disabled =
-    true;
-
-    loginButton.textContent =
-    "Connexion…";
-
-    loginStatus.className =
-    "login-status";
-
-
-    try{
-
-      const session =
-      await login(
-        email,
-        password
-      );
-
-      if(
-        !session ||
-        !session.access_token
-      ){
-
-        throw new Error(
-          "Connexion impossible."
-        );
-
-      }
-
-
-      saveSession(
-        session
-      );
-
-
-      showLoginStatus(
-        "Connexion réussie.",
-        "success"
-      );
-
-
-      setTimeout(
-        showAdmin,
-        250
-      );
-
-
-    }
-    catch(error){
-
-      console.error(
-        "Login error:",
-        error
-      );
-
-      showLoginStatus(
-        "Email ou mot de passe incorrect.",
-        "error"
-      );
-
-    }
-    finally{
-
-      loginButton.disabled =
-      false;
-
-      loginButton.textContent =
-      "🔐 Se connecter";
-
-    }
-
-  }
-);
 
 
 /* =========================================================
 LOGOUT
 ========================================================= */
 
-logoutButton.addEventListener(
-  "click",
-  function(){
+async function logout(){
 
-    clearSession();
+  try{
 
-    showLogin();
+    const accessToken =
+      localStorage.getItem(
+        "smartreview_access_token"
+      );
 
-    loginEmail.value =
-    "";
 
-    loginPassword.value =
-    "";
+    if(accessToken){
+
+      await fetch(
+        `${SUPABASE_URL}/auth/v1/logout`,
+        {
+          method:"POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${accessToken}`,
+
+            "Content-Type":
+              "application/json"
+
+          }
+        }
+      );
+
+    }
 
   }
-);
+
+  catch(error){
+
+    console.warn(
+      "LOGOUT ERROR:",
+      error
+    );
+
+  }
 
 
-/* =========================================================
-CARD CODE
-========================================================= */
+  currentSession =
+    null;
 
-function generateCardCode(){
+  currentUser =
+    null;
 
-  const random =
-  Math.random()
-    .toString(36)
-    .substring(2,8)
-    .toUpperCase();
 
-  return "CARD-" + random;
+  localStorage.removeItem(
+    "smartreview_access_token"
+  );
+
+  localStorage.removeItem(
+    "smartreview_refresh_token"
+  );
+
+  localStorage.removeItem(
+    "smartreview_user"
+  );
+
+
+  loginPassword.value =
+    "";
+
+  showLogin();
 
 }
 
 
 /* =========================================================
-WHATSAPP
+GET AUTH HEADER
 ========================================================= */
 
-function cleanWhatsApp(
-  value
-){
+function getAuthHeaders(){
 
-  let number =
-  String(value || "")
-    .replace(/\D/g,"");
+  const token =
+    currentSession?.access_token ||
+    localStorage.getItem(
+      "smartreview_access_token"
+    );
 
-  if(
-    number.startsWith("0")
-  ){
 
-    number =
-    "213" +
-    number.substring(1);
+  if(!token){
+
+    throw new Error(
+      "Session expirée. Veuillez vous reconnecter."
+    );
 
   }
 
-  return number;
+
+  return {
+
+    "Authorization":
+      `Bearer ${token}`
+
+  };
 
 }
 
 
 /* =========================================================
-CREATE BUSINESS + CARD
+CREATE BUSINESS
 ========================================================= */
 
-async function createCard(){
+async function createBusiness(){
 
-  const session =
-  getSession();
-
-  if(
-    !session ||
-    !session.access_token
-  ){
-
-    showLogin();
-
-    return;
-
-  }
+  hideNotice();
 
 
   const name =
-  businessName.value.trim();
+    businessNameInput.value.trim();
 
-  const google =
-  googleReviewUrl.value.trim();
+  const googleReviewUrl =
+    googleUrlInput.value.trim();
 
-  const whatsapp =
-  cleanWhatsApp(
-    whatsappNumber.value
-  );
+  const whatsappNumber =
+    whatsappInput.value.trim();
 
-  const logo =
-  logoUrl.value.trim();
+  const websiteUrl =
+    websiteInput.value.trim();
 
+  const logoUrl =
+    logoInput.value.trim();
 
-  /* =======================================================
-  VALIDATION
-  ======================================================= */
 
   if(!name){
 
-    showCreateStatus(
-      "Veuillez entrer le nom de l'établissement.",
-      "error"
+    showNotice(
+      "Veuillez entrer le nom de l'établissement."
     );
-
-    businessName.focus();
 
     return;
 
   }
 
 
-  if(!google){
+  if(!googleReviewUrl){
 
-    showCreateStatus(
-      "Veuillez entrer le lien Google pour les avis.",
-      "error"
+    showNotice(
+      "Veuillez entrer le lien Google pour les avis."
     );
-
-    googleReviewUrl.focus();
 
     return;
 
   }
 
 
-  if(!whatsapp){
+  if(!whatsappNumber){
 
-    showCreateStatus(
-      "Veuillez entrer le numéro WhatsApp.",
-      "error"
+    showNotice(
+      "Veuillez entrer le numéro WhatsApp."
     );
-
-    whatsappNumber.focus();
 
     return;
 
   }
 
-
-  /* =======================================================
-  LOADING
-  ======================================================= */
 
   createButton.disabled =
-  true;
+    true;
 
-  createLoading.classList.add(
-    "show"
+  createButton.classList.add(
+    "loading"
   );
 
-  createStatus.className =
-  "status";
-
-  result.classList.remove(
-    "show"
-  );
+  createButton.textContent =
+    "Création…";
 
 
   try{
 
-    const code =
-    generateCardCode();
+    /*
+     * Make sure we still have a valid session.
+     */
+
+    const accessToken =
+      localStorage.getItem(
+        "smartreview_access_token"
+      );
 
 
-    /* =====================================================
-    CALL SECURE RPC
-    ===================================================== */
+    if(!accessToken){
 
-    const rpcResponse =
-    await supabaseRequest(
-      "/rest/v1/rpc/admin_create_business_and_card",
-      {
+      throw new Error(
+        "Votre session a expiré. Veuillez vous reconnecter."
+      );
 
-        method:"POST",
-
-        headers:{
-          "apikey":SUPABASE_KEY,
-
-          "Authorization":
-          "Bearer " +
-          session.access_token,
-
-          "Content-Type":
-          "application/json"
-        },
-
-        body:JSON.stringify({
-
-          p_name:name,
-
-          p_google_review_url:
-          google,
-
-          p_whatsapp_number:
-          whatsapp,
-
-          p_logo_url:
-          logo || null,
-
-          p_card_code:
-          code
-
-        })
-
-      }
-    );
+    }
 
 
-    /* =====================================================
-    RESULT
-    ===================================================== */
+    /*
+     * CREATE BUSINESS
+     */
 
-    const finalCode =
-    rpcResponse &&
-    rpcResponse.card_code
-    ? rpcResponse.card_code
-    : code;
+    const business =
+      await supabaseRequest(
+        "/rest/v1/businesses",
+        {
+          method:"POST",
 
+          headers:{
 
-    const url =
-    new URL(
-      "index.html",
-      window.location.href
-    );
+            ...getAuthHeaders(),
 
-    url.searchParams.set(
-      "card",
-      finalCode
-    );
+            "Prefer":
+              "return=representation"
 
+          },
 
-    const finalUrl =
-    url.href;
+          body:
+            JSON.stringify({
 
+              name:
+                name,
 
-    createdCode.textContent =
-    finalCode;
+              google_review_url:
+                googleReviewUrl,
 
-    cardUrl.textContent =
-    finalUrl;
+              whatsapp_number:
+                whatsappNumber,
 
-    cardUrl.href =
-    finalUrl;
+              website_url:
+                websiteUrl || null,
 
-    openCard.href =
-    finalUrl;
+              logo_url:
+                logoUrl || null
 
+            })
 
-    result.classList.add(
-      "show"
-    );
+        }
+      );
 
 
-    showCreateStatus(
-      "Carte créée avec succès.",
+    const createdBusiness =
+      Array.isArray(business)
+        ? business[0]
+        : business;
+
+
+    if(!createdBusiness?.id){
+
+      throw new Error(
+        "L'établissement a été créé mais son identifiant est introuvable."
+      );
+
+    }
+
+
+    /*
+     * CREATE CARD
+     */
+
+    const generatedCode =
+      await generateCardCode();
+
+
+    const card =
+      await supabaseRequest(
+        "/rest/v1/cards",
+        {
+          method:"POST",
+
+          headers:{
+
+            ...getAuthHeaders(),
+
+            "Prefer":
+              "return=representation"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              card_code:
+                generatedCode,
+
+              business_id:
+                createdBusiness.id,
+
+              active:
+                true
+
+            })
+
+        }
+      );
+
+
+    const createdCard =
+      Array.isArray(card)
+        ? card[0]
+        : card;
+
+
+    if(!createdCard){
+
+      throw new Error(
+        "L'établissement a été créé mais la carte n'a pas pu être créée."
+      );
+
+    }
+
+
+    /*
+     * SUCCESS
+     */
+
+    showNotice(
+      `Carte créée avec succès !\n\nCode : ${generatedCode}`,
       "success"
     );
 
 
-    /* =====================================================
-    SAVE LAST CARD
-    ===================================================== */
+    /*
+     * CLEAR FORM
+     */
 
-    localStorage.setItem(
-      "smart_review_last_card",
-      JSON.stringify({
+    businessNameInput.value =
+      "";
 
-        cardCode:
-        finalCode,
+    googleUrlInput.value =
+      "";
 
-        url:
-        finalUrl,
+    whatsappInput.value =
+      "";
 
-        businessName:
-        name
+    websiteInput.value =
+      "";
 
-      })
+    logoInput.value =
+      "";
+
+
+    /*
+     * SHOW CARD
+     */
+
+    testCardCode.value =
+      generatedCode;
+
+
+    await openTestCard(
+      generatedCode
     );
 
-
-    /* =====================================================
-    CLEAR FORM
-    ===================================================== */
-
-    businessName.value =
-    "";
-
-    googleReviewUrl.value =
-    "";
-
-    whatsappNumber.value =
-    "";
-
-    logoUrl.value =
-    "";
-
-
   }
+
   catch(error){
 
     console.error(
-      "Create card error:",
+      "CREATE ERROR:",
       error
     );
 
 
     /*
-      If Supabase says the session is invalid,
-      send the administrator back to login.
-    */
-
-    const message =
-    String(
-      error.message || ""
-    );
-
+     * If authentication expired,
+     * force login.
+     */
 
     if(
-      message.includes("JWT") ||
-      message.includes("token") ||
-      message.includes("401")
+      error.status === 401 ||
+      String(error.message)
+        .toLowerCase()
+        .includes("session")
     ){
-
-      clearSession();
 
       showLogin();
 
-      showLoginStatus(
-        "Votre session a expiré. Veuillez vous reconnecter.",
-        "error"
+      showNotice(
+        "Votre session a expiré. Veuillez vous reconnecter."
       );
 
     }
+
     else{
 
-      showCreateStatus(
-        "Erreur : " +
-        message,
-        "error"
+      showNotice(
+        `Erreur :\n${error.message || "Erreur inconnue."}`
       );
 
     }
 
   }
+
   finally{
 
     createButton.disabled =
-    false;
+      false;
 
-    createLoading.classList.remove(
-      "show"
+    createButton.classList.remove(
+      "loading"
     );
+
+    createButton.textContent =
+      "✨ Créer ma carte";
 
   }
 
@@ -1913,161 +2306,184 @@ async function createCard(){
 
 
 /* =========================================================
-CREATE BUTTON
+GENERATE CARD CODE
 ========================================================= */
 
-createButton.addEventListener(
-  "click",
-  createCard
-);
+async function generateCardCode(){
 
+  /*
+   * We generate a simple unique code locally.
+   * Example: CARD7F4A91
+   */
 
-/* =========================================================
-COPY CODE
-========================================================= */
+  for(let attempt = 0; attempt < 10; attempt++){
 
-copyCode.addEventListener(
-  "click",
-  async function(){
+    const randomPart =
+      Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+
 
     const code =
-    createdCode.textContent;
+      `CARD${randomPart}`;
 
-    if(
-      !code ||
-      code === "—"
-    ){
-
-      return;
-
-    }
 
     try{
 
-      await navigator.clipboard.writeText(
-        code
-      );
+      const existing =
+        await supabaseRequest(
+          `/rest/v1/cards?card_code=eq.${encodeURIComponent(code)}&select=id`
+        );
 
-      copyCode.textContent =
-      "✓ Copié";
 
-      setTimeout(
-        function(){
+      if(
+        !existing ||
+        existing.length === 0
+      ){
 
-          copyCode.textContent =
-          "Copier";
+        return code;
 
-        },
-        1500
-      );
+      }
 
     }
+
     catch(error){
 
-      console.error(
+      console.warn(
+        "CARD CODE CHECK:",
         error
       );
 
     }
 
   }
-);
+
+
+  throw new Error(
+    "Impossible de générer un code de carte unique."
+  );
+
+}
 
 
 /* =========================================================
-TEST CARD
+GET CARD
 ========================================================= */
 
-testButton.addEventListener(
-  "click",
-  function(){
+async function getCard(
+  code
+){
 
-    const code =
-    testCardCode.value.trim();
-
-    if(!code){
-
-      alert(
-        "Veuillez entrer un code de carte."
-      );
-
-      testCardCode.focus();
-
-      return;
-
-    }
-
-
-    const url =
-    new URL(
-      "index.html",
-      window.location.href
+  const result =
+    await supabaseRequest(
+      `/rest/v1/cards?card_code=eq.${encodeURIComponent(code)}&select=*`
     );
 
-    url.searchParams.set(
-      "card",
-      code
-    );
 
-    window.location.href =
-    url.href;
+  if(
+    !result ||
+    result.length === 0
+  ){
+
+    throw new Error(
+      "Carte introuvable."
+    );
 
   }
-);
+
+
+  return result[0];
+
+}
 
 
 /* =========================================================
-LOAD LAST CARD
+OPEN TEST CARD
 ========================================================= */
 
-function loadLastCard(){
+async function openTestCard(
+  code
+){
+
+  const cleanCode =
+    String(code || "")
+      .trim();
+
+
+  if(!cleanCode){
+
+    showNotice(
+      "Veuillez entrer un code de carte."
+    );
+
+    return;
+
+  }
+
+
+  testButton.disabled =
+    true;
+
+  testButton.classList.add(
+    "loading"
+  );
+
+  testButton.textContent =
+    "Recherche…";
+
 
   try{
 
-    const saved =
-    localStorage.getItem(
-      "smart_review_last_card"
-    );
+    const card =
+      await getCard(
+        cleanCode
+      );
 
-    if(!saved){
-      return;
-    }
 
-    const data =
-    JSON.parse(saved);
+    const pageUrl =
+      `${window.location.origin}${window.location.pathname.replace(/admin\.html$/i,"")}index.html?card=${encodeURIComponent(card.card_code)}`;
 
-    if(
-      !data ||
-      !data.cardCode ||
-      !data.url
-    ){
 
-      return;
+    testCode.textContent =
+      card.card_code;
 
-    }
 
-    createdCode.textContent =
-    data.cardCode;
+    openCardButton.href =
+      pageUrl;
 
-    cardUrl.textContent =
-    data.url;
 
-    cardUrl.href =
-    data.url;
+    testResult
+      .classList
+      .add("show");
 
-    openCard.href =
-    data.url;
 
-    result.classList.add(
-      "show"
+  }
+
+  catch(error){
+
+    testResult
+      .classList
+      .remove("show");
+
+
+    showNotice(
+      `Erreur : ${error.message}`
     );
 
   }
-  catch(error){
 
-    console.error(
-      error
+  finally{
+
+    testButton.disabled =
+      false;
+
+    testButton.classList.remove(
+      "loading"
     );
+
+    testButton.textContent =
+      "Ouvrir la carte";
 
   }
 
@@ -2075,38 +2491,82 @@ function loadLastCard(){
 
 
 /* =========================================================
-CHECK EXISTING SESSION
+EVENTS
 ========================================================= */
 
-function checkSession(){
+loginButton.addEventListener(
+  "click",
+  login
+);
 
-  const session =
-  getSession();
 
-  if(
-    session &&
-    session.access_token
-  ){
+loginPassword.addEventListener(
+  "keydown",
+  event => {
 
-    showAdmin();
+    if(
+      event.key === "Enter"
+    ){
 
-    loadLastCard();
+      login();
+
+    }
 
   }
-  else{
+);
 
-    showLogin();
+
+logoutButton.addEventListener(
+  "click",
+  logout
+);
+
+
+createButton.addEventListener(
+  "click",
+  createBusiness
+);
+
+
+testButton.addEventListener(
+  "click",
+  () => {
+
+    openTestCard(
+      testCardCode.value
+    );
 
   }
+);
 
-}
+
+testCardCode.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key === "Enter"
+    ){
+
+      openTestCard(
+        testCardCode.value
+      );
+
+    }
+
+  }
+);
 
 
 /* =========================================================
 START
 ========================================================= */
 
-checkSession();
+logoutButton.style.display =
+  "none";
+
+
+checkExistingLogin();
 
 </script>
 
