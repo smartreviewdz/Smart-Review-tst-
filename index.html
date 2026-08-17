@@ -1,899 +1,3185 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#061b3a">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta
+  name="theme-color"
+  content="#061b3a"
+>
+
 <title>Smart Review</title>
 
 <style>
+
+/* =========================================================
+SMART REVIEW — PREMIUM MOBILE UI
+========================================================= */
+
 :root{
-  --navy:#061b3a;
-  --navy2:#08264d;
-  --blue:#165dff;
-  --gold:#d99213;
-  --gold-light:#ffcf55;
-  --ink:#071b3c;
-  --muted:#65758c;
+
+--navy:#061b3a;
+--navy-2:#08264d;
+--navy-3:#0d376b;
+
+--blue:#165dff;
+--blue-light:#4285ff;
+
+--gold:#d99213;
+--gold-light:#ffcf55;
+--gold-dark:#a86600;
+
+--white:#ffffff;
+--ink:#071b3c;
+
+--muted:#65758c;
+
+--soft:#f5f7fa;
+
 }
+
+
+/* =========================================================
+RESET
+========================================================= */
 
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
-html,body{
-  width:100%;
-  min-height:100%;
+html,
+body{
+
+width:100%;
+min-height:100%;
+
+}
+
+html{
+
+background:var(--navy);
+
 }
 
 body{
-  min-height:100vh;
-  min-height:100dvh;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:#fff;
-  color:var(--ink);
+
+min-height:100vh;
+min-height:100dvh;
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Roboto,
+Helvetica,
+Arial,
+sans-serif;
+
+-webkit-font-smoothing:antialiased;
+text-rendering:optimizeLegibility;
+
+background:#fff;
+
+color:var(--ink);
+
+overflow-x:hidden;
+
 }
+
+
+/* =========================================================
+APP
+========================================================= */
 
 .app{
-  width:100%;
-  min-height:100vh;
-  background:#fff;
-  overflow:hidden;
+
+width:100%;
+min-height:100vh;
+min-height:100dvh;
+
+position:relative;
+
+overflow:hidden;
+
+background:#fff;
+
 }
 
-/* HERO */
+
+/* =========================================================
+HERO
+========================================================= */
 
 .hero{
-  position:relative;
-  min-height:390px;
-  padding:35px 18px 95px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  color:#fff;
-  background:
-    radial-gradient(circle at 50% 5%,rgba(255,255,255,.1),transparent 30%),
-    linear-gradient(180deg,#061b3a,#08264d 70%,#092e5c);
+
+position:relative;
+
+width:100%;
+
+min-height:405px;
+
+color:#fff;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+text-align:center;
+
+padding:
+max(25px,env(safe-area-inset-top))
+18px
+100px;
+
+background:
+
+radial-gradient(
+circle at 50% 5%,
+rgba(255,255,255,.10),
+transparent 30%
+),
+
+radial-gradient(
+circle at 50% 105%,
+rgba(30,111,255,.30),
+transparent 55%
+),
+
+linear-gradient(
+180deg,
+#061b3a 0%,
+#08264d 65%,
+#092e5c 100%
+);
+
 }
+
+
+/* premium texture */
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+pointer-events:none;
+
+opacity:.18;
+
+background-image:
+
+radial-gradient(
+rgba(255,255,255,.16) .7px,
+transparent .7px
+);
+
+background-size:13px 13px;
+
+mask-image:
+linear-gradient(
+to bottom,
+black,
+transparent 82%
+);
+
+}
+
+
+/* subtle glow */
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+width:260px;
+height:260px;
+
+top:-160px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:
+rgba(38,117,255,.18);
+
+filter:blur(55px);
+
+border-radius:50%;
+
+pointer-events:none;
+
+}
+
+
+/* =========================================================
+GOOGLE MARK
+========================================================= */
 
 .google-mark{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:20px;
-  border:3px solid var(--gold);
-  box-shadow:0 15px 34px rgba(0,0,0,.3);
+
+position:relative;
+
+z-index:2;
+
+width:
+clamp(86px,24vw,112px);
+
+height:
+clamp(86px,24vw,112px);
+
+border-radius:50%;
+
+background:#fff;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+margin-top:3px;
+
+margin-bottom:19px;
+
+box-shadow:
+
+0 15px 34px
+rgba(0,0,0,.30),
+
+0 0 0 3px
+rgba(217,146,19,.95),
+
+0 0 0 6px
+rgba(255,202,67,.22);
+
+animation:
+googleEnter .7s
+cubic-bezier(.2,.8,.2,1)
+both;
+
 }
+
+
+/* little shine */
+
+.google-mark::after{
+
+content:"";
+
+position:absolute;
+
+inset:8px;
+
+border-radius:50%;
+
+border:
+1px solid
+rgba(255,255,255,.9);
+
+opacity:.65;
+
+}
+
 
 .google-letter{
-  font-family:Arial,sans-serif;
-  font-size:66px;
-  font-weight:800;
-  background:conic-gradient(
-    from -35deg,
-    #4285f4 0deg 80deg,
-    #34a853 80deg 170deg,
-    #fbbc05 170deg 245deg,
-    #ea4335 245deg 320deg,
-    #4285f4 320deg 360deg
-  );
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+
+font-family:Arial,sans-serif;
+
+font-size:
+clamp(53px,14vw,72px);
+
+font-weight:800;
+
+line-height:1;
+
+background:
+
+conic-gradient(
+from -35deg,
+#4285f4 0deg 80deg,
+#34a853 80deg 170deg,
+#fbbc05 170deg 245deg,
+#ea4335 245deg 320deg,
+#4285f4 320deg 360deg
+);
+
+-webkit-background-clip:text;
+background-clip:text;
+
+color:transparent;
+
 }
+
+
+@keyframes googleEnter{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(-20px)
+scale(.78);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0)
+scale(1);
+
+}
+
+}
+
+
+/* =========================================================
+HERO TITLE
+========================================================= */
 
 .hero-title{
-  max-width:600px;
-  font-size:clamp(23px,6vw,34px);
-  line-height:1.15;
-  font-weight:900;
-  text-transform:uppercase;
+
+position:relative;
+
+z-index:2;
+
+max-width:560px;
+
+font-size:
+clamp(23px,6.3vw,34px);
+
+line-height:1.13;
+
+font-weight:900;
+
+letter-spacing:-.8px;
+
+text-transform:uppercase;
+
+text-shadow:
+0 4px 18px
+rgba(0,0,0,.30);
+
 }
+
+
+/* =========================================================
+HERO RATING
+========================================================= */
 
 .hero-rating{
-  margin-top:25px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
+
+position:relative;
+
+z-index:3;
+
+width:100%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:
+clamp(7px,2vw,17px);
+
+margin-top:25px;
+
 }
+
 
 .rating-line{
-  width:55px;
-  height:2px;
-  background:#4285ff;
+
+width:
+clamp(25px,11vw,85px);
+
+height:2px;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+rgba(38,129,255,.95)
+);
+
 }
+
+
+.rating-line.right{
+
+background:
+
+linear-gradient(
+90deg,
+rgba(38,129,255,.95),
+transparent
+);
+
+}
+
 
 .hero-stars{
-  display:flex;
-  gap:4px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+gap:
+clamp(3px,1vw,8px);
+
 }
+
 
 .hero-star{
-  font-size:38px;
-  color:var(--gold-light);
+
+font-size:
+clamp(30px,8vw,49px);
+
+line-height:1;
+
+color:var(--gold-light);
+
+text-shadow:
+
+0 4px 5px
+rgba(0,0,0,.45),
+
+0 0 15px
+rgba(255,202,67,.25);
+
+transform:
+perspective(300px)
+rotateX(7deg);
+
 }
+
+
+/* =========================================================
+WAVE
+========================================================= */
+
+.wave-blue{
+
+position:absolute;
+
+z-index:4;
+
+left:-5%;
+
+bottom:55px;
+
+width:110%;
+
+height:65px;
+
+background:
+
+linear-gradient(
+180deg,
+#0c63ff,
+#164fd1
+);
+
+clip-path:
+ellipse(
+69% 55%
+at 50% 100%
+);
+
+}
+
 
 .wave{
-  position:absolute;
-  bottom:-1px;
-  left:-5%;
-  width:110%;
-  height:100px;
-  background:#fff;
-  clip-path:ellipse(73% 58% at 50% 100%);
+
+position:absolute;
+
+z-index:5;
+
+left:-5%;
+
+bottom:-1px;
+
+width:110%;
+
+height:105px;
+
+background:#fff;
+
+clip-path:
+ellipse(
+73% 58%
+at 50% 100%
+);
+
 }
 
-/* CONTENT */
+
+/* =========================================================
+CONTENT
+========================================================= */
 
 .content{
-  position:relative;
-  z-index:5;
-  margin-top:-20px;
-  padding:0 18px 40px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  background:#fff;
+
+position:relative;
+
+z-index:10;
+
+background:#fff;
+
+width:100%;
+
+min-height:
+calc(100vh - 400px);
+
+min-height:
+calc(100dvh - 400px);
+
+margin-top:-23px;
+
+padding:
+
+0
+18px
+max(30px,env(safe-area-inset-bottom));
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
 }
+
+
+/* =========================================================
+CLIENT BRAND
+========================================================= */
 
 .client-brand{
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
+
+width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+position:relative;
+
+margin-top:-2px;
+
 }
+
+
+/* =========================================================
+LOGO FRAME
+========================================================= */
 
 .logo-frame{
-  width:190px;
-  height:190px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  margin-bottom:20px;
+
+width:
+clamp(170px,48vw,215px);
+
+height:
+clamp(170px,48vw,215px);
+
+position:relative;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+margin-bottom:19px;
+
 }
+
+
+/* gold corners */
 
 .logo-frame::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(var(--gold),var(--gold)) left top/60px 4px no-repeat,
-    linear-gradient(var(--gold),var(--gold)) left top/4px 60px no-repeat,
-    linear-gradient(var(--gold),var(--gold)) right top/60px 4px no-repeat,
-    linear-gradient(var(--gold),var(--gold)) right top/4px 60px no-repeat,
-    linear-gradient(var(--gold),var(--gold)) left bottom/60px 4px no-repeat,
-    linear-gradient(var(--gold),var(--gold)) left bottom/4px 60px no-repeat,
-    linear-gradient(var(--gold),var(--gold)) right bottom/60px 4px no-repeat,
-    linear-gradient(var(--gold),var(--gold)) right bottom/4px 60px no-repeat;
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+pointer-events:none;
+
+background:
+
+linear-gradient(var(--gold),var(--gold))
+left top / 64px 4px no-repeat,
+
+linear-gradient(var(--gold),var(--gold))
+left top / 4px 64px no-repeat,
+
+linear-gradient(var(--gold),var(--gold))
+right top / 64px 4px no-repeat,
+
+linear-gradient(var(--gold),var(--gold))
+right top / 4px 64px no-repeat,
+
+linear-gradient(var(--gold),var(--gold))
+left bottom / 64px 4px no-repeat,
+
+linear-gradient(var(--gold),var(--gold))
+left bottom / 4px 64px no-repeat,
+
+linear-gradient(var(--gold),var(--gold))
+right bottom / 64px 4px no-repeat,
+
+linear-gradient(var(--gold),var(--gold))
+right bottom / 4px 64px no-repeat;
+
 }
+
+
+/* =========================================================
+CLIENT LOGO
+========================================================= */
 
 .client-logo{
-  width:140px;
-  height:140px;
-  border-radius:25px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  background:linear-gradient(145deg,#fff,#f0f3f7);
-  box-shadow:0 15px 35px rgba(7,27,60,.13);
-  font-size:52px;
+
+width:
+clamp(120px,35vw,158px);
+
+height:
+clamp(120px,35vw,158px);
+
+border-radius:25px;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+overflow:hidden;
+
+background:
+
+linear-gradient(
+145deg,
+#ffffff,
+#f0f3f7
+);
+
+border:
+1px solid
+rgba(7,27,60,.08);
+
+box-shadow:
+
+0 15px 35px
+rgba(7,27,60,.13),
+
+0 2px 5px
+rgba(7,27,60,.05);
+
+font-size:52px;
+
+color:#0b315f;
+
 }
+
 
 .client-logo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
 }
+
+
+/* =========================================================
+BUSINESS NAME
+========================================================= */
 
 .business-name{
-  width:100%;
-  font-size:clamp(29px,8vw,42px);
-  line-height:1.08;
-  font-weight:900;
-  color:var(--navy);
-  overflow-wrap:anywhere;
+
+width:100%;
+
+max-width:700px;
+
+font-size:
+clamp(29px,8vw,42px);
+
+line-height:1.08;
+
+font-weight:900;
+
+letter-spacing:-1px;
+
+color:var(--navy);
+
+text-align:center;
+
+overflow-wrap:anywhere;
+
+margin-bottom:8px;
+
 }
+
+
+/* =========================================================
+SUBTITLE
+========================================================= */
 
 .subtitle{
-  margin-top:8px;
-  margin-bottom:28px;
-  color:#53657d;
-  font-size:18px;
-  font-weight:600;
+
+width:100%;
+
+max-width:600px;
+
+color:#53657d;
+
+font-size:
+clamp(16px,4.5vw,20px);
+
+font-weight:600;
+
+text-align:center;
+
+line-height:1.45;
+
+margin-bottom:28px;
+
 }
 
-/* FEEDBACK */
+
+/* =========================================================
+FEEDBACK
+========================================================= */
 
 .feedback-area{
-  width:100%;
-  max-width:680px;
-  text-align:center;
+
+width:100%;
+
+max-width:680px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+text-align:center;
+
+animation:
+contentEnter .55s
+cubic-bezier(.2,.8,.2,1)
+both;
+
 }
 
-.hidden{
-  display:none !important;
+
+@keyframes contentEnter{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(20px);
+
 }
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+}
+
+
+/* =========================================================
+QUESTION
+========================================================= */
 
 .rating-question{
-  font-size:clamp(22px,6vw,30px);
-  line-height:1.2;
-  font-weight:850;
-  margin-bottom:15px;
+
+width:100%;
+
+color:var(--navy);
+
+font-size:
+clamp(22px,6vw,30px);
+
+line-height:1.18;
+
+font-weight:850;
+
+letter-spacing:-.5px;
+
+margin-bottom:18px;
+
 }
+
+
+/* =========================================================
+STARS
+========================================================= */
 
 .stars{
-  display:flex;
-  justify-content:center;
-  gap:3px;
+
+width:100%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:
+clamp(2px,1vw,10px);
+
+margin-bottom:7px;
+
 }
+
+
+/* =========================================================
+STAR BUTTON
+========================================================= */
 
 .star{
-  border:0;
-  outline:0;
-  background:transparent;
-  width:clamp(58px,16vw,84px);
-  height:clamp(65px,17vw,92px);
-  padding:0;
-  font-size:clamp(58px,16vw,82px);
-  line-height:1;
-  color:#c9d0d9;
-  cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
+
+appearance:none;
+-webkit-appearance:none;
+
+border:0 !important;
+outline:none !important;
+
+background:transparent !important;
+
+box-shadow:none !important;
+
+width:
+clamp(58px,16vw,84px);
+
+height:
+clamp(65px,17vw,92px);
+
+padding:0;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:
+clamp(58px,16vw,82px);
+
+line-height:1;
+
+color:#c9d0d9;
+
+cursor:pointer;
+
+position:relative;
+
+user-select:none;
+
+-webkit-user-select:none;
+
+-webkit-tap-highlight-color:transparent;
+
+touch-action:manipulation;
+
+transition:
+
+color .18s ease,
+
+filter .18s ease,
+
+transform .15s
+cubic-bezier(.2,.9,.25,1.4);
+
 }
+
+
+.star:focus,
+.star:focus-visible,
+.star:active{
+
+outline:none !important;
+
+background:transparent !important;
+
+box-shadow:none !important;
+
+}
+
 
 .star.active{
-  color:var(--gold);
-  filter:drop-shadow(0 5px 6px rgba(150,90,0,.25));
+
+color:var(--gold);
+
+filter:
+
+drop-shadow(
+0 5px 6px
+rgba(150,90,0,.25)
+);
+
+animation:
+starPop .34s
+cubic-bezier(.2,.9,.25,1.4);
+
 }
+
+
+@keyframes starPop{
+
+0%{
+transform:scale(.68);
+}
+
+45%{
+transform:scale(1.20);
+}
+
+72%{
+transform:scale(.94);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+
+.star:active{
+
+transform:scale(.84);
+
+}
+
+
+/* =========================================================
+RATING TEXT
+========================================================= */
 
 .rating-text{
-  min-height:28px;
-  margin:4px 0 20px;
-  color:var(--muted);
-  font-size:16px;
-  font-weight:650;
+
+min-height:28px;
+
+color:#65758c;
+
+font-size:
+clamp(15px,4.1vw,18px);
+
+font-weight:650;
+
+margin-bottom:19px;
+
 }
+
+
+/* =========================================================
+MESSAGE
+========================================================= */
 
 .message{
-  text-align:center;
+
+width:100%;
+
+text-align:center;
+
+display:block;
+
+animation:
+messageEnter .4s
+cubic-bezier(.2,.8,.2,1)
+both;
+
 }
+
+
+.message.hidden{
+
+display:none !important;
+
+}
+
+
+@keyframes messageEnter{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(14px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0);
+
+}
+
+}
+
+
+/* =========================================================
+MESSAGE TITLE
+========================================================= */
 
 .message h2{
-  color:var(--navy);
-  font-size:clamp(23px,6vw,31px);
-  margin-bottom:9px;
+
+color:var(--navy);
+
+font-size:
+clamp(23px,6vw,31px);
+
+line-height:1.18;
+
+font-weight:900;
+
+letter-spacing:-.55px;
+
+margin-bottom:9px;
+
 }
+
+
+/* =========================================================
+MESSAGE TEXT
+========================================================= */
 
 .message p{
-  color:#61728a;
-  font-size:17px;
-  line-height:1.5;
-  margin-bottom:20px;
+
+color:#61728a;
+
+font-size:
+clamp(16px,4.4vw,19px);
+
+line-height:1.52;
+
+max-width:620px;
+
+margin:
+0 auto 20px;
+
 }
+
+
+/* =========================================================
+GOOGLE AREA
+========================================================= */
+
+#googleArea{
+
+width:100%;
+
+animation:
+googleAreaEnter .45s
+cubic-bezier(.2,.8,.2,1)
+both;
+
+}
+
+
+@keyframes googleAreaEnter{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(10px)
+scale(.98);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+translateY(0)
+scale(1);
+
+}
+
+}
+
+
+/* =========================================================
+BUTTON BASE
+========================================================= */
 
 .button{
-  width:100%;
-  min-height:72px;
-  border-radius:20px;
-  border:none;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  padding:18px 22px;
-  font-size:19px;
-  font-weight:900;
-  cursor:pointer;
-  margin-top:10px;
+
+width:100%;
+
+min-height:72px;
+
+border-radius:20px;
+
+border:none;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+text-decoration:none;
+
+padding:18px 22px;
+
+font-size:
+clamp(18px,4.8vw,22px);
+
+font-weight:900;
+
+cursor:pointer;
+
+margin-top:10px;
+
+position:relative;
+
+overflow:hidden;
+
+transition:
+
+transform .16s ease,
+
+box-shadow .22s ease,
+
+background .22s ease;
+
+-webkit-tap-highlight-color:transparent;
+
+touch-action:manipulation;
+
 }
+
+
+.button:active{
+
+transform:
+scale(.975);
+
+}
+
+
+/* =========================================================
+PREMIUM GOOGLE BUTTON
+========================================================= */
 
 .google{
-  color:#fff;
-  background:linear-gradient(135deg,#0a2d59,#0d407a,#08294f);
-  border:2px solid rgba(217,146,19,.88);
-  box-shadow:0 12px 28px rgba(7,27,60,.22);
+
+color:#fff;
+
+background:
+
+linear-gradient(
+135deg,
+#0a2d59 0%,
+#0d407a 52%,
+#08294f 100%
+);
+
+border:
+
+2px solid
+rgba(217,146,19,.88);
+
+box-shadow:
+
+0 12px 28px
+rgba(7,27,60,.22),
+
+0 0 0 3px
+rgba(217,146,19,.08);
+
+animation:
+googleAttention 3.2s
+ease-in-out
+infinite;
+
 }
+
+
+/* gold accent line */
+
+.google::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+right:0;
+
+top:0;
+
+height:4px;
+
+background:
+
+linear-gradient(
+90deg,
+var(--gold-dark),
+var(--gold-light),
+var(--gold-dark)
+);
+
+}
+
+
+/* moving shine */
+
+.google::after{
+
+content:"";
+
+position:absolute;
+
+top:-20%;
+
+left:-45%;
+
+width:35%;
+
+height:140%;
+
+transform:skewX(-20deg);
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.24),
+transparent
+);
+
+animation:
+buttonShine 3.8s
+ease-in-out
+infinite;
+
+}
+
+
+@keyframes buttonShine{
+
+0%,
+55%{
+
+left:-45%;
+
+}
+
+75%{
+
+left:120%;
+
+}
+
+100%{
+
+left:120%;
+
+}
+
+}
+
+
+@keyframes googleAttention{
+
+0%,
+72%,
+100%{
+
+transform:translateY(0);
+
+box-shadow:
+
+0 12px 28px
+rgba(7,27,60,.22),
+
+0 0 0 3px
+rgba(217,146,19,.08);
+
+}
+
+76%{
+
+transform:
+translateY(-2px)
+scale(1.015);
+
+box-shadow:
+
+0 16px 34px
+rgba(7,27,60,.28),
+
+0 0 0 5px
+rgba(217,146,19,.15);
+
+}
+
+81%{
+
+transform:
+translateY(0)
+scale(1);
+
+}
+
+}
+
+
+/* =========================================================
+WHATSAPP
+========================================================= */
 
 .private{
-  color:#fff;
-  background:linear-gradient(135deg,#123e6d,#09294d);
+
+color:#fff;
+
+background:
+
+linear-gradient(
+135deg,
+#123e6d,
+#09294d
+);
+
+box-shadow:
+
+0 11px 26px
+rgba(7,27,60,.18);
+
 }
+
+
+/* =========================================================
+WHATSAPP ACTIVE
+========================================================= */
+
+.private.sending{
+
+background:
+
+linear-gradient(
+135deg,
+#159447,
+#087a37
+);
+
+box-shadow:
+
+0 13px 30px
+rgba(20,150,75,.28);
+
+pointer-events:none;
+
+}
+
+
+/* =========================================================
+TEXTAREA
+========================================================= */
 
 textarea{
-  width:100%;
-  min-height:150px;
-  resize:none;
-  padding:18px;
-  border-radius:20px;
-  border:1.5px solid rgba(7,27,60,.12);
-  background:#f6f8fb;
-  color:var(--ink);
-  outline:none;
-  font-size:18px;
-  line-height:1.5;
+
+width:100%;
+
+min-height:150px;
+
+resize:none;
+
+padding:18px;
+
+border-radius:20px;
+
+border:
+1.5px solid
+rgba(7,27,60,.12);
+
+background:#f6f8fb;
+
+color:var(--ink);
+
+outline:none;
+
+font-size:18px;
+
+line-height:1.5;
+
+margin-bottom:8px;
+
+-webkit-appearance:none;
+
 }
+
+
+textarea::placeholder{
+
+color:#7c899a;
+
+}
+
+
+textarea:focus{
+
+border-color:
+rgba(22,93,255,.55);
+
+box-shadow:
+
+0 0 0 4px
+rgba(22,93,255,.08);
+
+}
+
+
+/* =========================================================
+SMART REVIEW FOOTER
+========================================================= */
 
 .brand-footer{
-  width:100%;
-  text-align:center;
-  margin-top:40px;
-  padding-top:22px;
-  border-top:1px solid rgba(7,27,60,.11);
+
+width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+margin-top:38px;
+
+padding-top:23px;
+
+border-top:
+1px solid
+rgba(7,27,60,.11);
+
 }
+
+
+/* =========================================================
+MINI LINE
+========================================================= */
+
+.brand-mini-line{
+
+width:
+clamp(100px,27vw,155px);
+
+height:3px;
+
+margin-bottom:14px;
+
+border-radius:20px;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+var(--gold),
+var(--blue),
+transparent
+);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+.brand-mini-line::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-50%;
+
+width:40%;
+
+height:100%;
+
+background:
+rgba(255,255,255,.8);
+
+filter:blur(2px);
+
+animation:
+lineShine 3.5s
+ease-in-out
+infinite;
+
+}
+
+
+@keyframes lineShine{
+
+0%{
+
+left:-50%;
+
+}
+
+60%,
+100%{
+
+left:120%;
+
+}
+
+}
+
+
+/* =========================================================
+SMART REVIEW LOGO
+========================================================= */
 
 .smart-review{
-  font-size:36px;
-  font-weight:950;
-  background:linear-gradient(110deg,#a86c08,#e3a51e,#fff,#356a9f,#061b3a);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+
+font-size:
+clamp(31px,8.5vw,45px);
+
+line-height:1;
+
+font-weight:950;
+
+letter-spacing:-1.5px;
+
+background:
+
+linear-gradient(
+110deg,
+#a86c08 0%,
+#e3a51e 18%,
+#fff 35%,
+#c5ced9 48%,
+#356a9f 70%,
+#061b3a 100%
+);
+
+background-size:
+240% 100%;
+
+-webkit-background-clip:text;
+background-clip:text;
+
+color:transparent;
+
+filter:
+
+drop-shadow(
+0 4px 8px
+rgba(7,27,60,.13)
+);
+
+animation:
+smartShimmer 5s
+ease-in-out
+infinite;
+
 }
+
+
+@keyframes smartShimmer{
+
+0%{
+
+background-position:
+0% 50%;
+
+}
+
+50%{
+
+background-position:
+100% 50%;
+
+}
+
+100%{
+
+background-position:
+0% 50%;
+
+}
+
+}
+
+
+/* =========================================================
+SMART REVIEW SUBTITLE
+========================================================= */
 
 .smart-review-sub{
-  margin-top:7px;
-  color:#6b788a;
-  font-size:11px;
-  font-weight:750;
-  letter-spacing:2px;
-  text-transform:uppercase;
+
+margin-top:8px;
+
+color:#6b788a;
+
+font-size:
+clamp(10px,2.8vw,13px);
+
+font-weight:750;
+
+letter-spacing:2px;
+
+text-transform:uppercase;
+
 }
+
+
+/* =========================================================
+ERROR
+========================================================= */
 
 .error{
-  color:#d83b3b;
-  font-weight:700;
+
+color:#d83b3b !important;
+
+font-weight:700;
+
 }
+
+
+/* =========================================================
+HIDDEN
+========================================================= */
+
+.hidden{
+
+display:none !important;
+
+}
+
+
+/* =========================================================
+LOADING
+========================================================= */
 
 .loading{
-  color:#65758c;
+
+color:#9db0c9;
+
 }
+
+
+.loading-dot{
+
+display:inline-block;
+
+width:7px;
+height:7px;
+
+margin:0 3px;
+
+border-radius:50%;
+
+background:#d99213;
+
+animation:
+loadingPulse 1s
+infinite ease-in-out;
+
+}
+
+
+.loading-dot:nth-child(2){
+
+animation-delay:.15s;
+
+}
+
+
+.loading-dot:nth-child(3){
+
+animation-delay:.30s;
+
+}
+
+
+@keyframes loadingPulse{
+
+0%,
+80%,
+100%{
+
+opacity:.25;
+
+transform:scale(.7);
+
+}
+
+40%{
+
+opacity:1;
+
+transform:scale(1);
+
+}
+
+}
+
+
+/* =========================================================
+SMALL PHONES
+========================================================= */
 
 @media(max-width:390px){
-  .hero{
-    min-height:370px;
-    padding-left:14px;
-    padding-right:14px;
-  }
 
-  .google-mark{
-    width:88px;
-    height:88px;
-  }
+.hero{
 
-  .google-letter{
-    font-size:58px;
-  }
+min-height:370px;
 
-  .content{
-    padding-left:15px;
-    padding-right:15px;
-  }
+padding-left:14px;
+padding-right:14px;
 
-  .logo-frame{
-    width:155px;
-    height:155px;
-  }
-
-  .client-logo{
-    width:110px;
-    height:110px;
-  }
 }
+
+
+.google-mark{
+
+margin-bottom:17px;
+
+}
+
+
+.hero-title{
+
+font-size:22px;
+
+max-width:340px;
+
+}
+
+
+.hero-rating{
+
+margin-top:21px;
+
+}
+
+
+.content{
+
+padding-left:15px;
+padding-right:15px;
+
+}
+
+
+.logo-frame{
+
+width:155px;
+height:155px;
+
+}
+
+
+.client-logo{
+
+width:110px;
+height:110px;
+
+}
+
+
+.business-name{
+
+font-size:28px;
+
+}
+
+
+.rating-question{
+
+font-size:21px;
+
+}
+
+
+.star{
+
+width:56px;
+height:64px;
+
+font-size:55px;
+
+}
+
+
+.button{
+
+min-height:70px;
+
+}
+
+}
+
+
+/* =========================================================
+TALL PHONES
+========================================================= */
+
+@media(height >= 800px){
+
+.hero{
+
+min-height:425px;
+
+}
+
+
+.content{
+
+margin-top:-27px;
+
+}
+
+
+.client-brand{
+
+margin-top:-4px;
+
+}
+
+
+.logo-frame{
+
+margin-bottom:21px;
+
+}
+
+
+.business-name{
+
+margin-bottom:9px;
+
+}
+
+
+.subtitle{
+
+margin-bottom:30px;
+
+}
+
+}
+
+
+/* =========================================================
+TABLETS / DESKTOP
+========================================================= */
+
+@media(width >= 700px){
+
+.hero{
+
+min-height:500px;
+
+}
+
+
+.content{
+
+margin-top:-36px;
+
+padding-left:40px;
+padding-right:40px;
+
+}
+
+
+.client-brand{
+
+margin-top:-5px;
+
+}
+
+
+.logo-frame{
+
+width:215px;
+height:215px;
+
+}
+
+
+.client-logo{
+
+width:160px;
+height:160px;
+
+}
+
+
+.stars{
+
+gap:10px;
+
+}
+
+
+.star{
+
+width:84px;
+height:90px;
+
+font-size:82px;
+
+}
+
+
+.button{
+
+min-height:76px;
+
+}
+
+}
+
+
+/* =========================================================
+REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+*,
+*::before,
+*::after{
+
+animation-duration:.01ms !important;
+
+animation-iteration-count:1 !important;
+
+transition-duration:.01ms !important;
+
+}
+
+}
+
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
+
+<!-- =====================================================
+HERO
+===================================================== -->
+
 <section class="hero">
 
-  <div class="google-mark">
-    <div class="google-letter">G</div>
-  </div>
 
-  <h1 class="hero-title">
-    LAISSEZ-NOUS VOTRE AVIS SUR GOOGLE
-  </h1>
+<div class="google-mark">
 
-  <div class="hero-rating">
-    <div class="rating-line"></div>
+<div class="google-letter">
+G
+</div>
 
-    <div class="hero-stars">
-      <span class="hero-star">★</span>
-      <span class="hero-star">★</span>
-      <span class="hero-star">★</span>
-      <span class="hero-star">★</span>
-      <span class="hero-star">★</span>
-    </div>
+</div>
 
-    <div class="rating-line"></div>
-  </div>
 
-  <div class="wave"></div>
+<h1 class="hero-title">
+LAISSEZ-NOUS VOTRE AVIS SUR GOOGLE
+</h1>
+
+
+<div class="hero-rating">
+
+<div class="rating-line"></div>
+
+<div class="hero-stars">
+
+<span class="hero-star">★</span>
+<span class="hero-star">★</span>
+<span class="hero-star">★</span>
+<span class="hero-star">★</span>
+<span class="hero-star">★</span>
+
+</div>
+
+<div class="rating-line right"></div>
+
+</div>
+
+
+<div class="wave-blue"></div>
+
+<div class="wave"></div>
 
 </section>
+
+
+
+<!-- =====================================================
+MAIN CONTENT
+===================================================== -->
 
 <main class="content">
 
+
 <section class="client-brand">
 
-  <div class="logo-frame">
-    <div class="client-logo" id="logo">
-      🍽️
-    </div>
-  </div>
 
-  <h2 class="business-name" id="businessName">
-    Chargement...
-  </h2>
+<div class="logo-frame">
 
-  <p class="subtitle" id="subtitle">
-    Connexion à Smart Review...
-  </p>
+<div
+class="client-logo"
+id="logo"
+aria-label="Business logo"
+>
+🍽️
+</div>
+
+</div>
+
+
+<h2
+class="business-name"
+id="businessName"
+>
+Loading...
+</h2>
+
+
+<p
+class="subtitle"
+id="subtitle"
+>
+
+<span class="loading-dot"></span>
+<span class="loading-dot"></span>
+<span class="loading-dot"></span>
+
+</p>
+
+</section>
+
+
+
+<!-- =====================================================
+FEEDBACK
+===================================================== -->
+
+<section
+id="feedbackArea"
+class="feedback-area hidden"
+>
+
+
+<div class="rating-question">
+Comment avez-vous vécu votre expérience ?
+</div>
+
+
+<div
+class="stars"
+id="stars"
+role="radiogroup"
+aria-label="Évaluez votre expérience"
+>
+
+<button
+type="button"
+class="star"
+data-rating="1"
+aria-label="1 étoile"
+>★</button>
+
+
+<button
+type="button"
+class="star"
+data-rating="2"
+aria-label="2 étoiles"
+>★</button>
+
+
+<button
+type="button"
+class="star"
+data-rating="3"
+aria-label="3 étoiles"
+>★</button>
+
+
+<button
+type="button"
+class="star"
+data-rating="4"
+aria-label="4 étoiles"
+>★</button>
+
+
+<button
+type="button"
+class="star"
+data-rating="5"
+aria-label="5 étoiles"
+>★</button>
+
+</div>
+
+
+<div
+class="rating-text"
+id="ratingText"
+>
+Touchez une étoile pour commencer
+</div>
+
+
+
+<!-- =================================================
+MESSAGE
+================================================= -->
+
+<section
+class="message hidden"
+id="message"
+>
+
+
+<h2 id="messageTitle"></h2>
+
+
+<p id="messageText"></p>
+
+
+
+<!-- =================================================
+GOOGLE
+================================================= -->
+
+<div
+id="googleArea"
+class="hidden"
+>
+
+<a
+id="googleButton"
+class="button google"
+href="#"
+target="_blank"
+rel="noopener"
+>
+
+⭐ Écrire mon avis sur Google
+
+</a>
+
+</div>
+
+
+
+<!-- =================================================
+PRIVATE FEEDBACK
+================================================= -->
+
+<div
+id="privateArea"
+class="hidden"
+>
+
+
+<textarea
+id="feedbackMessage"
+placeholder="Dites-nous ce qui s'est passé ou comment nous pouvons nous améliorer..."
+aria-label="Votre commentaire privé"
+></textarea>
+
+
+<button
+type="button"
+id="sendPrivate"
+class="button private"
+>
+
+💬 Envoyer mon retour
+
+</button>
+
+</div>
+
 
 </section>
 
-<section id="feedbackArea" class="feedback-area hidden">
-
-  <div class="rating-question">
-    Comment avez-vous vécu votre expérience ?
-  </div>
-
-  <div
-    class="stars"
-    id="stars"
-    role="radiogroup"
-    aria-label="Évaluez votre expérience"
-  >
-
-    <button class="star" type="button" data-rating="1">★</button>
-    <button class="star" type="button" data-rating="2">★</button>
-    <button class="star" type="button" data-rating="3">★</button>
-    <button class="star" type="button" data-rating="4">★</button>
-    <button class="star" type="button" data-rating="5">★</button>
-
-  </div>
-
-  <div class="rating-text" id="ratingText">
-    Touchez une étoile pour commencer
-  </div>
-
-  <section class="message hidden" id="message">
-
-    <h2 id="messageTitle"></h2>
-
-    <p id="messageText"></p>
-
-    <div id="googleArea" class="hidden">
-
-      <a
-        id="googleButton"
-        class="button google"
-        href="#"
-        target="_blank"
-        rel="noopener"
-      >
-        ⭐ Écrire mon avis sur Google
-      </a>
-
-    </div>
-
-    <div id="privateArea" class="hidden">
-
-      <textarea
-        id="feedbackMessage"
-        placeholder="Dites-nous ce qui s'est passé ou comment nous pouvons nous améliorer..."
-      ></textarea>
-
-      <button
-        type="button"
-        id="sendPrivate"
-        class="button private"
-      >
-        💬 Envoyer mon retour
-      </button>
-
-    </div>
-
-  </section>
 
 </section>
+
+
+
+<!-- =====================================================
+SMART REVIEW FOOTER
+===================================================== -->
 
 <footer class="brand-footer">
 
-  <div class="smart-review">
-    Smart Review
-  </div>
 
-  <div class="smart-review-sub">
-    Better feedback. Better businesses.
-  </div>
+<div class="brand-mini-line"></div>
+
+
+<div class="smart-review">
+Smart Review
+</div>
+
+
+<div class="smart-review-sub">
+Better feedback. Better businesses.
+</div>
+
 
 </footer>
+
 
 </main>
 
 </div>
 
+
+
 <script>
-/* =====================================================
-   SUPABASE
-===================================================== */
+
+/* =========================================================
+SUPABASE CONFIG
+========================================================= */
 
 const SUPABASE_URL =
-  "https://ptfijeyhgmtcsedyiwto.supabase.co";
+"https://ptfijeyhgmtcsedyiwto.supabase.co";
+
 
 const SUPABASE_KEY =
-  "sb_publishable_gtihO7sbuhLIOG7ausRhXg_sYupQjXZ";
+"sb_publishable_gtihO7sbuhLIOG7ausRhXg_sYupQjXZ";
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+/* =========================================================
+GET CARD CODE
+========================================================= */
 
 function getCardCode(){
 
-  const params =
-    new URLSearchParams(window.location.search);
+const params =
+new URLSearchParams(
+window.location.search
+);
 
-  return params.get("card");
+return params.get("card");
+
 }
 
+
+/* =========================================================
+SUPABASE GET
+========================================================= */
 
 async function supabaseGet(endpoint){
 
-  const response =
-    await fetch(
-      SUPABASE_URL + "/rest/v1/" + endpoint,
-      {
-        method:"GET",
-        headers:{
-          "apikey":SUPABASE_KEY,
-          "Authorization":"Bearer " + SUPABASE_KEY,
-          "Content-Type":"application/json"
-        }
-      }
-    );
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/" +
+endpoint,
+{
+method:"GET",
 
-  const text =
-    await response.text();
+headers:{
 
-  if(!response.ok){
-    throw new Error(
-      "Supabase HTTP " +
-      response.status +
-      ": " +
-      text
-    );
-  }
+"apikey":
+SUPABASE_KEY,
 
-  return text ? JSON.parse(text) : [];
+"Authorization":
+"Bearer " + SUPABASE_KEY,
+
+"Content-Type":
+"application/json"
+
+}
+
+}
+);
+
+
+const responseText =
+await response.text();
+
+
+if(!response.ok){
+
+throw new Error(
+"Supabase HTTP " +
+response.status +
+": " +
+responseText
+);
+
 }
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+return responseText
+? JSON.parse(responseText)
+: [];
 
-const businessName =
-  document.getElementById("businessName");
+}
 
-const subtitle =
-  document.getElementById("subtitle");
 
-const feedbackArea =
-  document.getElementById("feedbackArea");
+/* =========================================================
+TRACK CARD SCAN
+========================================================= */
 
-const logo =
-  document.getElementById("logo");
+async function trackScan(cardCode){
 
-const stars =
-  document.querySelectorAll(".star");
+if(!cardCode){
+return;
+}
 
-const ratingText =
-  document.getElementById("ratingText");
+try{
 
-const message =
-  document.getElementById("message");
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/rpc/report_card_scan",
+{
+method:"POST",
 
-const messageTitle =
-  document.getElementById("messageTitle");
+headers:{
 
-const messageText =
-  document.getElementById("messageText");
+"apikey":
+SUPABASE_KEY,
 
-const googleArea =
-  document.getElementById("googleArea");
+"Authorization":
+"Bearer " + SUPABASE_KEY,
 
-const privateArea =
-  document.getElementById("privateArea");
+"Content-Type":
+"application/json"
 
-const googleButton =
-  document.getElementById("googleButton");
+},
 
-const feedbackMessage =
-  document.getElementById("feedbackMessage");
+body:
+JSON.stringify({
+
+p_card_code:
+cardCode
+
+})
+
+}
+);
+
+
+if(!response.ok){
+
+console.error(
+"Scan tracking failed:",
+await response.text()
+);
+
+return;
+
+}
+
+
+console.log(
+"Smart Review scan recorded:",
+cardCode
+);
+
+
+}catch(error){
+
+console.error(
+"Scan tracking error:",
+error
+);
+
+}
+
+}
+
+
+/* =========================================================
+TRACK RATING
+========================================================= */
+
+async function trackRating(
+cardCode,
+rating
+){
+
+if(
+!cardCode ||
+!rating
+){
+
+return;
+
+}
+
+try{
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/rpc/report_card_rating",
+{
+method:"POST",
+
+headers:{
+
+"apikey":
+SUPABASE_KEY,
+
+"Authorization":
+"Bearer " + SUPABASE_KEY,
+
+"Content-Type":
+"application/json"
+
+},
+
+body:
+JSON.stringify({
+
+p_card_code:
+cardCode,
+
+p_rating:
+rating
+
+})
+
+}
+);
+
+
+if(!response.ok){
+
+console.error(
+"Rating tracking failed:",
+await response.text()
+);
+
+return;
+
+}
+
+
+console.log(
+"Smart Review rating recorded:",
+cardCode,
+rating
+);
+
+
+}catch(error){
+
+console.error(
+"Rating tracking error:",
+error
+);
+
+}
+
+}
+
+
+/* =========================================================
+VARIABLES
+========================================================= */
 
 let currentBusiness = null;
+
 let selectedRating = null;
 
 
-/* =====================================================
-   LOAD CARD
-===================================================== */
+/* =========================================================
+LOAD CARD
+========================================================= */
 
 async function loadCard(){
 
-  const cardCode = getCardCode();
+const cardCode =
+getCardCode();
 
-  console.log("Smart Review card:", cardCode);
 
-  if(!cardCode){
+const businessName =
+document.getElementById(
+"businessName"
+);
 
-    businessName.textContent =
-      "Carte introuvable";
 
-    subtitle.innerHTML =
-      '<span class="error">Aucun code de carte n’a été fourni.</span>';
+const subtitle =
+document.getElementById(
+"subtitle"
+);
 
-    return;
-  }
 
-  try{
+const feedbackArea =
+document.getElementById(
+"feedbackArea"
+);
 
-    const cards =
-      await supabaseGet(
-        "cards?card_code=eq." +
-        encodeURIComponent(cardCode) +
-        "&active=eq.true&select=*"
-      );
 
-    console.log("Cards:", cards);
+/* =======================================================
+NO CARD
+======================================================= */
 
-    if(!cards.length){
-      throw new Error(
-        "Aucune carte active trouvée pour " +
-        cardCode
-      );
-    }
+if(!cardCode){
 
-    const card = cards[0];
+businessName.textContent =
+"Carte introuvable";
 
-    const businesses =
-      await supabaseGet(
-        "businesses?id=eq." +
-        encodeURIComponent(card.business_id) +
-        "&select=*"
-      );
 
-    console.log("Businesses:", businesses);
+subtitle.innerHTML =
+'<span class="error">Aucun code de carte n’a été fourni.</span>';
 
-    if(!businesses.length){
-      throw new Error(
-        "Aucun établissement trouvé pour business_id " +
-        card.business_id
-      );
-    }
 
-    currentBusiness = businesses[0];
+return;
 
-    businessName.textContent =
-      currentBusiness.name ||
-      "Votre établissement";
+}
 
-    subtitle.textContent =
-      "Votre opinion compte pour nous.";
 
-    document.title =
-      (currentBusiness.name || "Smart Review") +
-      " — Smart Review";
+try{
 
-    if(currentBusiness.logo_url){
 
-      const image =
-        document.createElement("img");
+/* =====================================================
+FIND CARD
+===================================================== */
 
-      image.src =
-        currentBusiness.logo_url;
+const cards =
+await supabaseGet(
+"cards?card_code=eq." +
+encodeURIComponent(cardCode) +
+"&active=eq.true&select=*"
+);
 
-      image.alt =
-        currentBusiness.name || "Logo";
 
-      image.onerror =
-        function(){
-          logo.innerHTML = "🍽️";
-        };
+if(!cards.length){
 
-      logo.innerHTML = "";
-      logo.appendChild(image);
-    }
+throw new Error(
+"Card not found"
+);
 
-    googleButton.href =
-      currentBusiness.google_review_url ||
-      "https://www.google.com/maps";
+}
 
-    feedbackArea.classList.remove("hidden");
 
-  }
-  catch(error){
+const card =
+cards[0];
 
-    console.error(
-      "SMART REVIEW ERROR:",
-      error
-    );
 
-    businessName.textContent =
-      "Carte introuvable";
+/* =====================================================
+FIND BUSINESS
+===================================================== */
 
-    subtitle.innerHTML =
-      '<span class="error">' +
-      "Cette carte est inactive ou n’existe pas." +
-      "</span>";
+const businesses =
+await supabaseGet(
+"businesses?id=eq." +
+encodeURIComponent(card.business_id) +
+"&select=*"
+);
 
-  }
+
+if(!businesses.length){
+
+throw new Error(
+"Business not found"
+);
+
+}
+
+
+currentBusiness =
+businesses[0];
+
+
+/* =====================================================
+BUSINESS NAME
+===================================================== */
+
+businessName.textContent =
+currentBusiness.name ||
+"Votre établissement";
+
+
+document.title =
+(currentBusiness.name || "Business") +
+" — Smart Review";
+
+
+subtitle.textContent =
+"Votre opinion compte pour nous.";
+
+
+/* =====================================================
+CLIENT LOGO
+===================================================== */
+
+if(
+currentBusiness.logo_url
+){
+
+const logo =
+document.getElementById(
+"logo"
+);
+
+
+logo.innerHTML =
+"";
+
+
+const image =
+document.createElement(
+"img"
+);
+
+
+image.src =
+currentBusiness.logo_url;
+
+
+image.alt =
+currentBusiness.name ||
+"Logo";
+
+
+image.onerror =
+function(){
+
+logo.innerHTML =
+"🍽️";
+
+};
+
+
+logo.appendChild(
+image
+);
+
 }
 
 
 /* =====================================================
-   RATINGS
+GOOGLE REVIEW
 ===================================================== */
 
-stars.forEach(function(star){
+const googleButton =
+document.getElementById(
+"googleButton"
+);
 
-  star.addEventListener("click",function(){
 
-    selectedRating =
-      Number(star.dataset.rating);
-
-    stars.forEach(function(s){
-
-      s.classList.toggle(
-        "active",
-        Number(s.dataset.rating) <= selectedRating
-      );
-
-    });
-
-    const labels = {
-      1:"Nous aimerions faire mieux.",
-      2:"Merci de nous l'avoir signalé.",
-      3:"Merci pour votre retour.",
-      4:"Ravi de l'entendre !",
-      5:"Incroyable ! Merci beaucoup !"
-    };
-
-    ratingText.textContent =
-      labels[selectedRating];
-
-    message.classList.remove("hidden");
-
-    if(selectedRating <= 2){
-
-      messageTitle.textContent =
-        "Nous sommes désolés pour votre expérience.";
-
-      messageText.textContent =
-        "Dites-nous ce qui s'est passé. Votre retour nous permet de nous améliorer.";
-
-      googleArea.classList.add("hidden");
-      privateArea.classList.remove("hidden");
-
-      feedbackMessage.value = "";
-
-    }else{
-
-      privateArea.classList.add("hidden");
-      googleArea.classList.remove("hidden");
-
-      if(selectedRating === 3){
-
-        messageTitle.textContent =
-          "Merci pour votre retour !";
-
-      }else if(selectedRating === 4){
-
-        messageTitle.textContent =
-          "Nous sommes ravis !";
-
-      }else{
-
-        messageTitle.textContent =
-          "Merci ! Nous sommes ravis que vous ayez adoré ! ❤️";
-
-      }
-
-      messageText.textContent =
-        "Votre avis peut aider d'autres clients. Nous apprécierions beaucoup votre avis sur Google.";
-    }
-
-  });
-
-});
+googleButton.href =
+currentBusiness.google_review_url ||
+"https://www.google.com/maps";
 
 
 /* =====================================================
-   WHATSAPP
+SHOW
 ===================================================== */
+
+feedbackArea
+.classList
+.remove("hidden");
+
+}
+
+
+catch(error){
+
+console.error(
+"Smart Review card error:",
+error
+);
+
+
+businessName.textContent =
+"Carte introuvable";
+
+
+subtitle.innerHTML =
+'<span class="error">Cette carte est inactive ou n’existe pas.</span>';
+
+}
+
+}
+
+
+/* =========================================================
+STAR ELEMENTS
+========================================================= */
+
+const stars =
+document.querySelectorAll(
+".star"
+);
+
+
+const ratingText =
+document.getElementById(
+"ratingText"
+);
+
+
+const message =
+document.getElementById(
+"message"
+);
+
+
+const messageTitle =
+document.getElementById(
+"messageTitle"
+);
+
+
+const messageText =
+document.getElementById(
+"messageText"
+);
+
+
+const googleArea =
+document.getElementById(
+"googleArea"
+);
+
+
+const privateArea =
+document.getElementById(
+"privateArea"
+);
+
+
+const feedbackMessage =
+document.getElementById(
+"feedbackMessage"
+);
+
+
+/* =========================================================
+STAR CLICK
+========================================================= */
+
+stars.forEach(
+star => {
+
+star.addEventListener(
+"click",
+async () => {
+
+
+selectedRating =
+Number(
+star.dataset.rating
+);
+
+
+/* =================================================
+TRACK RATING
+================================================= */
+
+const cardCode =
+getCardCode();
+
+
+trackRating(
+cardCode,
+selectedRating
+);
+
+
+/* =================================================
+HIGHLIGHT
+================================================= */
+
+stars.forEach(
+s => {
+
+s.classList.toggle(
+"active",
+
+Number(
+s.dataset.rating
+) <= selectedRating
+
+);
+
+}
+);
+
+
+/* =================================================
+RATING LABEL
+================================================= */
+
+const ratingLabels = {
+
+1:
+"Nous aimerions faire mieux.",
+
+2:
+"Merci de nous l'avoir signalé.",
+
+3:
+"Merci pour votre retour.",
+
+4:
+"Ravi de l'entendre !",
+
+5:
+"Incroyable ! Merci beaucoup !"
+
+};
+
+
+ratingText.textContent =
+ratingLabels[
+selectedRating
+];
+
+
+/* =================================================
+MESSAGE
+================================================= */
+
+message.classList.remove(
+"hidden"
+);
+
+
+/* =================================================
+1–2 STARS
+================================================= */
+
+if(
+selectedRating <= 2
+){
+
+messageTitle.textContent =
+"Nous sommes désolés pour votre expérience.";
+
+
+messageText.textContent =
+"Dites-nous ce qui s'est passé. Votre retour nous permet de nous améliorer.";
+
+
+googleArea
+.classList
+.add(
+"hidden"
+);
+
+
+privateArea
+.classList
+.remove(
+"hidden"
+);
+
+
+feedbackMessage.value =
+"";
+
+
+}
+
+
+/* =================================================
+3–5 STARS
+================================================= */
+
+else{
+
+privateArea
+.classList
+.add(
+"hidden"
+);
+
+
+googleArea
+.classList
+.remove(
+"hidden"
+);
+
+
+if(
+selectedRating === 3
+){
+
+messageTitle.textContent =
+"Merci pour votre retour !";
+
+}
+
+else if(
+selectedRating === 4
+){
+
+messageTitle.textContent =
+"Nous sommes ravis !";
+
+}
+
+else{
+
+messageTitle.textContent =
+"Merci ! Nous sommes ravis que vous ayez adoré ! ❤️";
+
+}
+
+
+messageText.textContent =
+"Votre avis peut aider d'autres clients. Nous apprécierions beaucoup votre avis sur Google.";
+
+}
+
+}
+);
+
+}
+);
+
+
+/* =========================================================
+PRIVATE WHATSAPP
+========================================================= */
 
 document
-  .getElementById("sendPrivate")
-  .addEventListener("click",function(){
+.getElementById(
+"sendPrivate"
+)
+.addEventListener(
+"click",
+() => {
 
-    if(!currentBusiness){
 
-      alert(
-        "Les informations de l'établissement sont indisponibles."
-      );
+const button =
+document.getElementById(
+"sendPrivate"
+);
 
-      return;
-    }
 
-    if(!currentBusiness.whatsapp_number){
-
-      alert(
-        "Le numéro WhatsApp n'est pas configuré."
-      );
-
-      return;
-    }
-
-    let number =
-      String(currentBusiness.whatsapp_number)
-      .replace(/\D/g,"");
-
-    if(number.startsWith("0")){
-
-      number =
-        "213" +
-        number.substring(1);
-    }
-
-    const text =
-      feedbackMessage.value.trim();
-
-    let whatsappMessage =
-      "🔒 Retour privé — " +
-      (currentBusiness.name || "Business") +
-      "\n\n" +
-      "⭐ Note : " +
-      selectedRating +
-      "/5";
-
-    if(text){
-
-      whatsappMessage +=
-        "\n\n💬 Commentaire du client :\n" +
-        text;
-    }
-
-    const url =
-      "https://wa.me/" +
-      number +
-      "?text=" +
-      encodeURIComponent(whatsappMessage);
-
-    window.location.href = url;
-
-  });
+const text =
+feedbackMessage
+.value
+.trim();
 
 
 /* =====================================================
-   START
+CHECK BUSINESS
 ===================================================== */
 
+if(
+!currentBusiness
+){
+
+alert(
+"Les informations de l'établissement sont indisponibles."
+);
+
+return;
+
+}
+
+
+/* =====================================================
+CHECK WHATSAPP
+===================================================== */
+
+if(
+!currentBusiness.whatsapp_number
+){
+
+alert(
+"Le numéro WhatsApp n'est pas configuré."
+);
+
+return;
+
+}
+
+
+/* =====================================================
+CLEAN NUMBER
+===================================================== */
+
+let number =
+String(
+currentBusiness.whatsapp_number
+)
+.replace(
+/\D/g,
+""
+);
+
+
+if(
+number.startsWith("0")
+){
+
+number =
+"213" +
+number.substring(1);
+
+}
+
+
+/* =====================================================
+BUILD MESSAGE
+===================================================== */
+
+const businessName =
+currentBusiness.name ||
+"Business";
+
+
+let whatsappMessage =
+"🔒 Retour privé — " +
+businessName +
+"\n\n" +
+"⭐ Note : " +
+selectedRating +
+"/5";
+
+
+if(
+text.length > 0
+){
+
+whatsappMessage +=
+"\n\n💬 Commentaire du client :\n" +
+text;
+
+}
+
+
+/* =====================================================
+BUTTON ANIMATION
+===================================================== */
+
+button.classList.add(
+"sending"
+);
+
+
+button.innerHTML =
+"✓ Ouverture de WhatsApp…";
+
+
+/* =====================================================
+URL
+===================================================== */
+
+const encodedMessage =
+encodeURIComponent(
+whatsappMessage
+);
+
+
+const whatsappURL =
+"https://wa.me/" +
+number +
+"?text=" +
+encodedMessage;
+
+
+/* =====================================================
+OPEN
+===================================================== */
+
+setTimeout(
+() => {
+
+window.location.href =
+whatsappURL;
+
+},
+450
+);
+
+}
+);
+
+
+/* =========================================================
+START
+========================================================= */
+
+const initialCardCode =
+getCardCode();
+
+
+if(
+initialCardCode
+){
+
+trackScan(
+initialCardCode
+);
+
+}
+
+
 loadCard();
+
 </script>
 
 </body>
