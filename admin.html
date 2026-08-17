@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 
 <meta charset="UTF-8">
@@ -10,16 +9,17 @@
   content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
-<meta
-  name="theme-color"
-  content="#061b3a"
->
+<meta name="theme-color" content="#061b3a">
 
-<title>Smart Review — Command Center</title>
+<title>Smart Review — Control Center</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   SMART REVIEW — JARVIS ADMIN
+========================================================= */
 
 :root{
 
@@ -35,14 +35,14 @@
 
   --green:#16834b;
   --red:#c93434;
-  --orange:#d97706;
+  --orange:#c87508;
 
-  --white:#fff;
+  --white:#ffffff;
   --ink:#071b3c;
-  --muted:#68778d;
+  --muted:#65758c;
 
-  --bg:#f3f6fa;
-  --line:#e3e9f1;
+  --bg:#f4f7fb;
+  --line:#e5eaf1;
 
   --shadow:
     0 14px 40px rgba(7,27,60,.10);
@@ -55,8 +55,10 @@
   padding:0;
 }
 
-html{
-  background:var(--navy);
+html,
+body{
+  width:100%;
+  min-height:100%;
 }
 
 body{
@@ -84,11 +86,15 @@ body{
 
 button,
 input{
-  font:inherit;
+  font-family:inherit;
 }
 
 button{
   -webkit-tap-highlight-color:transparent;
+}
+
+.hidden{
+  display:none !important;
 }
 
 
@@ -96,7 +102,7 @@ button{
    LOGIN
 ========================================================= */
 
-#loginScreen{
+.login-screen{
 
   min-height:100vh;
   min-height:100dvh;
@@ -108,16 +114,14 @@ button{
   padding:
     25px
     16px
-    max(25px,env(safe-area-inset-bottom));
+    25px;
 
   background:
-
     radial-gradient(
       circle at 50% 0%,
       rgba(38,117,255,.30),
-      transparent 36%
+      transparent 35%
     ),
-
     linear-gradient(
       180deg,
       #061b3a,
@@ -135,19 +139,19 @@ button{
 
   border-radius:28px;
 
-  padding:28px 20px;
+  padding:30px 20px;
 
   box-shadow:
     0 30px 80px rgba(0,0,0,.30);
 
 }
 
-.logo{
+.login-logo{
 
-  width:72px;
-  height:72px;
+  width:76px;
+  height:76px;
 
-  margin:0 auto 15px;
+  margin:0 auto 16px;
 
   border-radius:50%;
 
@@ -158,16 +162,15 @@ button{
   justify-content:center;
 
   box-shadow:
-    0 10px 25px rgba(0,0,0,.18),
+    0 12px 28px rgba(0,0,0,.20),
     0 0 0 3px rgba(217,146,19,.9);
 
 }
 
 .logo-letter{
 
-  font-size:47px;
+  font-size:50px;
   font-weight:950;
-  line-height:1;
 
   background:
     conic-gradient(
@@ -193,75 +196,23 @@ button{
   color:var(--navy);
 
   font-size:29px;
-
   font-weight:950;
-
-  letter-spacing:-1px;
 
 }
 
-.login-box p{
-
-  margin:8px 0 22px;
+.login-box > p{
 
   text-align:center;
 
   color:var(--muted);
 
   font-size:14px;
-
   line-height:1.5;
 
-}
-
-.field{
-
-  margin-bottom:16px;
-
-}
-
-.field label{
-
-  display:block;
-
-  margin-bottom:7px;
-
-  color:var(--navy);
-
-  font-size:14px;
-
-  font-weight:850;
-
-}
-
-.field input{
-
-  width:100%;
-
-  min-height:53px;
-
-  padding:13px 14px;
-
-  border-radius:14px;
-
-  border:1.5px solid var(--line);
-
-  background:#f8fafc;
-
-  color:var(--ink);
-
-  outline:none;
-
-}
-
-.field input:focus{
-
-  background:#fff;
-
-  border-color:rgba(22,93,255,.55);
-
-  box-shadow:
-    0 0 0 4px rgba(22,93,255,.08);
+  margin:
+    8px
+    0
+    22px;
 
 }
 
@@ -269,20 +220,18 @@ button{
 
   display:none;
 
-  margin-bottom:15px;
+  padding:14px;
 
-  padding:13px;
+  margin-bottom:15px;
 
   border-radius:14px;
 
   background:#fff0f0;
-
   border:1px solid #efc1c1;
 
   color:#a52626;
 
   font-size:14px;
-
   line-height:1.45;
 
 }
@@ -293,156 +242,54 @@ button{
 
 
 /* =========================================================
-   BUTTONS
+   APP
 ========================================================= */
 
-.btn{
-
-  min-height:48px;
-
-  border:0;
-
-  border-radius:13px;
-
-  padding:11px 15px;
-
-  display:inline-flex;
-
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-
-  font-size:14px;
-  font-weight:850;
-
-  cursor:pointer;
-
-  transition:
-    transform .15s ease,
-    opacity .2s ease;
-
-}
-
-.btn:active{
-  transform:scale(.97);
-}
-
-.btn:disabled{
-  opacity:.55;
-}
-
-.btn-primary{
-
-  color:#fff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #0a2d59,
-      #0d407a
-    );
-
-  border:1px solid rgba(217,146,19,.75);
-
-}
-
-.btn-blue{
-
-  color:#fff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #165dff,
-      #4285ff
-    );
-
-}
-
-.btn-light{
-
-  color:var(--navy);
-
-  background:#eef3f9;
-
-  border:1px solid var(--line);
-
-}
-
-.btn-green{
-
-  color:#fff;
-  background:var(--green);
-
-}
-
-.btn-orange{
-
-  color:#fff;
-  background:var(--orange);
-
-}
-
-.btn-red{
-
-  color:#fff;
-  background:var(--red);
-
-}
-
-.btn-full{
-  width:100%;
+.app{
+  min-height:100vh;
+  min-height:100dvh;
 }
 
 
 /* =========================================================
-   APP
+   TOP BAR
 ========================================================= */
-
-#adminApp{
-  display:none;
-}
 
 .topbar{
 
   position:sticky;
-
   top:0;
 
-  z-index:50;
-
-  color:#fff;
+  z-index:100;
 
   background:
     linear-gradient(
       135deg,
       #061b3a,
-      #0b3265
+      #082d5a
     );
 
+  color:#fff;
+
   box-shadow:
-    0 5px 20px rgba(0,0,0,.18);
+    0 8px 30px rgba(7,27,60,.22);
 
 }
 
-.topbar-inner{
+.topbar-main{
 
-  max-width:1100px;
-
-  margin:auto;
+  min-height:76px;
 
   padding:
-    max(15px,env(safe-area-inset-top))
+    max(12px,env(safe-area-inset-top))
     16px
-    15px;
+    12px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
 
-  gap:15px;
+  gap:12px;
 
 }
 
@@ -450,14 +297,19 @@ button{
 
   display:flex;
   align-items:center;
+
   gap:10px;
+
+  min-width:0;
 
 }
 
-.brand .mini-logo{
+.brand-logo{
 
   width:42px;
   height:42px;
+
+  flex:none;
 
   border-radius:50%;
 
@@ -472,118 +324,230 @@ button{
 
 }
 
-.brand .mini-logo span{
+.brand-logo .logo-letter{
 
-  font-size:27px;
-  font-weight:950;
+  font-size:28px;
 
-  background:
-    conic-gradient(
-      #4285f4,
-      #34a853,
-      #fbbc05,
-      #ea4335,
-      #4285f4
-    );
+}
 
-  -webkit-background-clip:text;
-  background-clip:text;
-
-  color:transparent;
-
+.brand-text{
+  min-width:0;
 }
 
 .brand-title{
 
-  font-size:18px;
+  font-size:16px;
   font-weight:950;
+
+  white-space:nowrap;
 
 }
 
 .brand-sub{
 
-  color:#aebed2;
+  color:#9fb3ce;
 
-  font-size:11px;
-  font-weight:650;
+  font-size:10px;
+  font-weight:700;
 
-  margin-top:2px;
+  letter-spacing:1px;
+
+  text-transform:uppercase;
 
 }
 
 .top-actions{
 
   display:flex;
-  align-items:center;
   gap:7px;
 
 }
 
-.top-actions button{
+.icon-button{
 
-  min-height:40px;
+  width:40px;
+  height:40px;
 
-  padding:8px 11px;
+  border-radius:12px;
 
-  border-radius:11px;
+  border:
+    1px solid
+    rgba(255,255,255,.13);
 
-  border:1px solid rgba(255,255,255,.15);
-
-  background:rgba(255,255,255,.08);
+  background:
+    rgba(255,255,255,.08);
 
   color:#fff;
 
-  font-size:12px;
-  font-weight:800;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:18px;
+
+  cursor:pointer;
 
 }
 
 
 /* =========================================================
-   MAIN
+   NAVIGATION
+========================================================= */
+
+.nav{
+
+  display:flex;
+
+  gap:7px;
+
+  overflow-x:auto;
+
+  padding:
+    0
+    12px
+    12px;
+
+  scrollbar-width:none;
+
+}
+
+.nav::-webkit-scrollbar{
+  display:none;
+}
+
+.nav-button{
+
+  flex:none;
+
+  min-height:40px;
+
+  padding:
+    8px
+    13px;
+
+  border:0;
+
+  border-radius:12px;
+
+  background:
+    rgba(255,255,255,.07);
+
+  color:#b9c9dd;
+
+  font-size:12px;
+
+  font-weight:850;
+
+  cursor:pointer;
+
+  white-space:nowrap;
+
+}
+
+.nav-button.active{
+
+  background:#fff;
+
+  color:var(--navy);
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,.15);
+
+}
+
+
+/* =========================================================
+   CONTENT
 ========================================================= */
 
 .main{
 
   width:100%;
+  max-width:1050px;
 
-  max-width:1100px;
-
-  margin:auto;
+  margin:0 auto;
 
   padding:
     20px
     16px
-    max(45px,env(safe-area-inset-bottom));
+    45px;
 
 }
 
-.hero{
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.section-header{
+
+  display:flex;
+
+  align-items:flex-start;
+  justify-content:space-between;
+
+  gap:15px;
 
   margin-bottom:20px;
 
 }
 
-.hero h1{
-
-  font-size:
-    clamp(27px,6vw,38px);
-
-  letter-spacing:-1px;
-
-  font-weight:950;
+.section-title{
 
   color:var(--navy);
 
+  font-size:
+    clamp(25px,7vw,34px);
+
+  font-weight:950;
+
+  letter-spacing:-1px;
+
 }
 
-.hero p{
-
-  margin-top:6px;
+.section-subtitle{
 
   color:var(--muted);
 
+  margin-top:5px;
+
   font-size:14px;
+
+  line-height:1.45;
+
+}
+
+.refresh-button{
+
+  flex:none;
+
+  border:1px solid var(--line);
+
+  background:#fff;
+
+  color:var(--navy);
+
+  min-height:42px;
+
+  padding:
+    8px
+    12px;
+
+  border-radius:12px;
+
+  font-size:13px;
+  font-weight:850;
+
+  box-shadow:
+    0 4px 12px rgba(7,27,60,.05);
 
 }
 
@@ -600,13 +564,13 @@ button{
 
   padding:14px 15px;
 
-  border-radius:14px;
+  border-radius:15px;
 
   font-size:14px;
 
-  font-weight:700;
-
   line-height:1.45;
+
+  font-weight:700;
 
   white-space:pre-wrap;
 
@@ -618,37 +582,31 @@ button{
 
 .status.success{
 
-  color:#116b3d;
-
   background:#eaf8f0;
-
   border:1px solid #b9e5ca;
+  color:#116b3d;
 
 }
 
 .status.error{
 
-  color:#a52626;
-
   background:#fff0f0;
-
   border:1px solid #efc1c1;
+  color:#a52626;
 
 }
 
 .status.info{
 
-  color:#174f9f;
-
   background:#edf4ff;
-
   border:1px solid #c7dcff;
+  color:#174f9f;
 
 }
 
 
 /* =========================================================
-   STATS
+   STAT GRID
 ========================================================= */
 
 .stats-grid{
@@ -656,21 +614,21 @@ button{
   display:grid;
 
   grid-template-columns:
-    repeat(2,minmax(0,1fr));
+    repeat(2,1fr);
 
-  gap:11px;
+  gap:12px;
 
-  margin-bottom:20px;
+  margin-bottom:18px;
 
 }
 
-.stat{
+.stat-card{
 
   background:#fff;
 
   border:1px solid var(--line);
 
-  border-radius:19px;
+  border-radius:20px;
 
   padding:17px;
 
@@ -680,68 +638,52 @@ button{
 
 .stat-icon{
 
-  font-size:22px;
+  font-size:20px;
 
-  margin-bottom:8px;
-
-}
-
-.stat-number{
-
-  font-size:28px;
-
-  line-height:1;
-
-  font-weight:950;
-
-  color:var(--navy);
+  margin-bottom:9px;
 
 }
 
 .stat-label{
 
-  margin-top:6px;
-
   color:var(--muted);
 
   font-size:12px;
-
   font-weight:750;
+
+}
+
+.stat-value{
+
+  margin-top:3px;
+
+  color:var(--navy);
+
+  font-size:29px;
+  font-weight:950;
 
 }
 
 
 /* =========================================================
-   PANEL
+   PANELS
 ========================================================= */
 
 .panel{
 
   background:#fff;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
 
   border-radius:22px;
 
   padding:19px;
 
-  margin-bottom:18px;
+  margin-bottom:17px;
 
   box-shadow:var(--shadow);
-
-}
-
-.panel-head{
-
-  display:flex;
-
-  align-items:flex-start;
-
-  justify-content:space-between;
-
-  gap:12px;
-
-  margin-bottom:16px;
 
 }
 
@@ -749,23 +691,22 @@ button{
 
   color:var(--navy);
 
-  font-size:21px;
+  font-size:18px;
+  font-weight:900;
 
-  font-weight:950;
-
-  letter-spacing:-.5px;
+  margin-bottom:5px;
 
 }
 
-.panel-sub{
-
-  margin-top:4px;
+.panel-subtitle{
 
   color:var(--muted);
 
   font-size:13px;
 
-  line-height:1.4;
+  line-height:1.45;
+
+  margin-bottom:16px;
 
 }
 
@@ -774,351 +715,479 @@ button{
    SEARCH
 ========================================================= */
 
-.search{
+.search-box{
 
-  width:100%;
-
-  min-height:50px;
-
-  padding:12px 14px;
-
-  border-radius:14px;
-
-  border:1px solid var(--line);
-
-  background:#f7f9fc;
-
-  outline:none;
-
-  color:var(--ink);
+  position:relative;
 
   margin-bottom:15px;
 
 }
 
-.search:focus{
+.search-box input{
 
-  background:#fff;
+  width:100%;
 
-  border-color:rgba(22,93,255,.45);
+  min-height:50px;
 
-}
-
-
-/* =========================================================
-   BUSINESS CARD
-========================================================= */
-
-.business-list{
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:14px;
-
-}
-
-.business{
+  border-radius:14px;
 
   border:1px solid var(--line);
 
-  border-radius:19px;
+  background:#f8fafc;
 
-  overflow:hidden;
+  padding:
+    12px
+    15px
+    12px
+    43px;
 
-  background:#fff;
+  outline:none;
 
-}
-
-.business-main{
-
-  padding:16px;
-
-}
-
-.business-top{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:flex-start;
-
-  gap:12px;
-
-}
-
-.business-name{
-
-  color:var(--navy);
-
-  font-size:19px;
-
-  font-weight:950;
-
-}
-
-.business-date{
-
-  margin-top:4px;
-
-  color:#8491a3;
-
-  font-size:11px;
-
-}
-
-.badge{
-
-  display:inline-flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:5px 8px;
-
-  border-radius:20px;
-
-  font-size:10px;
-
-  font-weight:900;
-
-  white-space:nowrap;
-
-}
-
-.badge-active{
-
-  color:#116b3d;
-  background:#eaf8f0;
-
-}
-
-.badge-paused{
-
-  color:#9a5a00;
-  background:#fff5df;
-
-}
-
-.info-grid{
-
-  display:grid;
-
-  grid-template-columns:1fr;
-
-  gap:8px;
-
-  margin-top:14px;
-
-}
-
-.info-item{
-
-  padding:10px 11px;
-
-  border-radius:11px;
-
-  background:#f7f9fc;
-
-  border:1px solid #edf1f6;
-
-}
-
-.info-label{
-
-  color:#8793a3;
-
-  font-size:10px;
-
-  font-weight:850;
-
-  text-transform:uppercase;
-
-  letter-spacing:.5px;
-
-}
-
-.info-value{
-
-  margin-top:3px;
+  font-size:15px;
 
   color:var(--ink);
 
-  font-size:13px;
-
-  font-weight:700;
-
-  overflow-wrap:anywhere;
-
 }
 
-.business-actions{
+.search-box span{
 
-  display:grid;
+  position:absolute;
 
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
+  left:15px;
+  top:50%;
 
-  gap:8px;
+  transform:translateY(-50%);
 
-  padding:12px 16px 16px;
-
-  border-top:1px solid var(--line);
-
-  background:#fbfcfe;
+  font-size:18px;
 
 }
 
 
 /* =========================================================
-   CARDS
+   FORM
 ========================================================= */
 
-.cards-section{
-
-  padding:14px 16px 16px;
-
-  border-top:1px solid var(--line);
-
-  background:#fafbfd;
-
+.field{
+  margin-bottom:15px;
 }
 
-.cards-title{
-
-  color:var(--navy);
-
-  font-size:13px;
-
-  font-weight:900;
-
-  margin-bottom:9px;
-
-}
-
-.card-row{
-
-  padding:11px;
-
-  border-radius:13px;
-
-  background:#fff;
-
-  border:1px solid var(--line);
-
-  margin-bottom:8px;
-
-}
-
-.card-row:last-child{
-  margin-bottom:0;
-}
-
-.card-row-top{
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  gap:8px;
-
-}
-
-.card-code{
-
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    monospace;
-
-  font-size:13px;
-
-  font-weight:900;
-
-  color:var(--navy);
-
-}
-
-.card-stats{
-
-  display:flex;
-
-  gap:10px;
-
-  flex-wrap:wrap;
-
-  margin-top:7px;
-
-  color:var(--muted);
-
-  font-size:11px;
-
-  font-weight:700;
-
-}
-
-.card-actions{
-
-  display:flex;
-
-  gap:7px;
-
-  margin-top:9px;
-
-}
-
-.card-actions .btn{
-
-  flex:1;
-
-  min-height:38px;
-
-  padding:8px;
-
-  font-size:11px;
-
-}
-
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.empty{
-
-  text-align:center;
-
-  padding:30px 15px;
-
-  color:var(--muted);
-
-}
-
-.empty-icon{
-
-  font-size:38px;
-
-  margin-bottom:10px;
-
-}
-
-.empty strong{
+.field label{
 
   display:block;
 
   color:var(--navy);
 
-  font-size:16px;
+  font-size:13px;
+  font-weight:850;
 
-  margin-bottom:5px;
+  margin-bottom:6px;
+
+}
+
+.field input{
+
+  width:100%;
+
+  min-height:50px;
+
+  border-radius:13px;
+
+  border:1px solid var(--line);
+
+  background:#f8fafc;
+
+  padding:
+    12px
+    13px;
+
+  outline:none;
+
+  font-size:15px;
+
+  color:var(--ink);
+
+}
+
+.field input:focus{
+
+  border-color:
+    rgba(22,93,255,.55);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(22,93,255,.07);
+
+  background:#fff;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.button{
+
+  min-height:48px;
+
+  border:0;
+
+  border-radius:13px;
+
+  padding:
+    11px
+    15px;
+
+  font-size:14px;
+  font-weight:900;
+
+  cursor:pointer;
+
+}
+
+.button:disabled{
+  opacity:.5;
+}
+
+.primary{
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0a2d59,
+      #165dff
+    );
+
+}
+
+.light{
+
+  background:#f0f4f9;
+
+  color:var(--navy);
+
+}
+
+.danger{
+
+  background:#fff0f0;
+
+  color:#a52626;
+
+}
+
+.success-button{
+
+  background:#eaf8f0;
+
+  color:#116b3d;
+
+}
+
+.button-full{
+  width:100%;
+}
+
+
+/* =========================================================
+   BUSINESS/CARD LIST
+========================================================= */
+
+.item-list{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:11px;
+
+}
+
+.item{
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:17px;
+
+  padding:15px;
+
+  background:#fff;
+
+}
+
+.item-top{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+}
+
+.item-name{
+
+  color:var(--navy);
+
+  font-size:16px;
+  font-weight:900;
+
+}
+
+.item-code{
+
+  margin-top:4px;
+
+  color:#6e7d91;
+
+  font-family:
+    ui-monospace,
+    monospace;
+
+  font-size:12px;
+  font-weight:750;
+
+}
+
+.badge{
+
+  flex:none;
+
+  padding:
+    5px
+    9px;
+
+  border-radius:20px;
+
+  font-size:10px;
+  font-weight:900;
+
+}
+
+.badge.active{
+
+  background:#eaf8f0;
+  color:#116b3d;
+
+}
+
+.badge.paused{
+
+  background:#fff5df;
+  color:#9a6200;
+
+}
+
+.badge.off{
+
+  background:#f0f2f5;
+  color:#667085;
+
+}
+
+.item-meta{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:8px;
+
+  margin-top:13px;
+
+}
+
+.meta{
+
+  background:#f7f9fc;
+
+  border-radius:11px;
+
+  padding:9px;
+
+}
+
+.meta-label{
+
+  color:#7b8797;
+
+  font-size:10px;
+  font-weight:700;
+
+}
+
+.meta-value{
+
+  margin-top:2px;
+
+  color:var(--navy);
+
+  font-size:13px;
+  font-weight:850;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+
+}
+
+.item-actions{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:7px;
+
+  margin-top:12px;
+
+}
+
+.item-actions .button{
+
+  min-height:42px;
+
+  padding:8px;
+
+  font-size:12px;
+
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.rating-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-bottom:9px;
+
+}
+
+.rating-label{
+
+  width:34px;
+
+  font-size:13px;
+  font-weight:850;
+
+}
+
+.rating-bar{
+
+  flex:1;
+
+  height:9px;
+
+  background:#edf1f5;
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+}
+
+.rating-fill{
+
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold),
+      var(--gold2)
+    );
+
+  border-radius:20px;
+
+}
+
+.rating-number{
+
+  width:30px;
+
+  text-align:right;
+
+  font-size:12px;
+  font-weight:850;
+
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.quick-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+
+}
+
+.quick{
+
+  min-height:90px;
+
+  padding:14px;
+
+  border-radius:17px;
+
+  border:1px solid var(--line);
+
+  background:#fff;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 5px 18px rgba(7,27,60,.05);
+
+}
+
+.quick-icon{
+
+  font-size:22px;
+
+  margin-bottom:8px;
+
+}
+
+.quick-title{
+
+  color:var(--navy);
+
+  font-size:13px;
+  font-weight:900;
+
+}
+
+.quick-sub{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:3px;
 
 }
 
@@ -1133,7 +1202,7 @@ button{
 
   inset:0;
 
-  z-index:100;
+  z-index:500;
 
   display:none;
 
@@ -1141,9 +1210,11 @@ button{
 
   justify-content:center;
 
-  background:rgba(3,15,34,.65);
+  background:
+    rgba(3,13,29,.62);
 
-  backdrop-filter:blur(5px);
+  padding:
+    0;
 
 }
 
@@ -1154,26 +1225,27 @@ button{
 .modal-box{
 
   width:100%;
+  max-width:620px;
 
-  max-width:600px;
-
-  max-height:
-    calc(100dvh - 25px);
+  max-height:90vh;
 
   overflow-y:auto;
 
   background:#fff;
 
   border-radius:
-    25px
-    25px
+    24px
+    24px
     0
     0;
 
   padding:
     20px
-    18px
-    max(25px,env(safe-area-inset-bottom));
+    17px
+    max(22px,env(safe-area-inset-bottom));
+
+  box-shadow:
+    0 -20px 70px rgba(0,0,0,.25);
 
 }
 
@@ -1182,12 +1254,9 @@ button{
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
-  gap:10px;
-
-  margin-bottom:17px;
+  margin-bottom:18px;
 
 }
 
@@ -1195,109 +1264,164 @@ button{
 
   color:var(--navy);
 
-  font-size:22px;
-
+  font-size:21px;
   font-weight:950;
 
 }
 
 .close{
 
-  width:40px;
-  height:40px;
+  width:38px;
+  height:38px;
 
   border:0;
 
-  border-radius:50%;
+  border-radius:11px;
 
-  background:#eef3f9;
+  background:#f1f4f8;
 
   color:var(--navy);
 
   font-size:20px;
 
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty{
+
+  text-align:center;
+
+  padding:35px 15px;
+
+  color:var(--muted);
+
+}
+
+.empty-icon{
+
+  font-size:35px;
+
+  margin-bottom:10px;
+
+}
+
+.empty-title{
+
+  color:var(--navy);
+
+  font-size:16px;
   font-weight:900;
 
 }
 
-.modal-actions{
+.empty-text{
 
-  display:grid;
+  margin-top:4px;
 
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:9px;
-
-  margin-top:6px;
+  font-size:13px;
 
 }
 
 
 /* =========================================================
-   CONFIRM
+   LOADING
 ========================================================= */
 
-.confirm-text{
+.loading{
+
+  text-align:center;
+
+  padding:35px;
 
   color:var(--muted);
 
   font-size:14px;
 
-  line-height:1.5;
-
-  margin-bottom:18px;
-
-}
-
-.confirm-name{
-
-  color:var(--navy);
-
-  font-weight:950;
+  font-weight:700;
 
 }
 
 
 /* =========================================================
-   CREATE
+   TOAST
 ========================================================= */
 
-.create-grid{
+.toast{
 
-  display:grid;
+  position:fixed;
 
-  grid-template-columns:1fr;
+  left:15px;
+  right:15px;
 
-  gap:0;
+  bottom:
+    max(18px,env(safe-area-inset-bottom));
 
+  z-index:800;
+
+  display:none;
+
+  padding:14px 16px;
+
+  border-radius:15px;
+
+  color:#fff;
+
+  background:#061b3a;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.25);
+
+  font-size:13px;
+  font-weight:800;
+
+}
+
+.toast.show{
+  display:block;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   DESKTOP
 ========================================================= */
 
-@media(min-width:700px){
+@media(min-width:760px){
+
+  .topbar-main{
+
+    max-width:1050px;
+    margin:auto;
+
+    padding-left:20px;
+    padding-right:20px;
+
+  }
+
+  .nav{
+
+    max-width:1050px;
+    margin:auto;
+
+    padding-left:20px;
+    padding-right:20px;
+
+  }
 
   .stats-grid{
 
     grid-template-columns:
-      repeat(4,minmax(0,1fr));
+      repeat(4,1fr);
 
   }
 
-  .info-grid{
+  .quick-grid{
 
     grid-template-columns:
-      repeat(2,minmax(0,1fr));
-
-  }
-
-  .business-actions{
-
-    grid-template-columns:
-      repeat(4,minmax(0,1fr));
+      repeat(4,1fr);
 
   }
 
@@ -1311,7 +1435,7 @@ button{
 
   .modal-box{
 
-    border-radius:25px;
+    border-radius:24px;
 
   }
 
@@ -1319,67 +1443,43 @@ button{
 
 
 /* =========================================================
-   FOOTER
+   REDUCED MOTION
 ========================================================= */
 
-.footer{
+@media(prefers-reduced-motion:reduce){
 
-  text-align:center;
-
-  padding:12px 10px 30px;
-
-}
-
-.footer-brand{
-
-  font-size:22px;
-
-  font-weight:950;
-
-  color:var(--navy);
-
-}
-
-.footer-sub{
-
-  margin-top:4px;
-
-  color:#8190a4;
-
-  font-size:9px;
-
-  font-weight:850;
-
-  letter-spacing:1.5px;
-
-  text-transform:uppercase;
+  *{
+    scroll-behavior:auto !important;
+    transition:none !important;
+  }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
 
-<!-- =====================================================
+<!-- =======================================================
      LOGIN
-===================================================== -->
+======================================================= -->
 
-<section id="loginScreen">
+<section
+  id="loginScreen"
+  class="login-screen"
+>
 
   <div class="login-box">
 
-    <div class="logo">
+    <div class="login-logo">
       <div class="logo-letter">G</div>
     </div>
 
     <h1>Smart Review</h1>
 
     <p>
-      Connectez-vous à votre centre de contrôle.
+      Connectez-vous à votre espace de contrôle.
     </p>
 
     <div
@@ -1423,10 +1523,10 @@ button{
 
       <button
         id="loginButton"
-        class="btn btn-primary btn-full"
+        class="button primary button-full"
         type="submit"
       >
-        🔐 Se connecter
+        Se connecter
       </button>
 
     </form>
@@ -1436,455 +1536,890 @@ button{
 </section>
 
 
-<!-- =====================================================
-     ADMIN APP
-===================================================== -->
+<!-- =======================================================
+     APPLICATION
+======================================================= -->
 
-<div id="adminApp">
+<div
+  id="adminApp"
+  class="app hidden"
+>
 
 
-<header class="topbar">
+  <!-- =====================================================
+       TOPBAR
+  ====================================================== -->
 
-  <div class="topbar-inner">
+  <header class="topbar">
 
-    <div class="brand">
+    <div class="topbar-main">
 
-      <div class="mini-logo">
-        <span>G</span>
-      </div>
+      <div class="brand">
 
-      <div>
-
-        <div class="brand-title">
-          Smart Review
+        <div class="brand-logo">
+          <div class="logo-letter">G</div>
         </div>
 
-        <div class="brand-sub">
-          Command Center
-        </div>
+        <div class="brand-text">
 
-      </div>
+          <div class="brand-title">
+            Smart Review
+          </div>
 
-    </div>
+          <div class="brand-sub">
+            Control Center
+          </div>
 
-    <div class="top-actions">
-
-      <button
-        id="refreshButton"
-        type="button"
-      >
-        🔄 Actualiser
-      </button>
-
-      <button
-        id="logoutButton"
-        type="button"
-      >
-        Déconnexion
-      </button>
-
-    </div>
-
-  </div>
-
-</header>
-
-
-<main class="main">
-
-
-  <div class="hero">
-
-    <h1>
-      Centre de contrôle
-    </h1>
-
-    <p>
-      Gérez vos établissements, cartes et performances depuis un seul endroit.
-    </p>
-
-  </div>
-
-
-  <div
-    id="status"
-    class="status"
-  ></div>
-
-
-  <!-- ===================================================
-       STATS
-  =================================================== -->
-
-  <section class="stats-grid">
-
-    <div class="stat">
-
-      <div class="stat-icon">🏢</div>
-
-      <div
-        id="businessCount"
-        class="stat-number"
-      >
-        —
-      </div>
-
-      <div class="stat-label">
-        Établissements
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-icon">💳</div>
-
-      <div
-        id="cardCount"
-        class="stat-number"
-      >
-        —
-      </div>
-
-      <div class="stat-label">
-        Cartes
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-icon">👁️</div>
-
-      <div
-        id="scanCount"
-        class="stat-number"
-      >
-        —
-      </div>
-
-      <div class="stat-label">
-        Scans
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-icon">⭐</div>
-
-      <div
-        id="ratingCount"
-        class="stat-number"
-      >
-        —
-      </div>
-
-      <div class="stat-label">
-        Avis reçus
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ===================================================
-       CREATE
-  =================================================== -->
-
-  <section class="panel">
-
-    <div class="panel-head">
-
-      <div>
-
-        <div class="panel-title">
-          ➕ Créer un établissement
-        </div>
-
-        <div class="panel-sub">
-          Créez une nouvelle entreprise et sa carte Smart Review.
         </div>
 
       </div>
 
-    </div>
-
-
-    <form id="createForm">
-
-      <div class="create-grid">
-
-        <div class="field">
-
-          <label for="businessName">
-            Nom de l'établissement
-          </label>
-
-          <input
-            id="businessName"
-            type="text"
-            placeholder="Ex. Restaurant La Terrasse"
-            required
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="googleReviewUrl">
-            URL Google Reviews
-          </label>
-
-          <input
-            id="googleReviewUrl"
-            type="url"
-            placeholder="https://g.page/..."
-            required
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="whatsappNumber">
-            WhatsApp
-          </label>
-
-          <input
-            id="whatsappNumber"
-            type="tel"
-            placeholder="+213..."
-            required
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="websiteUrl">
-            Site web — optionnel
-          </label>
-
-          <input
-            id="websiteUrl"
-            type="url"
-            placeholder="https://..."
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label for="logoUrl">
-            Logo — optionnel
-          </label>
-
-          <input
-            id="logoUrl"
-            type="url"
-            placeholder="https://..."
-          >
-
-        </div>
-
+      <div class="top-actions">
 
         <button
-          id="createButton"
-          type="submit"
-          class="btn btn-primary btn-full"
+          id="refreshButton"
+          class="icon-button"
+          type="button"
+          title="Actualiser"
         >
-          ✨ Créer l'établissement
+          ↻
+        </button>
+
+        <button
+          id="logoutButton"
+          class="icon-button"
+          type="button"
+          title="Déconnexion"
+        >
+          ⇥
         </button>
 
       </div>
 
-    </form>
+    </div>
 
+
+    <!-- ===================================================
+         NAV
+    ==================================================== -->
+
+    <nav class="nav">
+
+      <button
+        class="nav-button active"
+        data-section="dashboard"
+      >
+        ⚡ Centre de contrôle
+      </button>
+
+      <button
+        class="nav-button"
+        data-section="businesses"
+      >
+        🏢 Établissements
+      </button>
+
+      <button
+        class="nav-button"
+        data-section="cards"
+      >
+        💳 Cartes
+      </button>
+
+      <button
+        class="nav-button"
+        data-section="analytics"
+      >
+        📊 Analytics
+      </button>
+
+      <button
+        class="nav-button"
+        data-section="settings"
+      >
+        ⚙️ Configuration
+      </button>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main class="main">
 
     <div
-      id="createdResult"
-      style="display:none;margin-top:15px;"
+      id="status"
+      class="status"
+    ></div>
+
+
+    <!-- ===================================================
+         DASHBOARD
+    ==================================================== -->
+
+    <section
+      id="section-dashboard"
+      class="section active"
     >
+
+      <div class="section-header">
+
+        <div>
+
+          <div class="section-title">
+            Centre de contrôle
+          </div>
+
+          <div class="section-subtitle">
+            Votre vue d'ensemble Smart Review.
+          </div>
+
+        </div>
+
+        <button
+          class="refresh-button"
+          data-refresh
+        >
+          ↻ Actualiser
+        </button>
+
+      </div>
+
 
       <div
-        style="
-          padding:15px;
-          border-radius:15px;
-          background:#edf4ff;
-          border:1px solid #c7dcff;
-        "
+        id="statsGrid"
+        class="stats-grid"
       >
 
-        <strong>
-          🎉 Carte créée
-        </strong>
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            🏢
+          </div>
+
+          <div class="stat-label">
+            Établissements
+          </div>
+
+          <div
+            id="statBusinesses"
+            class="stat-value"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            💳
+          </div>
+
+          <div class="stat-label">
+            Cartes actives
+          </div>
+
+          <div
+            id="statCards"
+            class="stat-value"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            👁️
+          </div>
+
+          <div class="stat-label">
+            Scans
+          </div>
+
+          <div
+            id="statScans"
+            class="stat-value"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⭐
+          </div>
+
+          <div class="stat-label">
+            Notes reçues
+          </div>
+
+          <div
+            id="statRatings"
+            class="stat-value"
+          >
+            —
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUICK ACTIONS -->
+
+      <div class="panel">
+
+        <div class="panel-title">
+          Actions rapides
+        </div>
+
+        <div class="panel-subtitle">
+          Les commandes que vous utilisez le plus.
+        </div>
+
+        <div class="quick-grid">
+
+          <button
+            class="quick"
+            data-go="businesses"
+          >
+
+            <div class="quick-icon">
+              ➕
+            </div>
+
+            <div class="quick-title">
+              Nouvel établissement
+            </div>
+
+            <div class="quick-sub">
+              Créer une nouvelle activité
+            </div>
+
+          </button>
+
+
+          <button
+            class="quick"
+            data-go="cards"
+          >
+
+            <div class="quick-icon">
+              💳
+            </div>
+
+            <div class="quick-title">
+              Gérer les cartes
+            </div>
+
+            <div class="quick-sub">
+              Activer ou mettre en pause
+            </div>
+
+          </button>
+
+
+          <button
+            class="quick"
+            data-go="analytics"
+          >
+
+            <div class="quick-icon">
+              📈
+            </div>
+
+            <div class="quick-title">
+              Voir les statistiques
+            </div>
+
+            <div class="quick-sub">
+              Scans et évaluations
+            </div>
+
+          </button>
+
+
+          <button
+            id="quickRefresh"
+            class="quick"
+          >
+
+            <div class="quick-icon">
+              🔄
+            </div>
+
+            <div class="quick-title">
+              Actualiser
+            </div>
+
+            <div class="quick-sub">
+              Synchroniser les données
+            </div>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- SYSTEM -->
+
+      <div class="panel">
+
+        <div class="panel-title">
+          État du système
+        </div>
+
+        <div class="panel-subtitle">
+          État actuel de votre espace Smart Review.
+        </div>
 
         <div
-          id="createdCode"
-          style="
-            margin-top:9px;
-            padding:12px;
-            border-radius:11px;
-            background:#061b3a;
-            color:#fff;
-            text-align:center;
-            font-family:monospace;
-            font-size:18px;
-            font-weight:900;
-          "
+          id="systemStatus"
+          class="item"
+        >
+
+          <div class="item-top">
+
+            <div>
+
+              <div class="item-name">
+                Système opérationnel
+              </div>
+
+              <div class="item-code">
+                Supabase + Smart Review
+              </div>
+
+            </div>
+
+            <span class="badge active">
+              EN LIGNE
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         BUSINESSES
+    ==================================================== -->
+
+    <section
+      id="section-businesses"
+      class="section"
+    >
+
+      <div class="section-header">
+
+        <div>
+
+          <div class="section-title">
+            Établissements
+          </div>
+
+          <div class="section-subtitle">
+            Gérez vos entreprises depuis un seul endroit.
+          </div>
+
+        </div>
+
+        <button
+          class="refresh-button"
+          data-refresh
+        >
+          ↻
+        </button>
+
+      </div>
+
+
+      <div class="panel">
+
+        <button
+          id="newBusinessButton"
+          class="button primary button-full"
+        >
+          ➕ Ajouter un établissement
+        </button>
+
+      </div>
+
+
+      <div class="panel">
+
+        <div class="search-box">
+
+          <span>⌕</span>
+
+          <input
+            id="businessSearch"
+            type="search"
+            placeholder="Rechercher un établissement..."
+          >
+
+        </div>
+
+        <div
+          id="businessList"
+          class="item-list"
         ></div>
 
-        <a
-          id="createdLink"
-          href="#"
-          target="_blank"
-          rel="noopener"
-          class="btn btn-blue btn-full"
-          style="margin-top:9px;text-decoration:none;"
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         CARDS
+    ==================================================== -->
+
+    <section
+      id="section-cards"
+      class="section"
+    >
+
+      <div class="section-header">
+
+        <div>
+
+          <div class="section-title">
+            Cartes
+          </div>
+
+          <div class="section-subtitle">
+            Contrôlez toutes vos cartes Smart Review.
+          </div>
+
+        </div>
+
+        <button
+          class="refresh-button"
+          data-refresh
         >
-          🔗 Ouvrir la carte
-        </a>
+          ↻
+        </button>
 
       </div>
 
-    </div>
 
-  </section>
+      <div class="panel">
+
+        <div class="search-box">
+
+          <span>⌕</span>
+
+          <input
+            id="cardSearch"
+            type="search"
+            placeholder="Rechercher un code ou établissement..."
+          >
+
+        </div>
+
+        <div
+          id="cardList"
+          class="item-list"
+        ></div>
+
+      </div>
+
+    </section>
 
 
-  <!-- ===================================================
-       MANAGEMENT
-  =================================================== -->
+    <!-- ===================================================
+         ANALYTICS
+    ==================================================== -->
 
-  <section class="panel">
+    <section
+      id="section-analytics"
+      class="section"
+    >
 
-    <div class="panel-head">
+      <div class="section-header">
 
-      <div>
+        <div>
+
+          <div class="section-title">
+            Analytics
+          </div>
+
+          <div class="section-subtitle">
+            Comprenez les performances de votre réseau.
+          </div>
+
+        </div>
+
+        <button
+          class="refresh-button"
+          data-refresh
+        >
+          ↻
+        </button>
+
+      </div>
+
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⭐
+          </div>
+
+          <div class="stat-label">
+            1 étoile
+          </div>
+
+          <div
+            id="rating1"
+            class="stat-value"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⭐⭐
+          </div>
+
+          <div class="stat-label">
+            2 étoiles
+          </div>
+
+          <div
+            id="rating2"
+            class="stat-value"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⭐⭐⭐
+          </div>
+
+          <div class="stat-label">
+            3 étoiles
+          </div>
+
+          <div
+            id="rating3"
+            class="stat-value"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⭐⭐⭐⭐⭐
+          </div>
+
+          <div class="stat-label">
+            5 étoiles
+          </div>
+
+          <div
+            id="rating5"
+            class="stat-value"
+          >
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="panel">
 
         <div class="panel-title">
-          🧠 Mes établissements
+          Répartition des évaluations
         </div>
 
-        <div class="panel-sub">
-          Contrôlez vos entreprises et leurs cartes.
+        <div class="panel-subtitle">
+          Vue globale de toutes les cartes.
+        </div>
+
+
+        <div class="rating-row">
+
+          <div class="rating-label">
+            ⭐ 1
+          </div>
+
+          <div class="rating-bar">
+            <div
+              id="bar1"
+              class="rating-fill"
+              style="width:0%"
+            ></div>
+          </div>
+
+          <div
+            id="barNumber1"
+            class="rating-number"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="rating-row">
+
+          <div class="rating-label">
+            ⭐ 2
+          </div>
+
+          <div class="rating-bar">
+            <div
+              id="bar2"
+              class="rating-fill"
+              style="width:0%"
+            ></div>
+          </div>
+
+          <div
+            id="barNumber2"
+            class="rating-number"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="rating-row">
+
+          <div class="rating-label">
+            ⭐ 3
+          </div>
+
+          <div class="rating-bar">
+            <div
+              id="bar3"
+              class="rating-fill"
+              style="width:0%"
+            ></div>
+          </div>
+
+          <div
+            id="barNumber3"
+            class="rating-number"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="rating-row">
+
+          <div class="rating-label">
+            ⭐ 4
+          </div>
+
+          <div class="rating-bar">
+            <div
+              id="bar4"
+              class="rating-fill"
+              style="width:0%"
+            ></div>
+          </div>
+
+          <div
+            id="barNumber4"
+            class="rating-number"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="rating-row">
+
+          <div class="rating-label">
+            ⭐ 5
+          </div>
+
+          <div class="rating-bar">
+            <div
+              id="bar5"
+              class="rating-fill"
+              style="width:0%"
+            ></div>
+          </div>
+
+          <div
+            id="barNumber5"
+            class="rating-number"
+          >
+            0
+          </div>
+
         </div>
 
       </div>
 
-    </div>
+    </section>
 
 
-    <input
-      id="searchInput"
-      class="search"
-      type="search"
-      placeholder="🔎 Rechercher un établissement ou une carte..."
+    <!-- ===================================================
+         SETTINGS
+    ==================================================== -->
+
+    <section
+      id="section-settings"
+      class="section"
     >
 
+      <div class="section-header">
 
-    <div
-      id="businessList"
-      class="business-list"
-    >
+        <div>
 
-      <div class="empty">
+          <div class="section-title">
+            Configuration
+          </div>
 
-        <div class="empty-icon">
-          ⏳
+          <div class="section-subtitle">
+            Informations et paramètres de votre workspace.
+          </div>
+
         </div>
-
-        Chargement...
 
       </div>
 
-    </div>
 
-  </section>
-
-
-  <!-- ===================================================
-       TEST
-  =================================================== -->
-
-  <section class="panel">
-
-    <div class="panel-head">
-
-      <div>
+      <div class="panel">
 
         <div class="panel-title">
-          🧪 Tester une carte
+          Smart Review Control Center
         </div>
 
-        <div class="panel-sub">
-          Ouvrez directement une carte client.
+        <div class="panel-subtitle">
+          Votre espace d'administration personnel.
+        </div>
+
+        <div class="item">
+
+          <div class="item-top">
+
+            <div>
+
+              <div class="item-name">
+                Authentification
+              </div>
+
+              <div class="item-code">
+                Supabase Auth
+              </div>
+
+            </div>
+
+            <span class="badge active">
+              ACTIVE
+            </span>
+
+          </div>
+
+        </div>
+
+        <div
+          style="height:10px"
+        ></div>
+
+        <div class="item">
+
+          <div class="item-top">
+
+            <div>
+
+              <div class="item-name">
+                Base de données
+              </div>
+
+              <div class="item-code">
+                Smart Review / Supabase
+              </div>
+
+            </div>
+
+            <span class="badge active">
+              ACTIVE
+            </span>
+
+          </div>
+
         </div>
 
       </div>
 
-    </div>
 
+      <div class="panel">
 
-    <div class="field">
+        <div class="panel-title">
+          Session
+        </div>
 
-      <label for="testCardCode">
-        Code carte
-      </label>
+        <div class="panel-subtitle">
+          Votre session administrateur actuelle.
+        </div>
 
-      <input
-        id="testCardCode"
-        type="text"
-        placeholder="Ex. CARD001"
-      >
+        <button
+          id="settingsLogout"
+          class="button danger button-full"
+        >
+          ⇥ Se déconnecter
+        </button>
 
-    </div>
+      </div>
 
+    </section>
 
-    <button
-      id="testButton"
-      type="button"
-      class="btn btn-primary btn-full"
-    >
-      🔎 Ouvrir la carte
-    </button>
-
-  </section>
-
-
-  <footer class="footer">
-
-    <div class="footer-brand">
-      Smart Review
-    </div>
-
-    <div class="footer-sub">
-      Better feedback. Better businesses.
-    </div>
-
-  </footer>
-
-
-</main>
+  </main>
 
 </div>
 
 
-<!-- =====================================================
-     EDIT BUSINESS MODAL
-===================================================== -->
+<!-- =======================================================
+     BUSINESS MODAL
+======================================================= -->
 
 <div
-  id="editModal"
+  id="businessModal"
   class="modal"
 >
 
@@ -1892,14 +2427,16 @@ button{
 
     <div class="modal-head">
 
-      <div class="modal-title">
-        ✏️ Modifier l'établissement
+      <div
+        id="businessModalTitle"
+        class="modal-title"
+      >
+        Nouvel établissement
       </div>
 
       <button
-        id="closeEdit"
+        id="closeBusinessModal"
         class="close"
-        type="button"
       >
         ×
       </button>
@@ -1907,117 +2444,102 @@ button{
     </div>
 
 
-    <form id="editForm">
+    <input
+      id="editBusinessId"
+      type="hidden"
+    >
+
+
+    <div class="field">
+
+      <label for="modalBusinessName">
+        Nom de l'établissement
+      </label>
 
       <input
-        id="editBusinessId"
-        type="hidden"
+        id="modalBusinessName"
+        type="text"
+        placeholder="Ex. Restaurant La Terrasse"
       >
 
-
-      <div class="field">
-
-        <label for="editName">
-          Nom
-        </label>
-
-        <input
-          id="editName"
-          type="text"
-          required
-        >
-
-      </div>
+    </div>
 
 
-      <div class="field">
+    <div class="field">
 
-        <label for="editGoogle">
-          URL Google Reviews
-        </label>
+      <label for="modalGoogleUrl">
+        Lien Google avis
+      </label>
 
-        <input
-          id="editGoogle"
-          type="url"
-          required
-        >
+      <input
+        id="modalGoogleUrl"
+        type="url"
+        placeholder="https://..."
+      >
 
-      </div>
-
-
-      <div class="field">
-
-        <label for="editWhatsapp">
-          WhatsApp
-        </label>
-
-        <input
-          id="editWhatsapp"
-          type="tel"
-          required
-        >
-
-      </div>
+    </div>
 
 
-      <div class="field">
+    <div class="field">
 
-        <label for="editWebsite">
-          Site web
-        </label>
+      <label for="modalWhatsapp">
+        Numéro WhatsApp
+      </label>
 
-        <input
-          id="editWebsite"
-          type="url"
-        >
+      <input
+        id="modalWhatsapp"
+        type="tel"
+        placeholder="+213..."
+      >
 
-      </div>
-
-
-      <div class="field">
-
-        <label for="editLogo">
-          Logo
-        </label>
-
-        <input
-          id="editLogo"
-          type="url"
-        >
-
-      </div>
+    </div>
 
 
-      <div class="modal-actions">
+    <div class="field">
 
-        <button
-          id="cancelEdit"
-          type="button"
-          class="btn btn-light"
-        >
-          Annuler
-        </button>
+      <label for="modalWebsite">
+        Site internet
+      </label>
 
-        <button
-          id="saveEdit"
-          type="submit"
-          class="btn btn-primary"
-        >
-          💾 Enregistrer
-        </button>
+      <input
+        id="modalWebsite"
+        type="url"
+        placeholder="https://..."
+      >
 
-      </div>
+    </div>
 
-    </form>
+
+    <div class="field">
+
+      <label for="modalLogo">
+        Logo URL
+      </label>
+
+      <input
+        id="modalLogo"
+        type="url"
+        placeholder="https://..."
+      >
+
+    </div>
+
+
+    <button
+      id="saveBusinessButton"
+      class="button primary button-full"
+    >
+      💾 Enregistrer
+    </button>
 
   </div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- =======================================================
      CONFIRM MODAL
-===================================================== -->
+======================================================= -->
 
 <div
   id="confirmModal"
@@ -2029,40 +2551,41 @@ button{
     <div class="modal-head">
 
       <div class="modal-title">
-        ⚠️ Confirmation
+        Confirmation
       </div>
 
       <button
         id="closeConfirm"
         class="close"
-        type="button"
       >
         ×
       </button>
 
     </div>
 
-
     <div
       id="confirmText"
-      class="confirm-text"
+      class="panel-subtitle"
     ></div>
 
-
-    <div class="modal-actions">
+    <div
+      style="
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+      "
+    >
 
       <button
         id="cancelConfirm"
-        type="button"
-        class="btn btn-light"
+        class="button light"
       >
         Annuler
       </button>
 
       <button
         id="confirmAction"
-        type="button"
-        class="btn btn-red"
+        class="button danger"
       >
         Confirmer
       </button>
@@ -2072,6 +2595,12 @@ button{
   </div>
 
 </div>
+
+
+<div
+  id="toast"
+  class="toast"
+></div>
 
 
 <script>
@@ -2101,6 +2630,34 @@ const supabaseClient =
 
 
 /* =========================================================
+   STATE
+========================================================= */
+
+let dashboardData = {
+
+  businesses:[],
+  cards:[],
+
+  stats:{
+    businesses:0,
+    cards:0,
+    active_cards:0,
+    total_scans:0,
+    ratings:{
+      1:0,
+      2:0,
+      3:0,
+      4:0,
+      5:0
+    }
+  }
+
+};
+
+let confirmCallback = null;
+
+
+/* =========================================================
    ELEMENTS
 ========================================================= */
 
@@ -2122,59 +2679,30 @@ const loginError =
 const logoutButton =
   document.getElementById("logoutButton");
 
+const settingsLogout =
+  document.getElementById("settingsLogout");
+
 const refreshButton =
   document.getElementById("refreshButton");
 
 const statusBox =
   document.getElementById("status");
 
-const businessList =
-  document.getElementById("businessList");
-
-const searchInput =
-  document.getElementById("searchInput");
-
-const createForm =
-  document.getElementById("createForm");
-
-const createButton =
-  document.getElementById("createButton");
-
-const testCardCode =
-  document.getElementById("testCardCode");
-
-const testButton =
-  document.getElementById("testButton");
-
-const editModal =
-  document.getElementById("editModal");
-
-const editForm =
-  document.getElementById("editForm");
-
-const confirmModal =
-  document.getElementById("confirmModal");
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let managementData = {
-  businesses:[],
-  cards:[]
-};
-
-let confirmCallback = null;
+const toast =
+  document.getElementById("toast");
 
 
 /* =========================================================
    STATUS
 ========================================================= */
 
-function showStatus(message,type="info"){
+function showStatus(
+  message,
+  type="info"
+){
 
-  statusBox.textContent = message;
+  statusBox.textContent =
+    message;
 
   statusBox.className =
     "status show " + type;
@@ -2185,34 +2713,35 @@ function clearStatus(){
 
   statusBox.textContent = "";
 
-  statusBox.className = "status";
+  statusBox.className =
+    "status";
+
+}
+
+function showToast(message){
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+  clearTimeout(
+    window.__toastTimer
+  );
+
+  window.__toastTimer =
+    setTimeout(
+      ()=>{
+        toast.classList.remove("show");
+      },
+      2500
+    );
 
 }
 
 
 /* =========================================================
-   LOGIN ERROR
-========================================================= */
-
-function showLoginError(message){
-
-  loginError.textContent = message;
-
-  loginError.classList.add("show");
-
-}
-
-function clearLoginError(){
-
-  loginError.textContent = "";
-
-  loginError.classList.remove("show");
-
-}
-
-
-/* =========================================================
-   USER
+   AUTH
 ========================================================= */
 
 async function getCurrentUser(){
@@ -2225,7 +2754,10 @@ async function getCurrentUser(){
 
   if(error){
 
-    console.error(error);
+    console.error(
+      "GET USER:",
+      error
+    );
 
     return null;
 
@@ -2236,35 +2768,6 @@ async function getCurrentUser(){
 }
 
 
-/* =========================================================
-   CUSTOMER URL
-========================================================= */
-
-function getCustomerUrl(code){
-
-  const path =
-    window.location.pathname;
-
-  const directory =
-    path.substring(
-      0,
-      path.lastIndexOf("/") + 1
-    );
-
-  return (
-    window.location.origin +
-    directory +
-    "index.html?card=" +
-    encodeURIComponent(code)
-  );
-
-}
-
-
-/* =========================================================
-   AUTH UI
-========================================================= */
-
 async function showAdmin(){
 
   const user =
@@ -2272,26 +2775,30 @@ async function showAdmin(){
 
   if(!user){
 
-    loginScreen.style.display = "flex";
+    loginScreen.classList.remove(
+      "hidden"
+    );
 
-    adminApp.style.display = "none";
+    adminApp.classList.add(
+      "hidden"
+    );
 
     return;
 
   }
 
-  loginScreen.style.display = "none";
+  loginScreen.classList.add(
+    "hidden"
+  );
 
-  adminApp.style.display = "block";
+  adminApp.classList.remove(
+    "hidden"
+  );
 
-  await loadEverything();
+  await loadDashboard();
 
 }
 
-
-/* =========================================================
-   SESSION
-========================================================= */
 
 async function checkSession(){
 
@@ -2305,11 +2812,9 @@ async function checkSession(){
 
     if(error){
 
-      console.error(error);
-
-      loginScreen.style.display = "flex";
-
-      adminApp.style.display = "none";
+      console.error(
+        error
+      );
 
       return;
 
@@ -2319,62 +2824,82 @@ async function checkSession(){
 
       await showAdmin();
 
-    }else{
+    }
 
-      loginScreen.style.display = "flex";
+    else{
 
-      adminApp.style.display = "none";
+      loginScreen.classList.remove(
+        "hidden"
+      );
+
+      adminApp.classList.add(
+        "hidden"
+      );
 
     }
 
-  }catch(error){
+  }
 
-    console.error(error);
+  catch(error){
 
-    loginScreen.style.display = "flex";
-
-    adminApp.style.display = "none";
+    console.error(
+      error
+    );
 
   }
 
 }
 
 
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
 supabaseClient.auth.onAuthStateChange(
-  function(event,session){
+  async (
+    event,
+    session
+  )=>{
 
     console.log(
-      "Auth event:",
+      "AUTH:",
       event
     );
 
-    /*
-      Delay UI work so Supabase can finish
-      its internal auth operation first.
-    */
+    if(session){
 
-    setTimeout(
-      async function(){
+      loginScreen.classList.add(
+        "hidden"
+      );
 
-        if(session){
+      adminApp.classList.remove(
+        "hidden"
+      );
 
-          await showAdmin();
+      /*
+        Do not reload the page here.
+        This prevents the dashboard from jumping
+        back to login during refresh/session changes.
+      */
 
-        }else{
+      if(
+        event === "SIGNED_IN" ||
+        event === "INITIAL_SESSION"
+      ){
 
-          loginScreen.style.display = "flex";
+        await loadDashboard();
 
-          adminApp.style.display = "none";
+      }
 
-        }
+    }
 
-      },
-      0
-    );
+    else{
+
+      loginScreen.classList.remove(
+        "hidden"
+      );
+
+      adminApp.classList.add(
+        "hidden"
+      );
+
+    }
 
   }
 );
@@ -2386,11 +2911,13 @@ supabaseClient.auth.onAuthStateChange(
 
 loginForm.addEventListener(
   "submit",
-  async function(event){
+  async event=>{
 
     event.preventDefault();
 
-    clearLoginError();
+    loginError.classList.remove(
+      "show"
+    );
 
     const email =
       document
@@ -2403,7 +2930,8 @@ loginForm.addEventListener(
         .getElementById("password")
         .value;
 
-    loginButton.disabled = true;
+    loginButton.disabled =
+      true;
 
     loginButton.textContent =
       "Connexion…";
@@ -2414,16 +2942,18 @@ loginForm.addEventListener(
         data,
         error
       } =
-        await supabaseClient.auth
-          .signInWithPassword({
-            email,
-            password
-          });
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
 
       if(error){
 
-        showLoginError(
-          error.message
+        loginError.textContent =
+          error.message;
+
+        loginError.classList.add(
+          "show"
         );
 
         return;
@@ -2432,11 +2962,9 @@ loginForm.addEventListener(
 
       if(!data.session){
 
-        showLoginError(
-          "Aucune session administrateur n'a été créée."
+        throw new Error(
+          "Aucune session n'a été créée."
         );
-
-        return;
 
       }
 
@@ -2446,20 +2974,27 @@ loginForm.addEventListener(
 
       await showAdmin();
 
-    }catch(error){
+    }
 
-      console.error(error);
+    catch(error){
 
-      showLoginError(
-        error.message
+      loginError.textContent =
+        error.message ||
+        "Erreur de connexion.";
+
+      loginError.classList.add(
+        "show"
       );
 
-    }finally{
+    }
 
-      loginButton.disabled = false;
+    finally{
+
+      loginButton.disabled =
+        false;
 
       loginButton.textContent =
-        "🔐 Se connecter";
+        "Se connecter";
 
     }
 
@@ -2471,104 +3006,186 @@ loginForm.addEventListener(
    LOGOUT
 ========================================================= */
 
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  window.location.reload();
+
+}
+
 logoutButton.addEventListener(
   "click",
-  async function(){
+  logout
+);
 
-    await supabaseClient.auth.signOut();
-
-    loginScreen.style.display = "flex";
-
-    adminApp.style.display = "none";
-
-  }
+settingsLogout.addEventListener(
+  "click",
+  logout
 );
 
 
 /* =========================================================
-   LOAD EVERYTHING
+   NAVIGATION
 ========================================================= */
 
-async function loadEverything(){
+document
+  .querySelectorAll(".nav-button")
+  .forEach(button=>{
 
-  clearStatus();
+    button.addEventListener(
+      "click",
+      ()=>{
 
-  await Promise.all([
-    loadStats(),
-    loadManagement()
-  ]);
+        const section =
+          button.dataset.section;
+
+        openSection(
+          section
+        );
+
+      }
+    );
+
+  });
+
+
+document
+  .querySelectorAll("[data-go]")
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        openSection(
+          button.dataset.go
+        );
+
+      }
+    );
+
+  });
+
+
+function openSection(
+  section
+){
+
+  document
+    .querySelectorAll(".nav-button")
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        button.dataset.section === section
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(".section")
+    .forEach(element=>{
+
+      element.classList.toggle(
+        "active",
+        element.id ===
+        "section-" + section
+      );
+
+    });
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
 /* =========================================================
-   LOAD STATS
+   LOAD DASHBOARD
 ========================================================= */
 
-async function loadStats(){
+async function loadDashboard(){
+
+  clearStatus();
 
   try{
+
+    /*
+      This is the RPC we already created and tested.
+    */
 
     const {
       data,
       error
     } =
       await supabaseClient.rpc(
-        "get_admin_dashboard_stats"
+        "get_admin_dashboard_data"
       );
 
     if(error){
 
-      console.error(
-        "STATS ERROR:",
-        error
+      throw new Error(
+        "Impossible de charger les données.\n\n" +
+        error.message
       );
-
-      throw error;
 
     }
 
-    const stats =
-      typeof data === "string"
-        ? JSON.parse(data)
-        : data;
 
-    document.getElementById(
-      "businessCount"
-    ).textContent =
-      stats.businesses ?? 0;
+    dashboardData =
+      data || {
+        businesses:[],
+        cards:[]
+      };
 
-    document.getElementById(
-      "cardCount"
-    ).textContent =
-      stats.cards ?? 0;
 
-    document.getElementById(
-      "scanCount"
-    ).textContent =
-      stats.total_scans ?? 0;
+    /*
+      Existing statistics RPC.
+    */
 
-    const ratings =
-      stats.ratings || {};
+    const {
+      data:stats,
+      error:statsError
+    } =
+      await supabaseClient.rpc(
+        "get_admin_dashboard_stats"
+      );
 
-    const ratingTotal =
-      Number(ratings["1"] || 0) +
-      Number(ratings["2"] || 0) +
-      Number(ratings["3"] || 0) +
-      Number(ratings["4"] || 0) +
-      Number(ratings["5"] || 0);
 
-    document.getElementById(
-      "ratingCount"
-    ).textContent =
-      ratingTotal;
+    if(
+      !statsError &&
+      stats
+    ){
 
-  }catch(error){
+      dashboardData.stats =
+        stats;
 
-    console.error(error);
+    }
+
+    else{
+
+      calculateLocalStats();
+
+    }
+
+
+    renderAll();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "DASHBOARD LOAD:",
+      error
+    );
 
     showStatus(
-      "Impossible de charger les statistiques.\n\n" +
       error.message,
       "error"
     );
@@ -2579,144 +3196,150 @@ async function loadStats(){
 
 
 /* =========================================================
-   LOAD MANAGEMENT DATA
+   LOCAL STATS FALLBACK
 ========================================================= */
 
-async function loadManagement(){
+function calculateLocalStats(){
 
-  businessList.innerHTML = `
-    <div class="empty">
-      <div class="empty-icon">⏳</div>
-      Chargement...
-    </div>
-  `;
+  const cards =
+    dashboardData.cards || [];
 
-  try{
+  dashboardData.stats = {
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.rpc(
-        "get_admin_management_data"
-      );
+    businesses:
+      (dashboardData.businesses || []).length,
 
-    if(error){
+    cards:
+      cards.length,
 
-      console.error(
-        "MANAGEMENT ERROR:",
-        error
-      );
+    active_cards:
+      cards.filter(
+        card=>card.active
+      ).length,
 
-      throw error;
+    total_scans:0,
 
+    ratings:{
+      1:0,
+      2:0,
+      3:0,
+      4:0,
+      5:0
     }
 
-    const result =
-      typeof data === "string"
-        ? JSON.parse(data)
-        : data;
-
-    managementData = {
-      businesses:
-        result.businesses || [],
-
-      cards:
-        result.cards || []
-    };
-
-    renderBusinesses();
-
-  }catch(error){
-
-    console.error(error);
-
-    businessList.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">⚠️</div>
-        <strong>Impossible de charger les établissements.</strong>
-        ${escapeHtml(error.message)}
-      </div>
-    `;
-
-  }
+  };
 
 }
 
 
 /* =========================================================
-   ESCAPE HTML
+   RENDER
 ========================================================= */
 
-function escapeHtml(value){
+function renderAll(){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  renderStats();
+
+  renderBusinesses();
+
+  renderCards();
+
+  renderAnalytics();
 
 }
 
 
 /* =========================================================
-   RENDER BUSINESSES
+   DASHBOARD STATS
+========================================================= */
+
+function renderStats(){
+
+  const stats =
+    dashboardData.stats || {};
+
+  document
+    .getElementById("statBusinesses")
+    .textContent =
+      stats.businesses ?? 0;
+
+  document
+    .getElementById("statCards")
+    .textContent =
+      stats.active_cards ??
+      stats.cards ??
+      0;
+
+  document
+    .getElementById("statScans")
+    .textContent =
+      stats.total_scans ?? 0;
+
+  const ratings =
+    stats.ratings || {};
+
+  const totalRatings =
+    Number(ratings[1] || 0) +
+    Number(ratings[2] || 0) +
+    Number(ratings[3] || 0) +
+    Number(ratings[4] || 0) +
+    Number(ratings[5] || 0);
+
+  document
+    .getElementById("statRatings")
+    .textContent =
+      totalRatings;
+
+}
+
+
+/* =========================================================
+   BUSINESSES
 ========================================================= */
 
 function renderBusinesses(){
 
-  const query =
-    searchInput
+  const container =
+    document.getElementById(
+      "businessList"
+    );
+
+  const search =
+    document
+      .getElementById("businessSearch")
       .value
       .trim()
       .toLowerCase();
 
   const businesses =
-    managementData.businesses.filter(
-      function(business){
+    (dashboardData.businesses || [])
+      .filter(
+        business=>{
 
-        const cards =
-          managementData.cards.filter(
-            c =>
-              c.business_id === business.id
-          );
+          if(!search)
+            return true;
 
-        if(!query){
-          return true;
+          return (
+            business.name || ""
+          )
+            .toLowerCase()
+            .includes(search);
+
         }
-
-        const businessText =
-          [
-            business.name,
-            business.whatsapp_number,
-            business.google_review_url
-          ]
-          .join(" ")
-          .toLowerCase();
-
-        const cardText =
-          cards
-            .map(c => c.card_code)
-            .join(" ")
-            .toLowerCase();
-
-        return (
-          businessText.includes(query) ||
-          cardText.includes(query)
-        );
-
-      }
-    );
+      );
 
 
   if(!businesses.length){
 
-    businessList.innerHTML = `
+    container.innerHTML = `
       <div class="empty">
-        <div class="empty-icon">🔎</div>
-        <strong>Aucun résultat</strong>
-        Essayez un autre nom ou code de carte.
+        <div class="empty-icon">🏢</div>
+        <div class="empty-title">
+          Aucun établissement
+        </div>
+        <div class="empty-text">
+          Aucun résultat ne correspond à votre recherche.
+        </div>
       </div>
     `;
 
@@ -2725,301 +3348,440 @@ function renderBusinesses(){
   }
 
 
-  businessList.innerHTML =
+  container.innerHTML =
     businesses
-      .map(renderBusiness)
+      .map(
+        business=>{
+
+          const card =
+            dashboardData.cards.find(
+              item =>
+                item.business_id ===
+                business.id
+            );
+
+          const active =
+            card
+              ? card.active
+              : true;
+
+          return `
+
+            <div class="item">
+
+              <div class="item-top">
+
+                <div>
+
+                  <div class="item-name">
+                    ${escapeHtml(
+                      business.name || "Sans nom"
+                    )}
+                  </div>
+
+                  <div class="item-code">
+                    ${card
+                      ? escapeHtml(card.card_code)
+                      : "Aucune carte"
+                    }
+                  </div>
+
+                </div>
+
+                <span class="badge ${
+                  active
+                    ? "active"
+                    : "paused"
+                }">
+
+                  ${
+                    active
+                      ? "ACTIF"
+                      : "PAUSÉ"
+                  }
+
+                </span>
+
+              </div>
+
+
+              <div class="item-meta">
+
+                <div class="meta">
+
+                  <div class="meta-label">
+                    WhatsApp
+                  </div>
+
+                  <div class="meta-value">
+                    ${escapeHtml(
+                      business.whatsapp_number || "—"
+                    )}
+                  </div>
+
+                </div>
+
+
+                <div class="meta">
+
+                  <div class="meta-label">
+                    Google
+                  </div>
+
+                  <div class="meta-value">
+                    ${
+                      business.google_review_url
+                        ? "Configuré"
+                        : "Non configuré"
+                    }
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="item-actions">
+
+                <button
+                  class="button light"
+                  onclick="editBusiness('${business.id}')"
+                >
+                  ✏️ Modifier
+                </button>
+
+
+                <button
+                  class="button ${
+                    active
+                      ? "danger"
+                      : "success-button"
+                  }"
+                  onclick="toggleBusinessCard(
+                    '${business.id}',
+                    '${card ? card.id : ""}',
+                    ${active}
+                  )"
+                >
+                  ${
+                    active
+                      ? "⏸️ Pause"
+                      : "▶️ Activer"
+                  }
+                </button>
+
+
+                ${
+                  business.google_review_url
+                    ? `
+                      <button
+                        class="button light"
+                        onclick="openUrl(
+                          '${escapeAttribute(
+                            business.google_review_url
+                          )}'
+                        )"
+                      >
+                        ⭐ Google
+                      </button>
+                    `
+                    : ""
+                }
+
+
+                ${
+                  card
+                    ? `
+                      <button
+                        class="button light"
+                        onclick="openCard(
+                          '${escapeAttribute(
+                            card.card_code
+                          )}'
+                        )"
+                      >
+                        🔗 Ouvrir
+                      </button>
+                    `
+                    : ""
+                }
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      )
       .join("");
 
 }
 
 
 /* =========================================================
-   RENDER BUSINESS
+   CARDS
 ========================================================= */
 
-function renderBusiness(business){
+function renderCards(){
+
+  const container =
+    document.getElementById(
+      "cardList"
+    );
+
+  const search =
+    document
+      .getElementById("cardSearch")
+      .value
+      .trim()
+      .toLowerCase();
+
 
   const cards =
-    managementData.cards.filter(
-      c =>
-        c.business_id === business.id
-    );
+    (dashboardData.cards || [])
+      .filter(card=>{
 
-  const activeCards =
-    cards.filter(
-      c => c.active
-    );
+        if(!search)
+          return true;
 
-  const businessStatus =
-    cards.length &&
-    activeCards.length === 0
-      ? "paused"
-      : "active";
+        const business =
+          dashboardData.businesses.find(
+            item =>
+              item.id ===
+              card.business_id
+          );
 
-  const statusLabel =
-    businessStatus === "paused"
-      ? "⏸️ En pause"
-      : "● Actif";
+        return (
+          card.card_code || ""
+        )
+          .toLowerCase()
+          .includes(search)
+          ||
+          (
+            business?.name || ""
+          )
+            .toLowerCase()
+            .includes(search);
 
-  const statusClass =
-    businessStatus === "paused"
-      ? "badge-paused"
-      : "badge-active";
+      });
 
 
-  return `
+  if(!cards.length){
 
-    <article class="business">
+    container.innerHTML = `
+      <div class="empty">
 
-      <div class="business-main">
-
-        <div class="business-top">
-
-          <div>
-
-            <div class="business-name">
-              ${escapeHtml(business.name)}
-            </div>
-
-            <div class="business-date">
-              Créé le ${formatDate(business.created_at)}
-            </div>
-
-          </div>
-
-          <span class="badge ${statusClass}">
-            ${statusLabel}
-          </span>
-
+        <div class="empty-icon">
+          💳
         </div>
 
+        <div class="empty-title">
+          Aucune carte
+        </div>
 
-        <div class="info-grid">
-
-          <div class="info-item">
-
-            <div class="info-label">
-              Google Reviews
-            </div>
-
-            <div class="info-value">
-              ${escapeHtml(
-                business.google_review_url || "—"
-              )}
-            </div>
-
-          </div>
-
-
-          <div class="info-item">
-
-            <div class="info-label">
-              WhatsApp
-            </div>
-
-            <div class="info-value">
-              ${escapeHtml(
-                business.whatsapp_number || "—"
-              )}
-            </div>
-
-          </div>
-
+        <div class="empty-text">
+          Aucune carte ne correspond à votre recherche.
         </div>
 
       </div>
+    `;
 
+    return;
 
-      <div class="cards-section">
-
-        <div class="cards-title">
-          💳 Cartes (${cards.length})
-        </div>
-
-        ${
-          cards.length
-          ? cards.map(renderCard).join("")
-          : `
-            <div
-              style="
-                color:#8793a3;
-                font-size:12px;
-              "
-            >
-              Aucune carte.
-            </div>
-          `
-        }
-
-      </div>
-
-
-      <div class="business-actions">
-
-        <button
-          type="button"
-          class="btn btn-light"
-          onclick="openEditBusiness('${business.id}')"
-        >
-          ✏️ Modifier
-        </button>
-
-
-        <button
-          type="button"
-          class="btn btn-blue"
-          onclick="openBusiness('${business.id}')"
-        >
-          👁️ Ouvrir
-        </button>
-
-
-        <button
-          type="button"
-          class="btn btn-orange"
-          onclick="toggleBusinessCards('${business.id}',${businessStatus === "active"})"
-        >
-          ${
-            businessStatus === "active"
-              ? "⏸️ Pause"
-              : "▶️ Activer"
-          }
-        </button>
-
-
-        <button
-          type="button"
-          class="btn btn-red"
-          onclick="requestDeleteBusiness('${business.id}')"
-        >
-          🗑️ Supprimer
-        </button>
-
-      </div>
-
-    </article>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RENDER CARD
-========================================================= */
-
-function renderCard(card){
-
-  return `
-
-    <div class="card-row">
-
-      <div class="card-row-top">
-
-        <div class="card-code">
-          ${escapeHtml(card.card_code)}
-        </div>
-
-        <span
-          class="badge ${
-            card.active
-              ? "badge-active"
-              : "badge-paused"
-          }"
-        >
-          ${
-            card.active
-              ? "● Active"
-              : "⏸️ Bloquée"
-          }
-        </span>
-
-      </div>
-
-
-      <div class="card-stats">
-
-        <span>
-          💳 Carte Smart Review
-        </span>
-
-        <span>
-          📅 ${formatDate(card.created_at)}
-        </span>
-
-      </div>
-
-
-      <div class="card-actions">
-
-        <button
-          type="button"
-          class="btn btn-blue"
-          onclick="openCard('${card.card_code}')"
-        >
-          👁️ Ouvrir
-        </button>
-
-
-        <button
-          type="button"
-          class="btn ${
-            card.active
-              ? "btn-orange"
-              : "btn-green"
-          }"
-          onclick="toggleCard('${card.id}',${card.active})"
-        >
-          ${
-            card.active
-              ? "⏸️ Pause"
-              : "▶️ Activer"
-          }
-        </button>
-
-
-        <button
-          type="button"
-          class="btn btn-red"
-          onclick="requestDeleteCard('${card.id}','${escapeAttribute(card.card_code)}')"
-        >
-          🗑️
-        </button>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function formatDate(value){
-
-  if(!value){
-    return "—";
   }
 
-  try{
 
-    return new Date(value)
-      .toLocaleDateString(
-        "fr-FR",
-        {
-          day:"2-digit",
-          month:"2-digit",
-          year:"numeric"
-        }
+  container.innerHTML =
+    cards
+      .map(card=>{
+
+        const business =
+          dashboardData.businesses.find(
+            item =>
+              item.id ===
+              card.business_id
+          );
+
+
+        return `
+
+          <div class="item">
+
+            <div class="item-top">
+
+              <div>
+
+                <div class="item-name">
+                  ${
+                    escapeHtml(
+                      business?.name ||
+                      "Établissement"
+                    )
+                  }
+                </div>
+
+                <div class="item-code">
+                  ${escapeHtml(
+                    card.card_code
+                  )}
+                </div>
+
+              </div>
+
+
+              <span class="badge ${
+                card.active
+                  ? "active"
+                  : "paused"
+              }">
+
+                ${
+                  card.active
+                    ? "ACTIVE"
+                    : "PAUSÉE"
+                }
+
+              </span>
+
+            </div>
+
+
+            <div class="item-actions">
+
+              <button
+                class="button primary"
+                onclick="openCard(
+                  '${escapeAttribute(
+                    card.card_code
+                  )}'
+                )"
+              >
+                🔗 Ouvrir
+              </button>
+
+
+              <button
+                class="button light"
+                onclick="copyCardLink(
+                  '${escapeAttribute(
+                    card.card_code
+                  )}'
+                )"
+              >
+                📋 Copier lien
+              </button>
+
+
+              <button
+                class="button ${
+                  card.active
+                    ? "danger"
+                    : "success-button"
+                }"
+                onclick="toggleCard(
+                  '${card.id}',
+                  ${card.active}
+                )"
+              >
+                ${
+                  card.active
+                    ? "⏸️ Bloquer"
+                    : "▶️ Réactiver"
+                }
+              </button>
+
+
+              <button
+                class="button light"
+                onclick="copyCode(
+                  '${escapeAttribute(
+                    card.card_code
+                  )}'
+                )"
+              >
+                🔑 Copier code
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+/* =========================================================
+   ANALYTICS
+========================================================= */
+
+function renderAnalytics(){
+
+  const ratings =
+    dashboardData.stats?.ratings ||
+    {};
+
+  const values = {
+
+    1:Number(ratings[1] || 0),
+    2:Number(ratings[2] || 0),
+    3:Number(ratings[3] || 0),
+    4:Number(ratings[4] || 0),
+    5:Number(ratings[5] || 0)
+
+  };
+
+
+  for(let i=1;i<=5;i++){
+
+    const value =
+      values[i];
+
+    const element =
+      document.getElementById(
+        "rating" + i
       );
 
-  }catch{
+    if(element){
+      element.textContent =
+        value;
+    }
 
-    return "—";
+    const bar =
+      document.getElementById(
+        "bar" + i
+      );
+
+    const number =
+      document.getElementById(
+        "barNumber" + i
+      );
+
+    const total =
+      values[1] +
+      values[2] +
+      values[3] +
+      values[4] +
+      values[5];
+
+    const percent =
+      total
+        ? (value / total) * 100
+        : 0;
+
+    if(bar){
+      bar.style.width =
+        percent + "%";
+    }
+
+    if(number){
+      number.textContent =
+        value;
+    }
 
   }
 
@@ -3027,969 +3789,775 @@ function formatDate(value){
 
 
 /* =========================================================
-   ATTRIBUTE ESCAPE
+   BUSINESS SEARCH
 ========================================================= */
 
-function escapeAttribute(value){
+document
+  .getElementById("businessSearch")
+  .addEventListener(
+    "input",
+    renderBusinesses
+  );
 
-  return String(value ?? "")
-    .replace(/\\/g,"\\\\")
-    .replace(/'/g,"\\'");
 
-}
+document
+  .getElementById("cardSearch")
+  .addEventListener(
+    "input",
+    renderCards
+  );
 
 
 /* =========================================================
-   EDIT BUSINESS
+   NEW BUSINESS
 ========================================================= */
 
-function openEditBusiness(id){
+document
+  .getElementById("newBusinessButton")
+  .addEventListener(
+    "click",
+    ()=>{
 
-  const business =
-    managementData.businesses.find(
-      b => b.id === id
-    );
+      openBusinessModal();
 
-  if(!business){
-    return;
-  }
+    }
+  );
 
-  document.getElementById(
-    "editBusinessId"
-  ).value = business.id;
 
-  document.getElementById(
-    "editName"
-  ).value =
-    business.name || "";
+function openBusinessModal(
+  business=null
+){
 
-  document.getElementById(
-    "editGoogle"
-  ).value =
-    business.google_review_url || "";
+  document
+    .getElementById("businessModal")
+    .classList.add("show");
 
-  document.getElementById(
-    "editWhatsapp"
-  ).value =
-    business.whatsapp_number || "";
 
-  document.getElementById(
-    "editWebsite"
-  ).value =
-    business.website_url || "";
+  document
+    .getElementById("editBusinessId")
+    .value =
+      business
+        ? business.id
+        : "";
 
-  document.getElementById(
-    "editLogo"
-  ).value =
-    business.logo_url || "";
 
-  editModal.classList.add("show");
+  document
+    .getElementById("businessModalTitle")
+    .textContent =
+      business
+        ? "Modifier l'établissement"
+        : "Nouvel établissement";
+
+
+  document
+    .getElementById("modalBusinessName")
+    .value =
+      business?.name || "";
+
+
+  document
+    .getElementById("modalGoogleUrl")
+    .value =
+      business?.google_review_url || "";
+
+
+  document
+    .getElementById("modalWhatsapp")
+    .value =
+      business?.whatsapp_number || "";
+
+
+  document
+    .getElementById("modalWebsite")
+    .value =
+      business?.website_url || "";
+
+
+  document
+    .getElementById("modalLogo")
+    .value =
+      business?.logo_url || "";
 
 }
 
 
-/* =========================================================
-   CLOSE EDIT
-========================================================= */
+function closeBusinessModal(){
 
-function closeEdit(){
-
-  editModal.classList.remove("show");
+  document
+    .getElementById("businessModal")
+    .classList.remove("show");
 
 }
 
-document.getElementById(
-  "closeEdit"
-).addEventListener(
-  "click",
-  closeEdit
-);
 
-document.getElementById(
-  "cancelEdit"
-).addEventListener(
-  "click",
-  closeEdit
-);
+document
+  .getElementById("closeBusinessModal")
+  .addEventListener(
+    "click",
+    closeBusinessModal
+  );
 
 
 /* =========================================================
    SAVE BUSINESS
 ========================================================= */
 
-editForm.addEventListener(
-  "submit",
-  async function(event){
+document
+  .getElementById("saveBusinessButton")
+  .addEventListener(
+    "click",
+    async ()=>{
 
-    event.preventDefault();
+      const id =
+        document
+          .getElementById("editBusinessId")
+          .value
+          .trim();
 
-    const id =
-      document.getElementById(
-        "editBusinessId"
-      ).value;
 
-    const button =
-      document.getElementById(
-        "saveEdit"
-      );
+      const name =
+        document
+          .getElementById("modalBusinessName")
+          .value
+          .trim();
 
-    button.disabled = true;
 
-    button.textContent =
-      "Enregistrement…";
+      const google =
+        document
+          .getElementById("modalGoogleUrl")
+          .value
+          .trim();
 
-    try{
 
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.rpc(
-          "admin_update_business",
-          {
-            p_business_id:id,
+      const whatsapp =
+        document
+          .getElementById("modalWhatsapp")
+          .value
+          .trim();
 
-            p_name:
-              document.getElementById(
-                "editName"
-              ).value.trim(),
 
-            p_google_review_url:
-              document.getElementById(
-                "editGoogle"
-              ).value.trim(),
+      const website =
+        document
+          .getElementById("modalWebsite")
+          .value
+          .trim();
 
-            p_whatsapp_number:
-              document.getElementById(
-                "editWhatsapp"
-              ).value.trim(),
 
-            p_website_url:
-              document.getElementById(
-                "editWebsite"
-              ).value.trim() || null,
+      const logo =
+        document
+          .getElementById("modalLogo")
+          .value
+          .trim();
 
-            p_logo_url:
-              document.getElementById(
-                "editLogo"
-              ).value.trim() || null
-          }
+
+      if(!name){
+
+        showToast(
+          "Le nom est obligatoire."
         );
 
+        return;
 
-      if(error){
-        throw error;
       }
 
-      if(!data){
-        throw new Error(
-          "L'établissement n'a pas été trouvé."
-        );
-      }
 
-      closeEdit();
+      const button =
+        document
+          .getElementById(
+            "saveBusinessButton"
+          );
 
-      showStatus(
-        "Établissement modifié avec succès.",
-        "success"
-      );
-
-      await loadEverything();
-
-    }catch(error){
-
-      console.error(error);
-
-      showStatus(
-        "Impossible de modifier l'établissement.\n\n" +
-        error.message,
-        "error"
-      );
-
-    }finally{
-
-      button.disabled = false;
+      button.disabled =
+        true;
 
       button.textContent =
-        "💾 Enregistrer";
+        "Enregistrement…";
+
+
+      try{
+
+        const payload = {
+
+          name:name,
+
+          google_review_url:
+            google || null,
+
+          whatsapp_number:
+            whatsapp || null,
+
+          website_url:
+            website || null,
+
+          logo_url:
+            logo || null
+
+        };
+
+
+        let result;
+
+
+        if(id){
+
+          result =
+            await supabaseClient
+              .from("businesses")
+              .update(payload)
+              .eq("id",id);
+
+        }
+
+        else{
+
+          result =
+            await supabaseClient
+              .from("businesses")
+              .insert(payload);
+
+        }
+
+
+        if(result.error){
+
+          throw result.error;
+
+        }
+
+
+        closeBusinessModal();
+
+        showToast(
+          id
+            ? "Établissement modifié."
+            : "Établissement créé."
+        );
+
+        await loadDashboard();
+
+      }
+
+      catch(error){
+
+        console.error(
+          error
+        );
+
+        showStatus(
+          "Impossible d'enregistrer l'établissement.\n\n" +
+          error.message,
+          "error"
+        );
+
+      }
+
+      finally{
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "💾 Enregistrer";
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   EDIT BUSINESS
+========================================================= */
+
+window.editBusiness =
+  function(id){
+
+    const business =
+      dashboardData.businesses.find(
+        item =>
+          item.id === id
+      );
+
+    if(!business)
+      return;
+
+    openBusinessModal(
+      business
+    );
+
+  };
+
+
+/* =========================================================
+   PAUSE BUSINESS CARD
+========================================================= */
+
+window.toggleBusinessCard =
+  async function(
+    businessId,
+    cardId,
+    currentlyActive
+  ){
+
+    if(!cardId){
+
+      showToast(
+        "Aucune carte associée."
+      );
+
+      return;
 
     }
 
-  }
-);
+
+    const action =
+      currentlyActive
+        ? "mettre cette carte en pause"
+        : "réactiver cette carte";
 
 
-/* =========================================================
-   OPEN BUSINESS
-========================================================= */
+    askConfirmation(
+      "Voulez-vous " +
+      action +
+      " ?",
+      async ()=>{
 
-function openBusiness(id){
+        try{
 
-  const cards =
-    managementData.cards.filter(
-      c => c.business_id === id
+          const {
+            error
+          } =
+            await supabaseClient
+              .from("cards")
+              .update({
+                active:
+                  !currentlyActive
+              })
+              .eq(
+                "id",
+                cardId
+              );
+
+
+          if(error)
+            throw error;
+
+
+          showToast(
+            currentlyActive
+              ? "Carte mise en pause."
+              : "Carte réactivée."
+          );
+
+
+          await loadDashboard();
+
+        }
+
+        catch(error){
+
+          showStatus(
+            "Impossible de modifier la carte.\n\n" +
+            error.message,
+            "error"
+          );
+
+        }
+
+      }
     );
 
-  if(!cards.length){
-
-    showStatus(
-      "Cet établissement n'a aucune carte.",
-      "info"
-    );
-
-    return;
-
-  }
-
-  openCard(
-    cards[0].card_code
-  );
-
-}
-
-
-/* =========================================================
-   OPEN CARD
-========================================================= */
-
-function openCard(code){
-
-  window.open(
-    getCustomerUrl(code),
-    "_blank"
-  );
-
-}
+  };
 
 
 /* =========================================================
    TOGGLE CARD
 ========================================================= */
 
-async function toggleCard(
-  cardId,
-  currentlyActive
-){
+window.toggleCard =
+  async function(
+    cardId,
+    currentlyActive
+  ){
 
-  try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.rpc(
-        "admin_set_card_status",
-        {
-          p_card_id:cardId,
-          p_active:!currentlyActive
-        }
-      );
-
-    if(error){
-      throw error;
-    }
-
-    if(!data){
-      throw new Error(
-        "Carte introuvable."
-      );
-    }
-
-    showStatus(
+    const action =
       currentlyActive
-        ? "Carte mise en pause."
-        : "Carte réactivée.",
-      "success"
+        ? "bloquer"
+        : "réactiver";
+
+
+    askConfirmation(
+      "Voulez-vous " +
+      action +
+      " cette carte ?",
+      async ()=>{
+
+        try{
+
+          const {
+            error
+          } =
+            await supabaseClient
+              .from("cards")
+              .update({
+                active:
+                  !currentlyActive
+              })
+              .eq(
+                "id",
+                cardId
+              );
+
+
+          if(error)
+            throw error;
+
+
+          showToast(
+            currentlyActive
+              ? "Carte bloquée."
+              : "Carte réactivée."
+          );
+
+
+          await loadDashboard();
+
+        }
+
+        catch(error){
+
+          showStatus(
+            "Impossible de modifier la carte.\n\n" +
+            error.message,
+            "error"
+          );
+
+        }
+
+      }
     );
 
-    await loadEverything();
-
-  }catch(error){
-
-    console.error(error);
-
-    showStatus(
-      "Impossible de modifier le statut de la carte.\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
+  };
 
 
 /* =========================================================
-   TOGGLE BUSINESS CARDS
+   OPEN CARD
 ========================================================= */
 
-async function toggleBusinessCards(
-  businessId,
-  currentlyActive
-){
+window.openCard =
+  function(code){
 
-  const cards =
-    managementData.cards.filter(
-      c => c.business_id === businessId
-    );
-
-  if(!cards.length){
-
-    showStatus(
-      "Cet établissement n'a aucune carte.",
-      "info"
-    );
-
-    return;
-
-  }
-
-  const newStatus =
-    !currentlyActive;
-
-  try{
-
-    for(
-      const card of cards
-    ){
-
-      const {
-        error
-      } =
-        await supabaseClient.rpc(
-          "admin_set_card_status",
-          {
-            p_card_id:card.id,
-            p_active:newStatus
-          }
+    const baseUrl =
+      window.location.origin +
+      window.location.pathname
+        .replace(
+          /admin\.html.*$/i,
+          ""
         );
 
-      if(error){
-        throw error;
-      }
 
-    }
+    const url =
+      baseUrl +
+      "index.html?card=" +
+      encodeURIComponent(
+        code
+      );
 
-    showStatus(
-      newStatus
-        ? "Toutes les cartes de cet établissement sont maintenant actives."
-        : "Toutes les cartes de cet établissement sont maintenant en pause.",
-      "success"
+
+    window.open(
+      url,
+      "_blank"
     );
 
-    await loadEverything();
-
-  }catch(error){
-
-    console.error(error);
-
-    showStatus(
-      "Impossible de modifier les cartes.\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
+  };
 
 
 /* =========================================================
-   DELETE CARD CONFIRM
+   OPEN URL
 ========================================================= */
 
-function requestDeleteCard(
-  cardId,
-  code
-){
+window.openUrl =
+  function(url){
 
-  openConfirm(
-    `
-      Vous êtes sur le point de supprimer définitivement
-      la carte
-      <span class="confirm-name">${escapeHtml(code)}</span>.
-      <br><br>
-      Ses scans et statistiques seront également supprimés.
-      Cette action est irréversible.
-    `,
-    async function(){
+    window.open(
+      url,
+      "_blank",
+      "noopener"
+    );
 
-      await deleteCard(cardId);
-
-    }
-  );
-
-}
+  };
 
 
 /* =========================================================
-   DELETE CARD
+   COPY CODE
 ========================================================= */
 
-async function deleteCard(cardId){
+window.copyCode =
+  async function(code){
 
-  try{
+    try{
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.rpc(
-        "admin_delete_card",
-        {
-          p_card_id:cardId
-        }
+      await navigator.clipboard.writeText(
+        code
       );
 
-    if(error){
-      throw error;
-    }
-
-    if(!data){
-      throw new Error(
-        "Carte introuvable."
+      showToast(
+        "Code copié."
       );
+
     }
 
-    showStatus(
-      "Carte supprimée définitivement.",
-      "success"
-    );
+    catch(error){
 
-    await loadEverything();
+      showToast(
+        "Impossible de copier."
+      );
 
-  }catch(error){
+    }
 
-    console.error(error);
-
-    showStatus(
-      "Impossible de supprimer la carte.\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
+  };
 
 
 /* =========================================================
-   DELETE BUSINESS CONFIRM
+   COPY CARD LINK
 ========================================================= */
 
-function requestDeleteBusiness(
-  businessId
-){
+window.copyCardLink =
+  async function(code){
 
-  const business =
-    managementData.businesses.find(
-      b => b.id === businessId
-    );
+    const baseUrl =
+      window.location.origin +
+      window.location.pathname
+        .replace(
+          /admin\.html.*$/i,
+          ""
+        );
 
-  if(!business){
-    return;
-  }
 
-  openConfirm(
-    `
-      Vous êtes sur le point de supprimer
-      <span class="confirm-name">
-        ${escapeHtml(business.name)}
-      </span>.
-      <br><br>
-      Toutes ses cartes, ses scans et leurs statistiques
-      seront supprimés.
-      <br><br>
-      <strong>Cette action est irréversible.</strong>
-    `,
-    async function(){
+    const url =
+      baseUrl +
+      "index.html?card=" +
+      encodeURIComponent(
+        code
+      );
 
-      await deleteBusiness(
-        businessId
+
+    try{
+
+      await navigator.clipboard.writeText(
+        url
+      );
+
+      showToast(
+        "Lien de la carte copié."
       );
 
     }
-  );
 
-}
+    catch(error){
+
+      showToast(
+        "Impossible de copier le lien."
+      );
+
+    }
+
+  };
 
 
 /* =========================================================
-   DELETE BUSINESS
+   CONFIRMATION
 ========================================================= */
 
-async function deleteBusiness(
-  businessId
-){
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.rpc(
-        "admin_delete_business",
-        {
-          p_business_id:businessId
-        }
-      );
-
-    if(error){
-      throw error;
-    }
-
-    if(!data){
-      throw new Error(
-        "Établissement introuvable."
-      );
-    }
-
-    showStatus(
-      "Établissement et cartes supprimés définitivement.",
-      "success"
-    );
-
-    await loadEverything();
-
-  }catch(error){
-
-    console.error(error);
-
-    showStatus(
-      "Impossible de supprimer l'établissement.\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CONFIRM MODAL
-========================================================= */
-
-function openConfirm(
-  html,
+function askConfirmation(
+  text,
   callback
 ){
 
-  document.getElementById(
-    "confirmText"
-  ).innerHTML = html;
+  document
+    .getElementById("confirmText")
+    .textContent =
+      text;
 
-  confirmCallback = callback;
+  confirmCallback =
+    callback;
 
-  confirmModal.classList.add("show");
+  document
+    .getElementById("confirmModal")
+    .classList.add("show");
 
 }
 
 
 function closeConfirm(){
 
-  confirmModal.classList.remove("show");
+  document
+    .getElementById("confirmModal")
+    .classList.remove("show");
 
-  confirmCallback = null;
+  confirmCallback =
+    null;
 
 }
 
 
-document.getElementById(
-  "closeConfirm"
-).addEventListener(
-  "click",
-  closeConfirm
-);
+document
+  .getElementById("closeConfirm")
+  .addEventListener(
+    "click",
+    closeConfirm
+  );
 
 
-document.getElementById(
-  "cancelConfirm"
-).addEventListener(
-  "click",
-  closeConfirm
-);
+document
+  .getElementById("cancelConfirm")
+  .addEventListener(
+    "click",
+    closeConfirm
+  );
 
 
-document.getElementById(
-  "confirmAction"
-).addEventListener(
-  "click",
-  async function(){
+document
+  .getElementById("confirmAction")
+  .addEventListener(
+    "click",
+    async ()=>{
 
-    const callback =
-      confirmCallback;
+      const callback =
+        confirmCallback;
 
-    closeConfirm();
+      closeConfirm();
 
-    if(callback){
+      if(callback){
 
-      await callback();
+        await callback();
+
+      }
 
     }
-
-  }
-);
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-searchInput.addEventListener(
-  "input",
-  renderBusinesses
-);
+  );
 
 
 /* =========================================================
    REFRESH
 ========================================================= */
 
+async function refreshEverything(){
+
+  const buttons =
+    document.querySelectorAll(
+      "[data-refresh]"
+    );
+
+  buttons.forEach(
+    button=>{
+      button.disabled = true;
+    }
+  );
+
+  refreshButton.disabled =
+    true;
+
+  try{
+
+    await loadDashboard();
+
+    showToast(
+      "Données actualisées."
+    );
+
+  }
+
+  finally{
+
+    buttons.forEach(
+      button=>{
+        button.disabled = false;
+      }
+    );
+
+    refreshButton.disabled =
+      false;
+
+  }
+
+}
+
+
 refreshButton.addEventListener(
   "click",
-  async function(){
-
-    refreshButton.disabled = true;
-
-    refreshButton.textContent =
-      "⏳ Chargement";
-
-    try{
-
-      await loadEverything();
-
-    }finally{
-
-      refreshButton.disabled = false;
-
-      refreshButton.textContent =
-        "🔄 Actualiser";
-
-    }
-
-  }
+  refreshEverything
 );
+
+
+document
+  .querySelectorAll("[data-refresh]")
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      refreshEverything
+    );
+
+  });
+
+
+document
+  .getElementById("quickRefresh")
+  .addEventListener(
+    "click",
+    refreshEverything
+  );
 
 
 /* =========================================================
-   CREATE BUSINESS + CARD
+   HTML ESCAPING
 ========================================================= */
 
-createForm.addEventListener(
-  "submit",
-  async function(event){
-
-    event.preventDefault();
-
-    clearStatus();
-
-    const user =
-      await getCurrentUser();
-
-    if(!user){
-
-      showStatus(
-        "Votre session a expiré. Veuillez vous reconnecter.",
-        "error"
-      );
-
-      return;
-
-    }
-
-    const name =
-      document
-        .getElementById("businessName")
-        .value
-        .trim();
-
-    const googleReviewUrl =
-      document
-        .getElementById("googleReviewUrl")
-        .value
-        .trim();
-
-    const whatsappNumber =
-      document
-        .getElementById("whatsappNumber")
-        .value
-        .trim();
-
-    const websiteUrl =
-      document
-        .getElementById("websiteUrl")
-        .value
-        .trim();
-
-    const logoUrl =
-      document
-        .getElementById("logoUrl")
-        .value
-        .trim();
-
-
-    createButton.disabled = true;
-
-    createButton.textContent =
-      "Création…";
-
-
-    try{
-
-      /* -----------------------------------------------
-         BUSINESS
-      ----------------------------------------------- */
-
-      const {
-        data:business,
-        error:businessError
-      } =
-        await supabaseClient
-          .from("businesses")
-          .insert({
-            name,
-            google_review_url:googleReviewUrl,
-            whatsapp_number:whatsappNumber,
-            website_url:
-              websiteUrl || null,
-            logo_url:
-              logoUrl || null
-          })
-          .select()
-          .single();
-
-
-      if(businessError){
-        throw businessError;
-      }
-
-
-      /* -----------------------------------------------
-         CARD
-      ----------------------------------------------- */
-
-      const cardCode =
-        "CARD" +
-        Date.now()
-          .toString(36)
-          .toUpperCase()
-          .slice(-7);
-
-
-      const {
-        data:card,
-        error:cardError
-      } =
-        await supabaseClient
-          .from("cards")
-          .insert({
-            business_id:business.id,
-            card_code:cardCode,
-            active:true
-          })
-          .select()
-          .single();
-
-
-      if(cardError){
-        throw cardError;
-      }
-
-
-      const customerUrl =
-        getCustomerUrl(
-          card.card_code
-        );
-
-
-      document.getElementById(
-        "createdCode"
-      ).textContent =
-        card.card_code;
-
-      document.getElementById(
-        "createdLink"
-      ).href =
-        customerUrl;
-
-      document.getElementById(
-        "createdResult"
-      ).style.display =
-        "block";
-
-
-      testCardCode.value =
-        card.card_code;
-
-
-      createForm.reset();
-
-
-      showStatus(
-        "Établissement et carte créés avec succès.",
-        "success"
-      );
-
-
-      await loadEverything();
-
-
-    }catch(error){
-
-      console.error(
-        "CREATE ERROR:",
-        error
-      );
-
-      showStatus(
-        "Impossible de créer l'établissement.\n\n" +
-        error.message,
-        "error"
-      );
-
-    }finally{
-
-      createButton.disabled = false;
-
-      createButton.textContent =
-        "✨ Créer l'établissement";
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   TEST CARD
-========================================================= */
-
-testButton.addEventListener(
-  "click",
-  async function(){
-
-    clearStatus();
-
-    const code =
-      testCardCode
-        .value
-        .trim();
-
-    if(!code){
-
-      showStatus(
-        "Veuillez entrer un code de carte.",
-        "error"
-      );
-
-      return;
-
-    }
-
-    testButton.disabled = true;
-
-    testButton.textContent =
-      "Vérification…";
-
-
-    try{
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .from("cards")
-          .select(
-            "id,card_code,active"
-          )
-          .eq(
-            "card_code",
-            code
-          )
-          .limit(1);
-
-
-      if(error){
-        throw error;
-      }
-
-      if(
-        !data ||
-        !data.length
-      ){
-
-        throw new Error(
-          "Carte introuvable."
-        );
-
-      }
-
-      if(!data[0].active){
-
-        throw new Error(
-          "Cette carte est actuellement en pause."
-        );
-
-      }
-
-      openCard(
-        data[0].card_code
-      );
-
-    }catch(error){
-
-      console.error(error);
-
-      showStatus(
-        error.message,
-        "error"
-      );
-
-    }finally{
-
-      testButton.disabled = false;
-
-      testButton.textContent =
-        "🔎 Ouvrir la carte";
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   MODAL BACKDROP
-========================================================= */
-
-editModal.addEventListener(
-  "click",
-  function(event){
-
-    if(event.target === editModal){
-
-      closeEdit();
-
-    }
-
-  }
-);
-
-confirmModal.addEventListener(
-  "click",
-  function(event){
-
-    if(event.target === confirmModal){
-
-      closeConfirm();
-
-    }
-
-  }
-);
+function escapeHtml(
+  value
+){
+
+  return String(value ?? "")
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function escapeAttribute(
+  value
+){
+
+  return String(value ?? "")
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    );
+
+}
 
 
 /* =========================================================
@@ -4001,5 +4569,4 @@ checkSession();
 </script>
 
 </body>
-
   </html>
