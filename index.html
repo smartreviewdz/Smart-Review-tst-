@@ -2,753 +2,478 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#061b3a">
 <title>Smart Review</title>
 
 <style>
 :root{
---navy:#061b3a;
---navy-2:#08264d;
---navy-3:#0d376b;
---blue:#165dff;
---gold:#d99213;
---gold-light:#ffcf55;
---gold-dark:#a86600;
---white:#ffffff;
---ink:#071b3c;
---muted:#65758c;
+  --navy:#061b3a;
+  --navy2:#08264d;
+  --blue:#165dff;
+  --gold:#d99213;
+  --gold-light:#ffcf55;
+  --white:#fff;
+  --muted:#65758c;
 }
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html,body{
-width:100%;
-min-height:100%;
-}
-
-html{
-background:var(--navy);
+  width:100%;
+  min-height:100%;
 }
 
 body{
-min-height:100vh;
-min-height:100dvh;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
--webkit-font-smoothing:antialiased;
-text-rendering:optimizeLegibility;
-background:#fff;
-color:var(--ink);
-overflow-x:hidden;
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:#fff;
+  color:var(--navy);
+  overflow-x:hidden;
 }
 
 .app{
-width:100%;
-min-height:100vh;
-min-height:100dvh;
-position:relative;
-overflow:hidden;
-background:#fff;
+  min-height:100vh;
+  background:#fff;
 }
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
-position:relative;
-width:100%;
-min-height:405px;
-color:#fff;
-display:flex;
-flex-direction:column;
-align-items:center;
-text-align:center;
-padding:max(25px,env(safe-area-inset-top)) 18px 100px;
-background:
-radial-gradient(circle at 50% 5%,rgba(255,255,255,.10),transparent 30%),
-radial-gradient(circle at 50% 105%,rgba(30,111,255,.30),transparent 55%),
-linear-gradient(180deg,#061b3a 0%,#08264d 65%,#092e5c 100%);
-}
-
-.hero::before{
-content:"";
-position:absolute;
-inset:0;
-pointer-events:none;
-opacity:.18;
-background-image:radial-gradient(rgba(255,255,255,.16) .7px,transparent .7px);
-background-size:13px 13px;
-mask-image:linear-gradient(to bottom,black,transparent 82%);
-}
-
-.hero::after{
-content:"";
-position:absolute;
-width:260px;
-height:260px;
-top:-160px;
-left:50%;
-transform:translateX(-50%);
-background:rgba(38,117,255,.18);
-filter:blur(55px);
-border-radius:50%;
-pointer-events:none;
+  position:relative;
+  min-height:405px;
+  padding:30px 18px 100px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  color:#fff;
+  background:
+    radial-gradient(circle at 50% 5%,rgba(255,255,255,.10),transparent 30%),
+    linear-gradient(180deg,#061b3a 0%,#08264d 70%,#092e5c 100%);
+  overflow:hidden;
 }
 
 .google-mark{
-position:relative;
-z-index:2;
-width:clamp(86px,24vw,112px);
-height:clamp(86px,24vw,112px);
-border-radius:50%;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-top:3px;
-margin-bottom:19px;
-box-shadow:0 15px 34px rgba(0,0,0,.30),0 0 0 3px rgba(217,146,19,.95),0 0 0 6px rgba(255,202,67,.22);
-animation:googleEnter .7s cubic-bezier(.2,.8,.2,1) both;
-}
-
-.google-mark::after{
-content:"";
-position:absolute;
-inset:8px;
-border-radius:50%;
-border:1px solid rgba(255,255,255,.9);
-opacity:.65;
+  position:relative;
+  z-index:2;
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
+  box-shadow:
+    0 15px 34px rgba(0,0,0,.30),
+    0 0 0 3px rgba(217,146,19,.95);
 }
 
 .google-letter{
-font-family:Arial,sans-serif;
-font-size:clamp(53px,14vw,72px);
-font-weight:800;
-line-height:1;
-background:conic-gradient(from -35deg,#4285f4 0deg 80deg,#34a853 80deg 170deg,#fbbc05 170deg 245deg,#ea4335 245deg 320deg,#4285f4 320deg 360deg);
--webkit-background-clip:text;
-background-clip:text;
-color:transparent;
-}
-
-@keyframes googleEnter{
-from{opacity:0;transform:translateY(-20px) scale(.78);}
-to{opacity:1;transform:translateY(0) scale(1);}
+  font-family:Arial,sans-serif;
+  font-size:68px;
+  font-weight:800;
+  line-height:1;
+  background:conic-gradient(
+    from -35deg,
+    #4285f4 0deg 80deg,
+    #34a853 80deg 170deg,
+    #fbbc05 170deg 245deg,
+    #ea4335 245deg 320deg,
+    #4285f4 320deg 360deg
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 }
 
 .hero-title{
-position:relative;
-z-index:2;
-max-width:560px;
-font-size:clamp(23px,6.3vw,34px);
-line-height:1.13;
-font-weight:900;
-letter-spacing:-.8px;
-text-transform:uppercase;
-text-shadow:0 4px 18px rgba(0,0,0,.30);
+  position:relative;
+  z-index:2;
+  max-width:560px;
+  font-size:clamp(23px,6.3vw,34px);
+  line-height:1.13;
+  font-weight:900;
+  text-transform:uppercase;
 }
 
 .hero-rating{
-position:relative;
-z-index:3;
-width:100%;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:clamp(7px,2vw,17px);
-margin-top:25px;
+  position:relative;
+  z-index:2;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:25px;
 }
 
 .rating-line{
-width:clamp(25px,11vw,85px);
-height:2px;
-background:linear-gradient(90deg,transparent,rgba(38,129,255,.95));
+  width:clamp(25px,11vw,85px);
+  height:2px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(38,129,255,.95)
+  );
 }
 
 .rating-line.right{
-background:linear-gradient(90deg,rgba(38,129,255,.95),transparent);
+  background:linear-gradient(
+    90deg,
+    rgba(38,129,255,.95),
+    transparent
+  );
 }
 
 .hero-stars{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:clamp(3px,1vw,8px);
+  display:flex;
+  gap:4px;
 }
 
 .hero-star{
-font-size:clamp(30px,8vw,49px);
-line-height:1;
-color:var(--gold-light);
-text-shadow:0 4px 5px rgba(0,0,0,.45),0 0 15px rgba(255,202,67,.25);
-transform:perspective(300px) rotateX(7deg);
+  font-size:clamp(30px,8vw,49px);
+  color:var(--gold-light);
+  text-shadow:0 4px 5px rgba(0,0,0,.45);
 }
 
 .wave-blue{
-position:absolute;
-z-index:4;
-left:-5%;
-bottom:55px;
-width:110%;
-height:65px;
-background:linear-gradient(180deg,#0c63ff,#164fd1);
-clip-path:ellipse(69% 55% at 50% 100%);
+  position:absolute;
+  z-index:3;
+  left:-5%;
+  bottom:55px;
+  width:110%;
+  height:65px;
+  background:linear-gradient(180deg,#0c63ff,#164fd1);
+  clip-path:ellipse(69% 55% at 50% 100%);
 }
 
 .wave{
-position:absolute;
-z-index:5;
-left:-5%;
-bottom:-1px;
-width:110%;
-height:105px;
-background:#fff;
-clip-path:ellipse(73% 58% at 50% 100%);
+  position:absolute;
+  z-index:4;
+  left:-5%;
+  bottom:-1px;
+  width:110%;
+  height:105px;
+  background:#fff;
+  clip-path:ellipse(73% 58% at 50% 100%);
 }
 
+/* =========================
+   CONTENT
+========================= */
+
 .content{
-position:relative;
-z-index:10;
-background:#fff;
-width:100%;
-min-height:calc(100vh - 400px);
-min-height:calc(100dvh - 400px);
-margin-top:-23px;
-padding:0 18px max(30px,env(safe-area-inset-bottom));
-display:flex;
-flex-direction:column;
-align-items:center;
+  position:relative;
+  z-index:10;
+  background:#fff;
+  margin-top:-23px;
+  padding:0 18px 35px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 .client-brand{
-width:100%;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-position:relative;
-margin-top:-2px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
 
 .logo-frame{
-width:clamp(170px,48vw,215px);
-height:clamp(170px,48vw,215px);
-position:relative;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-bottom:19px;
+  width:190px;
+  height:190px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:18px;
 }
 
 .logo-frame::before{
-content:"";
-position:absolute;
-inset:0;
-pointer-events:none;
-background:
-linear-gradient(var(--gold),var(--gold)) left top / 64px 4px no-repeat,
-linear-gradient(var(--gold),var(--gold)) left top / 4px 64px no-repeat,
-linear-gradient(var(--gold),var(--gold)) right top / 64px 4px no-repeat,
-linear-gradient(var(--gold),var(--gold)) right top / 4px 64px no-repeat,
-linear-gradient(var(--gold),var(--gold)) left bottom / 64px 4px no-repeat,
-linear-gradient(var(--gold),var(--gold)) left bottom / 4px 64px no-repeat,
-linear-gradient(var(--gold),var(--gold)) right bottom / 64px 4px no-repeat,
-linear-gradient(var(--gold),var(--gold)) right bottom / 4px 64px no-repeat;
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(var(--gold),var(--gold)) left top / 64px 4px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left top / 4px 64px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right top / 64px 4px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right top / 4px 64px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left bottom / 64px 4px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) left bottom / 4px 64px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right bottom / 64px 4px no-repeat,
+    linear-gradient(var(--gold),var(--gold)) right bottom / 4px 64px no-repeat;
 }
 
 .client-logo{
-width:clamp(120px,35vw,158px);
-height:clamp(120px,35vw,158px);
-border-radius:25px;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-background:linear-gradient(145deg,#ffffff,#f0f3f7);
-border:1px solid rgba(7,27,60,.08);
-box-shadow:0 15px 35px rgba(7,27,60,.13),0 2px 5px rgba(7,27,60,.05);
-font-size:52px;
-color:#0b315f;
+  width:145px;
+  height:145px;
+  border-radius:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:linear-gradient(145deg,#fff,#f0f3f7);
+  box-shadow:0 15px 35px rgba(7,27,60,.13);
+  font-size:52px;
 }
 
 .client-logo img{
-width:100%;
-height:100%;
-object-fit:cover;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .business-name{
-width:100%;
-max-width:700px;
-font-size:clamp(29px,8vw,42px);
-line-height:1.08;
-font-weight:900;
-letter-spacing:-1px;
-color:var(--navy);
-text-align:center;
-overflow-wrap:anywhere;
-margin-bottom:8px;
+  width:100%;
+  max-width:700px;
+  font-size:clamp(29px,8vw,42px);
+  line-height:1.08;
+  font-weight:900;
+  text-align:center;
+  margin-bottom:8px;
+  overflow-wrap:anywhere;
 }
 
 .subtitle{
-width:100%;
-max-width:600px;
-color:#53657d;
-font-size:clamp(16px,4.5vw,20px);
-font-weight:600;
-text-align:center;
-line-height:1.45;
-margin-bottom:28px;
+  width:100%;
+  max-width:600px;
+  color:#53657d;
+  font-size:clamp(16px,4.5vw,20px);
+  font-weight:600;
+  text-align:center;
+  line-height:1.45;
+  margin-bottom:28px;
 }
+
+/* =========================
+   RATING
+========================= */
 
 .feedback-area{
-width:100%;
-max-width:680px;
-display:flex;
-flex-direction:column;
-align-items:center;
-text-align:center;
-animation:contentEnter .55s cubic-bezier(.2,.8,.2,1) both;
-}
-
-@keyframes contentEnter{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
+  width:100%;
+  max-width:680px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
 
 .rating-question{
-width:100%;
-color:var(--navy);
-font-size:clamp(22px,6vw,30px);
-line-height:1.18;
-font-weight:850;
-letter-spacing:-.5px;
-margin-bottom:18px;
+  width:100%;
+  font-size:clamp(22px,6vw,30px);
+  line-height:1.18;
+  font-weight:850;
+  margin-bottom:18px;
 }
 
 .stars{
-width:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:clamp(2px,1vw,10px);
-margin-bottom:7px;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  margin-bottom:8px;
 }
 
 .star{
-appearance:none;
--webkit-appearance:none;
-border:0 !important;
-outline:none !important;
-background:transparent !important;
-box-shadow:none !important;
-width:clamp(58px,16vw,84px);
-height:clamp(65px,17vw,92px);
-padding:0;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:clamp(58px,16vw,82px);
-line-height:1;
-color:#c9d0d9;
-cursor:pointer;
-position:relative;
-user-select:none;
--webkit-user-select:none;
--webkit-tap-highlight-color:transparent;
-touch-action:manipulation;
-transition:color .18s ease,filter .18s ease,transform .15s cubic-bezier(.2,.9,.25,1.4);
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  outline:0;
+  background:transparent;
+  box-shadow:none;
+  width:clamp(58px,16vw,84px);
+  height:clamp(65px,17vw,92px);
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:clamp(58px,16vw,82px);
+  line-height:1;
+  color:#c9d0d9;
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
 
 .star:focus,
 .star:focus-visible,
 .star:active{
-outline:none !important;
-background:transparent !important;
-box-shadow:none !important;
+  outline:none;
+  border:0;
+  background:transparent;
+  box-shadow:none;
 }
 
 .star.active{
-color:var(--gold);
-filter:drop-shadow(0 5px 6px rgba(150,90,0,.25));
-animation:starPop .34s cubic-bezier(.2,.9,.25,1.4);
-}
-
-@keyframes starPop{
-0%{transform:scale(.68);}
-45%{transform:scale(1.20);}
-72%{transform:scale(.94);}
-100%{transform:scale(1);}
-}
-
-.star:active{
-transform:scale(.84);
+  color:var(--gold);
+  filter:drop-shadow(0 5px 6px rgba(150,90,0,.25));
 }
 
 .rating-text{
-min-height:28px;
-color:#65758c;
-font-size:clamp(15px,4.1vw,18px);
-font-weight:650;
-margin-bottom:19px;
+  min-height:28px;
+  color:var(--muted);
+  font-size:16px;
+  font-weight:650;
+  margin-bottom:19px;
 }
 
+/* =========================
+   MESSAGE
+========================= */
+
 .message{
-width:100%;
-text-align:center;
-display:block;
-animation:messageEnter .4s cubic-bezier(.2,.8,.2,1) both;
+  width:100%;
 }
 
 .message.hidden{
-display:none !important;
-}
-
-@keyframes messageEnter{
-from{opacity:0;transform:translateY(14px);}
-to{opacity:1;transform:translateY(0);}
+  display:none;
 }
 
 .message h2{
-color:var(--navy);
-font-size:clamp(23px,6vw,31px);
-line-height:1.18;
-font-weight:900;
-letter-spacing:-.55px;
-margin-bottom:9px;
+  font-size:clamp(23px,6vw,31px);
+  line-height:1.18;
+  font-weight:900;
+  margin-bottom:9px;
 }
 
 .message p{
-color:#61728a;
-font-size:clamp(16px,4.4vw,19px);
-line-height:1.52;
-max-width:620px;
-margin:0 auto 20px;
+  color:#61728a;
+  font-size:clamp(16px,4.4vw,19px);
+  line-height:1.52;
+  max-width:620px;
+  margin:0 auto 20px;
 }
 
-#googleArea{
-width:100%;
-animation:googleAreaEnter .45s cubic-bezier(.2,.8,.2,1) both;
-}
-
-@keyframes googleAreaEnter{
-from{opacity:0;transform:translateY(10px) scale(.98);}
-to{opacity:1;transform:translateY(0) scale(1);}
-}
+/* =========================
+   BUTTONS
+========================= */
 
 .button{
-width:100%;
-min-height:72px;
-border-radius:20px;
-border:none;
-display:flex;
-align-items:center;
-justify-content:center;
-text-decoration:none;
-padding:18px 22px;
-font-size:clamp(18px,4.8vw,22px);
-font-weight:900;
-cursor:pointer;
-margin-top:10px;
-position:relative;
-overflow:hidden;
-transition:transform .16s ease,box-shadow .22s ease,background .22s ease;
--webkit-tap-highlight-color:transparent;
-touch-action:manipulation;
-}
-
-.button:active{
-transform:scale(.975);
+  width:100%;
+  min-height:72px;
+  border-radius:20px;
+  border:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  padding:18px 22px;
+  font-size:clamp(18px,4.8vw,22px);
+  font-weight:900;
+  cursor:pointer;
+  margin-top:10px;
+  touch-action:manipulation;
 }
 
 .google{
-color:#fff;
-background:linear-gradient(135deg,#0a2d59 0%,#0d407a 52%,#08294f 100%);
-border:2px solid rgba(217,146,19,.88);
-box-shadow:0 12px 28px rgba(7,27,60,.22),0 0 0 3px rgba(217,146,19,.08);
-animation:googleAttention 3.2s ease-in-out infinite;
-}
-
-.google::before{
-content:"";
-position:absolute;
-left:0;
-right:0;
-top:0;
-height:4px;
-background:linear-gradient(90deg,var(--gold-dark),var(--gold-light),var(--gold-dark));
-}
-
-.google::after{
-content:"";
-position:absolute;
-top:-20%;
-left:-45%;
-width:35%;
-height:140%;
-transform:skewX(-20deg);
-background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);
-animation:buttonShine 3.8s ease-in-out infinite;
-}
-
-@keyframes buttonShine{
-0%,55%{left:-45%;}
-75%,100%{left:120%;}
-}
-
-@keyframes googleAttention{
-0%,72%,100%{
-transform:translateY(0);
-box-shadow:0 12px 28px rgba(7,27,60,.22),0 0 0 3px rgba(217,146,19,.08);
-}
-76%{
-transform:translateY(-2px) scale(1.015);
-box-shadow:0 16px 34px rgba(7,27,60,.28),0 0 0 5px rgba(217,146,19,.15);
-}
-81%{
-transform:translateY(0) scale(1);
-}
+  color:#fff;
+  background:linear-gradient(
+    135deg,
+    #0a2d59,
+    #0d407a,
+    #08294f
+  );
+  border:2px solid rgba(217,146,19,.88);
+  box-shadow:0 12px 28px rgba(7,27,60,.22);
 }
 
 .private{
-color:#fff;
-background:linear-gradient(135deg,#123e6d,#09294d);
-box-shadow:0 11px 26px rgba(7,27,60,.18);
+  color:#fff;
+  background:linear-gradient(
+    135deg,
+    #123e6d,
+    #09294d
+  );
+  box-shadow:0 11px 26px rgba(7,27,60,.18);
 }
 
 .private.sending{
-background:linear-gradient(135deg,#159447,#087a37);
-box-shadow:0 13px 30px rgba(20,150,75,.28);
-pointer-events:none;
+  background:#168a46;
+  pointer-events:none;
 }
 
 textarea{
-width:100%;
-min-height:150px;
-resize:none;
-padding:18px;
-border-radius:20px;
-border:1.5px solid rgba(7,27,60,.12);
-background:#f6f8fb;
-color:var(--ink);
-outline:none;
-font-size:18px;
-line-height:1.5;
-margin-bottom:8px;
--webkit-appearance:none;
-}
-
-textarea::placeholder{
-color:#7c899a;
+  width:100%;
+  min-height:150px;
+  resize:none;
+  padding:18px;
+  border-radius:20px;
+  border:1.5px solid rgba(7,27,60,.12);
+  background:#f6f8fb;
+  color:var(--navy);
+  outline:none;
+  font-size:18px;
+  line-height:1.5;
 }
 
 textarea:focus{
-border-color:rgba(22,93,255,.55);
-box-shadow:0 0 0 4px rgba(22,93,255,.08);
+  border-color:rgba(22,93,255,.55);
 }
 
+/* =========================
+   FOOTER
+========================= */
+
 .brand-footer{
-width:100%;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-margin-top:38px;
-padding-top:23px;
-border-top:1px solid rgba(7,27,60,.11);
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top:38px;
+  padding-top:23px;
+  border-top:1px solid rgba(7,27,60,.11);
 }
 
 .brand-mini-line{
-width:clamp(100px,27vw,155px);
-height:3px;
-margin-bottom:14px;
-border-radius:20px;
-background:linear-gradient(90deg,transparent,var(--gold),var(--blue),transparent);
-position:relative;
-overflow:hidden;
-}
-
-.brand-mini-line::after{
-content:"";
-position:absolute;
-top:0;
-left:-50%;
-width:40%;
-height:100%;
-background:rgba(255,255,255,.8);
-filter:blur(2px);
-animation:lineShine 3.5s ease-in-out infinite;
-}
-
-@keyframes lineShine{
-0%{left:-50%;}
-60%,100%{left:120%;}
+  width:150px;
+  height:3px;
+  margin-bottom:14px;
+  border-radius:20px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    var(--blue),
+    transparent
+  );
 }
 
 .smart-review{
-font-size:clamp(31px,8.5vw,45px);
-line-height:1;
-font-weight:950;
-letter-spacing:-1.5px;
-background:linear-gradient(110deg,#a86c08 0%,#e3a51e 18%,#fff 35%,#c5ced9 48%,#356a9f 70%,#061b3a 100%);
-background-size:240% 100%;
--webkit-background-clip:text;
-background-clip:text;
-color:transparent;
-filter:drop-shadow(0 4px 8px rgba(7,27,60,.13));
-animation:smartShimmer 5s ease-in-out infinite;
-}
-
-@keyframes smartShimmer{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+  font-size:clamp(31px,8.5vw,45px);
+  font-weight:950;
+  letter-spacing:-1.5px;
+  color:var(--navy);
 }
 
 .smart-review-sub{
-margin-top:8px;
-color:#6b788a;
-font-size:clamp(10px,2.8vw,13px);
-font-weight:750;
-letter-spacing:2px;
-text-transform:uppercase;
-}
-
-.error{
-color:#d83b3b !important;
-font-weight:700;
+  margin-top:8px;
+  color:#6b788a;
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:2px;
+  text-transform:uppercase;
 }
 
 .hidden{
-display:none !important;
+  display:none !important;
 }
 
-.loading-dot{
-display:inline-block;
-width:7px;
-height:7px;
-margin:0 3px;
-border-radius:50%;
-background:#d99213;
-animation:loadingPulse 1s infinite ease-in-out;
-}
-
-.loading-dot:nth-child(2){animation-delay:.15s;}
-.loading-dot:nth-child(3){animation-delay:.30s;}
-
-@keyframes loadingPulse{
-0%,80%,100%{opacity:.25;transform:scale(.7);}
-40%{opacity:1;transform:scale(1);}
-}
-
-@media(max-width:390px){
-
-.hero{
-min-height:370px;
-padding-left:14px;
-padding-right:14px;
-}
-
-.google-mark{margin-bottom:17px;}
-
-.hero-title{
-font-size:22px;
-max-width:340px;
-}
-
-.hero-rating{margin-top:21px;}
-
-.content{
-padding-left:15px;
-padding-right:15px;
-}
-
-.logo-frame{
-width:155px;
-height:155px;
-}
-
-.client-logo{
-width:110px;
-height:110px;
-}
-
-.business-name{font-size:28px;}
-
-.rating-question{font-size:21px;}
-
-.star{
-width:56px;
-height:64px;
-font-size:55px;
-}
-
-.button{min-height:70px;}
-
-}
-
-@media(min-height:800px){
-
-.hero{min-height:425px;}
-
-.content{margin-top:-27px;}
-
-.client-brand{margin-top:-4px;}
-
-.logo-frame{margin-bottom:21px;}
-
-.business-name{margin-bottom:9px;}
-
-.subtitle{margin-bottom:30px;}
-
-}
-
-@media(min-width:700px){
-
-.hero{min-height:500px;}
-
-.content{
-margin-top:-36px;
-padding-left:40px;
-padding-right:40px;
-}
-
-.client-brand{margin-top:-5px;}
-
-.logo-frame{
-width:215px;
-height:215px;
-}
-
-.client-logo{
-width:160px;
-height:160px;
-}
-
-.stars{gap:10px;}
-
-.star{
-width:84px;
-height:90px;
-font-size:82px;
-}
-
-.button{min-height:76px;}
-
-}
-
-@media(prefers-reduced-motion:reduce){
-
-*,
-*::before,
-*::after{
-animation-duration:.01ms !important;
-animation-iteration-count:1 !important;
-transition-duration:.01ms !important;
-}
-
+.error{
+  color:#d83b3b !important;
+  font-weight:700;
 }
 </style>
 </head>
@@ -759,32 +484,30 @@ transition-duration:.01ms !important;
 
 <section class="hero">
 
-<div class="google-mark">
-<div class="google-letter">G</div>
-</div>
+  <div class="google-mark">
+    <div class="google-letter">G</div>
+  </div>
 
-<h1 class="hero-title">
-LAISSEZ-NOUS VOTRE AVIS SUR GOOGLE
-</h1>
+  <h1 class="hero-title">
+    LAISSEZ-NOUS VOTRE AVIS SUR GOOGLE
+  </h1>
 
-<div class="hero-rating">
+  <div class="hero-rating">
+    <div class="rating-line"></div>
 
-<div class="rating-line"></div>
+    <div class="hero-stars">
+      <span class="hero-star">★</span>
+      <span class="hero-star">★</span>
+      <span class="hero-star">★</span>
+      <span class="hero-star">★</span>
+      <span class="hero-star">★</span>
+    </div>
 
-<div class="hero-stars">
-<span class="hero-star">★</span>
-<span class="hero-star">★</span>
-<span class="hero-star">★</span>
-<span class="hero-star">★</span>
-<span class="hero-star">★</span>
-</div>
+    <div class="rating-line right"></div>
+  </div>
 
-<div class="rating-line right"></div>
-
-</div>
-
-<div class="wave-blue"></div>
-<div class="wave"></div>
+  <div class="wave-blue"></div>
+  <div class="wave"></div>
 
 </section>
 
@@ -793,177 +516,161 @@ LAISSEZ-NOUS VOTRE AVIS SUR GOOGLE
 
 <section class="client-brand">
 
-<div class="logo-frame">
+  <div class="logo-frame">
 
-<div
-class="client-logo"
-id="logo"
-aria-label="Business logo"
->
-🍽️
-</div>
+    <div
+      class="client-logo"
+      id="logo"
+    >
+      🍽️
+    </div>
 
-</div>
+  </div>
 
-<h2
-class="business-name"
-id="businessName"
->
-Loading...
-</h2>
+  <h2
+    class="business-name"
+    id="businessName"
+  >
+    Chargement...
+  </h2>
 
-<p
-class="subtitle"
-id="subtitle"
->
-
-<span class="loading-dot"></span>
-<span class="loading-dot"></span>
-<span class="loading-dot"></span>
-
-</p>
+  <p
+    class="subtitle"
+    id="subtitle"
+  >
+    Chargement...
+  </p>
 
 </section>
 
 
 <section
-id="feedbackArea"
-class="feedback-area hidden"
+  id="feedbackArea"
+  class="feedback-area hidden"
 >
 
-<div class="rating-question">
-Comment avez-vous vécu votre expérience ?
-</div>
+  <div class="rating-question">
+    Comment avez-vous vécu votre expérience ?
+  </div>
 
 
-<div
-class="stars"
-id="stars"
-role="radiogroup"
-aria-label="Évaluez votre expérience"
->
+  <div
+    class="stars"
+    id="stars"
+    role="radiogroup"
+    aria-label="Évaluez votre expérience"
+  >
 
-<button
-type="button"
-class="star"
-data-rating="1"
-aria-label="1 étoile"
->
-★
-</button>
+    <button
+      type="button"
+      class="star"
+      data-rating="1"
+      aria-label="1 étoile"
+    >★</button>
 
-<button
-type="button"
-class="star"
-data-rating="2"
-aria-label="2 étoiles"
->
-★
-</button>
+    <button
+      type="button"
+      class="star"
+      data-rating="2"
+      aria-label="2 étoiles"
+    >★</button>
 
-<button
-type="button"
-class="star"
-data-rating="3"
-aria-label="3 étoiles"
->
-★
-</button>
+    <button
+      type="button"
+      class="star"
+      data-rating="3"
+      aria-label="3 étoiles"
+    >★</button>
 
-<button
-type="button"
-class="star"
-data-rating="4"
-aria-label="4 étoiles"
->
-★
-</button>
+    <button
+      type="button"
+      class="star"
+      data-rating="4"
+      aria-label="4 étoiles"
+    >★</button>
 
-<button
-type="button"
-class="star"
-data-rating="5"
-aria-label="5 étoiles"
->
-★
-</button>
+    <button
+      type="button"
+      class="star"
+      data-rating="5"
+      aria-label="5 étoiles"
+    >★</button>
 
-</div>
+  </div>
 
 
-<div
-class="rating-text"
-id="ratingText"
->
-Touchez une étoile pour commencer
-</div>
+  <div
+    class="rating-text"
+    id="ratingText"
+  >
+    Touchez une étoile pour commencer
+  </div>
 
 
-<section
-class="message hidden"
-id="message"
->
+  <section
+    class="message hidden"
+    id="message"
+  >
 
-<h2 id="messageTitle"></h2>
+    <h2 id="messageTitle"></h2>
 
-<p id="messageText"></p>
-
-
-<div
-id="googleArea"
-class="hidden"
->
-
-<a
-id="googleButton"
-class="button google"
-href="#"
-target="_blank"
-rel="noopener"
->
-⭐ Écrire mon avis sur Google
-</a>
-
-</div>
+    <p id="messageText"></p>
 
 
-<div
-id="privateArea"
-class="hidden"
->
+    <div
+      id="googleArea"
+      class="hidden"
+    >
 
-<textarea
-id="feedbackMessage"
-placeholder="Dites-nous ce qui s'est passé ou comment nous pouvons nous améliorer..."
-aria-label="Votre commentaire privé"
-></textarea>
+      <a
+        id="googleButton"
+        class="button google"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ⭐ Écrire mon avis sur Google
+      </a>
 
-<button
-type="button"
-id="sendPrivate"
-class="button private"
->
-💬 Envoyer mon retour
-</button>
+    </div>
 
-</div>
 
-</section>
+    <div
+      id="privateArea"
+      class="hidden"
+    >
+
+      <textarea
+        id="feedbackMessage"
+        placeholder="Dites-nous ce qui s'est passé ou comment nous pouvons nous améliorer..."
+      ></textarea>
+
+      <button
+        type="button"
+        id="sendPrivate"
+        class="button private"
+      >
+        💬 Envoyer mon retour
+      </button>
+
+    </div>
+
+  </section>
 
 </section>
 
 
 <footer class="brand-footer">
 
-<div class="brand-mini-line"></div>
+  <div class="brand-mini-line"></div>
 
-<div class="smart-review">
-Smart Review
-</div>
+  <div class="smart-review">
+    Smart Review
+  </div>
 
-<div class="smart-review-sub">
-Better feedback. Better businesses.
-</div>
+  <div class="smart-review-sub">
+    Better feedback. Better businesses.
+  </div>
 
 </footer>
 
@@ -975,7 +682,7 @@ Better feedback. Better businesses.
 <script>
 
 /* =========================================================
-SUPABASE
+   SUPABASE CONFIGURATION
 ========================================================= */
 
 const SUPABASE_URL =
@@ -986,204 +693,222 @@ const SUPABASE_KEY =
 
 
 /* =========================================================
-CARD CODE
+   GET CARD CODE
 ========================================================= */
 
 function getCardCode(){
 
-const params =
-new URLSearchParams(
-window.location.search
-);
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-return params.get("card");
+  return params.get("card");
 
 }
 
 
 /* =========================================================
-SUPABASE GET
+   SUPABASE GET
 ========================================================= */
 
 async function supabaseGet(endpoint){
 
-const response =
-await fetch(
-SUPABASE_URL +
-"/rest/v1/" +
-endpoint,
-{
-method:"GET",
+  const response =
+    await fetch(
+      SUPABASE_URL +
+      "/rest/v1/" +
+      endpoint,
+      {
+        method:"GET",
 
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + SUPABASE_KEY,
-"Content-Type":"application/json"
-}
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + SUPABASE_KEY,
+          "Content-Type":
+            "application/json"
+        }
+      }
+    );
 
-}
-);
 
-const responseText =
-await response.text();
+  const text =
+    await response.text();
 
-if(!response.ok){
 
-throw new Error(
-"Supabase HTTP " +
-response.status +
-": " +
-responseText
-);
+  if(!response.ok){
 
-}
+    throw new Error(
+      "Supabase HTTP " +
+      response.status +
+      ": " +
+      text
+    );
 
-return responseText
-? JSON.parse(responseText)
-: [];
+  }
+
+
+  return text
+    ? JSON.parse(text)
+    : [];
 
 }
 
 
 /* =========================================================
-SCAN TRACKING
+   SCAN
+   ONLY CALLED WHEN CARD PAGE LOADS
 ========================================================= */
 
 async function trackScan(cardCode){
 
-if(!cardCode){
-return;
-}
+  if(!cardCode){
+    return;
+  }
 
-try{
 
-const response =
-await fetch(
-SUPABASE_URL +
-"/rest/v1/rpc/report_card_scan",
-{
-method:"POST",
+  try{
 
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + SUPABASE_KEY,
-"Content-Type":"application/json"
-},
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/rpc/report_card_scan",
+        {
+          method:"POST",
 
-body:JSON.stringify({
-p_card_code:cardCode
-})
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_KEY,
+            "Content-Type":
+              "application/json"
+          },
 
-}
-);
+          body:JSON.stringify({
+            p_card_code:cardCode
+          })
+        }
+      );
 
-if(!response.ok){
 
-console.error(
-"Scan tracking failed:",
-await response.text()
-);
+    if(!response.ok){
 
-return;
+      console.error(
+        "Scan tracking failed:",
+        await response.text()
+      );
 
-}
+      return;
+    }
 
-console.log(
-"Smart Review scan recorded:",
-cardCode
-);
 
-}catch(error){
+    console.log(
+      "Scan recorded:",
+      cardCode
+    );
 
-console.error(
-"Scan tracking error:",
-error
-);
 
-}
+  }catch(error){
+
+    console.error(
+      "Scan error:",
+      error
+    );
+
+  }
 
 }
 
 
 /* =========================================================
-FINAL RATING TRACKING
-IMPORTANT:
-This function is ONLY called after the user actually
-completes an action.
+   FINAL RATING
+   IMPORTANT:
+   THIS FUNCTION IS NEVER CALLED BY STAR CLICK.
 ========================================================= */
 
 async function trackRating(
-cardCode,
-rating
+  cardCode,
+  rating
 ){
 
-if(
-!cardCode ||
-!rating
-){
+  console.log(
+    "FINAL RATING SUBMISSION:",
+    rating
+  );
 
-return false;
 
-}
+  if(
+    !cardCode ||
+    !rating
+  ){
 
-try{
+    return false;
 
-const response =
-await fetch(
-SUPABASE_URL +
-"/rest/v1/rpc/report_card_rating",
-{
-method:"POST",
+  }
 
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + SUPABASE_KEY,
-"Content-Type":"application/json"
-},
 
-body:JSON.stringify({
-p_card_code:cardCode,
-p_rating:rating
-})
+  try{
 
-}
-);
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/rpc/report_card_rating",
+        {
+          method:"POST",
 
-if(!response.ok){
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_KEY,
+            "Content-Type":
+              "application/json"
+          },
 
-console.error(
-"Rating tracking failed:",
-await response.text()
-);
+          body:JSON.stringify({
+            p_card_code:cardCode,
+            p_rating:rating
+          })
+        }
+      );
 
-return false;
 
-}
+    if(!response.ok){
 
-console.log(
-"FINAL rating recorded:",
-cardCode,
-rating
-);
+      console.error(
+        "Rating tracking failed:",
+        await response.text()
+      );
 
-return true;
+      return false;
 
-}catch(error){
+    }
 
-console.error(
-"Rating tracking error:",
-error
-);
 
-return false;
+    console.log(
+      "FINAL RATING RECORDED:",
+      rating
+    );
 
-}
+    return true;
+
+
+  }catch(error){
+
+    console.error(
+      "Rating error:",
+      error
+    );
+
+    return false;
+
+  }
 
 }
 
 
 /* =========================================================
-STATE
+   STATE
 ========================================================= */
 
 let currentBusiness = null;
@@ -1192,669 +917,637 @@ let selectedRating = null;
 
 
 /* =========================================================
-LOAD CARD
+   LOAD CARD
 ========================================================= */
 
 async function loadCard(){
 
-const cardCode =
-getCardCode();
+  const cardCode =
+    getCardCode();
 
-const businessName =
-document.getElementById(
-"businessName"
-);
+  const businessName =
+    document.getElementById(
+      "businessName"
+    );
 
-const subtitle =
-document.getElementById(
-"subtitle"
-);
+  const subtitle =
+    document.getElementById(
+      "subtitle"
+    );
 
-const feedbackArea =
-document.getElementById(
-"feedbackArea"
-);
-
-
-if(!cardCode){
-
-businessName.textContent =
-"Carte introuvable";
-
-subtitle.innerHTML =
-'<span class="error">Aucun code de carte n’a été fourni.</span>';
-
-return;
-
-}
+  const feedbackArea =
+    document.getElementById(
+      "feedbackArea"
+    );
 
 
-try{
+  if(!cardCode){
 
-const cards =
-await supabaseGet(
-"cards?card_code=eq." +
-encodeURIComponent(cardCode) +
-"&active=eq.true&select=*"
-);
+    businessName.textContent =
+      "Carte introuvable";
 
+    subtitle.innerHTML =
+      '<span class="error">Aucun code de carte fourni.</span>';
 
-if(!cards.length){
+    return;
 
-throw new Error(
-"Card not found"
-);
-
-}
+  }
 
 
-const card =
-cards[0];
+  try{
+
+    const cards =
+      await supabaseGet(
+        "cards?card_code=eq." +
+        encodeURIComponent(cardCode) +
+        "&active=eq.true&select=*"
+      );
 
 
-const businesses =
-await supabaseGet(
-"businesses?id=eq." +
-encodeURIComponent(card.business_id) +
-"&select=*"
-);
+    if(!cards.length){
+
+      throw new Error(
+        "Card not found"
+      );
+
+    }
 
 
-if(!businesses.length){
-
-throw new Error(
-"Business not found"
-);
-
-}
+    const card =
+      cards[0];
 
 
-currentBusiness =
-businesses[0];
+    const businesses =
+      await supabaseGet(
+        "businesses?id=eq." +
+        encodeURIComponent(
+          card.business_id
+        ) +
+        "&select=*"
+      );
 
 
-businessName.textContent =
-currentBusiness.name ||
-"Votre établissement";
+    if(!businesses.length){
+
+      throw new Error(
+        "Business not found"
+      );
+
+    }
 
 
-document.title =
-(currentBusiness.name || "Business") +
-" — Smart Review";
+    currentBusiness =
+      businesses[0];
 
 
-subtitle.textContent =
-"Votre opinion compte pour nous.";
+    businessName.textContent =
+      currentBusiness.name ||
+      "Votre établissement";
 
 
-/* =====================================================
-LOGO
-===================================================== */
-
-if(
-currentBusiness.logo_url
-){
-
-const logo =
-document.getElementById(
-"logo"
-);
-
-logo.innerHTML = "";
-
-const image =
-document.createElement(
-"img"
-);
-
-image.src =
-currentBusiness.logo_url;
-
-image.alt =
-currentBusiness.name ||
-"Logo";
-
-image.onerror =
-function(){
-
-logo.innerHTML =
-"🍽️";
-
-};
-
-logo.appendChild(
-image
-);
-
-}
+    subtitle.textContent =
+      "Votre opinion compte pour nous.";
 
 
-/* =====================================================
-GOOGLE LINK
-===================================================== */
-
-const googleButton =
-document.getElementById(
-"googleButton"
-);
-
-googleButton.href =
-currentBusiness.google_review_url ||
-"https://www.google.com/maps";
+    document.title =
+      (
+        currentBusiness.name ||
+        "Smart Review"
+      ) +
+      " — Smart Review";
 
 
-feedbackArea
-.classList
-.remove("hidden");
+    /* =========================
+       LOGO
+    ========================= */
+
+    if(
+      currentBusiness.logo_url
+    ){
+
+      const logo =
+        document.getElementById(
+          "logo"
+        );
+
+      logo.innerHTML = "";
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+      image.src =
+        currentBusiness.logo_url;
+
+      image.alt =
+        currentBusiness.name ||
+        "Logo";
+
+      image.onerror =
+        function(){
+
+          logo.innerHTML =
+            "🍽️";
+
+        };
+
+      logo.appendChild(
+        image
+      );
+
+    }
 
 
-}catch(error){
+    /* =========================
+       GOOGLE URL
+    ========================= */
 
-console.error(
-"Smart Review card error:",
-error
-);
+    const googleButton =
+      document.getElementById(
+        "googleButton"
+      );
 
-businessName.textContent =
-"Carte introuvable";
+    googleButton.href =
+      currentBusiness.google_review_url ||
+      "https://www.google.com/maps";
 
-subtitle.innerHTML =
-'<span class="error">Cette carte est inactive ou n’existe pas.</span>';
 
-}
+    feedbackArea
+      .classList
+      .remove("hidden");
+
+
+  }catch(error){
+
+    console.error(
+      "Card loading error:",
+      error
+    );
+
+    businessName.textContent =
+      "Carte introuvable";
+
+    subtitle.innerHTML =
+      '<span class="error">Cette carte est inactive ou n’existe pas.</span>';
+
+  }
 
 }
 
 
 /* =========================================================
-ELEMENTS
+   ELEMENTS
 ========================================================= */
 
 const stars =
-document.querySelectorAll(
-".star"
-);
+  document.querySelectorAll(
+    ".star"
+  );
 
 const ratingText =
-document.getElementById(
-"ratingText"
-);
+  document.getElementById(
+    "ratingText"
+  );
 
 const message =
-document.getElementById(
-"message"
-);
+  document.getElementById(
+    "message"
+  );
 
 const messageTitle =
-document.getElementById(
-"messageTitle"
-);
+  document.getElementById(
+    "messageTitle"
+  );
 
 const messageText =
-document.getElementById(
-"messageText"
-);
+  document.getElementById(
+    "messageText"
+  );
 
 const googleArea =
-document.getElementById(
-"googleArea"
-);
+  document.getElementById(
+    "googleArea"
+  );
 
 const privateArea =
-document.getElementById(
-"privateArea"
-);
+  document.getElementById(
+    "privateArea"
+  );
 
 const feedbackMessage =
-document.getElementById(
-"feedbackMessage"
-);
+  document.getElementById(
+    "feedbackMessage"
+  );
 
 const sendPrivate =
-document.getElementById(
-"sendPrivate"
-);
+  document.getElementById(
+    "sendPrivate"
+  );
 
 const googleButton =
-document.getElementById(
-"googleButton"
-);
+  document.getElementById(
+    "googleButton"
+  );
 
 
 /* =========================================================
-STAR SELECTION
+   STAR CLICK
+   =========================================================
+   ABSOLUTELY NO SUPABASE CALL HERE.
 
-IMPORTANT:
-NO DATABASE CALL HERE.
-
-The customer may change their mind.
-Only selectedRating is updated.
+   This only changes selectedRating.
 ========================================================= */
 
 stars.forEach(
-star => {
+  star => {
 
-star.addEventListener(
-"click",
-() => {
+    star.addEventListener(
+      "click",
+      function(){
 
-selectedRating =
-Number(
-star.dataset.rating
-);
-
-
-/* ===============================================
-VISUAL SELECTION ONLY
-=============================================== */
-
-stars.forEach(
-s => {
-
-s.classList.toggle(
-"active",
-Number(
-s.dataset.rating
-) <= selectedRating
-);
-
-}
-);
+        const rating =
+          Number(
+            this.dataset.rating
+          );
 
 
-/* ===============================================
-TEXT
-=============================================== */
+        /* =========================
+           ONLY LOCAL STATE
+        ========================= */
 
-const ratingLabels = {
-
-1:
-"Nous aimerions faire mieux.",
-
-2:
-"Merci de nous l'avoir signalé.",
-
-3:
-"Merci pour votre retour.",
-
-4:
-"Ravi de l'entendre !",
-
-5:
-"Incroyable ! Merci beaucoup !"
-
-};
+        selectedRating =
+          rating;
 
 
-ratingText.textContent =
-ratingLabels[
-selectedRating
-];
+        console.log(
+          "Star selected locally:",
+          selectedRating
+        );
 
 
-/* ===============================================
-SHOW MESSAGE
-=============================================== */
+        /* =========================
+           UPDATE VISUALS
+        ========================= */
 
-message.classList.remove(
-"hidden"
-);
+        stars.forEach(
+          item => {
 
+            const itemRating =
+              Number(
+                item.dataset.rating
+              );
 
-/* ===============================================
-1–2
-=============================================== */
+            item.classList.toggle(
+              "active",
+              itemRating <=
+              selectedRating
+            );
 
-if(
-selectedRating <= 2
-){
-
-messageTitle.textContent =
-"Nous sommes désolés pour votre expérience.";
-
-messageText.textContent =
-"Dites-nous ce qui s'est passé. Votre retour nous permet de nous améliorer.";
-
-googleArea.classList.add(
-"hidden"
-);
-
-privateArea.classList.remove(
-"hidden"
-);
-
-feedbackMessage.value =
-"";
-
-}
+          }
+        );
 
 
-/* ===============================================
-3–5
-=============================================== */
+        /* =========================
+           UPDATE TEXT
+        ========================= */
 
-else{
+        const labels = {
 
-privateArea.classList.add(
-"hidden"
-);
+          1:
+          "Nous aimerions faire mieux.",
 
-googleArea.classList.remove(
-"hidden"
-);
+          2:
+          "Merci de nous l'avoir signalé.",
 
-if(
-selectedRating === 3
-){
+          3:
+          "Merci pour votre retour.",
 
-messageTitle.textContent =
-"Merci pour votre retour !";
+          4:
+          "Ravi de l'entendre !",
 
-}
+          5:
+          "Incroyable ! Merci beaucoup !"
 
-else if(
-selectedRating === 4
-){
-
-messageTitle.textContent =
-"Nous sommes ravis !";
-
-}
-
-else{
-
-messageTitle.textContent =
-"Merci ! Nous sommes ravis que vous ayez adoré ! ❤️";
-
-}
+        };
 
 
-messageText.textContent =
-"Votre avis peut aider d'autres clients. Nous apprécierions beaucoup votre avis sur Google.";
+        ratingText.textContent =
+          labels[selectedRating];
 
-}
 
-}
-);
+        /* =========================
+           SHOW CORRESPONDING AREA
+        ========================= */
 
-}
+        message
+          .classList
+          .remove("hidden");
+
+
+        if(
+          selectedRating <= 2
+        ){
+
+          messageTitle.textContent =
+            "Nous sommes désolés pour votre expérience.";
+
+          messageText.textContent =
+            "Dites-nous ce qui s'est passé. Votre retour nous permet de nous améliorer.";
+
+          googleArea
+            .classList
+            .add("hidden");
+
+          privateArea
+            .classList
+            .remove("hidden");
+
+        }else{
+
+          privateArea
+            .classList
+            .add("hidden");
+
+          googleArea
+            .classList
+            .remove("hidden");
+
+
+          if(
+            selectedRating === 3
+          ){
+
+            messageTitle.textContent =
+              "Merci pour votre retour !";
+
+          }else if(
+            selectedRating === 4
+          ){
+
+            messageTitle.textContent =
+              "Nous sommes ravis !";
+
+          }else{
+
+            messageTitle.textContent =
+              "Merci ! Nous sommes ravis que vous ayez adoré ! ❤️";
+
+          }
+
+
+          messageText.textContent =
+            "Votre avis peut aider d'autres clients. Nous apprécierions beaucoup votre avis sur Google.";
+
+        }
+
+      }
+    );
+
+  }
 );
 
 
 /* =========================================================
-PRIVATE FEEDBACK SUBMIT
-
-THIS is where the rating gets recorded.
-
-Not when the star is selected.
+   PRIVATE FEEDBACK
+   =========================================================
+   DATABASE RATING CALL HAPPENS HERE ONLY.
 ========================================================= */
 
 sendPrivate.addEventListener(
-"click",
-async () => {
+  "click",
+  async function(){
+
+    if(
+      !selectedRating ||
+      selectedRating > 2
+    ){
+
+      alert(
+        "Veuillez sélectionner 1 ou 2 étoiles."
+      );
+
+      return;
+
+    }
 
 
-if(
-!currentBusiness
-){
+    if(
+      !currentBusiness
+    ){
 
-alert(
-"Les informations de l'établissement sont indisponibles."
-);
+      alert(
+        "Établissement indisponible."
+      );
 
-return;
+      return;
 
-}
-
-
-if(
-!selectedRating ||
-selectedRating > 2
-){
-
-alert(
-"Veuillez sélectionner 1 ou 2 étoiles."
-);
-
-return;
-
-}
+    }
 
 
-if(
-!currentBusiness.whatsapp_number
-){
+    if(
+      !currentBusiness.whatsapp_number
+    ){
 
-alert(
-"Le numéro WhatsApp n'est pas configuré."
-);
+      alert(
+        "Le numéro WhatsApp n'est pas configuré."
+      );
 
-return;
+      return;
 
-}
-
-
-/* ===============================================
-PREVENT DOUBLE SUBMIT
-=============================================== */
-
-if(
-sendPrivate.dataset.submitting === "true"
-){
-
-return;
-
-}
-
-sendPrivate.dataset.submitting =
-"true";
+    }
 
 
-sendPrivate.classList.add(
-"sending"
-);
+    if(
+      sendPrivate.dataset.submitting ===
+      "true"
+    ){
 
-sendPrivate.innerHTML =
-"✓ Préparation de WhatsApp…";
+      return;
 
-
-/* ===============================================
-FINAL RATING
-=============================================== */
-
-const finalRating =
-selectedRating;
+    }
 
 
-/* ===============================================
-RECORD ONLY NOW
-=============================================== */
+    sendPrivate.dataset.submitting =
+      "true";
 
-await trackRating(
-getCardCode(),
-finalRating
-);
+    sendPrivate.classList.add(
+      "sending"
+    );
 
-
-/* ===============================================
-WHATSAPP NUMBER
-=============================================== */
-
-let number =
-String(
-currentBusiness.whatsapp_number
-)
-.replace(
-/\D/g,
-""
-);
+    sendPrivate.textContent =
+      "Envoi en cours...";
 
 
-if(
-number.startsWith("0")
-){
+    /* =======================================
+       CAPTURE FINAL RATING
+    ======================================= */
 
-number =
-"213" +
-number.substring(1);
-
-}
+    const finalRating =
+      selectedRating;
 
 
-/* ===============================================
-MESSAGE
-=============================================== */
+    /* =======================================
+       THIS IS THE FIRST AND ONLY
+       RATING DATABASE CALL FOR THIS PATH
+    ======================================= */
 
-const businessName =
-currentBusiness.name ||
-"Business";
-
-
-let whatsappMessage =
-"🔒 Retour privé — " +
-businessName +
-"\n\n" +
-"⭐ Note : " +
-finalRating +
-"/5";
+    await trackRating(
+      getCardCode(),
+      finalRating
+    );
 
 
-const text =
-feedbackMessage
-.value
-.trim();
+    /* =======================================
+       WHATSAPP
+    ======================================= */
+
+    let number =
+      String(
+        currentBusiness.whatsapp_number
+      )
+      .replace(
+        /\D/g,
+        ""
+      );
 
 
-if(
-text.length > 0
-){
+    if(
+      number.startsWith("0")
+    ){
 
-whatsappMessage +=
-"\n\n💬 Commentaire du client :\n" +
-text;
+      number =
+        "213" +
+        number.substring(1);
 
-}
-
-
-/* ===============================================
-WHATSAPP
-=============================================== */
-
-const whatsappURL =
-"https://wa.me/" +
-number +
-"?text=" +
-encodeURIComponent(
-whatsappMessage
-);
+    }
 
 
-setTimeout(
-() => {
+    let whatsappMessage =
+      "🔒 Retour privé — " +
+      (
+        currentBusiness.name ||
+        "Business"
+      ) +
+      "\n\n" +
+      "⭐ Note : " +
+      finalRating +
+      "/5";
 
-window.location.href =
-whatsappURL;
 
-},
-450
-);
+    const comment =
+      feedbackMessage
+        .value
+        .trim();
 
-}
+
+    if(comment){
+
+      whatsappMessage +=
+        "\n\n💬 Commentaire du client :\n" +
+        comment;
+
+    }
+
+
+    const whatsappURL =
+      "https://wa.me/" +
+      number +
+      "?text=" +
+      encodeURIComponent(
+        whatsappMessage
+      );
+
+
+    window.location.href =
+      whatsappURL;
+
+  }
 );
 
 
 /* =========================================================
-GOOGLE REVIEW CLICK
-
-The rating is recorded ONLY when the user actually
-clicks the Google review button.
+   GOOGLE BUTTON
+   =========================================================
+   DATABASE RATING CALL HAPPENS HERE ONLY.
 ========================================================= */
 
 googleButton.addEventListener(
-"click",
-async (event) => {
+  "click",
+  async function(event){
+
+    if(
+      !selectedRating ||
+      selectedRating < 3
+    ){
+
+      event.preventDefault();
+
+      alert(
+        "Veuillez sélectionner une note de 3 à 5 étoiles."
+      );
+
+      return;
+
+    }
 
 
-if(
-!selectedRating ||
-selectedRating < 3
-){
+    if(
+      googleButton.dataset.submitting ===
+      "true"
+    ){
 
-event.preventDefault();
+      event.preventDefault();
 
-alert(
-"Veuillez sélectionner une note de 3 à 5 étoiles."
-);
+      return;
 
-return;
-
-}
+    }
 
 
-/* ===============================================
-PREVENT DOUBLE CLICK
-=============================================== */
-
-if(
-googleButton.dataset.submitting === "true"
-){
-
-event.preventDefault();
-
-return;
-
-}
-
-googleButton.dataset.submitting =
-"true";
+    googleButton.dataset.submitting =
+      "true";
 
 
-/* ===============================================
-FINAL RATING
-=============================================== */
+    /* =======================================
+       FINAL RATING ONLY
+    ======================================= */
 
-const finalRating =
-selectedRating;
-
-
-/* ===============================================
-RECORD FINAL RATING
-=============================================== */
-
-await trackRating(
-getCardCode(),
-finalRating
-);
+    const finalRating =
+      selectedRating;
 
 
-/* ===============================================
-ALLOW GOOGLE LINK TO OPEN
-=============================================== */
+    /* =======================================
+       RECORD ONLY WHEN GOOGLE IS CLICKED
+    ======================================= */
 
-console.log(
-"Final Google rating recorded:",
-finalRating
-);
+    await trackRating(
+      getCardCode(),
+      finalRating
+    );
 
-}
+
+    console.log(
+      "Google action completed with rating:",
+      finalRating
+    );
+
+  }
 );
 
 
 /* =========================================================
-START
+   START
 ========================================================= */
 
 const initialCardCode =
-getCardCode();
+  getCardCode();
 
 
-if(
-initialCardCode
-){
+if(initialCardCode){
 
-trackScan(
-initialCardCode
-);
+  trackScan(
+    initialCardCode
+  );
 
 }
 
