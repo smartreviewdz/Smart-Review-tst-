@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 
 <meta charset="UTF-8">
@@ -87,7 +86,6 @@ button{
   align-items:center;
   justify-content:center;
   padding:25px 16px;
-
   background:
     radial-gradient(
       circle at 50% 0%,
@@ -116,11 +114,9 @@ button{
   border-radius:50%;
   background:#fff;
   margin:0 auto 16px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   box-shadow:
     0 12px 28px rgba(0,0,0,.20),
     0 0 0 3px rgba(217,146,19,.9);
@@ -130,7 +126,6 @@ button{
   font-size:51px;
   font-weight:950;
   line-height:1;
-
   background:
     conic-gradient(
       from -35deg,
@@ -140,7 +135,6 @@ button{
       #ea4335 245deg 320deg,
       #4285f4 320deg 360deg
     );
-
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -169,16 +163,28 @@ button{
   padding:13px;
   margin-bottom:15px;
   font-size:14px;
-  white-space:pre-wrap;
   line-height:1.45;
+  white-space:pre-wrap;
 }
 
 .login-error.show{
   display:block;
 }
 
+.login-loading{
+  display:none;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:12px;
+}
+
+.login-loading.show{
+  display:block;
+}
+
 /* =========================================================
-   LOGIN / FORMS
+   FORMS
 ========================================================= */
 
 .field{
@@ -221,12 +227,10 @@ button{
   border:0;
   border-radius:13px;
   padding:10px 15px;
-
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:8px;
-
   font-weight:850;
   cursor:pointer;
   transition:.15s ease;
@@ -244,20 +248,10 @@ button{
 .btn-primary{
   width:100%;
   min-height:58px;
-
   color:#fff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #0a2d59,
-      #0d407a
-    );
-
+  background:linear-gradient(135deg,#0a2d59,#0d407a);
   border:2px solid rgba(217,146,19,.8);
-
-  box-shadow:
-    0 10px 24px rgba(7,27,60,.15);
+  box-shadow:0 10px 24px rgba(7,27,60,.15);
 }
 
 .btn-soft{
@@ -311,9 +305,7 @@ button{
       #061b3a,
       #08264d
     );
-
   color:#fff;
-
   padding:
     max(18px,env(safe-area-inset-top))
     16px
@@ -343,14 +335,10 @@ button{
   height:43px;
   border-radius:50%;
   background:#fff;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
-  box-shadow:
-    0 0 0 2px rgba(217,146,19,.9);
-
+  box-shadow:0 0 0 2px rgba(217,146,19,.9);
   flex:none;
 }
 
@@ -377,7 +365,6 @@ button{
   padding:9px 11px;
   font-size:12px;
   font-weight:800;
-  cursor:pointer;
 }
 
 .hero{
@@ -434,7 +421,6 @@ button{
   border-radius:12px 12px 0 0;
   font-size:12px;
   font-weight:850;
-  cursor:pointer;
 }
 
 .nav button.active{
@@ -449,7 +435,6 @@ button{
 .main{
   max-width:1100px;
   margin:auto;
-
   padding:
     18px
     16px
@@ -610,8 +595,8 @@ button{
 }
 
 .search input:focus{
-  border-color:rgba(22,93,255,.45);
-  box-shadow:0 0 0 4px rgba(22,93,255,.07);
+  border-color:#b8cff7;
+  box-shadow:0 0 0 4px rgba(22,93,255,.06);
 }
 
 .search span{
@@ -647,11 +632,9 @@ button{
   height:46px;
   border-radius:14px;
   background:linear-gradient(145deg,#edf4ff,#dceaff);
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:21px;
   flex:none;
 }
@@ -744,7 +727,6 @@ button{
     Monaco,
     Consolas,
     monospace;
-
   font-size:14px;
   font-weight:900;
   letter-spacing:.5px;
@@ -791,7 +773,7 @@ button{
 }
 
 /* =========================================================
-   CARD CONTROL CENTER
+   CONTROL CENTER
 ========================================================= */
 
 .control-hero{
@@ -801,19 +783,12 @@ button{
       rgba(66,133,255,.25),
       transparent 40%
     ),
-    linear-gradient(
-      145deg,
-      #061b3a,
-      #0d376b
-    );
-
+    linear-gradient(145deg,#061b3a,#0d376b);
   color:#fff;
   border-radius:22px;
   padding:20px;
   margin-bottom:15px;
-
-  box-shadow:
-    0 15px 35px rgba(7,27,60,.18);
+  box-shadow:0 15px 35px rgba(7,27,60,.18);
 }
 
 .control-back{
@@ -825,7 +800,6 @@ button{
   font-size:11px;
   font-weight:800;
   margin-bottom:18px;
-  cursor:pointer;
 }
 
 .control-code{
@@ -913,37 +887,7 @@ button{
 }
 
 /* =========================================================
-   FORMS / CREATE
-========================================================= */
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:0 14px;
-}
-
-.create-card-box{
-  background:#f7faff;
-  border:1px solid #dce8f8;
-  border-radius:17px;
-  padding:15px;
-  margin-top:15px;
-}
-
-.create-card-box h4{
-  font-size:14px;
-  font-weight:900;
-}
-
-.create-card-box p{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-  margin-bottom:13px;
-}
-
-/* =========================================================
-   ACTIVITY
+   ACTIVITY / EMPTY
 ========================================================= */
 
 .activity{
@@ -967,11 +911,9 @@ button{
   height:35px;
   border-radius:11px;
   background:#edf4ff;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   flex:none;
 }
 
@@ -989,10 +931,6 @@ button{
   font-size:10px;
   margin-top:2px;
 }
-
-/* =========================================================
-   EMPTY
-========================================================= */
 
 .empty{
   text-align:center;
@@ -1024,11 +962,9 @@ button{
   inset:0;
   background:rgba(3,14,31,.62);
   z-index:100;
-
   display:none;
   align-items:flex-end;
   justify-content:center;
-
   padding:0;
 }
 
@@ -1040,14 +976,8 @@ button{
   width:100%;
   max-width:600px;
   background:#fff;
-
   border-radius:25px 25px 0 0;
-
-  padding:
-    21px
-    17px
-    max(21px,env(safe-area-inset-bottom));
-
+  padding:21px 17px max(21px,env(safe-area-inset-bottom));
   max-height:90vh;
   overflow:auto;
 }
@@ -1072,7 +1002,6 @@ button{
   border-radius:11px;
   background:#f1f4f8;
   font-size:19px;
-  cursor:pointer;
 }
 
 .modal-actions{
@@ -1086,42 +1015,13 @@ button{
 }
 
 /* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:759px){
-
-  .section-head{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .section-head > .btn{
-    width:100%!important;
-  }
-
-  .business-head{
-    align-items:flex-start;
-  }
-
-  .business-head > .badge{
-    display:none;
-  }
-
-}
-
-/* =========================================================
-   DESKTOP
+   RESPONSIVE
 ========================================================= */
 
 @media(min-width:760px){
 
   .kpis{
     grid-template-columns:repeat(4,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:repeat(2,1fr);
   }
 
   .control-grid{
@@ -1146,45 +1046,30 @@ button{
 </style>
 </head>
 
-
 <body>
-
 
 <!-- =========================================================
      LOGIN
 ========================================================= -->
 
-<section
-  id="loginScreen"
-  class="login-screen"
->
+<section id="loginScreen" class="login-screen">
 
   <div class="login-box">
 
     <div class="login-logo">
-
-      <div class="logo-letter">
-        G
-      </div>
-
+      <div class="logo-letter">G</div>
     </div>
 
-
-    <h1>
-      Smart Review
-    </h1>
-
+    <h1>Smart Review</h1>
 
     <p>
       Connectez-vous à votre centre de contrôle.
     </p>
 
-
     <div
       id="loginError"
       class="login-error"
     ></div>
-
 
     <form id="loginForm">
 
@@ -1197,7 +1082,7 @@ button{
         <input
           id="email"
           type="email"
-          autocomplete="email"
+          autocomplete="username"
           required
           placeholder="Votre adresse e-mail"
         >
@@ -1230,6 +1115,13 @@ button{
         Se connecter
       </button>
 
+      <div
+        id="loginLoading"
+        class="login-loading"
+      >
+        Vérification de la session…
+      </div>
+
     </form>
 
   </div>
@@ -1255,13 +1147,8 @@ button{
         <div class="brand">
 
           <div class="brand-mark">
-
-            <div class="logo-letter">
-              G
-            </div>
-
+            <div class="logo-letter">G</div>
           </div>
-
 
           <div>
 
@@ -1318,7 +1205,6 @@ button{
             ⚡ Centre
           </button>
 
-
           <button
             data-view="businesses"
             type="button"
@@ -1326,14 +1212,12 @@ button{
             🏢 Établissements
           </button>
 
-
           <button
             data-view="cards"
             type="button"
           >
             💳 Cartes
           </button>
-
 
           <button
             data-view="analytics"
@@ -1488,7 +1372,6 @@ button{
           Les actions que vous utiliserez le plus.
         </p>
 
-
         <div class="action-grid">
 
           <button
@@ -1499,7 +1382,6 @@ button{
             ＋ Établissement
           </button>
 
-
           <button
             class="btn btn-blue"
             type="button"
@@ -1508,7 +1390,6 @@ button{
             ＋ Nouvelle carte
           </button>
 
-
           <button
             class="btn btn-soft"
             type="button"
@@ -1516,7 +1397,6 @@ button{
           >
             🏢 Gérer les établissements
           </button>
-
 
           <button
             class="btn btn-soft"
@@ -1569,7 +1449,6 @@ button{
 
         </div>
 
-
         <div id="dashboardBusinesses"></div>
 
       </div>
@@ -1615,9 +1494,7 @@ button{
 
       <div class="search">
 
-        <span>
-          🔎
-        </span>
+        <span>🔎</span>
 
         <input
           id="businessSearch"
@@ -1671,9 +1548,7 @@ button{
 
       <div class="search">
 
-        <span>
-          🔎
-        </span>
+        <span>🔎</span>
 
         <input
           id="cardSearch"
@@ -1718,66 +1593,35 @@ button{
       <div class="kpis">
 
         <div class="kpi">
-
-          <div class="kpi-label">
-            1★
-          </div>
-
+          <div class="kpi-label">1★</div>
           <div
             id="rating1"
             class="kpi-value"
-          >
-            0
-          </div>
-
+          >0</div>
         </div>
 
-
         <div class="kpi">
-
-          <div class="kpi-label">
-            2★
-          </div>
-
+          <div class="kpi-label">2★</div>
           <div
             id="rating2"
             class="kpi-value"
-          >
-            0
-          </div>
-
+          >0</div>
         </div>
 
-
         <div class="kpi">
-
-          <div class="kpi-label">
-            3★
-          </div>
-
+          <div class="kpi-label">3★</div>
           <div
             id="rating3"
             class="kpi-value"
-          >
-            0
-          </div>
-
+          >0</div>
         </div>
 
-
         <div class="kpi">
-
-          <div class="kpi-label">
-            4★
-          </div>
-
+          <div class="kpi-label">4★</div>
           <div
             id="rating4"
             class="kpi-value"
-          >
-            0
-          </div>
-
+          >0</div>
         </div>
 
       </div>
@@ -1788,7 +1632,6 @@ button{
         <h3>
           ⭐ Distribution des avis
         </h3>
-
 
         <div
           id="globalRatingBars"
@@ -1821,7 +1664,6 @@ button{
         Smart Review
       </h3>
 
-
       <button
         id="modalClose"
         class="close"
@@ -1831,7 +1673,6 @@ button{
       </button>
 
     </div>
-
 
     <div id="modalBody"></div>
 
@@ -1851,7 +1692,6 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
   "sb_publishable_gtihO7sbuhLIOG7ausRhXg_sYupQjXZ";
-
 
 const supabaseClient =
   window.supabase.createClient(
@@ -1879,9 +1719,9 @@ let dashboardData = {
 
 let selectedCardId = null;
 
-let authBusy = false;
-
-let appInitialized = false;
+let isBooting = false;
+let isLoading = false;
+let authInitialized = false;
 
 
 /* =========================================================
@@ -1889,49 +1729,34 @@ let appInitialized = false;
 ========================================================= */
 
 const loginScreen =
-  document.getElementById(
-    "loginScreen"
-  );
+  document.getElementById("loginScreen");
 
 const adminApp =
-  document.getElementById(
-    "adminApp"
-  );
+  document.getElementById("adminApp");
 
 const loginForm =
-  document.getElementById(
-    "loginForm"
-  );
+  document.getElementById("loginForm");
 
 const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
+  document.getElementById("loginButton");
 
 const loginError =
-  document.getElementById(
-    "loginError"
-  );
+  document.getElementById("loginError");
+
+const loginLoading =
+  document.getElementById("loginLoading");
 
 const statusBox =
-  document.getElementById(
-    "status"
-  );
+  document.getElementById("status");
 
 const modal =
-  document.getElementById(
-    "modal"
-  );
+  document.getElementById("modal");
 
 const modalTitle =
-  document.getElementById(
-    "modalTitle"
-  );
+  document.getElementById("modalTitle");
 
 const modalBody =
-  document.getElementById(
-    "modalBody"
-  );
+  document.getElementById("modalBody");
 
 
 /* =========================================================
@@ -1954,8 +1779,7 @@ function showStatus(
 
 function clearStatus(){
 
-  statusBox.textContent =
-    "";
+  statusBox.textContent = "";
 
   statusBox.className =
     "status";
@@ -1964,7 +1788,7 @@ function clearStatus(){
 
 
 /* =========================================================
-   AUTH UI
+   LOGIN UI
 ========================================================= */
 
 function showLogin(){
@@ -1979,113 +1803,95 @@ function showLogin(){
 }
 
 
-function showAdminShell(){
+function hideLogin(){
 
   loginScreen.style.display =
     "none";
 
-  adminApp.classList.remove(
-    "hidden"
+}
+
+
+function showLoginError(
+  message
+){
+
+  loginError.textContent =
+    message;
+
+  loginError.classList.add(
+    "show"
+  );
+
+}
+
+
+function clearLoginError(){
+
+  loginError.textContent =
+    "";
+
+  loginError.classList.remove(
+    "show"
   );
 
 }
 
 
 /* =========================================================
-   GET CURRENT USER
+   AUTH — SINGLE SOURCE OF TRUTH
 ========================================================= */
 
-async function getCurrentUser(){
+async function getCurrentSession(){
 
   const {
     data,
     error
   } =
-    await supabaseClient.auth.getUser();
-
+    await supabaseClient.auth.getSession();
 
   if(error){
 
-    console.error(
-      "AUTH USER ERROR:",
-      error
-    );
-
-    return null;
+    throw error;
 
   }
 
-
-  return data?.user || null;
+  return data.session || null;
 
 }
 
 
-/* =========================================================
-   INITIALIZE ADMIN
-========================================================= */
+/*
+  IMPORTANT:
 
-async function initializeAdmin(){
+  We deliberately do NOT hide the login screen until
+  dashboard loading has succeeded.
 
-  if(appInitialized){
+  This prevents the old bug where the login disappeared
+  while the dashboard was still failing.
+*/
+
+async function enterAdmin(){
+
+  if(isBooting){
 
     return;
 
   }
 
+  isBooting = true;
 
-  appInitialized = true;
+  clearLoginError();
 
-
-  showAdminShell();
-
-
-  try{
-
-    await loadEverything();
-
-  }
-
-  catch(error){
-
-    console.error(
-      "ADMIN INITIALIZATION ERROR:",
-      error
-    );
-
-
-    showStatus(
-      "Connexion réussie, mais impossible de charger le centre de contrôle.\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CHECK EXISTING SESSION
-========================================================= */
-
-async function checkSession(){
+  loginLoading.classList.add(
+    "show"
+  );
 
   try{
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth.getSession();
+    const session =
+      await getCurrentSession();
 
-
-    if(error){
-
-      console.error(
-        "SESSION ERROR:",
-        error
-      );
+    if(!session){
 
       showLogin();
 
@@ -2094,221 +1900,56 @@ async function checkSession(){
     }
 
 
-    if(data?.session){
+    /*
+      First load the dashboard.
 
-      await initializeAdmin();
+      If this fails, the login screen remains available
+      instead of leaving the user with a blank screen.
+    */
 
-    }
+    await loadEverything();
 
-    else{
 
-      showLogin();
+    /*
+      Only AFTER successful loading:
+      switch from login to application.
+    */
 
-    }
+    hideLogin();
+
+    adminApp.classList.remove(
+      "hidden"
+    );
 
   }
 
   catch(error){
 
     console.error(
-      "SESSION CHECK ERROR:",
+      "ADMIN BOOT ERROR:",
       error
     );
 
     showLogin();
 
+    showLoginError(
+      "La connexion a été établie, mais le centre de contrôle n'a pas pu être chargé.\n\n" +
+      error.message
+    );
+
   }
 
-}
+  finally{
 
+    isBooting = false;
 
-/* =========================================================
-   LOGIN
-========================================================= */
-
-loginForm.addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-
-    if(authBusy){
-
-      return;
-
-    }
-
-
-    authBusy = true;
-
-
-    loginError.classList.remove(
+    loginLoading.classList.remove(
       "show"
     );
 
-    loginError.textContent =
-      "";
-
-
-    const emailInput =
-      document.getElementById(
-        "email"
-      );
-
-
-    const passwordInput =
-      document.getElementById(
-        "password"
-      );
-
-
-    const email =
-      emailInput.value.trim();
-
-
-    const password =
-      passwordInput.value;
-
-
-    if(!email || !password){
-
-      loginError.textContent =
-        "Veuillez saisir votre e-mail et votre mot de passe.";
-
-      loginError.classList.add(
-        "show"
-      );
-
-      authBusy = false;
-
-      return;
-
-    }
-
-
-    loginButton.disabled =
-      true;
-
-    loginButton.textContent =
-      "Connexion…";
-
-
-    try{
-
-      console.log(
-        "LOGIN: attempting Supabase authentication..."
-      );
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth.signInWithPassword({
-
-          email:email,
-
-          password:password
-
-        });
-
-
-      console.log(
-        "LOGIN RESULT:",
-        {
-          hasUser:!!data?.user,
-          hasSession:!!data?.session,
-          error:error?.message || null
-        }
-      );
-
-
-      if(error){
-
-        throw error;
-
-      }
-
-
-      if(!data?.session){
-
-        throw new Error(
-          "Supabase n'a pas créé de session."
-        );
-
-      }
-
-
-      /*
-        Authentication succeeded.
-
-        Do not clear the login form here.
-        The password is only cleared when authentication
-        actually fails.
-      */
-
-      appInitialized =
-        false;
-
-
-      showAdminShell();
-
-
-      await initializeAdmin();
-
-
-    }
-
-    catch(error){
-
-      console.error(
-        "LOGIN ERROR:",
-        error
-      );
-
-
-      showLogin();
-
-
-      loginError.textContent =
-        "Connexion refusée.\n\n" +
-        (
-          error?.message ||
-          "Une erreur inconnue est survenue."
-        );
-
-
-      loginError.classList.add(
-        "show"
-      );
-
-
-      /*
-        Clear password only after a real authentication
-        failure.
-      */
-
-      passwordInput.value =
-        "";
-
-    }
-
-    finally{
-
-      authBusy =
-        false;
-
-      loginButton.disabled =
-        false;
-
-      loginButton.textContent =
-        "Se connecter";
-
-    }
-
   }
-);
+
+}
 
 
 /* =========================================================
@@ -2324,47 +1965,227 @@ supabaseClient.auth.onAuthStateChange(
     console.log(
       "AUTH EVENT:",
       event,
-      "SESSION:",
       !!session
     );
 
 
     /*
-      IMPORTANT:
-
-      This listener does NOT call showAdmin()
-      and does NOT call signInWithPassword().
-
-      It only keeps the interface synchronized
-      with the current Supabase session.
+      INITIAL_SESSION is handled by boot().
+      We don't call enterAdmin() here because that
+      previously caused duplicate boot races.
     */
 
-    if(session){
+    if(event === "SIGNED_OUT"){
 
-      if(
-        !appInitialized &&
-        !authBusy
-      ){
+      showLogin();
 
-        setTimeout(
-          () => {
+      clearStatus();
 
-            initializeAdmin();
+      return;
 
-          },
-          0
+    }
+
+
+    /*
+      After an explicit successful sign-in,
+      the submit handler controls the transition.
+    */
+
+  }
+);
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+loginForm.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    if(isBooting){
+
+      return;
+
+    }
+
+    clearLoginError();
+
+
+    const emailInput =
+      document.getElementById(
+        "email"
+      );
+
+    const passwordInput =
+      document.getElementById(
+        "password"
+      );
+
+
+    const email =
+      emailInput.value.trim();
+
+    const password =
+      passwordInput.value;
+
+
+    if(!email){
+
+      showLoginError(
+        "Veuillez entrer votre adresse e-mail."
+      );
+
+      emailInput.focus();
+
+      return;
+
+    }
+
+
+    if(!password){
+
+      showLoginError(
+        "Veuillez entrer votre mot de passe."
+      );
+
+      passwordInput.focus();
+
+      return;
+
+    }
+
+
+    isBooting = true;
+
+    loginButton.disabled =
+      true;
+
+    loginButton.textContent =
+      "Connexion…";
+
+    loginLoading.classList.add(
+      "show"
+    );
+
+
+    try{
+
+      console.log(
+        "LOGIN: attempting sign in..."
+      );
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+
+      if(error){
+
+        console.error(
+          "LOGIN ERROR:",
+          error
+        );
+
+        throw error;
+
+      }
+
+
+      if(!data?.session){
+
+        throw new Error(
+          "Supabase n'a pas retourné de session après la connexion."
         );
 
       }
 
+
+      console.log(
+        "LOGIN: authentication successful."
+      );
+
+
+      /*
+        Do NOT clear the password before the entire
+        dashboard transition succeeds.
+      */
+
+      await loadEverything();
+
+
+      /*
+        Only now do we leave the login page.
+      */
+
+      hideLogin();
+
+      adminApp.classList.remove(
+        "hidden"
+      );
+
+
+      passwordInput.value = "";
+
+      clearLoginError();
+
+
+      console.log(
+        "LOGIN: dashboard ready."
+      );
+
     }
 
-    else{
+    catch(error){
 
-      appInitialized =
-        false;
+      console.error(
+        "LOGIN FLOW ERROR:",
+        error
+      );
+
 
       showLogin();
+
+
+      showLoginError(
+        "Connexion impossible.\n\n" +
+        (error?.message ||
+          "Une erreur inconnue s'est produite.")
+      );
+
+
+      /*
+        Keep the email visible.
+        Clear only the password for security.
+      */
+
+      passwordInput.value = "";
+
+      emailInput.focus();
+
+    }
+
+    finally{
+
+      isBooting = false;
+
+      loginButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "Se connecter";
+
+      loginLoading.classList.remove(
+        "show"
+      );
 
     }
 
@@ -2377,9 +2198,7 @@ supabaseClient.auth.onAuthStateChange(
 ========================================================= */
 
 document
-  .getElementById(
-    "logoutButton"
-  )
+  .getElementById("logoutButton")
   .addEventListener(
     "click",
     async () => {
@@ -2397,17 +2216,11 @@ document
           error
         );
 
-      }
-
-      finally{
-
-        appInitialized =
-          false;
-
-        authBusy =
-          false;
-
-        showLogin();
+        showStatus(
+          "Erreur lors de la déconnexion.\n\n" +
+          error.message,
+          "error"
+        );
 
       }
 
@@ -2424,18 +2237,14 @@ function switchView(
 ){
 
   document
-    .querySelectorAll(
-      ".view"
-    )
-    .forEach(
-      element => {
+    .querySelectorAll(".view")
+    .forEach(el => {
 
-        element.classList.remove(
-          "active"
-        );
+      el.classList.remove(
+        "active"
+      );
 
-      }
-    );
+    });
 
 
   const target =
@@ -2454,19 +2263,15 @@ function switchView(
 
 
   document
-    .querySelectorAll(
-      ".nav button"
-    )
-    .forEach(
-      button => {
+    .querySelectorAll(".nav button")
+    .forEach(button => {
 
-        button.classList.toggle(
-          "active",
-          button.dataset.view === view
-        );
+      button.classList.toggle(
+        "active",
+        button.dataset.view === view
+      );
 
-      }
-    );
+    });
 
 
   window.scrollTo({
@@ -2478,22 +2283,18 @@ function switchView(
 
 
 document
-  .querySelectorAll(
-    ".nav button"
-  )
-  .forEach(
-    button => {
+  .querySelectorAll(".nav button")
+  .forEach(button => {
 
-      button.addEventListener(
-        "click",
-        () =>
-          switchView(
-            button.dataset.view
-          )
-      );
+    button.addEventListener(
+      "click",
+      () =>
+        switchView(
+          button.dataset.view
+        )
+    );
 
-    }
-  );
+  });
 
 
 /* =========================================================
@@ -2502,14 +2303,18 @@ document
 
 async function loadEverything(){
 
+  if(isLoading){
+
+    return;
+
+  }
+
+  isLoading = true;
+
   clearStatus();
 
 
   try{
-
-    /*
-      Main admin RPC.
-    */
 
     const {
       data,
@@ -2523,7 +2328,7 @@ async function loadEverything(){
     if(error){
 
       throw new Error(
-        "Impossible de charger les données.\n\n" +
+        "Impossible de charger les données du tableau de bord.\n\n" +
         error.message
       );
 
@@ -2531,15 +2336,16 @@ async function loadEverything(){
 
 
     dashboardData.businesses =
-      data?.businesses || [];
+      Array.isArray(data?.businesses)
+        ? data.businesses
+        : [];
+
 
     dashboardData.cards =
-      data?.cards || [];
+      Array.isArray(data?.cards)
+        ? data.cards
+        : [];
 
-
-    /*
-      Card statistics RPC.
-    */
 
     const {
       data:stats,
@@ -2561,24 +2367,26 @@ async function loadEverything(){
 
 
     dashboardData.stats =
-      stats || [];
+      Array.isArray(stats)
+        ? stats
+        : [];
 
 
     mergeStats();
 
     renderAll();
 
-  }
 
-  catch(error){
-
-    console.error(
-      "LOAD ERROR:",
-      error
+    console.log(
+      "DASHBOARD LOADED:",
+      dashboardData
     );
 
+  }
 
-    throw error;
+  finally{
+
+    isLoading = false;
 
   }
 
@@ -2603,6 +2411,7 @@ function mergeStats(){
 
 
         return {
+
           ...card,
 
           total_scans:
@@ -2809,10 +2618,7 @@ function renderKPIs(){
 
   const scans =
     dashboardData.cards.reduce(
-      (
-        sum,
-        card
-      ) =>
+      (sum,card) =>
         sum + card.total_scans,
       0
     );
@@ -2820,10 +2626,7 @@ function renderKPIs(){
 
   const ratings =
     dashboardData.cards.reduce(
-      (
-        sum,
-        card
-      ) =>
+      (sum,card) =>
         sum + totalRatings(card),
       0
     );
@@ -2890,7 +2693,7 @@ function businessHtml(
 
     <article
       class="business-card"
-      data-business-id="${business.id}"
+      data-business-id="${escapeHtml(business.id)}"
     >
 
       <div class="business-head">
@@ -2903,17 +2706,12 @@ function businessHtml(
         <div class="business-main">
 
           <div class="business-name">
-            ${escapeHtml(
-              business.name
-            )}
+            ${escapeHtml(business.name)}
           </div>
 
-
           <div class="business-meta">
-
             ${cards.length} carte(s)
             · ${activeCards} active(s)
-
           </div>
 
         </div>
@@ -3000,13 +2798,8 @@ function cardHtml(
       <div class="card-top">
 
         <div class="card-code">
-
-          ${escapeHtml(
-            card.card_code
-          )}
-
+          ${escapeHtml(card.card_code)}
         </div>
-
 
         ${cardStatus(card)}
 
@@ -3105,9 +2898,7 @@ function renderDashboardBusinesses(){
     );
 
 
-  if(
-    !dashboardData.businesses.length
-  ){
+  if(!dashboardData.businesses.length){
 
     box.innerHTML = `
 
@@ -3137,9 +2928,7 @@ function renderDashboardBusinesses(){
   box.innerHTML =
     dashboardData.businesses
       .slice(0,5)
-      .map(
-        businessHtml
-      )
+      .map(businessHtml)
       .join("");
 
 }
@@ -3171,7 +2960,9 @@ function renderBusinesses(){
     dashboardData.businesses.filter(
       business =>
         !query ||
-        business.name
+        String(
+          business.name || ""
+        )
           .toLowerCase()
           .includes(query)
     );
@@ -3210,9 +3001,7 @@ function renderBusinesses(){
 
   box.innerHTML =
     businesses
-      .map(
-        businessHtml
-      )
+      .map(businessHtml)
       .join("");
 
 }
@@ -3255,17 +3044,17 @@ function renderCards(){
 
 
         return (
-
           !query ||
 
-          card.card_code
+          String(
+            card.card_code || ""
+          )
             .toLowerCase()
             .includes(query) ||
 
           businessName
             .toLowerCase()
             .includes(query)
-
         );
 
       }
@@ -3323,13 +3112,8 @@ function renderCards(){
                 <div>
 
                   <div class="card-code">
-
-                    ${escapeHtml(
-                      card.card_code
-                    )}
-
+                    ${escapeHtml(card.card_code)}
                   </div>
-
 
                   <div
                     style="
@@ -3338,17 +3122,14 @@ function renderCards(){
                       margin-top:4px;
                     "
                   >
-
                     🏢
                     ${escapeHtml(
                       business?.name ||
                       "Établissement inconnu"
                     )}
-
                   </div>
 
                 </div>
-
 
                 ${cardStatus(card)}
 
@@ -3505,11 +3286,8 @@ function renderAnalytics(){
       totals
     )
       .reduce(
-        (
-          a,
-          b
-        ) =>
-          a + b,
+        (a,b) =>
+          a+b,
         0
       );
 
@@ -3517,7 +3295,6 @@ function renderAnalytics(){
   document.getElementById(
     "globalRatingBars"
   ).innerHTML =
-
     [5,4,3,2,1]
       .map(
         star => {
@@ -3543,7 +3320,6 @@ function renderAnalytics(){
                 ${star}★
               </span>
 
-
               <div class="rating-track">
 
                 <div
@@ -3552,7 +3328,6 @@ function renderAnalytics(){
                 ></div>
 
               </div>
-
 
               <span>
                 ${value}
@@ -3570,7 +3345,7 @@ function renderAnalytics(){
 
 
 /* =========================================================
-   SEARCH EVENTS
+   SEARCH
 ========================================================= */
 
 document
@@ -3672,16 +3447,14 @@ function getCustomerUrl(
   return (
     baseUrl +
     "index.html?card=" +
-    encodeURIComponent(
-      code
-    )
+    encodeURIComponent(code)
   );
 
 }
 
 
 /* =========================================================
-   OPEN CUSTOMER
+   CUSTOMER
 ========================================================= */
 
 function openCustomerCard(
@@ -3697,7 +3470,7 @@ function openCustomerCard(
 
 
 /* =========================================================
-   COPY LINK
+   COPY
 ========================================================= */
 
 async function copyCardLink(
@@ -3705,9 +3478,7 @@ async function copyCardLink(
 ){
 
   const url =
-    getCustomerUrl(
-      code
-    );
+    getCustomerUrl(code);
 
 
   try{
@@ -3782,7 +3553,8 @@ modal.addEventListener(
   event => {
 
     if(
-      event.target === modal
+      event.target ===
+      modal
     ){
 
       closeModal();
@@ -3801,7 +3573,6 @@ function openCreateBusiness(){
 
   openModal(
     "＋ Nouvel établissement",
-
     `
 
       <form id="businessCreateForm">
@@ -3908,7 +3679,7 @@ function openCreateBusiness(){
 
 
 /* =========================================================
-   CREATE BUSINESS ACTION
+   CREATE BUSINESS
 ========================================================= */
 
 async function createBusiness(
@@ -3934,7 +3705,6 @@ async function createBusiness(
   try{
 
     const {
-      data,
       error
     } =
       await supabaseClient
@@ -3983,9 +3753,7 @@ async function createBusiness(
               .trim() ||
             null
 
-        })
-        .select()
-        .single();
+        });
 
 
     if(error){
@@ -3997,9 +3765,7 @@ async function createBusiness(
 
     closeModal();
 
-
     await loadEverything();
-
 
     switchView(
       "businesses"
@@ -4033,6 +3799,9 @@ async function createBusiness(
     button.disabled =
       false;
 
+    button.textContent =
+      "Créer l'établissement";
+
   }
 
 }
@@ -4054,6 +3823,11 @@ function openEditBusiness(
 
   if(!business){
 
+    showStatus(
+      "Établissement introuvable.",
+      "error"
+    );
+
     return;
 
   }
@@ -4061,7 +3835,6 @@ function openEditBusiness(
 
   openModal(
     "✏️ Modifier l'établissement",
-
     `
 
       <form id="businessEditForm">
@@ -4074,9 +3847,7 @@ function openEditBusiness(
 
           <input
             id="editBusinessName"
-            value="${escapeHtml(
-              business.name
-            )}"
+            value="${escapeHtml(business.name)}"
             required
           >
 
@@ -4256,7 +4027,6 @@ function openEditBusiness(
 
           closeModal();
 
-
           await loadEverything();
 
 
@@ -4287,6 +4057,9 @@ function openEditBusiness(
           button.disabled =
             false;
 
+          button.textContent =
+            "Enregistrer";
+
         }
 
       }
@@ -4296,7 +4069,7 @@ function openEditBusiness(
 
 
 /* =========================================================
-   ADD CARD PICKER
+   CARD PICKER
 ========================================================= */
 
 function openCreateCardPicker(){
@@ -4313,7 +4086,6 @@ function openCreateCardPicker(){
 
     openCreateBusiness();
 
-
     return;
 
   }
@@ -4321,16 +4093,14 @@ function openCreateCardPicker(){
 
   openModal(
     "💳 Nouvelle carte",
-
     `
 
       <p
         class="panel-desc"
         style="margin-bottom:15px;"
       >
-        Choisissez l'établissement auquel cette carte sera
-        rattachée. Un établissement peut avoir autant de cartes
-        que nécessaire.
+        Choisissez l'établissement auquel cette carte sera rattachée.
+        Un établissement peut avoir autant de cartes que nécessaire.
       </p>
 
 
@@ -4349,15 +4119,9 @@ function openCreateCardPicker(){
             dashboardData.businesses
               .map(
                 business => `
-
-                  <option
-                    value="${business.id}"
-                  >
-                    ${escapeHtml(
-                      business.name
-                    )}
+                  <option value="${escapeHtml(business.id)}">
+                    ${escapeHtml(business.name)}
                   </option>
-
                 `
               )
               .join("")
@@ -4369,20 +4133,41 @@ function openCreateCardPicker(){
 
 
       <button
+        id="continueCardButton"
         class="btn btn-primary"
         type="button"
-        onclick="
-          const id =
-            document.getElementById('cardBusinessSelect').value;
-          closeModal();
-          openAddCard(id);
-        "
       >
         Continuer →
       </button>
 
     `
   );
+
+
+  document
+    .getElementById(
+      "continueCardButton"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        const id =
+          document
+            .getElementById(
+              "cardBusinessSelect"
+            )
+            .value;
+
+
+        closeModal();
+
+        openAddCard(
+          id
+        );
+
+      }
+    );
 
 }
 
@@ -4408,7 +4193,6 @@ function openAddCard(
       "error"
     );
 
-
     return;
 
   }
@@ -4416,19 +4200,31 @@ function openAddCard(
 
   openModal(
     "＋ Ajouter une carte",
-
     `
 
-      <div class="create-card-box">
+      <div
+        class="create-card-box"
+        style="
+          background:#f7faff;
+          border:1px solid #dce8f8;
+          border-radius:17px;
+          padding:15px;
+        "
+      >
 
         <h4>
-          🏢 ${escapeHtml(
-            business.name
-          )}
+          🏢 ${escapeHtml(business.name)}
         </h4>
 
 
-        <p>
+        <p
+          style="
+            color:var(--muted);
+            font-size:11px;
+            margin-top:3px;
+            margin-bottom:13px;
+          "
+        >
           Cette carte sera liée à cet établissement.
           Elle aura ses propres scans et ratings.
         </p>
@@ -4439,15 +4235,12 @@ function openAddCard(
           <div class="field">
 
             <label>
-
               Code de carte
-
               <span
                 style="color:#8793a3;"
               >
                 (optionnel)
               </span>
-
             </label>
 
 
@@ -4570,9 +4363,7 @@ async function createCard(
 
     closeModal();
 
-
     await loadEverything();
-
 
     switchView(
       "cards"
@@ -4585,9 +4376,13 @@ async function createCard(
     );
 
 
-    openCardControl(
-      data.id
-    );
+    if(data?.id){
+
+      openCardControl(
+        data.id
+      );
+
+    }
 
   }
 
@@ -4610,6 +4405,9 @@ async function createCard(
 
     button.disabled =
       false;
+
+    button.textContent =
+      "Créer la carte";
 
   }
 
@@ -4637,7 +4435,6 @@ function openCardControl(
       "Carte introuvable.",
       "error"
     );
-
 
     return;
 
@@ -4667,8 +4464,7 @@ function openCardControl(
 
           const value =
             card[
-              "rating_" +
-              star
+              "rating_" + star
             ];
 
 
@@ -4689,7 +4485,6 @@ function openCardControl(
                 ${star}★
               </span>
 
-
               <div class="rating-track">
 
                 <div
@@ -4698,7 +4493,6 @@ function openCardControl(
                 ></div>
 
               </div>
-
 
               <span>
                 ${value}
@@ -4715,7 +4509,6 @@ function openCardControl(
 
   openModal(
     "🎛️ Card Control Center",
-
     `
 
       <div class="control-hero">
@@ -4730,23 +4523,16 @@ function openCardControl(
 
 
         <div class="control-code">
-
-          ${escapeHtml(
-            card.card_code
-          )}
-
+          ${escapeHtml(card.card_code)}
         </div>
 
 
         <div class="control-business">
-
           🏢
-
           ${escapeHtml(
             business?.name ||
             "Établissement inconnu"
           )}
-
         </div>
 
 
@@ -4819,11 +4605,7 @@ function openCardControl(
             </span>
 
             <b>
-              ${
-                card.active
-                ? "ON"
-                : "OFF"
-              }
+              ${card.active ? "ON" : "OFF"}
             </b>
 
           </div>
@@ -4846,9 +4628,7 @@ function openCardControl(
 
 
         <div class="rating-grid">
-
           ${ratings}
-
         </div>
 
       </div>
@@ -4862,10 +4642,8 @@ function openCardControl(
 
 
         <p class="panel-desc">
-
           Contrôlez cette carte sans toucher aux autres cartes
           du même établissement.
-
         </p>
 
 
@@ -4874,9 +4652,7 @@ function openCardControl(
           <button
             class="btn btn-blue"
             type="button"
-            onclick="
-              openCustomerCard('${escapeHtml(card.card_code)}')
-            "
+            onclick="openCustomerCard('${escapeHtml(card.card_code)}')"
           >
             🔗 Ouvrir
           </button>
@@ -4885,9 +4661,7 @@ function openCardControl(
           <button
             class="btn btn-soft"
             type="button"
-            onclick="
-              copyCardLink('${escapeHtml(card.card_code)}')
-            "
+            onclick="copyCardLink('${escapeHtml(card.card_code)}')"
           >
             📋 Copier
           </button>
@@ -4896,9 +4670,7 @@ function openCardControl(
           <button
             class="btn btn-soft"
             type="button"
-            onclick="
-              shareCard('${escapeHtml(card.card_code)}')
-            "
+            onclick="shareCard('${escapeHtml(card.card_code)}')"
           >
             📲 Partager
           </button>
@@ -4907,32 +4679,26 @@ function openCardControl(
           <button
             class="btn btn-gold"
             type="button"
-            onclick="
-              refreshCardControl('${card.id}')
-            "
+            onclick="refreshCardControl('${card.id}')"
           >
             🔄 Actualiser
           </button>
 
 
           <button
-            class="${
+            class="btn ${
               card.active
-              ? "btn btn-red"
-              : "btn btn-green"
+              ? "btn-red"
+              : "btn-green"
             }"
             type="button"
-            onclick="
-              toggleCard('${card.id}')
-            "
+            onclick="toggleCard('${card.id}')"
           >
-
             ${
               card.active
               ? "⏸️ Mettre en pause"
               : "▶️ Réactiver"
             }
-
           </button>
 
         </div>
@@ -4950,16 +4716,12 @@ function openCardControl(
         <p class="panel-desc">
 
           ID :
-          ${escapeHtml(
-            card.id
-          )}
+          ${escapeHtml(card.id)}
 
           <br><br>
 
           Code :
-          ${escapeHtml(
-            card.card_code
-          )}
+          ${escapeHtml(card.card_code)}
 
           <br><br>
 
@@ -4972,7 +4734,6 @@ function openCardControl(
           <br><br>
 
           Créée le :
-
           ${
             card.created_at
             ?
@@ -5036,7 +4797,6 @@ async function shareCard(
       );
 
     }
-
 
     return;
 
@@ -5119,7 +4879,6 @@ async function toggleCard(
 
     closeModal();
 
-
     await loadEverything();
 
 
@@ -5151,7 +4910,7 @@ async function toggleCard(
 
 
 /* =========================================================
-   REFRESH CARD
+   REFRESH CARD CONTROL
 ========================================================= */
 
 async function refreshCardControl(
@@ -5188,13 +4947,69 @@ async function refreshCardControl(
 
 
 /* =========================================================
-   INITIALIZE APPLICATION
+   INITIAL BOOT
 ========================================================= */
 
-checkSession();
+async function boot(){
+
+  console.log(
+    "SMART REVIEW: booting..."
+  );
+
+
+  showLogin();
+
+
+  try{
+
+    const session =
+      await getCurrentSession();
+
+
+    if(session){
+
+      console.log(
+        "SMART REVIEW: existing session found."
+      );
+
+
+      await enterAdmin();
+
+    }
+
+    else{
+
+      console.log(
+        "SMART REVIEW: no existing session."
+      );
+
+    }
+
+  }
+
+  catch(error){
+
+    console.error(
+      "SMART REVIEW BOOT ERROR:",
+      error
+    );
+
+
+    showLogin();
+
+    showLoginError(
+      "Impossible d'initialiser Smart Review.\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+boot();
 
 </script>
 
 </body>
-
-</html>
+  </html>
