@@ -1,25 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#061b3a">
-
 <title>Smart Review — Control Center</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 :root{
   --navy:#061b3a;
-  --navy2:#08264d;
+  --navy2:#0a2b55;
   --blue:#165dff;
   --blue2:#4285ff;
   --gold:#d99213;
@@ -31,7 +23,8 @@
   --ink:#071b3c;
   --muted:#68778d;
   --soft:#f4f7fb;
-  --line:#e4e9f0;
+  --line:#e1e7ef;
+  --shadow:0 10px 30px rgba(7,27,60,.07);
 }
 
 *{
@@ -40,35 +33,28 @@
   padding:0;
 }
 
-html,
-body{
+html,body{
   min-height:100%;
 }
 
 body{
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif;
-
-  background:#f4f7fb;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--soft);
   color:var(--ink);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 
-button,
-input,
-select{
+button,input,select{
   font:inherit;
 }
 
 button{
   -webkit-tap-highlight-color:transparent;
+}
+
+button:active{
+  transform:scale(.97);
 }
 
 .hidden{
@@ -85,27 +71,19 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:25px 16px;
+  padding:20px 15px;
   background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(38,117,255,.28),
-      transparent 35%
-    ),
-    linear-gradient(
-      180deg,
-      #061b3a,
-      #08264d
-    );
+    radial-gradient(circle at 50% 0%,rgba(66,133,255,.30),transparent 38%),
+    linear-gradient(180deg,#061b3a,#08264d);
 }
 
 .login-box{
   width:100%;
-  max-width:440px;
+  max-width:430px;
   background:#fff;
-  border-radius:28px;
-  padding:28px 20px;
-  box-shadow:0 25px 70px rgba(0,0,0,.30);
+  border-radius:30px;
+  padding:29px 20px 24px;
+  box-shadow:0 30px 80px rgba(0,0,0,.32);
 }
 
 .login-logo{
@@ -113,28 +91,25 @@ button{
   height:76px;
   border-radius:50%;
   background:#fff;
-  margin:0 auto 16px;
+  margin:0 auto 15px;
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:
-    0 12px 28px rgba(0,0,0,.20),
-    0 0 0 3px rgba(217,146,19,.9);
+  box-shadow:0 12px 30px rgba(0,0,0,.18),0 0 0 3px rgba(217,146,19,.9);
 }
 
 .logo-letter{
-  font-size:51px;
+  font-size:50px;
   font-weight:950;
   line-height:1;
-  background:
-    conic-gradient(
-      from -35deg,
-      #4285f4 0deg 80deg,
-      #34a853 80deg 170deg,
-      #fbbc05 170deg 245deg,
-      #ea4335 245deg 320deg,
-      #4285f4 320deg 360deg
-    );
+  background:conic-gradient(
+    from -35deg,
+    #4285f4 0deg 80deg,
+    #34a853 80deg 170deg,
+    #fbbc05 170deg 245deg,
+    #ea4335 245deg 320deg,
+    #4285f4 320deg 360deg
+  );
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -143,15 +118,15 @@ button{
 .login-box h1{
   text-align:center;
   color:var(--navy);
-  font-size:29px;
+  font-size:30px;
   font-weight:950;
 }
 
-.login-box > p{
+.login-box>p{
   text-align:center;
   color:var(--muted);
   font-size:14px;
-  margin:8px 0 22px;
+  margin:7px 0 23px;
 }
 
 .login-error{
@@ -162,7 +137,7 @@ button{
   border-radius:14px;
   padding:13px;
   margin-bottom:15px;
-  font-size:14px;
+  font-size:13px;
   line-height:1.45;
   white-space:pre-wrap;
 }
@@ -171,20 +146,8 @@ button{
   display:block;
 }
 
-.login-loading{
-  display:none;
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-  margin-top:12px;
-}
-
-.login-loading.show{
-  display:block;
-}
-
 /* =========================================================
-   FORMS
+   FORM
 ========================================================= */
 
 .field{
@@ -202,8 +165,8 @@ button{
 .field input,
 .field select{
   width:100%;
-  min-height:52px;
-  border-radius:14px;
+  min-height:54px;
+  border-radius:15px;
   border:1px solid #d9e0e9;
   background:#f7f9fc;
   color:var(--ink);
@@ -225,19 +188,15 @@ button{
 .btn{
   min-height:46px;
   border:0;
-  border-radius:13px;
-  padding:10px 15px;
+  border-radius:14px;
+  padding:10px 14px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:8px;
+  gap:7px;
   font-weight:850;
   cursor:pointer;
   transition:.15s ease;
-}
-
-.btn:active{
-  transform:scale(.97);
 }
 
 .btn:disabled{
@@ -246,24 +205,22 @@ button{
 }
 
 .btn-primary{
-  width:100%;
-  min-height:58px;
   color:#fff;
   background:linear-gradient(135deg,#0a2d59,#0d407a);
-  border:2px solid rgba(217,146,19,.8);
-  box-shadow:0 10px 24px rgba(7,27,60,.15);
-}
-
-.btn-soft{
-  background:#f1f5fa;
-  color:var(--navy);
-  border:1px solid var(--line);
+  border:1px solid rgba(217,146,19,.75);
+  box-shadow:0 8px 20px rgba(7,27,60,.14);
 }
 
 .btn-blue{
   background:#edf4ff;
   color:#1551bd;
   border:1px solid #c9dcff;
+}
+
+.btn-soft{
+  background:#f1f5fa;
+  color:var(--navy);
+  border:1px solid var(--line);
 }
 
 .btn-green{
@@ -285,7 +242,7 @@ button{
 }
 
 /* =========================================================
-   APP
+   APP HEADER
 ========================================================= */
 
 .app{
@@ -295,21 +252,10 @@ button{
 
 .top{
   background:
-    radial-gradient(
-      circle at 50% -40%,
-      rgba(52,125,255,.35),
-      transparent 45%
-    ),
-    linear-gradient(
-      180deg,
-      #061b3a,
-      #08264d
-    );
+    radial-gradient(circle at 85% -30%,rgba(66,133,255,.34),transparent 42%),
+    linear-gradient(180deg,#061b3a,#08264d);
   color:#fff;
-  padding:
-    max(18px,env(safe-area-inset-top))
-    16px
-    0;
+  padding:max(15px,env(safe-area-inset-top)) 14px 0;
 }
 
 .top-inner{
@@ -321,18 +267,19 @@ button{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:10px;
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:9px;
+  min-width:0;
 }
 
 .brand-mark{
-  width:43px;
-  height:43px;
+  width:42px;
+  height:42px;
   border-radius:50%;
   background:#fff;
   display:flex;
@@ -343,17 +290,17 @@ button{
 }
 
 .brand-mark .logo-letter{
-  font-size:29px;
+  font-size:28px;
 }
 
 .brand-name{
-  font-size:18px;
+  font-size:17px;
   font-weight:950;
 }
 
 .brand-sub{
   color:#9fb2cb;
-  font-size:11px;
+  font-size:10px;
   margin-top:1px;
 }
 
@@ -362,27 +309,30 @@ button{
   border:1px solid rgba(255,255,255,.16);
   color:#fff;
   border-radius:11px;
-  padding:9px 11px;
-  font-size:12px;
-  font-weight:800;
+  padding:9px 10px;
+  font-size:11px;
+  font-weight:850;
 }
 
+/* =========================================================
+   HERO
+========================================================= */
+
 .hero{
-  padding:24px 0 20px;
+  padding:23px 0 17px;
 }
 
 .hero small{
   color:#91a8c5;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.7px;
-  text-transform:uppercase;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:1px;
 }
 
 .hero h1{
   margin-top:4px;
-  font-size:30px;
-  line-height:1.08;
+  font-size:28px;
+  line-height:1.05;
   font-weight:950;
   letter-spacing:-.8px;
 }
@@ -390,16 +340,18 @@ button{
 .hero p{
   margin-top:7px;
   color:#c2d0e1;
-  font-size:13px;
+  font-size:12px;
 }
 
 /* =========================================================
-   NAV
+   NAV — MOBILE FIRST
 ========================================================= */
 
 .nav-wrap{
   overflow-x:auto;
   scrollbar-width:none;
+  margin:0 -14px;
+  padding:0 14px;
 }
 
 .nav-wrap::-webkit-scrollbar{
@@ -408,19 +360,20 @@ button{
 
 .nav{
   display:flex;
-  gap:7px;
+  gap:6px;
   min-width:max-content;
-  padding-bottom:12px;
+  padding-bottom:0;
 }
 
 .nav button{
-  border:1px solid rgba(255,255,255,.12);
+  min-height:44px;
+  border:0;
+  border-radius:13px 13px 0 0;
   background:rgba(255,255,255,.07);
   color:#cbd7e6;
-  padding:10px 13px;
-  border-radius:12px 12px 0 0;
-  font-size:12px;
-  font-weight:850;
+  padding:10px 14px;
+  font-size:11px;
+  font-weight:900;
 }
 
 .nav button.active{
@@ -433,12 +386,18 @@ button{
 ========================================================= */
 
 .main{
+  width:100%;
   max-width:1100px;
   margin:auto;
-  padding:
-    18px
-    16px
-    max(40px,env(safe-area-inset-bottom));
+  padding:16px 13px max(35px,env(safe-area-inset-bottom));
+}
+
+.view{
+  display:none;
+}
+
+.view.active{
+  display:block;
 }
 
 /* =========================================================
@@ -447,13 +406,13 @@ button{
 
 .status{
   display:none;
-  padding:14px;
+  padding:13px;
   border-radius:14px;
-  margin-bottom:16px;
-  font-size:13px;
-  font-weight:700;
-  white-space:pre-wrap;
+  margin-bottom:13px;
+  font-size:12px;
+  font-weight:750;
   line-height:1.45;
+  white-space:pre-wrap;
 }
 
 .status.show{
@@ -479,75 +438,74 @@ button{
 }
 
 /* =========================================================
-   VIEW
+   SECTION HEAD
 ========================================================= */
-
-.view{
-  display:none;
-}
-
-.view.active{
-  display:block;
-}
 
 .section-head{
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
-  gap:12px;
-  margin-bottom:15px;
+  gap:10px;
+  margin-bottom:13px;
 }
 
 .section-head h2{
-  font-size:23px;
+  font-size:24px;
+  line-height:1.05;
   font-weight:950;
   letter-spacing:-.5px;
 }
 
 .section-head p{
   color:var(--muted);
-  font-size:13px;
-  margin-top:3px;
+  font-size:12px;
+  line-height:1.35;
+  margin-top:4px;
+}
+
+.section-head>.btn{
+  flex:none;
 }
 
 /* =========================================================
-   KPI
+   KPI — LARGE PHONE CARDS
 ========================================================= */
 
 .kpis{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-bottom:17px;
+  gap:9px;
+  margin-bottom:13px;
 }
 
 .kpi{
   background:#fff;
   border:1px solid var(--line);
   border-radius:18px;
-  padding:16px;
-  box-shadow:0 8px 25px rgba(7,27,60,.05);
+  padding:15px;
+  box-shadow:var(--shadow);
 }
 
 .kpi-label{
   color:var(--muted);
-  font-size:11px;
-  font-weight:800;
+  font-size:9px;
+  font-weight:850;
   text-transform:uppercase;
-  letter-spacing:.4px;
+  letter-spacing:.5px;
 }
 
 .kpi-value{
   margin-top:4px;
-  font-size:27px;
+  font-size:28px;
+  line-height:1;
   font-weight:950;
   color:var(--navy);
 }
 
 .kpi-note{
   color:#8794a5;
-  font-size:11px;
-  margin-top:2px;
+  font-size:10px;
+  margin-top:4px;
 }
 
 /* =========================================================
@@ -557,22 +515,39 @@ button{
 .panel{
   background:#fff;
   border:1px solid var(--line);
-  border-radius:21px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 9px 30px rgba(7,27,60,.055);
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:13px;
+  box-shadow:var(--shadow);
 }
 
 .panel h3{
-  font-size:17px;
+  font-size:16px;
   font-weight:950;
 }
 
 .panel-desc{
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
   line-height:1.45;
   margin-top:4px;
+}
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.action-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:13px;
+}
+
+.action-grid .btn{
+  width:100%;
+  min-height:50px;
+  font-size:11px;
 }
 
 /* =========================================================
@@ -581,27 +556,24 @@ button{
 
 .search{
   position:relative;
-  margin-bottom:15px;
+  margin-bottom:13px;
 }
 
 .search input{
   width:100%;
-  min-height:51px;
-  border-radius:15px;
+  min-height:53px;
+  border-radius:16px;
   border:1px solid var(--line);
   background:#fff;
-  padding:12px 15px 12px 43px;
+  padding:12px 14px 12px 42px;
   outline:none;
-}
-
-.search input:focus{
-  border-color:#b8cff7;
-  box-shadow:0 0 0 4px rgba(22,93,255,.06);
+  font-size:13px;
+  box-shadow:0 5px 18px rgba(7,27,60,.04);
 }
 
 .search span{
   position:absolute;
-  left:15px;
+  left:14px;
   top:50%;
   transform:translateY(-50%);
   color:#8795a8;
@@ -614,23 +586,23 @@ button{
 .business-card{
   background:#fff;
   border:1px solid var(--line);
-  border-radius:20px;
-  margin-bottom:13px;
+  border-radius:21px;
+  margin-bottom:12px;
   overflow:hidden;
-  box-shadow:0 8px 25px rgba(7,27,60,.045);
+  box-shadow:var(--shadow);
 }
 
 .business-head{
-  padding:17px;
+  padding:15px;
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:11px;
 }
 
 .business-icon{
-  width:46px;
-  height:46px;
-  border-radius:14px;
+  width:47px;
+  height:47px;
+  border-radius:15px;
   background:linear-gradient(145deg,#edf4ff,#dceaff);
   display:flex;
   align-items:center;
@@ -645,7 +617,7 @@ button{
 }
 
 .business-name{
-  font-size:17px;
+  font-size:16px;
   font-weight:950;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -654,18 +626,19 @@ button{
 
 .business-meta{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
   margin-top:3px;
 }
 
 .badge{
   display:inline-flex;
   align-items:center;
+  justify-content:center;
   gap:4px;
   border-radius:20px;
   padding:5px 8px;
-  font-size:10px;
-  font-weight:900;
+  font-size:9px;
+  font-weight:950;
   white-space:nowrap;
 }
 
@@ -685,25 +658,31 @@ button{
 }
 
 .business-actions{
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:7px;
-  padding:0 17px 15px;
+  padding:0 15px 13px;
 }
 
 .business-actions .btn{
-  flex:1;
+  min-height:43px;
+  font-size:11px;
 }
 
 .cards-list{
   border-top:1px solid var(--line);
-  background:#fafbfd;
-  padding:10px;
+  background:#f8fafd;
+  padding:9px;
 }
+
+/* =========================================================
+   CARD ROW
+========================================================= */
 
 .card-row{
   background:#fff;
   border:1px solid var(--line);
-  border-radius:15px;
+  border-radius:17px;
   padding:13px;
   margin-bottom:8px;
 }
@@ -716,19 +695,13 @@ button{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
+  gap:9px;
 }
 
 .card-code{
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    monospace;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
   font-size:14px;
-  font-weight:900;
+  font-weight:950;
   letter-spacing:.5px;
   color:var(--navy);
 }
@@ -736,40 +709,75 @@ button{
 .card-stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:7px;
+  gap:6px;
   margin-top:10px;
 }
 
 .mini-stat{
-  background:#f6f8fb;
-  border-radius:10px;
-  padding:8px;
+  background:#f5f7fa;
+  border-radius:11px;
+  padding:9px 7px;
 }
 
 .mini-stat b{
   display:block;
-  font-size:14px;
+  font-size:15px;
+  line-height:1.05;
 }
 
 .mini-stat span{
   display:block;
   color:var(--muted);
-  font-size:9px;
-  margin-top:1px;
+  font-size:8px;
+  margin-top:3px;
 }
 
 .card-row-actions{
-  display:flex;
+  display:grid;
+  grid-template-columns:1.15fr 1fr 1fr;
   gap:6px;
-  margin-top:10px;
-  overflow-x:auto;
+  margin-top:9px;
 }
 
 .card-row-actions .btn{
-  flex:none;
-  min-height:38px;
-  font-size:11px;
-  padding:7px 10px;
+  min-height:40px;
+  padding:7px 5px;
+  font-size:10px;
+}
+
+/* =========================================================
+   PERFORMANCE STRIP
+========================================================= */
+
+.performance{
+  margin-top:10px;
+  border-radius:13px;
+  padding:10px;
+  background:#f6f8fb;
+  border:1px solid #edf0f4;
+}
+
+.performance-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  font-size:10px;
+  font-weight:850;
+}
+
+.performance-track{
+  height:7px;
+  border-radius:20px;
+  background:#e5eaf1;
+  overflow:hidden;
+  margin-top:7px;
+}
+
+.performance-fill{
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#165dff,#4285ff);
 }
 
 /* =========================================================
@@ -778,17 +786,13 @@ button{
 
 .control-hero{
   background:
-    radial-gradient(
-      circle at 100% 0%,
-      rgba(66,133,255,.25),
-      transparent 40%
-    ),
+    radial-gradient(circle at 100% 0%,rgba(66,133,255,.28),transparent 42%),
     linear-gradient(145deg,#061b3a,#0d376b);
   color:#fff;
-  border-radius:22px;
-  padding:20px;
-  margin-bottom:15px;
-  box-shadow:0 15px 35px rgba(7,27,60,.18);
+  border-radius:23px;
+  padding:17px;
+  margin-bottom:12px;
+  box-shadow:0 15px 35px rgba(7,27,60,.20);
 }
 
 .control-back{
@@ -796,14 +800,14 @@ button{
   border:1px solid rgba(255,255,255,.15);
   color:#fff;
   border-radius:10px;
-  padding:8px 11px;
-  font-size:11px;
-  font-weight:800;
-  margin-bottom:18px;
+  padding:8px 10px;
+  font-size:10px;
+  font-weight:850;
+  margin-bottom:16px;
 }
 
 .control-code{
-  font-family:monospace;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
   font-size:24px;
   font-weight:950;
   letter-spacing:1px;
@@ -811,54 +815,87 @@ button{
 
 .control-business{
   color:#b9c9dc;
-  font-size:13px;
-  margin-top:5px;
+  font-size:12px;
+  margin-top:4px;
 }
 
 .control-status{
-  margin-top:13px;
+  margin-top:12px;
 }
 
 .control-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:9px;
-  margin-top:17px;
+  gap:7px;
+  margin-top:14px;
 }
 
 .control-stat{
   background:rgba(255,255,255,.08);
   border:1px solid rgba(255,255,255,.10);
   border-radius:13px;
-  padding:12px;
+  padding:11px;
 }
 
 .control-stat span{
   display:block;
   color:#9eb2ca;
-  font-size:10px;
+  font-size:9px;
   text-transform:uppercase;
 }
 
 .control-stat b{
   display:block;
-  font-size:22px;
-  margin-top:2px;
+  font-size:21px;
+  margin-top:3px;
 }
+
+.control-health{
+  margin-top:11px;
+  border-radius:13px;
+  background:rgba(255,255,255,.07);
+  padding:11px;
+}
+
+.control-health-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:10px;
+  color:#c9d6e5;
+}
+
+.health-track{
+  height:7px;
+  background:rgba(255,255,255,.12);
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:7px;
+}
+
+.health-fill{
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#4dd58a,#a9ef72);
+}
+
+/* =========================================================
+   RATING
+========================================================= */
 
 .rating-grid{
   display:grid;
   gap:9px;
-  margin-top:14px;
+  margin-top:13px;
 }
 
 .rating-line{
   display:grid;
-  grid-template-columns:32px 1fr 35px;
+  grid-template-columns:30px 1fr 32px;
   align-items:center;
-  gap:8px;
-  font-size:12px;
-  font-weight:800;
+  gap:7px;
+  font-size:11px;
+  font-weight:850;
 }
 
 .rating-track{
@@ -874,31 +911,52 @@ button{
   border-radius:20px;
 }
 
-.action-grid{
+/* =========================================================
+   DETAIL METRICS
+========================================================= */
+
+.detail-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:9px;
-  margin-top:15px;
+  gap:8px;
+  margin-top:12px;
 }
 
-.action-grid .btn{
-  width:100%;
-  min-height:49px;
+.detail-box{
+  background:#f7f9fc;
+  border:1px solid #edf0f4;
+  border-radius:14px;
+  padding:11px;
+}
+
+.detail-box span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.detail-box b{
+  display:block;
+  margin-top:3px;
+  font-size:17px;
 }
 
 /* =========================================================
-   ACTIVITY / EMPTY
+   ACTIVITY
 ========================================================= */
 
 .activity{
   display:grid;
-  gap:9px;
+  gap:0;
+  margin-top:10px;
 }
 
 .activity-row{
   display:flex;
-  gap:11px;
-  padding:12px 0;
+  gap:10px;
+  padding:11px 0;
   border-bottom:1px solid var(--line);
 }
 
@@ -918,7 +976,7 @@ button{
 }
 
 .activity-text{
-  font-size:12px;
+  font-size:11px;
   line-height:1.4;
 }
 
@@ -928,39 +986,44 @@ button{
 
 .activity-time{
   color:#8a96a7;
-  font-size:10px;
+  font-size:9px;
   margin-top:2px;
 }
 
+/* =========================================================
+   EMPTY
+========================================================= */
+
 .empty{
   text-align:center;
-  padding:35px 18px;
+  padding:31px 16px;
   color:var(--muted);
 }
 
 .empty-icon{
-  font-size:35px;
-  margin-bottom:8px;
+  font-size:34px;
+  margin-bottom:7px;
 }
 
 .empty h3{
   color:var(--navy);
-  font-size:17px;
+  font-size:16px;
 }
 
 .empty p{
-  font-size:12px;
+  font-size:11px;
+  line-height:1.45;
   margin-top:5px;
 }
 
 /* =========================================================
-   MODAL
+   MODAL — PHONE BOTTOM SHEET
 ========================================================= */
 
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(3,14,31,.62);
+  background:rgba(3,14,31,.67);
   z-index:100;
   display:none;
   align-items:flex-end;
@@ -974,12 +1037,32 @@ button{
 
 .modal-box{
   width:100%;
-  max-width:600px;
+  max-width:650px;
   background:#fff;
   border-radius:25px 25px 0 0;
-  padding:21px 17px max(21px,env(safe-area-inset-bottom));
-  max-height:90vh;
+  padding:9px 14px max(18px,env(safe-area-inset-bottom));
+  max-height:93dvh;
   overflow:auto;
+  animation:sheetUp .18s ease-out;
+}
+
+@keyframes sheetUp{
+  from{
+    transform:translateY(30px);
+    opacity:.7;
+  }
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
+
+.modal-handle{
+  width:42px;
+  height:4px;
+  border-radius:10px;
+  background:#d9dee6;
+  margin:2px auto 15px;
 }
 
 .modal-head{
@@ -987,11 +1070,11 @@ button{
   align-items:center;
   justify-content:space-between;
   gap:10px;
-  margin-bottom:17px;
+  margin-bottom:15px;
 }
 
 .modal-head h3{
-  font-size:20px;
+  font-size:19px;
   font-weight:950;
 }
 
@@ -1005,30 +1088,163 @@ button{
 }
 
 .modal-actions{
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:8px;
-  margin-top:15px;
+  margin-top:14px;
 }
 
 .modal-actions .btn{
-  flex:1;
+  width:100%;
 }
 
 /* =========================================================
-   RESPONSIVE
+   LOADING
+========================================================= */
+
+.loading-screen{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(66,133,255,.30),transparent 38%),
+    linear-gradient(180deg,#061b3a,#08264d);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:13px;
+}
+
+.loading-logo{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 0 3px rgba(217,146,19,.9);
+}
+
+.loading-logo .logo-letter{
+  font-size:43px;
+}
+
+.spinner{
+  width:25px;
+  height:25px;
+  border:3px solid rgba(255,255,255,.18);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.loading-text{
+  color:#b8c7d9;
+  font-size:12px;
+}
+
+/* =========================================================
+   CREATE CARD
+========================================================= */
+
+.create-card-box{
+  background:#f7faff;
+  border:1px solid #dce8f8;
+  border-radius:17px;
+  padding:14px;
+  margin-top:5px;
+}
+
+.create-card-box h4{
+  font-size:14px;
+  font-weight:900;
+}
+
+.create-card-box p{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.4;
+  margin-top:3px;
+  margin-bottom:13px;
+}
+
+/* =========================================================
+   MOBILE SPECIALS
+========================================================= */
+
+@media(max-width:430px){
+
+  .main{
+    padding-left:11px;
+    padding-right:11px;
+  }
+
+  .hero h1{
+    font-size:27px;
+  }
+
+  .kpi{
+    padding:14px 12px;
+  }
+
+  .kpi-value{
+    font-size:27px;
+  }
+
+  .panel{
+    padding:14px;
+  }
+
+  .section-head>.btn{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .control-grid{
+    gap:6px;
+  }
+
+  .control-stat{
+    padding:10px;
+  }
+
+}
+
+/* =========================================================
+   DESKTOP
 ========================================================= */
 
 @media(min-width:760px){
+
+  .top{
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  .main{
+    padding:22px 20px 50px;
+  }
 
   .kpis{
     grid-template-columns:repeat(4,1fr);
   }
 
-  .control-grid{
+  .action-grid{
     grid-template-columns:repeat(4,1fr);
   }
 
-  .action-grid{
+  .detail-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .control-grid{
     grid-template-columns:repeat(4,1fr);
   }
 
@@ -1041,8 +1257,11 @@ button{
     border-radius:25px;
   }
 
-}
+  .modal-handle{
+    display:none;
+  }
 
+}
 </style>
 </head>
 
@@ -1066,36 +1285,23 @@ button{
       Connectez-vous à votre centre de contrôle.
     </p>
 
-    <div
-      id="loginError"
-      class="login-error"
-    ></div>
+    <div id="loginError" class="login-error"></div>
 
     <form id="loginForm">
 
       <div class="field">
-
-        <label for="email">
-          E-mail
-        </label>
-
+        <label for="email">E-mail</label>
         <input
           id="email"
           type="email"
-          autocomplete="username"
+          autocomplete="email"
           required
           placeholder="Votre adresse e-mail"
         >
-
       </div>
 
-
       <div class="field">
-
-        <label for="password">
-          Mot de passe
-        </label>
-
+        <label for="password">Mot de passe</label>
         <input
           id="password"
           type="password"
@@ -1103,9 +1309,7 @@ button{
           required
           placeholder="Votre mot de passe"
         >
-
       </div>
-
 
       <button
         id="loginButton"
@@ -1115,15 +1319,27 @@ button{
         Se connecter
       </button>
 
-      <div
-        id="loginLoading"
-        class="login-loading"
-      >
-        Vérification de la session…
-      </div>
-
     </form>
 
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<section id="loadingScreen" class="loading-screen hidden">
+
+  <div class="loading-logo">
+    <div class="logo-letter">G</div>
+  </div>
+
+  <div class="spinner"></div>
+
+  <div class="loading-text">
+    Connexion au Control Center…
   </div>
 
 </section>
@@ -1133,10 +1349,7 @@ button{
      APP
 ========================================================= -->
 
-<div
-  id="adminApp"
-  class="app hidden"
->
+<div id="adminApp" class="app hidden">
 
   <header class="top">
 
@@ -1151,19 +1364,16 @@ button{
           </div>
 
           <div>
-
             <div class="brand-name">
               Smart Review
             </div>
 
             <div class="brand-sub">
-              Control Center
+              CONTROL CENTER
             </div>
-
           </div>
 
         </div>
-
 
         <button
           id="logoutButton"
@@ -1174,7 +1384,6 @@ button{
         </button>
 
       </div>
-
 
       <div class="hero">
 
@@ -1187,43 +1396,29 @@ button{
         </h1>
 
         <p>
-          Gérez vos établissements, cartes et performances.
+          Votre système, vos établissements, vos cartes.
         </p>
 
       </div>
-
 
       <div class="nav-wrap">
 
         <nav class="nav">
 
-          <button
-            data-view="dashboard"
-            class="active"
-            type="button"
-          >
+          <button data-view="dashboard" class="active">
             ⚡ Centre
           </button>
 
-          <button
-            data-view="businesses"
-            type="button"
-          >
+          <button data-view="businesses">
             🏢 Établissements
           </button>
 
-          <button
-            data-view="cards"
-            type="button"
-          >
+          <button data-view="cards">
             💳 Cartes
           </button>
 
-          <button
-            data-view="analytics"
-            type="button"
-          >
-            📊 Statistiques
+          <button data-view="analytics">
+            📊 Stats
           </button>
 
         </nav>
@@ -1237,42 +1432,28 @@ button{
 
   <main class="main">
 
-    <div
-      id="status"
-      class="status"
-    ></div>
+    <div id="status" class="status"></div>
 
 
     <!-- =====================================================
          DASHBOARD
     ===================================================== -->
 
-    <section
-      id="view-dashboard"
-      class="view active"
-    >
+    <section id="view-dashboard" class="view active">
 
       <div class="section-head">
 
         <div>
-
-          <h2>
-            Vue générale
-          </h2>
-
-          <p>
-            Votre système Smart Review en un coup d'œil.
-          </p>
-
+          <h2>Vue générale</h2>
+          <p>Tout votre système en un coup d'œil.</p>
         </div>
-
 
         <button
           id="refreshButton"
           class="btn btn-soft"
           type="button"
         >
-          🔄 Actualiser
+          🔄
         </button>
 
       </div>
@@ -1281,82 +1462,27 @@ button{
       <div class="kpis">
 
         <div class="kpi">
-
-          <div class="kpi-label">
-            Établissements
-          </div>
-
-          <div
-            id="kpiBusinesses"
-            class="kpi-value"
-          >
-            —
-          </div>
-
-          <div class="kpi-note">
-            enregistrés
-          </div>
-
+          <div class="kpi-label">Établissements</div>
+          <div id="kpiBusinesses" class="kpi-value">—</div>
+          <div class="kpi-note">enregistrés</div>
         </div>
 
-
         <div class="kpi">
-
-          <div class="kpi-label">
-            Cartes actives
-          </div>
-
-          <div
-            id="kpiCards"
-            class="kpi-value"
-          >
-            —
-          </div>
-
-          <div class="kpi-note">
-            opérationnelles
-          </div>
-
+          <div class="kpi-label">Cartes actives</div>
+          <div id="kpiCards" class="kpi-value">—</div>
+          <div class="kpi-note">opérationnelles</div>
         </div>
 
-
         <div class="kpi">
-
-          <div class="kpi-label">
-            Scans
-          </div>
-
-          <div
-            id="kpiScans"
-            class="kpi-value"
-          >
-            —
-          </div>
-
-          <div class="kpi-note">
-            total
-          </div>
-
+          <div class="kpi-label">Scans</div>
+          <div id="kpiScans" class="kpi-value">—</div>
+          <div class="kpi-note">total</div>
         </div>
 
-
         <div class="kpi">
-
-          <div class="kpi-label">
-            Avis
-          </div>
-
-          <div
-            id="kpiRatings"
-            class="kpi-value"
-          >
-            —
-          </div>
-
-          <div class="kpi-note">
-            ratings reçus
-          </div>
-
+          <div class="kpi-label">Ratings</div>
+          <div id="kpiRatings" class="kpi-value">—</div>
+          <div class="kpi-note">reçus</div>
         </div>
 
       </div>
@@ -1364,19 +1490,16 @@ button{
 
       <div class="panel">
 
-        <h3>
-          ⚡ Actions rapides
-        </h3>
+        <h3>⚡ Actions rapides</h3>
 
         <p class="panel-desc">
-          Les actions que vous utiliserez le plus.
+          Les commandes que vous utiliserez le plus.
         </p>
 
         <div class="action-grid">
 
           <button
             class="btn btn-primary"
-            type="button"
             onclick="openCreateBusiness()"
           >
             ＋ Établissement
@@ -1384,26 +1507,23 @@ button{
 
           <button
             class="btn btn-blue"
-            type="button"
             onclick="openCreateCardPicker()"
           >
-            ＋ Nouvelle carte
+            ＋ Carte
           </button>
 
           <button
             class="btn btn-soft"
-            type="button"
             onclick="switchView('businesses')"
           >
-            🏢 Gérer les établissements
+            🏢 Entreprises
           </button>
 
           <button
             class="btn btn-soft"
-            type="button"
             onclick="switchView('cards')"
           >
-            💳 Gérer les cartes
+            💳 Toutes les cartes
           </button>
 
         </div>
@@ -1413,14 +1533,12 @@ button{
 
       <div class="panel">
 
-        <h3>
-          🧠 État du système
-        </h3>
+        <h3>🧠 État du système</h3>
 
         <p
           id="systemSummary"
           class="panel-desc"
-          style="margin-top:9px;"
+          style="margin-top:8px;"
         >
           Analyse en cours…
         </p>
@@ -1430,26 +1548,16 @@ button{
 
       <div class="panel">
 
+        <h3>🏢 Établissements</h3>
+
+        <p class="panel-desc">
+          Un établissement peut contenir plusieurs cartes.
+        </p>
+
         <div
-          class="section-head"
-          style="margin-bottom:7px;"
-        >
-
-          <div>
-
-            <h3>
-              🏢 Vos établissements
-            </h3>
-
-            <p class="panel-desc">
-              Chaque établissement peut posséder plusieurs cartes.
-            </p>
-
-          </div>
-
-        </div>
-
-        <div id="dashboardBusinesses"></div>
+          id="dashboardBusinesses"
+          style="margin-top:11px;"
+        ></div>
 
       </div>
 
@@ -1460,30 +1568,18 @@ button{
          BUSINESSES
     ===================================================== -->
 
-    <section
-      id="view-businesses"
-      class="view"
-    >
+    <section id="view-businesses" class="view">
 
       <div class="section-head">
 
         <div>
-
-          <h2>
-            Établissements
-          </h2>
-
-          <p>
-            Gérez vos établissements et leurs cartes.
-          </p>
-
+          <h2>Établissements</h2>
+          <p>Chaque entreprise et toutes ses cartes.</p>
         </div>
-
 
         <button
           class="btn btn-primary"
           style="width:auto;"
-          type="button"
           onclick="openCreateBusiness()"
         >
           ＋ Ajouter
@@ -1491,19 +1587,14 @@ button{
 
       </div>
 
-
       <div class="search">
-
         <span>🔎</span>
-
         <input
           id="businessSearch"
           type="search"
-          placeholder="Rechercher un établissement..."
+          placeholder="Rechercher..."
         >
-
       </div>
-
 
       <div id="businessList"></div>
 
@@ -1514,30 +1605,18 @@ button{
          CARDS
     ===================================================== -->
 
-    <section
-      id="view-cards"
-      class="view"
-    >
+    <section id="view-cards" class="view">
 
       <div class="section-head">
 
         <div>
-
-          <h2>
-            Cartes
-          </h2>
-
-          <p>
-            Chaque carte possède ses propres statistiques.
-          </p>
-
+          <h2>Cartes</h2>
+          <p>Chaque carte est indépendante.</p>
         </div>
-
 
         <button
           class="btn btn-primary"
           style="width:auto;"
-          type="button"
           onclick="openCreateCardPicker()"
         >
           ＋ Carte
@@ -1545,19 +1624,14 @@ button{
 
       </div>
 
-
       <div class="search">
-
         <span>🔎</span>
-
         <input
           id="cardSearch"
           type="search"
           placeholder="Code ou établissement..."
         >
-
       </div>
-
 
       <div id="globalCardList"></div>
 
@@ -1568,74 +1642,63 @@ button{
          ANALYTICS
     ===================================================== -->
 
-    <section
-      id="view-analytics"
-      class="view"
-    >
+    <section id="view-analytics" class="view">
 
       <div class="section-head">
 
         <div>
-
-          <h2>
-            Statistiques
-          </h2>
-
-          <p>
-            Vue globale des performances.
-          </p>
-
+          <h2>Statistiques</h2>
+          <p>Performance globale de Smart Review.</p>
         </div>
 
       </div>
-
 
       <div class="kpis">
 
         <div class="kpi">
           <div class="kpi-label">1★</div>
-          <div
-            id="rating1"
-            class="kpi-value"
-          >0</div>
+          <div id="rating1" class="kpi-value">0</div>
         </div>
 
         <div class="kpi">
           <div class="kpi-label">2★</div>
-          <div
-            id="rating2"
-            class="kpi-value"
-          >0</div>
+          <div id="rating2" class="kpi-value">0</div>
         </div>
 
         <div class="kpi">
           <div class="kpi-label">3★</div>
-          <div
-            id="rating3"
-            class="kpi-value"
-          >0</div>
+          <div id="rating3" class="kpi-value">0</div>
         </div>
 
         <div class="kpi">
           <div class="kpi-label">4★</div>
-          <div
-            id="rating4"
-            class="kpi-value"
-          >0</div>
+          <div id="rating4" class="kpi-value">0</div>
         </div>
 
       </div>
 
-
       <div class="panel">
 
-        <h3>
-          ⭐ Distribution des avis
-        </h3>
+        <h3>⭐ Distribution des avis</h3>
 
         <div
           id="globalRatingBars"
           class="rating-grid"
+        ></div>
+
+      </div>
+
+      <div class="panel">
+
+        <h3>🏆 Meilleures cartes</h3>
+
+        <p class="panel-desc">
+          Classement basé sur les ratings disponibles.
+        </p>
+
+        <div
+          id="topCards"
+          style="margin-top:10px;"
         ></div>
 
       </div>
@@ -1651,12 +1714,11 @@ button{
      MODAL
 ========================================================= -->
 
-<div
-  id="modal"
-  class="modal"
->
+<div id="modal" class="modal">
 
   <div class="modal-box">
+
+    <div class="modal-handle"></div>
 
     <div class="modal-head">
 
@@ -1718,10 +1780,8 @@ let dashboardData = {
 };
 
 let selectedCardId = null;
-
-let isBooting = false;
-let isLoading = false;
-let authInitialized = false;
+let authBooted = false;
+let loadingData = false;
 
 
 /* =========================================================
@@ -1734,6 +1794,9 @@ const loginScreen =
 const adminApp =
   document.getElementById("adminApp");
 
+const loadingScreen =
+  document.getElementById("loadingScreen");
+
 const loginForm =
   document.getElementById("loginForm");
 
@@ -1742,9 +1805,6 @@ const loginButton =
 
 const loginError =
   document.getElementById("loginError");
-
-const loginLoading =
-  document.getElementById("loginLoading");
 
 const statusBox =
   document.getElementById("status");
@@ -1763,10 +1823,7 @@ const modalBody =
    STATUS
 ========================================================= */
 
-function showStatus(
-  message,
-  type="info"
-){
+function showStatus(message,type="info"){
 
   statusBox.textContent =
     message;
@@ -1776,220 +1833,195 @@ function showStatus(
 
 }
 
-
 function clearStatus(){
 
-  statusBox.textContent = "";
-
-  statusBox.className =
-    "status";
+  statusBox.textContent="";
+  statusBox.className="status";
 
 }
 
 
 /* =========================================================
-   LOGIN UI
+   LOADING
 ========================================================= */
 
-function showLogin(){
+function showLoading(message="Connexion au Control Center…"){
 
-  loginScreen.style.display =
-    "flex";
+  document.querySelector(".loading-text")
+    .textContent=message;
 
-  adminApp.classList.add(
-    "hidden"
-  );
+  loadingScreen.classList.remove("hidden");
 
 }
 
+function hideLoading(){
 
-function hideLogin(){
-
-  loginScreen.style.display =
-    "none";
-
-}
-
-
-function showLoginError(
-  message
-){
-
-  loginError.textContent =
-    message;
-
-  loginError.classList.add(
-    "show"
-  );
-
-}
-
-
-function clearLoginError(){
-
-  loginError.textContent =
-    "";
-
-  loginError.classList.remove(
-    "show"
-  );
+  loadingScreen.classList.add("hidden");
 
 }
 
 
 /* =========================================================
-   AUTH — SINGLE SOURCE OF TRUTH
+   AUTH
+   IMPORTANT:
+   We do not call showAdmin() twice during sign-in.
 ========================================================= */
 
-async function getCurrentSession(){
+async function getCurrentUser(){
 
   const {
     data,
     error
   } =
-    await supabaseClient.auth.getSession();
+    await supabaseClient.auth.getUser();
 
   if(error){
 
-    throw error;
+    console.error(error);
+    return null;
 
   }
 
-  return data.session || null;
+  return data.user || null;
 
 }
 
 
-/*
-  IMPORTANT:
-
-  We deliberately do NOT hide the login screen until
-  dashboard loading has succeeded.
-
-  This prevents the old bug where the login disappeared
-  while the dashboard was still failing.
-*/
-
 async function enterAdmin(){
 
-  if(isBooting){
-
+  if(loadingData){
     return;
-
   }
 
-  isBooting = true;
+  loadingData=true;
 
-  clearLoginError();
+  loginScreen.style.display="none";
+  adminApp.classList.remove("hidden");
 
-  loginLoading.classList.add(
-    "show"
+  showLoading(
+    "Chargement de votre Control Center…"
   );
 
   try{
 
-    const session =
-      await getCurrentSession();
-
-    if(!session){
-
-      showLogin();
-
-      return;
-
-    }
-
-
-    /*
-      First load the dashboard.
-
-      If this fails, the login screen remains available
-      instead of leaving the user with a blank screen.
-    */
-
     await loadEverything();
-
-
-    /*
-      Only AFTER successful loading:
-      switch from login to application.
-    */
-
-    hideLogin();
-
-    adminApp.classList.remove(
-      "hidden"
-    );
 
   }
 
   catch(error){
 
-    console.error(
-      "ADMIN BOOT ERROR:",
-      error
-    );
-
-    showLogin();
-
-    showLoginError(
-      "La connexion a été établie, mais le centre de contrôle n'a pas pu être chargé.\n\n" +
-      error.message
-    );
+    console.error(error);
 
   }
 
   finally{
 
-    isBooting = false;
-
-    loginLoading.classList.remove(
-      "show"
-    );
+    hideLoading();
+    loadingData=false;
 
   }
 
 }
 
 
-/* =========================================================
-   AUTH STATE LISTENER
-========================================================= */
+async function checkSession(){
 
-supabaseClient.auth.onAuthStateChange(
-  (
-    event,
-    session
-  ) => {
+  try{
 
-    console.log(
-      "AUTH EVENT:",
-      event,
-      !!session
+    showLoading(
+      "Vérification de la session…"
     );
 
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.getSession();
 
-    /*
-      INITIAL_SESSION is handled by boot().
-      We don't call enterAdmin() here because that
-      previously caused duplicate boot races.
-    */
+    if(error){
 
-    if(event === "SIGNED_OUT"){
-
-      showLogin();
-
-      clearStatus();
-
-      return;
+      throw error;
 
     }
 
+    if(data.session){
 
-    /*
-      After an explicit successful sign-in,
-      the submit handler controls the transition.
-    */
+      await enterAdmin();
+
+    }
+
+    else{
+
+      hideLoading();
+
+      loginScreen.style.display="flex";
+      adminApp.classList.add("hidden");
+
+    }
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    hideLoading();
+
+    loginScreen.style.display="flex";
+    adminApp.classList.add("hidden");
+
+  }
+
+  finally{
+
+    authBooted=true;
+
+  }
+
+}
+
+
+/*
+  This listener handles future session changes.
+
+  The important part:
+  signInWithPassword itself does NOT call enterAdmin().
+  The auth event handles the transition once.
+*/
+
+supabaseClient.auth.onAuthStateChange(
+  (event,session)=>{
+
+    if(!authBooted){
+      return;
+    }
+
+    if(
+      session &&
+      (
+        event === "SIGNED_IN" ||
+        event === "INITIAL_SESSION" ||
+        event === "TOKEN_REFRESHED"
+      )
+    ){
+
+      setTimeout(
+        () => enterAdmin(),
+        0
+      );
+
+    }
+
+    if(
+      !session &&
+      event === "SIGNED_OUT"
+    ){
+
+      loginScreen.style.display="flex";
+      adminApp.classList.add("hidden");
+      hideLoading();
+
+    }
 
   }
 );
@@ -2001,82 +2033,31 @@ supabaseClient.auth.onAuthStateChange(
 
 loginForm.addEventListener(
   "submit",
-  async event => {
+  async event=>{
 
     event.preventDefault();
 
-    if(isBooting){
-
-      return;
-
-    }
-
-    clearLoginError();
-
-
-    const emailInput =
-      document.getElementById(
-        "email"
-      );
-
-    const passwordInput =
-      document.getElementById(
-        "password"
-      );
-
+    loginError.classList.remove("show");
 
     const email =
-      emailInput.value.trim();
+      document
+        .getElementById("email")
+        .value
+        .trim();
 
     const password =
-      passwordInput.value;
+      document
+        .getElementById("password")
+        .value;
 
+    loginButton.disabled=true;
+    loginButton.textContent="Connexion…";
 
-    if(!email){
-
-      showLoginError(
-        "Veuillez entrer votre adresse e-mail."
-      );
-
-      emailInput.focus();
-
-      return;
-
-    }
-
-
-    if(!password){
-
-      showLoginError(
-        "Veuillez entrer votre mot de passe."
-      );
-
-      passwordInput.focus();
-
-      return;
-
-    }
-
-
-    isBooting = true;
-
-    loginButton.disabled =
-      true;
-
-    loginButton.textContent =
-      "Connexion…";
-
-    loginLoading.classList.add(
-      "show"
+    showLoading(
+      "Authentification…"
     );
 
-
     try{
-
-      console.log(
-        "LOGIN: attempting sign in..."
-      );
-
 
       const {
         data,
@@ -2087,105 +2068,54 @@ loginForm.addEventListener(
           password
         });
 
-
       if(error){
-
-        console.error(
-          "LOGIN ERROR:",
-          error
-        );
 
         throw error;
 
       }
 
-
-      if(!data?.session){
+      if(!data.session){
 
         throw new Error(
-          "Supabase n'a pas retourné de session après la connexion."
+          "Aucune session n'a été créée."
         );
 
       }
 
-
-      console.log(
-        "LOGIN: authentication successful."
-      );
-
-
       /*
-        Do NOT clear the password before the entire
-        dashboard transition succeeds.
+        Do not clear the form before the UI transition.
+        This prevents the confusing disappearing-fields effect.
       */
 
-      await loadEverything();
+      loginScreen.style.display="none";
+      adminApp.classList.remove("hidden");
 
+      await enterAdmin();
 
-      /*
-        Only now do we leave the login page.
-      */
-
-      hideLogin();
-
-      adminApp.classList.remove(
-        "hidden"
-      );
-
-
-      passwordInput.value = "";
-
-      clearLoginError();
-
-
-      console.log(
-        "LOGIN: dashboard ready."
-      );
+      document
+        .getElementById("password")
+        .value="";
 
     }
 
     catch(error){
 
-      console.error(
-        "LOGIN FLOW ERROR:",
-        error
-      );
+      console.error(error);
 
+      hideLoading();
 
-      showLogin();
+      loginError.textContent =
+        "Connexion refusée.\n\n" +
+        error.message;
 
-
-      showLoginError(
-        "Connexion impossible.\n\n" +
-        (error?.message ||
-          "Une erreur inconnue s'est produite.")
-      );
-
-
-      /*
-        Keep the email visible.
-        Clear only the password for security.
-      */
-
-      passwordInput.value = "";
-
-      emailInput.focus();
+      loginError.classList.add("show");
 
     }
 
     finally{
 
-      isBooting = false;
-
-      loginButton.disabled =
-        false;
-
-      loginButton.textContent =
-        "Se connecter";
-
-      loginLoading.classList.remove(
-        "show"
-      );
+      loginButton.disabled=false;
+      loginButton.textContent="Se connecter";
 
     }
 
@@ -2201,7 +2131,7 @@ document
   .getElementById("logoutButton")
   .addEventListener(
     "click",
-    async () => {
+    async()=>{
 
       try{
 
@@ -2211,16 +2141,7 @@ document
 
       catch(error){
 
-        console.error(
-          "LOGOUT ERROR:",
-          error
-        );
-
-        showStatus(
-          "Erreur lors de la déconnexion.\n\n" +
-          error.message,
-          "error"
-        );
+        console.error(error);
 
       }
 
@@ -2232,47 +2153,31 @@ document
    NAVIGATION
 ========================================================= */
 
-function switchView(
-  view
-){
+function switchView(view){
 
   document
     .querySelectorAll(".view")
-    .forEach(el => {
-
-      el.classList.remove(
-        "active"
-      );
-
+    .forEach(el=>{
+      el.classList.remove("active");
     });
-
 
   const target =
     document.getElementById(
       "view-" + view
     );
 
-
   if(target){
-
-    target.classList.add(
-      "active"
-    );
-
+    target.classList.add("active");
   }
-
 
   document
     .querySelectorAll(".nav button")
-    .forEach(button => {
-
+    .forEach(button=>{
       button.classList.toggle(
         "active",
-        button.dataset.view === view
+        button.dataset.view===view
       );
-
     });
-
 
   window.scrollTo({
     top:0,
@@ -2284,14 +2189,13 @@ function switchView(
 
 document
   .querySelectorAll(".nav button")
-  .forEach(button => {
+  .forEach(button=>{
 
     button.addEventListener(
       "click",
-      () =>
-        switchView(
-          button.dataset.view
-        )
+      ()=>switchView(
+        button.dataset.view
+      )
     );
 
   });
@@ -2303,151 +2207,97 @@ document
 
 async function loadEverything(){
 
-  if(isLoading){
-
-    return;
-
-  }
-
-  isLoading = true;
-
   clearStatus();
 
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      "get_admin_dashboard_data"
+    );
 
-  try{
+  if(error){
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.rpc(
-        "get_admin_dashboard_data"
-      );
-
-
-    if(error){
-
-      throw new Error(
-        "Impossible de charger les données du tableau de bord.\n\n" +
-        error.message
-      );
-
-    }
-
-
-    dashboardData.businesses =
-      Array.isArray(data?.businesses)
-        ? data.businesses
-        : [];
-
-
-    dashboardData.cards =
-      Array.isArray(data?.cards)
-        ? data.cards
-        : [];
-
-
-    const {
-      data:stats,
-      error:statsError
-    } =
-      await supabaseClient.rpc(
-        "get_admin_card_stats"
-      );
-
-
-    if(statsError){
-
-      throw new Error(
-        "Impossible de charger les statistiques des cartes.\n\n" +
-        statsError.message
-      );
-
-    }
-
-
-    dashboardData.stats =
-      Array.isArray(stats)
-        ? stats
-        : [];
-
-
-    mergeStats();
-
-    renderAll();
-
-
-    console.log(
-      "DASHBOARD LOADED:",
-      dashboardData
+    throw new Error(
+      "Impossible de charger les données.\n\n" +
+      error.message
     );
 
   }
 
-  finally{
+  dashboardData.businesses =
+    data?.businesses || [];
 
-    isLoading = false;
+  dashboardData.cards =
+    data?.cards || [];
+
+
+  const {
+    data:stats,
+    error:statsError
+  } =
+    await supabaseClient.rpc(
+      "get_admin_card_stats"
+    );
+
+  if(statsError){
+
+    throw new Error(
+      "Impossible de charger les statistiques des cartes.\n\n" +
+      statsError.message
+    );
 
   }
+
+  dashboardData.stats =
+    stats || [];
+
+  mergeStats();
+  renderAll();
 
 }
 
 
 /* =========================================================
-   MERGE CARD STATS
+   MERGE STATS
 ========================================================= */
 
 function mergeStats(){
 
   dashboardData.cards =
-    dashboardData.cards.map(
-      card => {
+    dashboardData.cards.map(card=>{
 
-        const stats =
-          dashboardData.stats.find(
-            item =>
-              item.card_id === card.id
-          );
+      const stats =
+        dashboardData.stats.find(
+          item =>
+            item.card_id === card.id
+        );
 
+      return {
+        ...card,
 
-        return {
+        total_scans:
+          Number(stats?.total_scans || 0),
 
-          ...card,
+        rating_1:
+          Number(stats?.rating_1 || 0),
 
-          total_scans:
-            Number(
-              stats?.total_scans || 0
-            ),
+        rating_2:
+          Number(stats?.rating_2 || 0),
 
-          rating_1:
-            Number(
-              stats?.rating_1 || 0
-            ),
+        rating_3:
+          Number(stats?.rating_3 || 0),
 
-          rating_2:
-            Number(
-              stats?.rating_2 || 0
-            ),
+        rating_4:
+          Number(stats?.rating_4 || 0),
 
-          rating_3:
-            Number(
-              stats?.rating_3 || 0
-            ),
+        rating_5:
+          Number(stats?.rating_5 || 0)
 
-          rating_4:
-            Number(
-              stats?.rating_4 || 0
-            ),
+      };
 
-          rating_5:
-            Number(
-              stats?.rating_5 || 0
-            )
-
-        };
-
-      }
-    );
+    });
 
 }
 
@@ -2456,9 +2306,7 @@ function mergeStats(){
    HELPERS
 ========================================================= */
 
-function getBusiness(
-  businessId
-){
+function getBusiness(businessId){
 
   return dashboardData.businesses.find(
     business =>
@@ -2467,10 +2315,7 @@ function getBusiness(
 
 }
 
-
-function getBusinessCards(
-  businessId
-){
+function getBusinessCards(businessId){
 
   return dashboardData.cards.filter(
     card =>
@@ -2479,10 +2324,7 @@ function getBusinessCards(
 
 }
 
-
-function totalRatings(
-  card
-){
+function totalRatings(card){
 
   return (
     card.rating_1 +
@@ -2494,21 +2336,14 @@ function totalRatings(
 
 }
 
-
-function averageRating(
-  card
-){
+function averageRating(card){
 
   const total =
     totalRatings(card);
 
-
   if(!total){
-
     return "—";
-
   }
-
 
   const score =
     (
@@ -2519,81 +2354,106 @@ function averageRating(
       card.rating_5 * 5
     ) / total;
 
-
   return score.toFixed(1);
 
 }
 
+function conversionRate(card){
 
-function cardStatus(
-  card
-){
+  if(!card.total_scans){
+    return "0%";
+  }
+
+  const rate =
+    (
+      totalRatings(card) /
+      card.total_scans
+    ) * 100;
+
+  return rate.toFixed(1) + "%";
+
+}
+
+function cardHealth(card){
+
+  const scans =
+    Number(card.total_scans || 0);
+
+  const ratings =
+    totalRatings(card);
+
+  if(!card.active){
+    return 0;
+  }
+
+  if(scans===0){
+    return 8;
+  }
+
+  const conversion =
+    ratings / scans;
+
+  let score=45;
+
+  score += Math.min(
+    scans / 20,
+    30
+  );
+
+  score += Math.min(
+    conversion * 100,
+    25
+  );
+
+  return Math.min(
+    Math.round(score),
+    100
+  );
+
+}
+
+function cardStatus(card){
 
   if(card.active){
 
     return `
       <span class="badge active">
-        ● Active
+        ● ACTIVE
       </span>
     `;
 
   }
 
-
   return `
     <span class="badge paused">
-      ● Paused
+      ● PAUSED
     </span>
   `;
 
 }
 
+function escapeHtml(value){
 
-function escapeHtml(
-  value
-){
-
-  return String(
-    value ?? ""
-  )
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
 /* =========================================================
-   RENDER ALL
+   RENDER
 ========================================================= */
 
 function renderAll(){
 
   renderKPIs();
-
   renderDashboardBusinesses();
-
   renderBusinesses();
-
   renderCards();
-
   renderAnalytics();
 
 }
@@ -2608,61 +2468,49 @@ function renderKPIs(){
   const businesses =
     dashboardData.businesses.length;
 
-
   const activeCards =
     dashboardData.cards.filter(
-      card =>
-        card.active
+      card => card.active
     ).length;
-
 
   const scans =
     dashboardData.cards.reduce(
-      (sum,card) =>
-        sum + card.total_scans,
+      (sum,card)=>
+        sum + Number(card.total_scans || 0),
       0
     );
 
-
   const ratings =
     dashboardData.cards.reduce(
-      (sum,card) =>
+      (sum,card)=>
         sum + totalRatings(card),
       0
     );
 
-
   document.getElementById(
     "kpiBusinesses"
-  ).textContent =
-    businesses;
-
+  ).textContent=businesses;
 
   document.getElementById(
     "kpiCards"
-  ).textContent =
-    activeCards;
-
+  ).textContent=activeCards;
 
   document.getElementById(
     "kpiScans"
-  ).textContent =
-    scans;
-
+  ).textContent=scans;
 
   document.getElementById(
     "kpiRatings"
-  ).textContent =
-    ratings;
+  ).textContent=ratings;
 
 
   document.getElementById(
     "systemSummary"
   ).textContent =
-    `${businesses} établissement(s), ` +
-    `${dashboardData.cards.length} carte(s), ` +
-    `${activeCards} carte(s) active(s), ` +
-    `${scans} scan(s) et ` +
+    `${businesses} établissement(s) · ` +
+    `${dashboardData.cards.length} carte(s) · ` +
+    `${activeCards} active(s) · ` +
+    `${scans} scan(s) · ` +
     `${ratings} rating(s).`;
 
 }
@@ -2672,28 +2520,42 @@ function renderKPIs(){
    BUSINESS HTML
 ========================================================= */
 
-function businessHtml(
-  business
-){
+function businessHtml(business){
 
   const cards =
     getBusinessCards(
       business.id
     );
 
-
   const activeCards =
     cards.filter(
-      card =>
-        card.active
+      card=>card.active
     ).length;
+
+  const scans =
+    cards.reduce(
+      (sum,card)=>
+        sum + Number(card.total_scans || 0),
+      0
+    );
+
+  const ratings =
+    cards.reduce(
+      (sum,card)=>
+        sum + totalRatings(card),
+      0
+    );
+
+  const average =
+    cards.length
+      ? businessAverage(cards)
+      : "—";
 
 
   return `
-
     <article
       class="business-card"
-      data-business-id="${escapeHtml(business.id)}"
+      data-business-id="${business.id}"
     >
 
       <div class="business-head">
@@ -2701,7 +2563,6 @@ function businessHtml(
         <div class="business-icon">
           🏢
         </div>
-
 
         <div class="business-main">
 
@@ -2716,10 +2577,34 @@ function businessHtml(
 
         </div>
 
-
         <span class="badge active">
-          ● Online
+          ● ONLINE
         </span>
+
+      </div>
+
+
+      <div class="detail-grid" style="padding:0 15px 13px;margin-top:0;">
+
+        <div class="detail-box">
+          <span>Scans</span>
+          <b>${scans}</b>
+        </div>
+
+        <div class="detail-box">
+          <span>Ratings</span>
+          <b>${ratings}</b>
+        </div>
+
+        <div class="detail-box">
+          <span>Moyenne</span>
+          <b>⭐ ${average}</b>
+        </div>
+
+        <div class="detail-box">
+          <span>Cartes</span>
+          <b>${cards.length}</b>
+        </div>
 
       </div>
 
@@ -2728,16 +2613,13 @@ function businessHtml(
 
         <button
           class="btn btn-blue"
-          type="button"
           onclick="openEditBusiness('${business.id}')"
         >
           ✏️ Modifier
         </button>
 
-
         <button
           class="btn btn-primary"
-          type="button"
           onclick="openAddCard('${business.id}')"
         >
           ＋ Carte
@@ -2751,25 +2633,15 @@ function businessHtml(
         ${
           cards.length
           ?
-          cards
-            .map(cardHtml)
-            .join("")
+          cards.map(cardHtml).join("")
           :
           `
             <div class="empty">
-
-              <div class="empty-icon">
-                💳
-              </div>
-
-              <h3>
-                Aucune carte
-              </h3>
-
+              <div class="empty-icon">💳</div>
+              <h3>Aucune carte</h3>
               <p>
                 Ajoutez la première carte de cet établissement.
               </p>
-
             </div>
           `
         }
@@ -2777,8 +2649,41 @@ function businessHtml(
       </div>
 
     </article>
-
   `;
+
+}
+
+
+function businessAverage(cards){
+
+  let total=0;
+  let weighted=0;
+
+  cards.forEach(card=>{
+
+    const ratings =
+      totalRatings(card);
+
+    total += ratings;
+
+    weighted +=
+      (
+        card.rating_1 * 1 +
+        card.rating_2 * 2 +
+        card.rating_3 * 3 +
+        card.rating_4 * 4 +
+        card.rating_5 * 5
+      );
+
+  });
+
+  if(!total){
+    return "—";
+  }
+
+  return (
+    weighted / total
+  ).toFixed(1);
 
 }
 
@@ -2787,12 +2692,16 @@ function businessHtml(
    CARD HTML
 ========================================================= */
 
-function cardHtml(
-  card
-){
+function cardHtml(card){
+
+  const health =
+    cardHealth(card);
+
+  const conversion =
+    conversionRate(card);
+
 
   return `
-
     <div class="card-row">
 
       <div class="card-top">
@@ -2809,42 +2718,68 @@ function cardHtml(
       <div class="card-stats">
 
         <div class="mini-stat">
-
-          <b>
-            ${card.total_scans}
-          </b>
-
-          <span>
-            Scans
-          </span>
-
+          <b>${card.total_scans}</b>
+          <span>Scans</span>
         </div>
-
 
         <div class="mini-stat">
-
-          <b>
-            ${totalRatings(card)}
-          </b>
-
-          <span>
-            Avis
-          </span>
-
+          <b>${totalRatings(card)}</b>
+          <span>Avis</span>
         </div>
-
 
         <div class="mini-stat">
+          <b>⭐ ${averageRating(card)}</b>
+          <span>Moyenne</span>
+        </div>
 
-          <b>
-            ⭐ ${averageRating(card)}
-          </b>
+      </div>
+
+
+      <div class="performance">
+
+        <div class="performance-head">
 
           <span>
-            Moyenne
+            Santé de la carte
+          </span>
+
+          <span>
+            ${health}%
           </span>
 
         </div>
+
+        <div class="performance-track">
+
+          <div
+            class="performance-fill"
+            style="width:${health}%"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        style="
+          display:flex;
+          justify-content:space-between;
+          gap:8px;
+          margin-top:8px;
+          color:var(--muted);
+          font-size:9px;
+          font-weight:800;
+        "
+      >
+
+        <span>
+          Conversion ${conversion}
+        </span>
+
+        <span>
+          ${card.active ? "En service" : "En pause"}
+        </span>
 
       </div>
 
@@ -2853,25 +2788,20 @@ function cardHtml(
 
         <button
           class="btn btn-blue"
-          type="button"
           onclick="openCardControl('${card.id}')"
         >
           🎛️ Gérer
         </button>
 
-
         <button
           class="btn btn-soft"
-          type="button"
           onclick="openCustomerCard('${escapeHtml(card.card_code)}')"
         >
           🔗 Ouvrir
         </button>
 
-
         <button
           class="btn btn-soft"
-          type="button"
           onclick="copyCardLink('${escapeHtml(card.card_code)}')"
         >
           📋 Copier
@@ -2880,7 +2810,6 @@ function cardHtml(
       </div>
 
     </div>
-
   `;
 
 }
@@ -2897,33 +2826,21 @@ function renderDashboardBusinesses(){
       "dashboardBusinesses"
     );
 
-
   if(!dashboardData.businesses.length){
 
-    box.innerHTML = `
-
+    box.innerHTML=`
       <div class="empty">
-
-        <div class="empty-icon">
-          🏢
-        </div>
-
-        <h3>
-          Aucun établissement
-        </h3>
-
+        <div class="empty-icon">🏢</div>
+        <h3>Aucun établissement</h3>
         <p>
-          Commencez par créer votre premier établissement.
+          Créez votre premier établissement.
         </p>
-
       </div>
-
     `;
 
     return;
 
   }
-
 
   box.innerHTML =
     dashboardData.businesses
@@ -2945,7 +2862,6 @@ function renderBusinesses(){
       "businessList"
     );
 
-
   const query =
     (
       document.getElementById(
@@ -2955,49 +2871,32 @@ function renderBusinesses(){
       .trim()
       .toLowerCase();
 
-
   const businesses =
     dashboardData.businesses.filter(
       business =>
         !query ||
-        String(
-          business.name || ""
-        )
+        String(business.name || "")
           .toLowerCase()
           .includes(query)
     );
 
-
   if(!businesses.length){
 
-    box.innerHTML = `
-
+    box.innerHTML=`
       <div class="panel">
-
         <div class="empty">
-
-          <div class="empty-icon">
-            🔎
-          </div>
-
-          <h3>
-            Aucun résultat
-          </h3>
-
+          <div class="empty-icon">🔎</div>
+          <h3>Aucun résultat</h3>
           <p>
-            Aucun établissement ne correspond à votre recherche.
+            Aucun établissement ne correspond.
           </p>
-
         </div>
-
       </div>
-
     `;
 
     return;
 
   }
-
 
   box.innerHTML =
     businesses
@@ -3018,7 +2917,6 @@ function renderCards(){
       "globalCardList"
     );
 
-
   const query =
     (
       document.getElementById(
@@ -3028,63 +2926,42 @@ function renderCards(){
       .trim()
       .toLowerCase();
 
-
   const cards =
-    dashboardData.cards.filter(
-      card => {
+    dashboardData.cards.filter(card=>{
 
-        const business =
-          getBusiness(
-            card.business_id
-          );
-
-
-        const businessName =
-          business?.name || "";
-
-
-        return (
-          !query ||
-
-          String(
-            card.card_code || ""
-          )
-            .toLowerCase()
-            .includes(query) ||
-
-          businessName
-            .toLowerCase()
-            .includes(query)
+      const business =
+        getBusiness(
+          card.business_id
         );
 
-      }
-    );
+      const businessName =
+        String(
+          business?.name || ""
+        ).toLowerCase();
+
+      return (
+        !query ||
+        String(card.card_code || "")
+          .toLowerCase()
+          .includes(query) ||
+        businessName.includes(query)
+      );
+
+    });
 
 
   if(!cards.length){
 
-    box.innerHTML = `
-
+    box.innerHTML=`
       <div class="panel">
-
         <div class="empty">
-
-          <div class="empty-icon">
-            💳
-          </div>
-
-          <h3>
-            Aucune carte trouvée
-          </h3>
-
+          <div class="empty-icon">💳</div>
+          <h3>Aucune carte trouvée</h3>
           <p>
-            Essayez un autre code ou nom d'établissement.
+            Essayez un autre code ou établissement.
           </p>
-
         </div>
-
       </div>
-
     `;
 
     return;
@@ -3093,129 +2970,112 @@ function renderCards(){
 
 
   box.innerHTML =
-    cards
-      .map(
-        card => {
+    cards.map(card=>{
 
-          const business =
-            getBusiness(
-              card.business_id
-            );
+      const business =
+        getBusiness(
+          card.business_id
+        );
 
+      return `
+        <div class="panel">
 
-          return `
+          <div class="card-top">
 
-            <div class="panel">
+            <div>
 
-              <div class="card-top">
-
-                <div>
-
-                  <div class="card-code">
-                    ${escapeHtml(card.card_code)}
-                  </div>
-
-                  <div
-                    style="
-                      color:var(--muted);
-                      font-size:12px;
-                      margin-top:4px;
-                    "
-                  >
-                    🏢
-                    ${escapeHtml(
-                      business?.name ||
-                      "Établissement inconnu"
-                    )}
-                  </div>
-
-                </div>
-
-                ${cardStatus(card)}
-
+              <div class="card-code">
+                ${escapeHtml(card.card_code)}
               </div>
 
-
-              <div class="card-stats">
-
-                <div class="mini-stat">
-
-                  <b>
-                    ${card.total_scans}
-                  </b>
-
-                  <span>
-                    Scans
-                  </span>
-
-                </div>
-
-
-                <div class="mini-stat">
-
-                  <b>
-                    ${totalRatings(card)}
-                  </b>
-
-                  <span>
-                    Avis
-                  </span>
-
-                </div>
-
-
-                <div class="mini-stat">
-
-                  <b>
-                    ⭐ ${averageRating(card)}
-                  </b>
-
-                  <span>
-                    Moyenne
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="card-row-actions">
-
-                <button
-                  class="btn btn-primary"
-                  type="button"
-                  onclick="openCardControl('${card.id}')"
-                >
-                  🎛️ Control Center
-                </button>
-
-
-                <button
-                  class="btn btn-soft"
-                  type="button"
-                  onclick="openCustomerCard('${escapeHtml(card.card_code)}')"
-                >
-                  🔗 Ouvrir
-                </button>
-
-
-                <button
-                  class="btn btn-soft"
-                  type="button"
-                  onclick="copyCardLink('${escapeHtml(card.card_code)}')"
-                >
-                  📋 Copier
-                </button>
-
+              <div
+                style="
+                  color:var(--muted);
+                  font-size:10px;
+                  margin-top:4px;
+                "
+              >
+                🏢
+                ${escapeHtml(
+                  business?.name ||
+                  "Établissement inconnu"
+                )}
               </div>
 
             </div>
 
-          `;
+            ${cardStatus(card)}
 
-        }
-      )
-      .join("");
+          </div>
+
+
+          <div class="card-stats">
+
+            <div class="mini-stat">
+              <b>${card.total_scans}</b>
+              <span>Scans</span>
+            </div>
+
+            <div class="mini-stat">
+              <b>${totalRatings(card)}</b>
+              <span>Avis</span>
+            </div>
+
+            <div class="mini-stat">
+              <b>⭐ ${averageRating(card)}</b>
+              <span>Moyenne</span>
+            </div>
+
+          </div>
+
+
+          <div class="performance">
+
+            <div class="performance-head">
+              <span>Santé</span>
+              <span>${cardHealth(card)}%</span>
+            </div>
+
+            <div class="performance-track">
+              <div
+                class="performance-fill"
+                style="width:${cardHealth(card)}%"
+              ></div>
+            </div>
+
+          </div>
+
+
+          <div class="card-row-actions">
+
+            <button
+              class="btn btn-primary"
+              onclick="openCardControl('${card.id}')"
+            >
+              🎛️ Control Center
+            </button>
+
+            <button
+              class="btn btn-soft"
+              onclick="openCustomerCard('${escapeHtml(card.card_code)}')"
+            >
+              🔗 Ouvrir
+            </button>
+
+            <button
+              class="btn btn-soft"
+              onclick="copyCardLink('${escapeHtml(card.card_code)}')"
+            >
+              📋 Copier
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+    })
+    .join("");
 
 }
 
@@ -3226,7 +3086,7 @@ function renderCards(){
 
 function renderAnalytics(){
 
-  const totals = {
+  const totals={
     1:0,
     2:0,
     3:0,
@@ -3234,112 +3094,141 @@ function renderAnalytics(){
     5:0
   };
 
+  dashboardData.cards.forEach(card=>{
 
-  dashboardData.cards.forEach(
-    card => {
+    totals[1]+=card.rating_1;
+    totals[2]+=card.rating_2;
+    totals[3]+=card.rating_3;
+    totals[4]+=card.rating_4;
+    totals[5]+=card.rating_5;
 
-      totals[1] +=
-        card.rating_1;
-
-      totals[2] +=
-        card.rating_2;
-
-      totals[3] +=
-        card.rating_3;
-
-      totals[4] +=
-        card.rating_4;
-
-      totals[5] +=
-        card.rating_5;
-
-    }
-  );
+  });
 
 
-  document.getElementById(
-    "rating1"
-  ).textContent =
-    totals[1];
-
-
-  document.getElementById(
-    "rating2"
-  ).textContent =
-    totals[2];
-
-
-  document.getElementById(
-    "rating3"
-  ).textContent =
-    totals[3];
-
-
-  document.getElementById(
-    "rating4"
-  ).textContent =
-    totals[4];
+  document.getElementById("rating1").textContent=totals[1];
+  document.getElementById("rating2").textContent=totals[2];
+  document.getElementById("rating3").textContent=totals[3];
+  document.getElementById("rating4").textContent=totals[4];
 
 
   const total =
-    Object.values(
-      totals
-    )
-      .reduce(
-        (a,b) =>
-          a+b,
-        0
-      );
+    Object.values(totals)
+      .reduce((a,b)=>a+b,0);
 
 
   document.getElementById(
     "globalRatingBars"
   ).innerHTML =
     [5,4,3,2,1]
-      .map(
-        star => {
+      .map(star=>{
 
-          const value =
-            totals[star];
+        const value =
+          totals[star];
 
+        const percent =
+          total
+          ? (value/total)*100
+          : 0;
 
-          const percent =
-            total
-            ? (
-                value /
-                total
-              ) * 100
-            : 0;
+        return `
+          <div class="rating-line">
 
+            <span>${star}★</span>
 
-          return `
+            <div class="rating-track">
 
-            <div class="rating-line">
-
-              <span>
-                ${star}★
-              </span>
-
-              <div class="rating-track">
-
-                <div
-                  class="rating-fill"
-                  style="width:${percent}%"
-                ></div>
-
-              </div>
-
-              <span>
-                ${value}
-              </span>
+              <div
+                class="rating-fill"
+                style="width:${percent}%"
+              ></div>
 
             </div>
 
-          `;
+            <span>${value}</span>
 
-        }
-      )
+          </div>
+        `;
+
+      })
       .join("");
+
+
+  const top =
+    [...dashboardData.cards]
+      .sort(
+        (a,b)=>
+          totalRatings(b) -
+          totalRatings(a)
+      )
+      .slice(0,5);
+
+
+  const topBox =
+    document.getElementById(
+      "topCards"
+    );
+
+
+  if(!top.length){
+
+    topBox.innerHTML=`
+      <div class="empty">
+        <div class="empty-icon">📊</div>
+        <h3>Pas encore de données</h3>
+        <p>
+          Les meilleures cartes apparaîtront ici.
+        </p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  topBox.innerHTML =
+    top.map((card,index)=>{
+
+      const business =
+        getBusiness(
+          card.business_id
+        );
+
+      return `
+        <div
+          class="activity-row"
+          style="cursor:pointer;"
+          onclick="openCardControl('${card.id}')"
+        >
+
+          <div class="activity-icon">
+            ${index===0 ? "🏆" : "💳"}
+          </div>
+
+          <div class="activity-text">
+
+            <b>
+              ${escapeHtml(card.card_code)}
+            </b>
+
+            · ⭐ ${averageRating(card)}
+
+            <div class="activity-time">
+              ${escapeHtml(
+                business?.name ||
+                "Établissement inconnu"
+              )}
+              · ${card.total_scans} scans
+              · ${totalRatings(card)} ratings
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+    })
+    .join("");
 
 }
 
@@ -3349,19 +3238,14 @@ function renderAnalytics(){
 ========================================================= */
 
 document
-  .getElementById(
-    "businessSearch"
-  )
+  .getElementById("businessSearch")
   .addEventListener(
     "input",
     renderBusinesses
   );
 
-
 document
-  .getElementById(
-    "cardSearch"
-  )
+  .getElementById("cardSearch")
   .addEventListener(
     "input",
     renderCards
@@ -3373,25 +3257,18 @@ document
 ========================================================= */
 
 document
-  .getElementById(
-    "refreshButton"
-  )
+  .getElementById("refreshButton")
   .addEventListener(
     "click",
-    async () => {
+    async()=>{
 
       const button =
         document.getElementById(
           "refreshButton"
         );
 
-
-      button.disabled =
-        true;
-
-      button.textContent =
-        "⏳ Actualisation…";
-
+      button.disabled=true;
+      button.textContent="⏳";
 
       try{
 
@@ -3415,11 +3292,8 @@ document
 
       finally{
 
-        button.disabled =
-          false;
-
-        button.textContent =
-          "🔄 Actualiser";
+        button.disabled=false;
+        button.textContent="🔄";
 
       }
 
@@ -3431,21 +3305,21 @@ document
    CUSTOMER URL
 ========================================================= */
 
-function getCustomerUrl(
-  code
-){
+function getCustomerUrl(code){
 
-  const baseUrl =
-    window.location.origin +
-    window.location.pathname
+  const currentPath =
+    window.location.pathname;
+
+  const basePath =
+    currentPath
       .replace(
-        /admin\.html.*$/i,
+        /[^/]*$/,
         ""
       );
 
-
   return (
-    baseUrl +
+    window.location.origin +
+    basePath +
     "index.html?card=" +
     encodeURIComponent(code)
   );
@@ -3457,9 +3331,7 @@ function getCustomerUrl(
    CUSTOMER
 ========================================================= */
 
-function openCustomerCard(
-  code
-){
+function openCustomerCard(code){
 
   window.open(
     getCustomerUrl(code),
@@ -3473,20 +3345,16 @@ function openCustomerCard(
    COPY
 ========================================================= */
 
-async function copyCardLink(
-  code
-){
+async function copyCardLink(code){
 
   const url =
     getCustomerUrl(code);
-
 
   try{
 
     await navigator.clipboard.writeText(
       url
     );
-
 
     showStatus(
       "Lien de la carte copié.",
@@ -3511,54 +3379,33 @@ async function copyCardLink(
    MODAL
 ========================================================= */
 
-function openModal(
-  title,
-  body
-){
+function openModal(title,body){
 
-  modalTitle.textContent =
-    title;
-
-  modalBody.innerHTML =
-    body;
-
-  modal.classList.add(
-    "show"
-  );
+  modalTitle.textContent=title;
+  modalBody.innerHTML=body;
+  modal.classList.add("show");
 
 }
-
 
 function closeModal(){
 
-  modal.classList.remove(
-    "show"
-  );
+  modal.classList.remove("show");
 
 }
 
-
 document
-  .getElementById(
-    "modalClose"
-  )
+  .getElementById("modalClose")
   .addEventListener(
     "click",
     closeModal
   );
 
-
 modal.addEventListener(
   "click",
-  event => {
+  event=>{
 
-    if(
-      event.target ===
-      modal
-    ){
-
+    if(event.target===modal){
       closeModal();
-
     }
 
   }
@@ -3574,29 +3421,21 @@ function openCreateBusiness(){
   openModal(
     "＋ Nouvel établissement",
     `
-
       <form id="businessCreateForm">
 
         <div class="field">
-
-          <label>
-            Nom de l'établissement
-          </label>
+          <label>Nom de l'établissement</label>
 
           <input
             id="newBusinessName"
             required
             placeholder="Ex. Restaurant La Terrasse"
           >
-
         </div>
 
 
         <div class="field">
-
-          <label>
-            Lien Google pour les avis
-          </label>
+          <label>Lien Google pour les avis</label>
 
           <input
             id="newGoogleUrl"
@@ -3604,64 +3443,51 @@ function openCreateBusiness(){
             required
             placeholder="https://..."
           >
-
         </div>
 
 
         <div class="field">
-
-          <label>
-            Numéro WhatsApp
-          </label>
+          <label>Numéro WhatsApp</label>
 
           <input
             id="newWhatsapp"
             required
             placeholder="+213..."
           >
-
         </div>
 
 
         <div class="field">
-
-          <label>
-            Site web — optionnel
-          </label>
+          <label>Site web — optionnel</label>
 
           <input
             id="newWebsite"
             type="url"
             placeholder="https://..."
           >
-
         </div>
 
 
         <div class="field">
-
-          <label>
-            Logo — optionnel
-          </label>
+          <label>Logo — optionnel</label>
 
           <input
             id="newLogo"
             type="url"
             placeholder="https://..."
           >
-
         </div>
 
 
         <button
           class="btn btn-primary"
+          style="width:100%;"
           type="submit"
         >
           Créer l'établissement
         </button>
 
       </form>
-
     `
   );
 
@@ -3679,32 +3505,23 @@ function openCreateBusiness(){
 
 
 /* =========================================================
-   CREATE BUSINESS
+   CREATE BUSINESS ACTION
 ========================================================= */
 
-async function createBusiness(
-  event
-){
+async function createBusiness(event){
 
   event.preventDefault();
 
-
   const button =
-    event.target.querySelector(
-      "button"
-    );
+    event.target.querySelector("button");
 
-
-  button.disabled =
-    true;
-
-  button.textContent =
-    "Création…";
-
+  button.disabled=true;
+  button.textContent="Création…";
 
   try{
 
     const {
+      data,
       error
     } =
       await supabaseClient
@@ -3741,8 +3558,7 @@ async function createBusiness(
                 "newWebsite"
               )
               .value
-              .trim() ||
-            null,
+              .trim() || null,
 
           logo_url:
             document
@@ -3750,16 +3566,15 @@ async function createBusiness(
                 "newLogo"
               )
               .value
-              .trim() ||
-            null
+              .trim() || null
 
-        });
+        })
+        .select()
+        .single();
 
 
     if(error){
-
       throw error;
-
     }
 
 
@@ -3767,10 +3582,7 @@ async function createBusiness(
 
     await loadEverything();
 
-    switchView(
-      "businesses"
-    );
-
+    switchView("businesses");
 
     showStatus(
       "Établissement créé avec succès.",
@@ -3781,10 +3593,7 @@ async function createBusiness(
 
   catch(error){
 
-    console.error(
-      error
-    );
-
+    console.error(error);
 
     showStatus(
       "Impossible de créer l'établissement.\n\n" +
@@ -3796,11 +3605,7 @@ async function createBusiness(
 
   finally{
 
-    button.disabled =
-      false;
-
-    button.textContent =
-      "Créer l'établissement";
+    button.disabled=false;
 
   }
 
@@ -3811,54 +3616,36 @@ async function createBusiness(
    EDIT BUSINESS
 ========================================================= */
 
-function openEditBusiness(
-  businessId
-){
+function openEditBusiness(businessId){
 
   const business =
     getBusiness(
       businessId
     );
 
-
   if(!business){
-
-    showStatus(
-      "Établissement introuvable.",
-      "error"
-    );
-
     return;
-
   }
 
 
   openModal(
     "✏️ Modifier l'établissement",
     `
-
       <form id="businessEditForm">
 
         <div class="field">
-
-          <label>
-            Nom
-          </label>
+          <label>Nom</label>
 
           <input
             id="editBusinessName"
             value="${escapeHtml(business.name)}"
             required
           >
-
         </div>
 
 
         <div class="field">
-
-          <label>
-            Lien Google
-          </label>
+          <label>Lien Google</label>
 
           <input
             id="editGoogleUrl"
@@ -3868,15 +3655,11 @@ function openEditBusiness(
             )}"
             required
           >
-
         </div>
 
 
         <div class="field">
-
-          <label>
-            WhatsApp
-          </label>
+          <label>WhatsApp</label>
 
           <input
             id="editWhatsapp"
@@ -3885,15 +3668,11 @@ function openEditBusiness(
             )}"
             required
           >
-
         </div>
 
 
         <div class="field">
-
-          <label>
-            Site web
-          </label>
+          <label>Site web</label>
 
           <input
             id="editWebsite"
@@ -3902,15 +3681,11 @@ function openEditBusiness(
               business.website_url || ""
             )}"
           >
-
         </div>
 
 
         <div class="field">
-
-          <label>
-            Logo
-          </label>
+          <label>Logo</label>
 
           <input
             id="editLogo"
@@ -3919,19 +3694,18 @@ function openEditBusiness(
               business.logo_url || ""
             )}"
           >
-
         </div>
 
 
         <button
           class="btn btn-primary"
+          style="width:100%;"
           type="submit"
         >
           Enregistrer
         </button>
 
       </form>
-
     `
   );
 
@@ -3942,22 +3716,17 @@ function openEditBusiness(
     )
     .addEventListener(
       "submit",
-      async event => {
+      async event=>{
 
         event.preventDefault();
-
 
         const button =
           event.target.querySelector(
             "button"
           );
 
-
-        button.disabled =
-          true;
-
-        button.textContent =
-          "Enregistrement…";
+        button.disabled=true;
+        button.textContent="Enregistrement…";
 
 
         try{
@@ -3999,8 +3768,7 @@ function openEditBusiness(
                       "editWebsite"
                     )
                     .value
-                    .trim() ||
-                  null,
+                    .trim() || null,
 
                 logo_url:
                   document
@@ -4008,8 +3776,7 @@ function openEditBusiness(
                       "editLogo"
                     )
                     .value
-                    .trim() ||
-                  null
+                    .trim() || null
 
               })
               .eq(
@@ -4019,16 +3786,13 @@ function openEditBusiness(
 
 
           if(error){
-
             throw error;
-
           }
 
 
           closeModal();
 
           await loadEverything();
-
 
           showStatus(
             "Établissement mis à jour.",
@@ -4039,10 +3803,7 @@ function openEditBusiness(
 
         catch(error){
 
-          console.error(
-            error
-          );
-
+          console.error(error);
 
           showStatus(
             "Impossible de modifier l'établissement.\n\n" +
@@ -4054,11 +3815,7 @@ function openEditBusiness(
 
         finally{
 
-          button.disabled =
-            false;
-
-          button.textContent =
-            "Enregistrer";
+          button.disabled=false;
 
         }
 
@@ -4074,15 +3831,12 @@ function openEditBusiness(
 
 function openCreateCardPicker(){
 
-  if(
-    !dashboardData.businesses.length
-  ){
+  if(!dashboardData.businesses.length){
 
     showStatus(
       "Créez d'abord un établissement.",
       "info"
     );
-
 
     openCreateBusiness();
 
@@ -4094,33 +3848,25 @@ function openCreateCardPicker(){
   openModal(
     "💳 Nouvelle carte",
     `
-
-      <p
-        class="panel-desc"
-        style="margin-bottom:15px;"
-      >
-        Choisissez l'établissement auquel cette carte sera rattachée.
-        Un établissement peut avoir autant de cartes que nécessaire.
+      <p class="panel-desc" style="margin-bottom:14px;">
+        Une entreprise peut avoir plusieurs cartes.
+        Choisissez où cette nouvelle carte doit être rattachée.
       </p>
-
 
       <div class="field">
 
-        <label>
-          Établissement
-        </label>
+        <label>Établissement</label>
 
-
-        <select
-          id="cardBusinessSelect"
-        >
+        <select id="cardBusinessSelect">
 
           ${
             dashboardData.businesses
               .map(
-                business => `
-                  <option value="${escapeHtml(business.id)}">
-                    ${escapeHtml(business.name)}
+                business=>`
+                  <option value="${business.id}">
+                    ${escapeHtml(
+                      business.name
+                    )}
                   </option>
                 `
               )
@@ -4133,41 +3879,19 @@ function openCreateCardPicker(){
 
 
       <button
-        id="continueCardButton"
         class="btn btn-primary"
+        style="width:100%;"
         type="button"
+        onclick="
+          const id=document.getElementById('cardBusinessSelect').value;
+          closeModal();
+          openAddCard(id);
+        "
       >
         Continuer →
       </button>
-
     `
   );
-
-
-  document
-    .getElementById(
-      "continueCardButton"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        const id =
-          document
-            .getElementById(
-              "cardBusinessSelect"
-            )
-            .value;
-
-
-        closeModal();
-
-        openAddCard(
-          id
-        );
-
-      }
-    );
 
 }
 
@@ -4176,15 +3900,12 @@ function openCreateCardPicker(){
    ADD CARD
 ========================================================= */
 
-function openAddCard(
-  businessId
-){
+function openAddCard(businessId){
 
   const business =
     getBusiness(
       businessId
     );
-
 
   if(!business){
 
@@ -4198,37 +3919,26 @@ function openAddCard(
   }
 
 
+  const existing =
+    getBusinessCards(
+      businessId
+    );
+
+
   openModal(
     "＋ Ajouter une carte",
     `
-
-      <div
-        class="create-card-box"
-        style="
-          background:#f7faff;
-          border:1px solid #dce8f8;
-          border-radius:17px;
-          padding:15px;
-        "
-      >
+      <div class="create-card-box">
 
         <h4>
           🏢 ${escapeHtml(business.name)}
         </h4>
 
-
-        <p
-          style="
-            color:var(--muted);
-            font-size:11px;
-            margin-top:3px;
-            margin-bottom:13px;
-          "
-        >
-          Cette carte sera liée à cet établissement.
-          Elle aura ses propres scans et ratings.
+        <p>
+          Cette entreprise possède actuellement
+          ${existing.length} carte(s).
+          La nouvelle carte aura ses propres statistiques.
         </p>
-
 
         <form id="addCardForm">
 
@@ -4236,17 +3946,15 @@ function openAddCard(
 
             <label>
               Code de carte
-              <span
-                style="color:#8793a3;"
-              >
-                (optionnel)
+              <span style="color:#8793a3;">
+                — optionnel
               </span>
             </label>
 
-
             <input
               id="customCardCode"
-              placeholder="Laisser vide pour générer automatiquement"
+              placeholder="Ex. CARD002"
+              autocomplete="off"
             >
 
           </div>
@@ -4254,6 +3962,7 @@ function openAddCard(
 
           <button
             class="btn btn-primary"
+            style="width:100%;"
             type="submit"
           >
             Créer la carte
@@ -4262,7 +3971,6 @@ function openAddCard(
         </form>
 
       </div>
-
     `
   );
 
@@ -4287,25 +3995,17 @@ function openAddCard(
    CREATE CARD
 ========================================================= */
 
-async function createCard(
-  event,
-  businessId
-){
+async function createCard(event,businessId){
 
   event.preventDefault();
-
 
   const button =
     event.target.querySelector(
       "button"
     );
 
-
-  button.disabled =
-    true;
-
-  button.textContent =
-    "Création…";
+  button.disabled=true;
+  button.textContent="Création…";
 
 
   try{
@@ -4346,8 +4046,7 @@ async function createCard(
           card_code:
             code,
 
-          active:
-            true
+          active:true
 
         })
         .select()
@@ -4355,9 +4054,7 @@ async function createCard(
 
 
     if(error){
-
       throw error;
-
     }
 
 
@@ -4365,10 +4062,7 @@ async function createCard(
 
     await loadEverything();
 
-    switchView(
-      "cards"
-    );
-
+    switchView("cards");
 
     showStatus(
       `Carte ${code} créée avec succès.`,
@@ -4378,8 +4072,12 @@ async function createCard(
 
     if(data?.id){
 
-      openCardControl(
-        data.id
+      setTimeout(
+        () =>
+          openCardControl(
+            data.id
+          ),
+        250
       );
 
     }
@@ -4388,10 +4086,7 @@ async function createCard(
 
   catch(error){
 
-    console.error(
-      error
-    );
-
+    console.error(error);
 
     showStatus(
       "Impossible de créer la carte.\n\n" +
@@ -4403,11 +4098,7 @@ async function createCard(
 
   finally{
 
-    button.disabled =
-      false;
-
-    button.textContent =
-      "Créer la carte";
+    button.disabled=false;
 
   }
 
@@ -4418,16 +4109,13 @@ async function createCard(
    CARD CONTROL CENTER
 ========================================================= */
 
-function openCardControl(
-  cardId
-){
+function openCardControl(cardId){
 
   const card =
     dashboardData.cards.find(
       item =>
         item.id === cardId
     );
-
 
   if(!card){
 
@@ -4441,8 +4129,7 @@ function openCardControl(
   }
 
 
-  selectedCardId =
-    cardId;
+  selectedCardId=cardId;
 
 
   const business =
@@ -4450,60 +4137,53 @@ function openCardControl(
       card.business_id
     );
 
-
   const total =
-    totalRatings(
-      card
-    );
+    totalRatings(card);
+
+  const average =
+    averageRating(card);
+
+  const conversion =
+    conversionRate(card);
+
+  const health =
+    cardHealth(card);
 
 
   const ratings =
     [5,4,3,2,1]
-      .map(
-        star => {
+      .map(star=>{
 
-          const value =
-            card[
-              "rating_" + star
-            ];
+        const value =
+          card[
+            "rating_" + star
+          ];
 
+        const percent =
+          total
+          ? (value/total)*100
+          : 0;
 
-          const percent =
-            total
-            ? (
-                value /
-                total
-              ) * 100
-            : 0;
+        return `
+          <div class="rating-line">
 
+            <span>${star}★</span>
 
-          return `
+            <div class="rating-track">
 
-            <div class="rating-line">
-
-              <span>
-                ${star}★
-              </span>
-
-              <div class="rating-track">
-
-                <div
-                  class="rating-fill"
-                  style="width:${percent}%"
-                ></div>
-
-              </div>
-
-              <span>
-                ${value}
-              </span>
+              <div
+                class="rating-fill"
+                style="width:${percent}%"
+              ></div>
 
             </div>
 
-          `;
+            <span>${value}</span>
 
-        }
-      )
+          </div>
+        `;
+
+      })
       .join("");
 
 
@@ -4515,17 +4195,15 @@ function openCardControl(
 
         <button
           class="control-back"
-          type="button"
           onclick="closeModal()"
         >
-          ← Fermer
+          ← Retour
         </button>
 
 
         <div class="control-code">
           ${escapeHtml(card.card_code)}
         </div>
-
 
         <div class="control-business">
           🏢
@@ -4560,53 +4238,48 @@ function openCardControl(
         <div class="control-grid">
 
           <div class="control-stat">
+            <span>Scans</span>
+            <b>${card.total_scans}</b>
+          </div>
+
+          <div class="control-stat">
+            <span>Avis</span>
+            <b>${total}</b>
+          </div>
+
+          <div class="control-stat">
+            <span>Moyenne</span>
+            <b>⭐ ${average}</b>
+          </div>
+
+          <div class="control-stat">
+            <span>Conversion</span>
+            <b>${conversion}</b>
+          </div>
+
+        </div>
+
+
+        <div class="control-health">
+
+          <div class="control-health-top">
 
             <span>
-              Scans
+              Santé de la carte
             </span>
 
             <b>
-              ${card.total_scans}
+              ${health}%
             </b>
 
           </div>
 
+          <div class="health-track">
 
-          <div class="control-stat">
-
-            <span>
-              Avis
-            </span>
-
-            <b>
-              ${total}
-            </b>
-
-          </div>
-
-
-          <div class="control-stat">
-
-            <span>
-              Moyenne
-            </span>
-
-            <b>
-              ⭐ ${averageRating(card)}
-            </b>
-
-          </div>
-
-
-          <div class="control-stat">
-
-            <span>
-              Statut
-            </span>
-
-            <b>
-              ${card.active ? "ON" : "OFF"}
-            </b>
+            <div
+              class="health-fill"
+              style="width:${health}%"
+            ></div>
 
           </div>
 
@@ -4617,15 +4290,11 @@ function openCardControl(
 
       <div class="panel">
 
-        <h3>
-          ⭐ Ratings
-        </h3>
-
+        <h3>⭐ Ratings de cette carte</h3>
 
         <p class="panel-desc">
-          Distribution des ratings pour cette carte uniquement.
+          Ces données appartiennent uniquement à ${escapeHtml(card.card_code)}.
         </p>
-
 
         <div class="rating-grid">
           ${ratings}
@@ -4636,14 +4305,66 @@ function openCardControl(
 
       <div class="panel">
 
-        <h3>
-          ⚡ Actions
-        </h3>
+        <h3>📈 Performance</h3>
 
+        <div class="detail-grid">
+
+          <div class="detail-box">
+            <span>1★</span>
+            <b>${card.rating_1}</b>
+          </div>
+
+          <div class="detail-box">
+            <span>2★</span>
+            <b>${card.rating_2}</b>
+          </div>
+
+          <div class="detail-box">
+            <span>3★</span>
+            <b>${card.rating_3}</b>
+          </div>
+
+          <div class="detail-box">
+            <span>4★</span>
+            <b>${card.rating_4}</b>
+          </div>
+
+        </div>
+
+
+        <div class="detail-grid">
+
+          <div class="detail-box">
+            <span>5★</span>
+            <b>${card.rating_5}</b>
+          </div>
+
+          <div class="detail-box">
+            <span>Total avis</span>
+            <b>${total}</b>
+          </div>
+
+          <div class="detail-box">
+            <span>Scans</span>
+            <b>${card.total_scans}</b>
+          </div>
+
+          <div class="detail-box">
+            <span>Conversion</span>
+            <b>${conversion}</b>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="panel">
+
+        <h3>⚡ Commandes</h3>
 
         <p class="panel-desc">
-          Contrôlez cette carte sans toucher aux autres cartes
-          du même établissement.
+          Ces actions concernent uniquement cette carte.
         </p>
 
 
@@ -4651,8 +4372,9 @@ function openCardControl(
 
           <button
             class="btn btn-blue"
-            type="button"
-            onclick="openCustomerCard('${escapeHtml(card.card_code)}')"
+            onclick="
+              openCustomerCard('${escapeHtml(card.card_code)}')
+            "
           >
             🔗 Ouvrir
           </button>
@@ -4660,8 +4382,9 @@ function openCardControl(
 
           <button
             class="btn btn-soft"
-            type="button"
-            onclick="copyCardLink('${escapeHtml(card.card_code)}')"
+            onclick="
+              copyCardLink('${escapeHtml(card.card_code)}')
+            "
           >
             📋 Copier
           </button>
@@ -4669,8 +4392,9 @@ function openCardControl(
 
           <button
             class="btn btn-soft"
-            type="button"
-            onclick="shareCard('${escapeHtml(card.card_code)}')"
+            onclick="
+              shareCard('${escapeHtml(card.card_code)}')
+            "
           >
             📲 Partager
           </button>
@@ -4678,8 +4402,9 @@ function openCardControl(
 
           <button
             class="btn btn-gold"
-            type="button"
-            onclick="refreshCardControl('${card.id}')"
+            onclick="
+              refreshCardControl('${card.id}')
+            "
           >
             🔄 Actualiser
           </button>
@@ -4691,12 +4416,13 @@ function openCardControl(
               ? "btn-red"
               : "btn-green"
             }"
-            type="button"
-            onclick="toggleCard('${card.id}')"
+            onclick="
+              toggleCard('${card.id}')
+            "
           >
             ${
               card.active
-              ? "⏸️ Mettre en pause"
+              ? "⏸️ Pause"
               : "▶️ Réactiver"
             }
           </button>
@@ -4708,45 +4434,51 @@ function openCardControl(
 
       <div class="panel">
 
-        <h3>
-          🔐 Informations
-        </h3>
+        <h3>🔐 Identité de la carte</h3>
 
+        <div class="detail-grid">
 
-        <p class="panel-desc">
+          <div class="detail-box">
+            <span>Code</span>
+            <b style="font-size:13px;">
+              ${escapeHtml(card.card_code)}
+            </b>
+          </div>
 
-          ID :
-          ${escapeHtml(card.id)}
+          <div class="detail-box">
+            <span>Statut</span>
+            <b style="font-size:13px;">
+              ${card.active ? "ACTIVE" : "PAUSED"}
+            </b>
+          </div>
 
-          <br><br>
+          <div class="detail-box">
+            <span>Business</span>
+            <b style="font-size:13px;">
+              ${escapeHtml(
+                business?.name || "—"
+              )}
+            </b>
+          </div>
 
-          Code :
-          ${escapeHtml(card.card_code)}
+          <div class="detail-box">
+            <span>Créée</span>
+            <b style="font-size:11px;">
+              ${
+                card.created_at
+                ?
+                new Date(
+                  card.created_at
+                ).toLocaleDateString(
+                  "fr-FR"
+                )
+                :
+                "—"
+              }
+            </b>
+          </div>
 
-          <br><br>
-
-          Établissement :
-          ${escapeHtml(
-            business?.name ||
-            "—"
-          )}
-
-          <br><br>
-
-          Créée le :
-          ${
-            card.created_at
-            ?
-            new Date(
-              card.created_at
-            ).toLocaleString(
-              "fr-FR"
-            )
-            :
-            "—"
-          }
-
-        </p>
+        </div>
 
       </div>
 
@@ -4760,26 +4492,18 @@ function openCardControl(
    SHARE
 ========================================================= */
 
-async function shareCard(
-  code
-){
+async function shareCard(code){
 
   const url =
-    getCustomerUrl(
-      code
-    );
+    getCustomerUrl(code);
 
-
-  if(
-    navigator.share
-  ){
+  if(navigator.share){
 
     try{
 
       await navigator.share({
 
-        title:
-          "Smart Review",
+        title:"Smart Review",
 
         text:
           "Ma carte Smart Review",
@@ -4802,10 +4526,7 @@ async function shareCard(
 
   }
 
-
-  await copyCardLink(
-    code
-  );
+  await copyCardLink(code);
 
 }
 
@@ -4814,9 +4535,7 @@ async function shareCard(
    TOGGLE CARD
 ========================================================= */
 
-async function toggleCard(
-  cardId
-){
+async function toggleCard(cardId){
 
   const card =
     dashboardData.cards.find(
@@ -4824,11 +4543,8 @@ async function toggleCard(
         item.id === cardId
     );
 
-
   if(!card){
-
     return;
-
   }
 
 
@@ -4845,9 +4561,7 @@ async function toggleCard(
 
 
   if(!confirmed){
-
     return;
-
   }
 
 
@@ -4859,10 +4573,8 @@ async function toggleCard(
       await supabaseClient
         .from("cards")
         .update({
-
           active:
             !card.active
-
         })
         .eq(
           "id",
@@ -4871,9 +4583,7 @@ async function toggleCard(
 
 
     if(error){
-
       throw error;
-
     }
 
 
@@ -4881,11 +4591,12 @@ async function toggleCard(
 
     await loadEverything();
 
-
     showStatus(
       card.active
-      ? "Carte mise en pause."
-      : "Carte réactivée.",
+      ?
+      "Carte mise en pause."
+      :
+      "Carte réactivée.",
       "success"
     );
 
@@ -4893,10 +4604,7 @@ async function toggleCard(
 
   catch(error){
 
-    console.error(
-      error
-    );
-
+    console.error(error);
 
     showStatus(
       "Impossible de modifier le statut de la carte.\n\n" +
@@ -4910,12 +4618,10 @@ async function toggleCard(
 
 
 /* =========================================================
-   REFRESH CARD CONTROL
+   REFRESH CARD
 ========================================================= */
 
-async function refreshCardControl(
-  cardId
-){
+async function refreshCardControl(cardId){
 
   try{
 
@@ -4923,13 +4629,12 @@ async function refreshCardControl(
 
     closeModal();
 
-
     setTimeout(
       () =>
         openCardControl(
           cardId
         ),
-      100
+      150
     );
 
   }
@@ -4947,69 +4652,12 @@ async function refreshCardControl(
 
 
 /* =========================================================
-   INITIAL BOOT
+   INITIALIZE
 ========================================================= */
 
-async function boot(){
-
-  console.log(
-    "SMART REVIEW: booting..."
-  );
-
-
-  showLogin();
-
-
-  try{
-
-    const session =
-      await getCurrentSession();
-
-
-    if(session){
-
-      console.log(
-        "SMART REVIEW: existing session found."
-      );
-
-
-      await enterAdmin();
-
-    }
-
-    else{
-
-      console.log(
-        "SMART REVIEW: no existing session."
-      );
-
-    }
-
-  }
-
-  catch(error){
-
-    console.error(
-      "SMART REVIEW BOOT ERROR:",
-      error
-    );
-
-
-    showLogin();
-
-    showLoginError(
-      "Impossible d'initialiser Smart Review.\n\n" +
-      error.message
-    );
-
-  }
-
-}
-
-
-boot();
+checkSession();
 
 </script>
 
 </body>
-  </html>
+</html>
