@@ -9,89 +9,226 @@
   content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
-<meta
-  name="theme-color"
-  content="#061b3a"
->
+<meta name="theme-color" content="#061b3a">
 
 <title>Smart Review — Admin</title>
 
 <style>
 
 :root{
-
---navy:#061b3a;
---navy-2:#08264d;
---navy-3:#0d376b;
-
---blue:#165dff;
---blue-light:#4285ff;
-
---gold:#d99213;
---gold-light:#ffcf55;
---gold-dark:#a86600;
-
---white:#ffffff;
---ink:#071b3c;
-
---muted:#65758c;
-
---soft:#f5f7fa;
-
---green:#159447;
---red:#d83b3b;
-
+  --navy:#061b3a;
+  --navy2:#08264d;
+  --blue:#165dff;
+  --gold:#d99213;
+  --gold-light:#ffcf55;
+  --white:#fff;
+  --ink:#071b3c;
+  --muted:#65758c;
+  --soft:#f5f7fa;
+  --green:#159447;
+  --red:#d83b3b;
 }
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-html,
-body{
-width:100%;
-min-height:100%;
+html,body{
+  width:100%;
+  min-height:100%;
 }
 
 html{
-background:var(--navy);
+  background:var(--navy);
 }
 
 body{
-
-min-height:100vh;
-min-height:100dvh;
-
-font-family:
--apple-system,
-BlinkMacSystemFont,
-"Segoe UI",
-Roboto,
-Helvetica,
-Arial,
-sans-serif;
-
--webkit-font-smoothing:antialiased;
-text-rendering:optimizeLegibility;
-
-background:#fff;
-
-color:var(--ink);
-
-overflow-x:hidden;
-
+  min-height:100vh;
+  min-height:100dvh;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:#fff;
+  color:var(--ink);
+  overflow-x:hidden;
 }
 
+.hidden{
+  display:none !important;
+}
+
+
+/* =========================================================
+LOGIN
+========================================================= */
+
+.login-screen{
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:
+    max(24px,env(safe-area-inset-top))
+    18px
+    max(24px,env(safe-area-inset-bottom));
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(45,120,255,.25),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #061b3a,
+      #08264d
+    );
+}
+
+.login-card{
+  width:100%;
+  max-width:460px;
+  background:#fff;
+  border-radius:28px;
+  padding:30px 22px 25px;
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.30);
+  text-align:center;
+}
+
+.login-logo{
+  width:94px;
+  height:94px;
+  margin:0 auto 20px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  border:3px solid var(--gold);
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.20),
+    0 0 0 5px rgba(255,207,85,.18);
+  font-size:47px;
+}
+
+.login-title{
+  color:var(--navy);
+  font-size:30px;
+  font-weight:950;
+  letter-spacing:-1px;
+  margin-bottom:7px;
+}
+
+.login-subtitle{
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.45;
+  font-weight:600;
+  margin-bottom:25px;
+}
+
+.login-field{
+  text-align:left;
+  margin-bottom:15px;
+}
+
+.login-field label{
+  display:block;
+  color:var(--navy);
+  font-size:14px;
+  font-weight:850;
+  margin-bottom:7px;
+}
+
+input{
+  width:100%;
+  min-height:58px;
+  border-radius:16px;
+  border:1.5px solid rgba(7,27,60,.13);
+  background:#f6f8fb;
+  color:var(--ink);
+  outline:none;
+  padding:15px 16px;
+  font-size:17px;
+  font-family:inherit;
+}
+
+input:focus{
+  border-color:rgba(22,93,255,.55);
+  box-shadow:0 0 0 4px rgba(22,93,255,.08);
+}
+
+.login-button{
+  width:100%;
+  min-height:64px;
+  margin-top:7px;
+  border:0;
+  border-radius:19px;
+  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      #0a2d59,
+      #0d407a,
+      #08294f
+    );
+  border:2px solid rgba(217,146,19,.88);
+  font-size:19px;
+  font-weight:900;
+  font-family:inherit;
+  cursor:pointer;
+}
+
+.login-button:disabled{
+  opacity:.6;
+}
+
+.login-status{
+  display:none;
+  margin-top:16px;
+  padding:14px;
+  border-radius:15px;
+  font-size:14px;
+  font-weight:700;
+  line-height:1.45;
+  text-align:left;
+}
+
+.login-status.show{
+  display:block;
+}
+
+.login-status.error{
+  color:#b52c2c;
+  background:rgba(216,59,59,.08);
+  border:1px solid rgba(216,59,59,.15);
+}
+
+.login-status.success{
+  color:#087a37;
+  background:rgba(21,148,71,.09);
+  border:1px solid rgba(21,148,71,.15);
+}
+
+
+/* =========================================================
+APP
+========================================================= */
+
 .app{
-
-width:100%;
-min-height:100vh;
-min-height:100dvh;
-
-background:#fff;
-
+  width:100%;
+  min-height:100vh;
+  min-height:100dvh;
+  background:#fff;
 }
 
 
@@ -100,315 +237,120 @@ HERO
 ========================================================= */
 
 .hero{
-
-position:relative;
-
-width:100%;
-
-min-height:390px;
-
-color:#fff;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-text-align:center;
-
-padding:
-max(25px,env(safe-area-inset-top))
-18px
-95px;
-
-background:
-
-radial-gradient(
-circle at 50% 5%,
-rgba(255,255,255,.10),
-transparent 30%
-),
-
-radial-gradient(
-circle at 50% 105%,
-rgba(30,111,255,.30),
-transparent 55%
-),
-
-linear-gradient(
-180deg,
-#061b3a 0%,
-#08264d 65%,
-#092e5c 100%
-);
-
+  position:relative;
+  width:100%;
+  min-height:390px;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:
+    max(25px,env(safe-area-inset-top))
+    18px
+    100px;
+  background:
+    radial-gradient(
+      circle at 50% 5%,
+      rgba(255,255,255,.10),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 50% 105%,
+      rgba(30,111,255,.30),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      #061b3a 0%,
+      #08264d 65%,
+      #092e5c 100%
+    );
 }
 
 .hero::before{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-pointer-events:none;
-
-opacity:.18;
-
-background-image:
-
-radial-gradient(
-rgba(255,255,255,.16) .7px,
-transparent .7px
-);
-
-background-size:13px 13px;
-
-mask-image:
-linear-gradient(
-to bottom,
-black,
-transparent 82%
-);
-
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
+  background-image:
+    radial-gradient(
+      rgba(255,255,255,.16) .7px,
+      transparent .7px
+    );
+  background-size:13px 13px;
 }
 
-.hero::after{
-
-content:"";
-
-position:absolute;
-
-width:260px;
-height:260px;
-
-top:-160px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-background:
-rgba(38,117,255,.18);
-
-filter:blur(55px);
-
-border-radius:50%;
-
-pointer-events:none;
-
+.hero-icon{
+  position:relative;
+  z-index:2;
+  width:96px;
+  height:96px;
+  margin-top:3px;
+  margin-bottom:20px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:3px solid var(--gold);
+  box-shadow:
+    0 15px 34px rgba(0,0,0,.30),
+    0 0 0 6px rgba(255,207,85,.18);
+  font-size:48px;
 }
-
-
-/* =========================================================
-ADMIN MARK
-========================================================= */
-
-.admin-mark{
-
-position:relative;
-
-z-index:2;
-
-width:
-clamp(86px,24vw,112px);
-
-height:
-clamp(86px,24vw,112px);
-
-border-radius:50%;
-
-background:#fff;
-
-display:flex;
-
-align-items:center;
-justify-content:center;
-
-margin-top:3px;
-
-margin-bottom:19px;
-
-box-shadow:
-
-0 15px 34px
-rgba(0,0,0,.30),
-
-0 0 0 3px
-rgba(217,146,19,.95),
-
-0 0 0 6px
-rgba(255,202,67,.22);
-
-animation:
-adminEnter .7s
-cubic-bezier(.2,.8,.2,1)
-both;
-
-}
-
-.admin-mark::after{
-
-content:"";
-
-position:absolute;
-
-inset:8px;
-
-border-radius:50%;
-
-border:
-1px solid
-rgba(255,255,255,.9);
-
-opacity:.65;
-
-}
-
-.admin-icon{
-
-font-size:
-clamp(42px,11vw,58px);
-
-line-height:1;
-
-}
-
-@keyframes adminEnter{
-
-from{
-
-opacity:0;
-
-transform:
-translateY(-20px)
-scale(.78);
-
-}
-
-to{
-
-opacity:1;
-
-transform:
-translateY(0)
-scale(1);
-
-}
-
-}
-
-
-/* =========================================================
-HERO TITLE
-========================================================= */
 
 .hero-title{
-
-position:relative;
-
-z-index:2;
-
-max-width:600px;
-
-font-size:
-clamp(25px,7vw,36px);
-
-line-height:1.1;
-
-font-weight:900;
-
-letter-spacing:-.9px;
-
-text-transform:uppercase;
-
-text-shadow:
-0 4px 18px
-rgba(0,0,0,.30);
-
+  position:relative;
+  z-index:2;
+  max-width:600px;
+  font-size:clamp(26px,7vw,38px);
+  line-height:1.1;
+  font-weight:950;
+  letter-spacing:-1px;
+  text-transform:uppercase;
 }
 
 .hero-subtitle{
-
-position:relative;
-
-z-index:2;
-
-margin-top:13px;
-
-max-width:520px;
-
-font-size:
-clamp(15px,4.2vw,19px);
-
-line-height:1.45;
-
-font-weight:600;
-
-color:
-rgba(255,255,255,.78);
-
+  position:relative;
+  z-index:2;
+  margin-top:13px;
+  max-width:530px;
+  color:rgba(255,255,255,.78);
+  font-size:16px;
+  line-height:1.45;
+  font-weight:600;
 }
 
-
-/* =========================================================
-WAVE
-========================================================= */
-
 .wave-blue{
-
-position:absolute;
-
-z-index:4;
-
-left:-5%;
-
-bottom:55px;
-
-width:110%;
-
-height:65px;
-
-background:
-
-linear-gradient(
-180deg,
-#0c63ff,
-#164fd1
-);
-
-clip-path:
-ellipse(
-69% 55%
-at 50% 100%
-);
-
+  position:absolute;
+  z-index:4;
+  left:-5%;
+  bottom:55px;
+  width:110%;
+  height:65px;
+  background:linear-gradient(
+    180deg,
+    #0c63ff,
+    #164fd1
+  );
+  clip-path:ellipse(
+    69% 55% at 50% 100%
+  );
 }
 
 .wave{
-
-position:absolute;
-
-z-index:5;
-
-left:-5%;
-
-bottom:-1px;
-
-width:110%;
-
-height:105px;
-
-background:#fff;
-
-clip-path:
-ellipse(
-73% 58%
-at 50% 100%
-);
-
+  position:absolute;
+  z-index:5;
+  left:-5%;
+  bottom:-1px;
+  width:110%;
+  height:105px;
+  background:#fff;
+  clip-path:ellipse(
+    73% 58% at 50% 100%
+  );
 }
 
 
@@ -417,468 +359,208 @@ CONTENT
 ========================================================= */
 
 .content{
-
-position:relative;
-
-z-index:10;
-
-background:#fff;
-
-width:100%;
-
-margin-top:-23px;
-
-padding:
-0
-18px
-max(35px,env(safe-area-inset-bottom));
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
+  position:relative;
+  z-index:10;
+  width:100%;
+  margin-top:-25px;
+  padding:
+    0
+    18px
+    max(35px,env(safe-area-inset-bottom));
+  display:flex;
+  justify-content:center;
 }
 
-.admin-container{
-
-width:100%;
-
-max-width:680px;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
+.container{
+  width:100%;
+  max-width:680px;
 }
 
 
 /* =========================================================
-WELCOME
+TOP BAR
 ========================================================= */
 
-.welcome{
-
-width:100%;
-
-text-align:center;
-
-margin-bottom:24px;
-
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:22px;
 }
 
-.welcome h2{
-
-font-size:
-clamp(25px,7vw,34px);
-
-line-height:1.15;
-
-font-weight:900;
-
-letter-spacing:-.7px;
-
-color:var(--navy);
-
-margin-bottom:8px;
-
+.dashboard-title{
+  color:var(--navy);
+  font-size:clamp(25px,7vw,34px);
+  line-height:1.1;
+  font-weight:950;
+  letter-spacing:-.8px;
 }
 
-.welcome p{
-
-font-size:
-clamp(15px,4.2vw,18px);
-
-line-height:1.45;
-
-font-weight:600;
-
-color:#65758c;
-
+.logout{
+  flex-shrink:0;
+  border:0;
+  border-radius:13px;
+  padding:10px 13px;
+  background:#eef2f7;
+  color:var(--navy);
+  font-family:inherit;
+  font-weight:850;
+  cursor:pointer;
 }
 
 
 /* =========================================================
-ADMIN CARD
+CARDS
 ========================================================= */
 
-.admin-card{
-
-width:100%;
-
-background:#fff;
-
-border-radius:25px;
-
-border:
-1px solid
-rgba(7,27,60,.09);
-
-padding:22px;
-
-margin-bottom:18px;
-
-box-shadow:
-
-0 18px 45px
-rgba(7,27,60,.10),
-
-0 3px 10px
-rgba(7,27,60,.04);
-
+.panel{
+  width:100%;
+  background:#fff;
+  border-radius:25px;
+  border:1px solid rgba(7,27,60,.09);
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:
+    0 18px 45px rgba(7,27,60,.10),
+    0 3px 10px rgba(7,27,60,.04);
 }
 
-.admin-card h3{
-
-font-size:
-clamp(20px,5.5vw,25px);
-
-line-height:1.2;
-
-font-weight:900;
-
-color:var(--navy);
-
-margin-bottom:7px;
-
+.panel h2{
+  color:var(--navy);
+  font-size:23px;
+  line-height:1.2;
+  font-weight:950;
+  margin-bottom:7px;
 }
 
-.admin-card-description{
-
-color:#687990;
-
-font-size:15px;
-
-line-height:1.45;
-
-margin-bottom:18px;
-
+.panel-description{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.45;
+  margin-bottom:19px;
 }
-
-
-/* =========================================================
-FORM
-========================================================= */
 
 .field{
-
-width:100%;
-
-margin-bottom:16px;
-
+  margin-bottom:16px;
 }
 
 .field label{
-
-display:block;
-
-font-size:14px;
-
-font-weight:850;
-
-color:var(--navy);
-
-margin-bottom:7px;
-
+  display:block;
+  color:var(--navy);
+  font-size:14px;
+  font-weight:850;
+  margin-bottom:7px;
 }
 
-.input{
-
-width:100%;
-
-min-height:57px;
-
-border-radius:16px;
-
-border:
-1.5px solid
-rgba(7,27,60,.12);
-
-background:#f6f8fb;
-
-color:var(--ink);
-
-outline:none;
-
-padding:
-15px
-16px;
-
-font-size:17px;
-
-font-family:inherit;
-
--webkit-appearance:none;
-
+textarea{
+  width:100%;
+  min-height:120px;
+  resize:vertical;
+  border-radius:16px;
+  border:1.5px solid rgba(7,27,60,.13);
+  background:#f6f8fb;
+  color:var(--ink);
+  outline:none;
+  padding:15px 16px;
+  font-size:17px;
+  line-height:1.5;
+  font-family:inherit;
 }
 
-.input::placeholder{
-
-color:#8995a5;
-
+textarea:focus{
+  border-color:rgba(22,93,255,.55);
+  box-shadow:0 0 0 4px rgba(22,93,255,.08);
 }
-
-.input:focus{
-
-border-color:
-rgba(22,93,255,.55);
-
-box-shadow:
-0 0 0 4px
-rgba(22,93,255,.08);
-
-}
-
-textarea.input{
-
-min-height:120px;
-
-resize:vertical;
-
-line-height:1.5;
-
-}
-
-
-/* =========================================================
-BUTTONS
-========================================================= */
 
 .button{
-
-width:100%;
-
-min-height:64px;
-
-border-radius:19px;
-
-border:none;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-text-decoration:none;
-
-padding:
-16px
-20px;
-
-font-size:
-clamp(17px,4.7vw,20px);
-
-font-weight:900;
-
-font-family:inherit;
-
-cursor:pointer;
-
-position:relative;
-
-overflow:hidden;
-
-transition:
-transform .16s ease,
-box-shadow .22s ease,
-background .22s ease;
-
--webkit-tap-highlight-color:transparent;
-
-touch-action:manipulation;
-
+  width:100%;
+  min-height:64px;
+  border-radius:19px;
+  border:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px 20px;
+  font-size:18px;
+  font-weight:900;
+  font-family:inherit;
+  cursor:pointer;
+  text-decoration:none;
+  transition:transform .16s ease;
 }
 
 .button:active{
-
-transform:
-scale(.975);
-
+  transform:scale(.975);
 }
 
 .button:disabled{
-
-opacity:.65;
-
-pointer-events:none;
-
+  opacity:.6;
+  pointer-events:none;
 }
 
 .primary{
-
-color:#fff;
-
-background:
-
-linear-gradient(
-135deg,
-#0a2d59 0%,
-#0d407a 52%,
-#08294f 100%
-);
-
-border:
-2px solid
-rgba(217,146,19,.88);
-
-box-shadow:
-
-0 12px 28px
-rgba(7,27,60,.22),
-
-0 0 0 3px
-rgba(217,146,19,.08);
-
-}
-
-.primary::before{
-
-content:"";
-
-position:absolute;
-
-left:0;
-right:0;
-
-top:0;
-
-height:4px;
-
-background:
-
-linear-gradient(
-90deg,
-var(--gold-dark),
-var(--gold-light),
-var(--gold-dark)
-);
-
+  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      #0a2d59,
+      #0d407a,
+      #08294f
+    );
+  border:2px solid rgba(217,146,19,.88);
+  box-shadow:
+    0 12px 28px rgba(7,27,60,.22);
 }
 
 .secondary{
-
-color:#fff;
-
-background:
-
-linear-gradient(
-135deg,
-#165dff,
-#0d47c9
-);
-
-box-shadow:
-
-0 11px 25px
-rgba(22,93,255,.22);
-
+  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      #165dff,
+      #0d47c9
+    );
+  box-shadow:
+    0 11px 25px rgba(22,93,255,.22);
 }
 
 .success{
-
-color:#fff;
-
-background:
-
-linear-gradient(
-135deg,
-#159447,
-#087a37
-);
-
-box-shadow:
-
-0 11px 25px
-rgba(20,150,75,.22);
-
+  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      #159447,
+      #087a37
+    );
 }
-
-.button-group{
-
-display:flex;
-
-flex-direction:column;
-
-gap:10px;
-
-width:100%;
-
-}
-
-
-/* =========================================================
-STATUS
-========================================================= */
 
 .status{
-
-display:none;
-
-width:100%;
-
-padding:15px 16px;
-
-border-radius:16px;
-
-font-size:15px;
-
-font-weight:750;
-
-line-height:1.45;
-
-margin-top:15px;
-
-word-break:break-word;
-
+  display:none;
+  width:100%;
+  margin-top:15px;
+  padding:14px 15px;
+  border-radius:15px;
+  font-size:14px;
+  font-weight:750;
+  line-height:1.45;
+  word-break:break-word;
 }
 
 .status.show{
+  display:block;
+}
 
-display:block;
-
+.status.error{
+  color:#b52c2c;
+  background:rgba(216,59,59,.08);
+  border:1px solid rgba(216,59,59,.15);
 }
 
 .status.success-status{
-
-background:
-rgba(21,148,71,.09);
-
-color:#087a37;
-
-border:
-1px solid
-rgba(21,148,71,.18);
-
-}
-
-.status.error-status{
-
-background:
-rgba(216,59,59,.08);
-
-color:#b52c2c;
-
-border:
-1px solid
-rgba(216,59,59,.16);
-
-}
-
-.status.info-status{
-
-background:
-rgba(22,93,255,.08);
-
-color:#164fc5;
-
-border:
-1px solid
-rgba(22,93,255,.14);
-
+  color:#087a37;
+  background:rgba(21,148,71,.09);
+  border:1px solid rgba(21,148,71,.15);
 }
 
 
@@ -886,221 +568,74 @@ rgba(22,93,255,.14);
 RESULT
 ========================================================= */
 
-.card-result{
-
-display:none;
-
-width:100%;
-
-margin-top:18px;
-
-padding:20px;
-
-border-radius:20px;
-
-background:
-linear-gradient(
-145deg,
-#f8fafc,
-#eef3f8
-);
-
-border:
-1px solid
-rgba(7,27,60,.08);
-
+.result{
+  display:none;
+  margin-top:18px;
+  padding:19px;
+  border-radius:20px;
+  background:linear-gradient(
+    145deg,
+    #f8fafc,
+    #eef3f8
+  );
+  border:1px solid rgba(7,27,60,.08);
 }
 
-.card-result.show{
-
-display:block;
-
-animation:
-resultEnter .4s
-cubic-bezier(.2,.8,.2,1)
-both;
-
+.result.show{
+  display:block;
 }
 
-@keyframes resultEnter{
-
-from{
-
-opacity:0;
-
-transform:
-translateY(12px);
-
+.result-title{
+  color:var(--navy);
+  font-size:20px;
+  font-weight:950;
+  margin-bottom:13px;
 }
 
-to{
-
-opacity:1;
-
-transform:
-translateY(0);
-
+.code-box{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:13px 15px;
+  border-radius:14px;
+  background:#fff;
+  border:1px solid rgba(7,27,60,.09);
+  margin-bottom:12px;
 }
 
+.code-box strong{
+  color:var(--navy);
+  font-size:18px;
+  word-break:break-all;
 }
 
-.card-result-title{
-
-font-size:20px;
-
-font-weight:900;
-
-color:var(--navy);
-
-margin-bottom:13px;
-
+.copy{
+  flex-shrink:0;
+  border:0;
+  border-radius:11px;
+  padding:10px 12px;
+  background:var(--navy);
+  color:#fff;
+  font-family:inherit;
+  font-weight:800;
+  cursor:pointer;
 }
 
-.card-code{
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-gap:10px;
-
-padding:13px 15px;
-
-border-radius:14px;
-
-background:#fff;
-
-border:
-1px solid
-rgba(7,27,60,.09);
-
-margin-bottom:12px;
-
-}
-
-.card-code strong{
-
-font-size:18px;
-
-color:var(--navy);
-
-word-break:break-all;
-
-}
-
-.copy-button{
-
-flex-shrink:0;
-
-border:0;
-
-border-radius:12px;
-
-padding:10px 13px;
-
-background:var(--navy);
-
-color:#fff;
-
-font-family:inherit;
-
-font-weight:800;
-
-cursor:pointer;
-
-}
-
-.card-link{
-
-display:block;
-
-width:100%;
-
-padding:14px 15px;
-
-border-radius:14px;
-
-background:#fff;
-
-border:
-1px solid
-rgba(7,27,60,.09);
-
-color:var(--blue);
-
-font-size:14px;
-
-font-weight:700;
-
-line-height:1.45;
-
-word-break:break-all;
-
-text-decoration:none;
-
-margin-bottom:12px;
-
-}
-
-.stats-grid{
-
-width:100%;
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:10px;
-
-margin-top:17px;
-
-}
-
-.stat{
-
-background:#fff;
-
-border:
-1px solid
-rgba(7,27,60,.08);
-
-border-radius:16px;
-
-padding:14px 8px;
-
-text-align:center;
-
-}
-
-.stat-number{
-
-font-size:24px;
-
-font-weight:950;
-
-color:var(--navy);
-
-line-height:1;
-
-margin-bottom:6px;
-
-}
-
-.stat-label{
-
-font-size:11px;
-
-font-weight:750;
-
-color:#718096;
-
-text-transform:uppercase;
-
-letter-spacing:.5px;
-
+.card-url{
+  display:block;
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  background:#fff;
+  border:1px solid rgba(7,27,60,.09);
+  color:var(--blue);
+  font-size:14px;
+  font-weight:700;
+  line-height:1.45;
+  word-break:break-all;
+  text-decoration:none;
+  margin-bottom:12px;
 }
 
 
@@ -1109,78 +644,44 @@ LOADING
 ========================================================= */
 
 .loading{
-
-display:none;
-
-text-align:center;
-
-padding:10px;
-
-color:#65758c;
-
-font-size:15px;
-
-font-weight:700;
-
+  display:none;
+  text-align:center;
+  color:var(--muted);
+  padding-top:13px;
+  font-weight:700;
 }
 
 .loading.show{
-
-display:block;
-
+  display:block;
 }
 
-.loading-dot{
-
-display:inline-block;
-
-width:7px;
-height:7px;
-
-margin:0 3px;
-
-border-radius:50%;
-
-background:var(--gold);
-
-animation:
-loadingPulse 1s
-infinite ease-in-out;
-
+.dot{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin:0 2px;
+  border-radius:50%;
+  background:var(--gold);
+  animation:pulse 1s infinite ease-in-out;
 }
 
-.loading-dot:nth-child(2){
-
-animation-delay:.15s;
-
+.dot:nth-child(2){
+  animation-delay:.15s;
 }
 
-.loading-dot:nth-child(3){
-
-animation-delay:.30s;
-
+.dot:nth-child(3){
+  animation-delay:.3s;
 }
 
-@keyframes loadingPulse{
-
-0%,
-80%,
-100%{
-
-opacity:.25;
-
-transform:scale(.7);
-
-}
-
-40%{
-
-opacity:1;
-
-transform:scale(1);
-
-}
-
+@keyframes pulse{
+  0%,80%,100%{
+    opacity:.25;
+    transform:scale(.7);
+  }
+  40%{
+    opacity:1;
+    transform:scale(1);
+  }
 }
 
 
@@ -1188,167 +689,71 @@ transform:scale(1);
 FOOTER
 ========================================================= */
 
-.brand-footer{
-
-width:100%;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-margin-top:20px;
-
-padding-top:23px;
-
-border-top:
-1px solid
-rgba(7,27,60,.11);
-
+.footer{
+  text-align:center;
+  margin-top:25px;
+  padding-top:23px;
+  border-top:1px solid rgba(7,27,60,.11);
+  padding-bottom:20px;
 }
 
-.brand-mini-line{
-
-width:
-clamp(100px,27vw,155px);
-
-height:3px;
-
-margin-bottom:14px;
-
-border-radius:20px;
-
-background:
-
-linear-gradient(
-90deg,
-transparent,
-var(--gold),
-var(--blue),
-transparent
-);
-
+.footer-line{
+  width:130px;
+  height:3px;
+  margin:0 auto 13px;
+  border-radius:20px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--gold),
+      var(--blue),
+      transparent
+    );
 }
 
-.smart-review{
-
-font-size:
-clamp(31px,8.5vw,45px);
-
-line-height:1;
-
-font-weight:950;
-
-letter-spacing:-1.5px;
-
-background:
-
-linear-gradient(
-110deg,
-#a86c08 0%,
-#e3a51e 18%,
-#fff 35%,
-#c5ced9 48%,
-#356a9f 70%,
-#061b3a 100%
-);
-
-background-size:
-240% 100%;
-
--webkit-background-clip:text;
-background-clip:text;
-
-color:transparent;
-
-filter:
-drop-shadow(
-0 4px 8px
-rgba(7,27,60,.13)
-);
-
-animation:
-smartShimmer 5s
-ease-in-out
-infinite;
-
+.brand{
+  font-size:38px;
+  font-weight:950;
+  letter-spacing:-1.5px;
+  background:
+    linear-gradient(
+      110deg,
+      #a86c08,
+      #e3a51e,
+      #fff,
+      #356a9f,
+      #061b3a
+    );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 }
 
-@keyframes smartShimmer{
-
-0%{
-background-position:0% 50%;
+.brand-sub{
+  margin-top:7px;
+  color:#6b788a;
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:2px;
+  text-transform:uppercase;
 }
 
-50%{
-background-position:100% 50%;
-}
+@media(min-width:700px){
 
-100%{
-background-position:0% 50%;
-}
+  .hero{
+    min-height:460px;
+  }
 
-}
+  .content{
+    margin-top:-35px;
+    padding-left:40px;
+    padding-right:40px;
+  }
 
-.smart-review-sub{
-
-margin-top:8px;
-
-color:#6b788a;
-
-font-size:
-clamp(10px,2.8vw,13px);
-
-font-weight:750;
-
-letter-spacing:2px;
-
-text-transform:uppercase;
-
-}
-
-@media(width >= 700px){
-
-.hero{
-
-min-height:460px;
-
-}
-
-.content{
-
-margin-top:-35px;
-
-padding-left:40px;
-padding-right:40px;
-
-}
-
-.admin-card{
-
-padding:28px;
-
-}
-
-}
-
-@media(prefers-reduced-motion:reduce){
-
-*,
-*::before,
-*::after{
-
-animation-duration:.01ms !important;
-
-animation-iteration-count:1 !important;
-
-transition-duration:.01ms !important;
-
-}
-
+  .panel{
+    padding:28px;
+  }
 }
 
 </style>
@@ -1357,361 +762,384 @@ transition-duration:.01ms !important;
 
 <body>
 
-<div class="app">
+
+<!-- =========================================================
+LOGIN SCREEN
+========================================================= -->
+
+<section
+  id="loginScreen"
+  class="login-screen"
+>
+
+  <div class="login-card">
+
+    <div class="login-logo">
+      🔐
+    </div>
+
+    <h1 class="login-title">
+      Smart Review
+    </h1>
+
+    <p class="login-subtitle">
+      Connexion administrateur
+    </p>
 
 
-<section class="hero">
+    <form id="loginForm">
 
-<div class="admin-mark">
+      <div class="login-field">
 
-<div class="admin-icon">
-⚙️
-</div>
+        <label for="loginEmail">
+          Adresse email
+        </label>
 
-</div>
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="Votre email"
+          autocomplete="email"
+          required
+        >
 
-<h1 class="hero-title">
-SMART REVIEW ADMIN
-</h1>
+      </div>
 
-<p class="hero-subtitle">
-Gérez vos établissements, vos cartes et vos liens de collecte d'avis.
-</p>
 
-<div class="wave-blue"></div>
+      <div class="login-field">
 
-<div class="wave"></div>
+        <label for="loginPassword">
+          Mot de passe
+        </label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Votre mot de passe"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+
+      <button
+        id="loginButton"
+        class="login-button"
+        type="submit"
+      >
+        🔐 Se connecter
+      </button>
+
+    </form>
+
+
+    <div
+      id="loginStatus"
+      class="login-status"
+    ></div>
+
+  </div>
 
 </section>
 
 
-<main class="content">
 
-<div class="admin-container">
-
-
-<section class="welcome">
-
-<h2>
-Tableau de bord
-</h2>
-
-<p>
-Créez une carte Smart Review et testez-la immédiatement.
-</p>
-
-</section>
-
-
-<section class="admin-card">
-
-<h3>
-Créer une carte
-</h3>
-
-<p class="admin-card-description">
-Entrez les informations de votre établissement pour générer une nouvelle carte Smart Review.
-</p>
-
-
-<div class="field">
-
-<label for="businessName">
-Nom de l'établissement
-</label>
-
-<input
-id="businessName"
-class="input"
-type="text"
-placeholder="Ex. Restaurant Le Palais"
-autocomplete="organization"
->
-
-</div>
-
-
-<div class="field">
-
-<label for="googleReviewUrl">
-Lien Google pour les avis
-</label>
-
-<input
-id="googleReviewUrl"
-class="input"
-type="url"
-placeholder="https://g.page/r/..."
-autocomplete="url"
->
-
-</div>
-
-
-<div class="field">
-
-<label for="whatsappNumber">
-Numéro WhatsApp
-</label>
-
-<input
-id="whatsappNumber"
-class="input"
-type="tel"
-placeholder="Ex. 0550123456"
-autocomplete="tel"
->
-
-</div>
-
-
-<div class="field">
-
-<label for="logoUrl">
-URL du logo <span style="font-weight:500;color:#8995a5;">(optionnel)</span>
-</label>
-
-<input
-id="logoUrl"
-class="input"
-type="url"
-placeholder="https://..."
-autocomplete="url"
->
-
-</div>
-
-
-<div class="button-group">
-
-<button
-type="button"
-id="createButton"
-class="button primary"
->
-
-✨ Créer ma carte
-
-</button>
-
-</div>
-
+<!-- =========================================================
+ADMIN APP
+========================================================= -->
 
 <div
-id="loading"
-class="loading"
+  id="adminApp"
+  class="app hidden"
 >
 
-Création en cours
 
-<span class="loading-dot"></span>
-<span class="loading-dot"></span>
-<span class="loading-dot"></span>
+  <section class="hero">
+
+    <div class="hero-icon">
+      ⚙️
+    </div>
+
+    <h1 class="hero-title">
+      SMART REVIEW ADMIN
+    </h1>
+
+    <p class="hero-subtitle">
+      Gérez vos établissements, vos cartes et vos liens d'avis.
+    </p>
+
+    <div class="wave-blue"></div>
+
+    <div class="wave"></div>
+
+  </section>
+
+
+
+  <main class="content">
+
+    <div class="container">
+
+
+      <!-- ===================================================
+      TOP
+      =================================================== -->
+
+      <div class="topbar">
+
+        <h2 class="dashboard-title">
+          Tableau de bord
+        </h2>
+
+        <button
+          id="logoutButton"
+          class="logout"
+          type="button"
+        >
+          Déconnexion
+        </button>
+
+      </div>
+
+
+
+      <!-- ===================================================
+      CREATE CARD
+      =================================================== -->
+
+      <section class="panel">
+
+        <h2>
+          Créer une carte
+        </h2>
+
+        <p class="panel-description">
+          Entrez les informations de l'établissement pour générer sa carte Smart Review.
+        </p>
+
+
+        <div class="field">
+
+          <label for="businessName">
+            Nom de l'établissement
+          </label>
+
+          <input
+            id="businessName"
+            type="text"
+            placeholder="Ex. Restaurant Le Palais"
+            autocomplete="organization"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="googleReviewUrl">
+            Lien Google pour les avis
+          </label>
+
+          <input
+            id="googleReviewUrl"
+            type="url"
+            placeholder="https://g.page/r/..."
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="whatsappNumber">
+            Numéro WhatsApp
+          </label>
+
+          <input
+            id="whatsappNumber"
+            type="tel"
+            placeholder="Ex. 0550123456"
+            autocomplete="tel"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="logoUrl">
+            URL du logo
+            <span style="font-weight:500;color:#8995a5;">
+              (optionnel)
+            </span>
+          </label>
+
+          <input
+            id="logoUrl"
+            type="url"
+            placeholder="https://..."
+          >
+
+        </div>
+
+
+        <button
+          id="createButton"
+          class="button primary"
+          type="button"
+        >
+          ✨ Créer ma carte
+        </button>
+
+
+        <div
+          id="createLoading"
+          class="loading"
+        >
+
+          Création en cours
+
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+
+        </div>
+
+
+        <div
+          id="createStatus"
+          class="status"
+        ></div>
+
+
+        <div
+          id="result"
+          class="result"
+        >
+
+          <div class="result-title">
+            ✓ Carte créée avec succès
+          </div>
+
+
+          <div class="code-box">
+
+            <strong id="createdCode">
+              —
+            </strong>
+
+            <button
+              id="copyCode"
+              class="copy"
+              type="button"
+            >
+              Copier
+            </button>
+
+          </div>
+
+
+          <a
+            id="cardUrl"
+            class="card-url"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            —
+          </a>
+
+
+          <a
+            id="openCard"
+            class="button success"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            🚀 Ouvrir ma carte
+          </a>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+      TEST CARD
+      =================================================== -->
+
+      <section class="panel">
+
+        <h2>
+          Tester une carte
+        </h2>
+
+        <p class="panel-description">
+          Entrez le code d'une carte existante pour ouvrir sa page client.
+        </p>
+
+
+        <div class="field">
+
+          <label for="testCardCode">
+            Code de la carte
+          </label>
+
+          <input
+            id="testCardCode"
+            type="text"
+            placeholder="Ex. CARD001"
+          >
+
+        </div>
+
+
+        <button
+          id="testButton"
+          class="button secondary"
+          type="button"
+        >
+          🔎 Ouvrir la carte
+        </button>
+
+      </section>
+
+
+
+      <!-- ===================================================
+      FOOTER
+      =================================================== -->
+
+      <footer class="footer">
+
+        <div class="footer-line"></div>
+
+        <div class="brand">
+          Smart Review
+        </div>
+
+        <div class="brand-sub">
+          Better feedback. Better businesses.
+        </div>
+
+      </footer>
+
+
+    </div>
+
+  </main>
 
 </div>
 
-
-<div
-id="status"
-class="status"
-></div>
-
-
-<div
-id="cardResult"
-class="card-result"
->
-
-<div class="card-result-title">
-✓ Carte créée avec succès
-</div>
-
-
-<div class="card-code">
-
-<strong id="createdCardCode">
-—
-</strong>
-
-<button
-type="button"
-id="copyCode"
-class="copy-button"
->
-Copier
-</button>
-
-</div>
-
-
-<a
-id="cardLink"
-class="card-link"
-href="#"
-target="_blank"
-rel="noopener noreferrer"
->
-—
-</a>
-
-
-<div class="button-group">
-
-<a
-id="openCard"
-class="button success"
-href="#"
-target="_blank"
-rel="noopener noreferrer"
->
-🚀 Ouvrir ma carte
-</a>
-
-</div>
-
-
-<div class="stats-grid">
-
-<div class="stat">
-
-<div
-class="stat-number"
-id="scanCount"
->
-0
-</div>
-
-<div class="stat-label">
-Scans
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div
-class="stat-number"
-id="ratingCount"
->
-0
-</div>
-
-<div class="stat-label">
-Avis
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div
-class="stat-number"
-id="averageRating"
->
-—
-</div>
-
-<div class="stat-label">
-Moyenne
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="admin-card">
-
-<h3>
-Tester une carte
-</h3>
-
-<p class="admin-card-description">
-Entrez un code de carte existant pour ouvrir directement la page client.
-</p>
-
-
-<div class="field">
-
-<label for="testCardCode">
-Code de carte
-</label>
-
-<input
-id="testCardCode"
-class="input"
-type="text"
-placeholder="Ex. CARD001"
-autocomplete="off"
->
-
-</div>
-
-
-<button
-type="button"
-id="testButton"
-class="button secondary"
->
-🔎 Ouvrir la carte
-</button>
-
-</section>
-
-
-<section class="admin-card">
-
-<h3>
-Accès rapide
-</h3>
-
-<p class="admin-card-description">
-Utilisez cette action pour revenir à la page principale.
-</p>
-
-
-<a
-class="button secondary"
-href="index.html"
->
-🏠 Ouvrir la page principale
-</a>
-
-</section>
-
-
-<footer class="brand-footer">
-
-<div class="brand-mini-line"></div>
-
-<div class="smart-review">
-Smart Review
-</div>
-
-<div class="smart-review-sub">
-Better feedback. Better businesses.
-</div>
-
-</footer>
-
-
-</div>
-
-</main>
-
-</div>
 
 
 <script>
 
 /* =========================================================
-SUPABASE
+SUPABASE CONFIG
 ========================================================= */
 
 const SUPABASE_URL =
@@ -1722,464 +1150,776 @@ const SUPABASE_KEY =
 
 
 /* =========================================================
-SUPABASE RPC
-========================================================= */
-
-async function supabaseRpc(
-functionName,
-parameters
-){
-
-const response =
-await fetch(
-`${SUPABASE_URL}/rest/v1/rpc/${functionName}`,
-{
-
-method:"POST",
-
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":`Bearer ${SUPABASE_KEY}`,
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify(parameters)
-
-}
-);
-
-
-if(!response.ok){
-
-const error =
-await response.text();
-
-throw new Error(
-error ||
-`Supabase error ${response.status}`
-);
-
-}
-
-
-const contentType =
-response.headers.get("content-type") || "";
-
-if(
-contentType.includes("application/json")
-){
-
-return response.json();
-
-}
-
-return null;
-
-}
-
-
-/* =========================================================
 ELEMENTS
 ========================================================= */
 
-const businessNameInput =
-document.getElementById(
-"businessName"
-);
+const loginScreen =
+document.getElementById("loginScreen");
 
-const googleReviewUrlInput =
-document.getElementById(
-"googleReviewUrl"
-);
+const adminApp =
+document.getElementById("adminApp");
 
-const whatsappNumberInput =
-document.getElementById(
-"whatsappNumber"
-);
+const loginForm =
+document.getElementById("loginForm");
 
-const logoUrlInput =
-document.getElementById(
-"logoUrl"
-);
+const loginEmail =
+document.getElementById("loginEmail");
+
+const loginPassword =
+document.getElementById("loginPassword");
+
+const loginButton =
+document.getElementById("loginButton");
+
+const loginStatus =
+document.getElementById("loginStatus");
+
+const logoutButton =
+document.getElementById("logoutButton");
+
+const businessName =
+document.getElementById("businessName");
+
+const googleReviewUrl =
+document.getElementById("googleReviewUrl");
+
+const whatsappNumber =
+document.getElementById("whatsappNumber");
+
+const logoUrl =
+document.getElementById("logoUrl");
 
 const createButton =
-document.getElementById(
-"createButton"
-);
+document.getElementById("createButton");
 
-const loading =
-document.getElementById(
-"loading"
-);
+const createLoading =
+document.getElementById("createLoading");
 
-const status =
-document.getElementById(
-"status"
-);
+const createStatus =
+document.getElementById("createStatus");
 
-const cardResult =
-document.getElementById(
-"cardResult"
-);
+const result =
+document.getElementById("result");
 
-const createdCardCode =
-document.getElementById(
-"createdCardCode"
-);
+const createdCode =
+document.getElementById("createdCode");
 
-const cardLink =
-document.getElementById(
-"cardLink"
-);
+const cardUrl =
+document.getElementById("cardUrl");
 
 const openCard =
-document.getElementById(
-"openCard"
-);
+document.getElementById("openCard");
 
 const copyCode =
-document.getElementById(
-"copyCode"
-);
+document.getElementById("copyCode");
 
 const testCardCode =
-document.getElementById(
-"testCardCode"
-);
+document.getElementById("testCardCode");
 
 const testButton =
-document.getElementById(
-"testButton"
-);
+document.getElementById("testButton");
+
+
+/* =========================================================
+SESSION STORAGE
+========================================================= */
+
+const SESSION_KEY =
+"smart_review_supabase_session";
 
 
 /* =========================================================
 STATUS
 ========================================================= */
 
-function showStatus(
-message,
-type="info"
+function showLoginStatus(
+  text,
+  type
 ){
 
-status.textContent =
-message;
+  loginStatus.textContent =
+  text;
 
-status.className =
-"status show " +
-(
-type === "success"
-?
-"success-status"
-:
-type === "error"
-?
-"error-status"
-:
-"info-status"
-);
+  loginStatus.className =
+  "login-status show " +
+  type;
+
+}
+
+
+function showCreateStatus(
+  text,
+  type
+){
+
+  createStatus.textContent =
+  text;
+
+  createStatus.className =
+  "status show " +
+  (
+    type === "error"
+    ? "error"
+    : "success-status"
+  );
 
 }
 
 
 /* =========================================================
-GENERATE CARD CODE
+SUPABASE REQUEST
+========================================================= */
+
+async function supabaseRequest(
+  path,
+  options = {}
+){
+
+  const response =
+  await fetch(
+    SUPABASE_URL + path,
+    options
+  );
+
+  const text =
+  await response.text();
+
+  let data = null;
+
+  try{
+    data =
+    text
+    ? JSON.parse(text)
+    : null;
+  }
+  catch{
+    data = text;
+  }
+
+  if(!response.ok){
+
+    const message =
+    data &&
+    typeof data === "object"
+    ? (
+        data.message ||
+        data.msg ||
+        JSON.stringify(data)
+      )
+    : String(data);
+
+    throw new Error(
+      message ||
+      `Erreur HTTP ${response.status}`
+    );
+
+  }
+
+  return data;
+
+}
+
+
+/* =========================================================
+LOGIN
+========================================================= */
+
+async function login(
+  email,
+  password
+){
+
+  return supabaseRequest(
+    "/auth/v1/token?grant_type=password",
+    {
+
+      method:"POST",
+
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+        email:email,
+        password:password
+      })
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+SHOW ADMIN
+========================================================= */
+
+function showAdmin(){
+
+  loginScreen.classList.add(
+    "hidden"
+  );
+
+  adminApp.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+/* =========================================================
+SHOW LOGIN
+========================================================= */
+
+function showLogin(){
+
+  adminApp.classList.add(
+    "hidden"
+  );
+
+  loginScreen.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+/* =========================================================
+SAVE SESSION
+========================================================= */
+
+function saveSession(
+  session
+){
+
+  localStorage.setItem(
+    SESSION_KEY,
+    JSON.stringify(session)
+  );
+
+}
+
+
+/* =========================================================
+GET SESSION
+========================================================= */
+
+function getSession(){
+
+  try{
+
+    const saved =
+    localStorage.getItem(
+      SESSION_KEY
+    );
+
+    if(!saved){
+      return null;
+    }
+
+    return JSON.parse(saved);
+
+  }
+  catch{
+
+    return null;
+
+  }
+
+}
+
+
+/* =========================================================
+CLEAR SESSION
+========================================================= */
+
+function clearSession(){
+
+  localStorage.removeItem(
+    SESSION_KEY
+  );
+
+}
+
+
+/* =========================================================
+LOGIN FORM
+========================================================= */
+
+loginForm.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+    const email =
+    loginEmail.value.trim();
+
+    const password =
+    loginPassword.value;
+
+    if(!email || !password){
+
+      showLoginStatus(
+        "Veuillez entrer votre email et votre mot de passe.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    loginButton.disabled =
+    true;
+
+    loginButton.textContent =
+    "Connexion…";
+
+    loginStatus.className =
+    "login-status";
+
+
+    try{
+
+      const session =
+      await login(
+        email,
+        password
+      );
+
+      if(
+        !session ||
+        !session.access_token
+      ){
+
+        throw new Error(
+          "Connexion impossible."
+        );
+
+      }
+
+
+      saveSession(
+        session
+      );
+
+
+      showLoginStatus(
+        "Connexion réussie.",
+        "success"
+      );
+
+
+      setTimeout(
+        showAdmin,
+        250
+      );
+
+
+    }
+    catch(error){
+
+      console.error(
+        "Login error:",
+        error
+      );
+
+      showLoginStatus(
+        "Email ou mot de passe incorrect.",
+        "error"
+      );
+
+    }
+    finally{
+
+      loginButton.disabled =
+      false;
+
+      loginButton.textContent =
+      "🔐 Se connecter";
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+LOGOUT
+========================================================= */
+
+logoutButton.addEventListener(
+  "click",
+  function(){
+
+    clearSession();
+
+    showLogin();
+
+    loginEmail.value =
+    "";
+
+    loginPassword.value =
+    "";
+
+  }
+);
+
+
+/* =========================================================
+CARD CODE
 ========================================================= */
 
 function generateCardCode(){
 
-const random =
-Math.random()
-.toString(36)
-.substring(2,8)
-.toUpperCase();
+  const random =
+  Math.random()
+    .toString(36)
+    .substring(2,8)
+    .toUpperCase();
 
-return `CARD-${random}`;
-
-}
-
-
-/* =========================================================
-NORMALIZE WHATSAPP
-========================================================= */
-
-function normalizeWhatsApp(
-number
-){
-
-let clean =
-String(number || "")
-.replace(
-/\D/g,
-""
-);
-
-if(
-clean.startsWith("0")
-){
-
-clean =
-"213" +
-clean.substring(1);
-
-}
-
-return clean;
+  return "CARD-" + random;
 
 }
 
 
 /* =========================================================
-CREATE CARD
+WHATSAPP
 ========================================================= */
 
-async function createBusiness(){
-
-const name =
-businessNameInput
-.value
-.trim();
-
-const googleReviewUrl =
-googleReviewUrlInput
-.value
-.trim();
-
-const whatsappNumber =
-normalizeWhatsApp(
-whatsappNumberInput.value
-);
-
-const logoUrl =
-logoUrlInput
-.value
-.trim();
-
-
-/* =====================================================
-VALIDATION
-===================================================== */
-
-if(!name){
-
-showStatus(
-"Veuillez entrer le nom de l'établissement.",
-"error"
-);
-
-businessNameInput.focus();
-
-return;
-
-}
-
-if(!googleReviewUrl){
-
-showStatus(
-"Veuillez entrer le lien Google pour les avis.",
-"error"
-);
-
-googleReviewUrlInput.focus();
-
-return;
-
-}
-
-if(!whatsappNumber){
-
-showStatus(
-"Veuillez entrer le numéro WhatsApp.",
-"error"
-);
-
-whatsappNumberInput.focus();
-
-return;
-
-}
-
-
-/* =====================================================
-LOADING
-===================================================== */
-
-createButton.disabled =
-true;
-
-loading.classList.add(
-"show"
-);
-
-status.className =
-"status";
-
-cardResult.classList.remove(
-"show"
-);
-
-
-try{
-
-/* =====================================================
-CARD CODE
-===================================================== */
-
-const cardCode =
-generateCardCode();
-
-
-/* =====================================================
-RPC
-===================================================== */
-
-const result =
-await supabaseRpc(
-"admin_create_business_and_card",
-{
-
-p_name:name,
-
-p_google_review_url:
-googleReviewUrl,
-
-p_whatsapp_number:
-whatsappNumber,
-
-p_logo_url:
-logoUrl || null,
-
-p_card_code:
-cardCode
-
-}
-);
-
-
-if(
-!result
+function cleanWhatsApp(
+  value
 ){
 
-throw new Error(
-"Supabase n'a retourné aucune donnée."
-);
+  let number =
+  String(value || "")
+    .replace(/\D/g,"");
+
+  if(
+    number.startsWith("0")
+  ){
+
+    number =
+    "213" +
+    number.substring(1);
+
+  }
+
+  return number;
 
 }
 
 
-/* =====================================================
-READ RESULT
-===================================================== */
+/* =========================================================
+CREATE BUSINESS + CARD
+========================================================= */
 
-const finalCardCode =
-result.card_code ||
-cardCode;
+async function createCard(){
 
+  const session =
+  getSession();
 
-/* =====================================================
-BUILD LIVE URL
-===================================================== */
+  if(
+    !session ||
+    !session.access_token
+  ){
 
-const cardUrl =
-new URL(
-"index.html",
-window.location.href
-);
+    showLogin();
 
-cardUrl.searchParams.set(
-"card",
-finalCardCode
-);
+    return;
 
-const finalUrl =
-cardUrl.href;
+  }
 
 
-/* =====================================================
-DISPLAY
-===================================================== */
+  const name =
+  businessName.value.trim();
 
-createdCardCode.textContent =
-finalCardCode;
+  const google =
+  googleReviewUrl.value.trim();
 
-cardLink.textContent =
-finalUrl;
+  const whatsapp =
+  cleanWhatsApp(
+    whatsappNumber.value
+  );
 
-cardLink.href =
-finalUrl;
-
-openCard.href =
-finalUrl;
-
-cardResult.classList.add(
-"show"
-);
-
-showStatus(
-"Votre carte Smart Review a été créée avec succès.",
-"success"
-);
+  const logo =
+  logoUrl.value.trim();
 
 
-/* =====================================================
-SAVE
-===================================================== */
+  /* =======================================================
+  VALIDATION
+  ======================================================= */
 
-try{
+  if(!name){
 
-localStorage.setItem(
-"smart_review_last_card",
-JSON.stringify({
+    showCreateStatus(
+      "Veuillez entrer le nom de l'établissement.",
+      "error"
+    );
 
-cardCode:finalCardCode,
+    businessName.focus();
 
-url:finalUrl,
+    return;
 
-businessName:name
+  }
 
-})
-);
+
+  if(!google){
+
+    showCreateStatus(
+      "Veuillez entrer le lien Google pour les avis.",
+      "error"
+    );
+
+    googleReviewUrl.focus();
+
+    return;
+
+  }
+
+
+  if(!whatsapp){
+
+    showCreateStatus(
+      "Veuillez entrer le numéro WhatsApp.",
+      "error"
+    );
+
+    whatsappNumber.focus();
+
+    return;
+
+  }
+
+
+  /* =======================================================
+  LOADING
+  ======================================================= */
+
+  createButton.disabled =
+  true;
+
+  createLoading.classList.add(
+    "show"
+  );
+
+  createStatus.className =
+  "status";
+
+  result.classList.remove(
+    "show"
+  );
+
+
+  try{
+
+    const code =
+    generateCardCode();
+
+
+    /* =====================================================
+    CALL SECURE RPC
+    ===================================================== */
+
+    const rpcResponse =
+    await supabaseRequest(
+      "/rest/v1/rpc/admin_create_business_and_card",
+      {
+
+        method:"POST",
+
+        headers:{
+          "apikey":SUPABASE_KEY,
+
+          "Authorization":
+          "Bearer " +
+          session.access_token,
+
+          "Content-Type":
+          "application/json"
+        },
+
+        body:JSON.stringify({
+
+          p_name:name,
+
+          p_google_review_url:
+          google,
+
+          p_whatsapp_number:
+          whatsapp,
+
+          p_logo_url:
+          logo || null,
+
+          p_card_code:
+          code
+
+        })
+
+      }
+    );
+
+
+    /* =====================================================
+    RESULT
+    ===================================================== */
+
+    const finalCode =
+    rpcResponse &&
+    rpcResponse.card_code
+    ? rpcResponse.card_code
+    : code;
+
+
+    const url =
+    new URL(
+      "index.html",
+      window.location.href
+    );
+
+    url.searchParams.set(
+      "card",
+      finalCode
+    );
+
+
+    const finalUrl =
+    url.href;
+
+
+    createdCode.textContent =
+    finalCode;
+
+    cardUrl.textContent =
+    finalUrl;
+
+    cardUrl.href =
+    finalUrl;
+
+    openCard.href =
+    finalUrl;
+
+
+    result.classList.add(
+      "show"
+    );
+
+
+    showCreateStatus(
+      "Carte créée avec succès.",
+      "success"
+    );
+
+
+    /* =====================================================
+    SAVE LAST CARD
+    ===================================================== */
+
+    localStorage.setItem(
+      "smart_review_last_card",
+      JSON.stringify({
+
+        cardCode:
+        finalCode,
+
+        url:
+        finalUrl,
+
+        businessName:
+        name
+
+      })
+    );
+
+
+    /* =====================================================
+    CLEAR FORM
+    ===================================================== */
+
+    businessName.value =
+    "";
+
+    googleReviewUrl.value =
+    "";
+
+    whatsappNumber.value =
+    "";
+
+    logoUrl.value =
+    "";
+
+
+  }
+  catch(error){
+
+    console.error(
+      "Create card error:",
+      error
+    );
+
+
+    /*
+      If Supabase says the session is invalid,
+      send the administrator back to login.
+    */
+
+    const message =
+    String(
+      error.message || ""
+    );
+
+
+    if(
+      message.includes("JWT") ||
+      message.includes("token") ||
+      message.includes("401")
+    ){
+
+      clearSession();
+
+      showLogin();
+
+      showLoginStatus(
+        "Votre session a expiré. Veuillez vous reconnecter.",
+        "error"
+      );
+
+    }
+    else{
+
+      showCreateStatus(
+        "Erreur : " +
+        message,
+        "error"
+      );
+
+    }
+
+  }
+  finally{
+
+    createButton.disabled =
+    false;
+
+    createLoading.classList.remove(
+      "show"
+    );
+
+  }
 
 }
-catch(error){
 
-console.warn(
-"LocalStorage unavailable:",
-error
+
+/* =========================================================
+CREATE BUTTON
+========================================================= */
+
+createButton.addEventListener(
+  "click",
+  createCard
 );
-
-}
-
-}
-catch(error){
-
-console.error(
-"Create card error:",
-error
-);
-
-showStatus(
-"Erreur : " +
-(
-error.message ||
-"Impossible de créer la carte."
-),
-"error"
-);
-
-}
-finally{
-
-createButton.disabled =
-false;
-
-loading.classList.remove(
-"show"
-);
-
-}
-
-}
 
 
 /* =========================================================
@@ -2187,134 +1927,92 @@ COPY CODE
 ========================================================= */
 
 copyCode.addEventListener(
-"click",
-async () => {
+  "click",
+  async function(){
 
-const code =
-createdCardCode.textContent;
+    const code =
+    createdCode.textContent;
 
-if(
-!code ||
-code === "—"
-){
+    if(
+      !code ||
+      code === "—"
+    ){
 
-return;
+      return;
 
-}
+    }
 
-try{
+    try{
 
-await navigator.clipboard.writeText(
-code
-);
+      await navigator.clipboard.writeText(
+        code
+      );
 
-copyCode.textContent =
-"✓ Copié";
+      copyCode.textContent =
+      "✓ Copié";
 
-setTimeout(
-() => {
+      setTimeout(
+        function(){
 
-copyCode.textContent =
-"Copier";
+          copyCode.textContent =
+          "Copier";
 
-},
-1500
-);
+        },
+        1500
+      );
 
-}
-catch(error){
+    }
+    catch(error){
 
-console.error(
-"Copy failed:",
-error
-);
+      console.error(
+        error
+      );
 
-}
+    }
 
-}
+  }
 );
 
 
 /* =========================================================
-TEST EXISTING CARD
+TEST CARD
 ========================================================= */
 
 testButton.addEventListener(
-"click",
-() => {
+  "click",
+  function(){
 
-const code =
-testCardCode
-.value
-.trim();
+    const code =
+    testCardCode.value.trim();
 
-if(!code){
+    if(!code){
 
-showStatus(
-"Veuillez entrer un code de carte.",
-"error"
-);
+      alert(
+        "Veuillez entrer un code de carte."
+      );
 
-testCardCode.focus();
+      testCardCode.focus();
 
-return;
+      return;
 
-}
-
-const url =
-new URL(
-"index.html",
-window.location.href
-);
-
-url.searchParams.set(
-"card",
-code
-);
-
-window.location.href =
-url.href;
-
-}
-);
+    }
 
 
-/* =========================================================
-EVENTS
-========================================================= */
+    const url =
+    new URL(
+      "index.html",
+      window.location.href
+    );
 
-createButton.addEventListener(
-"click",
-createBusiness
-);
+    url.searchParams.set(
+      "card",
+      code
+    );
 
+    window.location.href =
+    url.href;
 
-[
-businessNameInput,
-googleReviewUrlInput,
-whatsappNumberInput,
-logoUrlInput
-]
-.forEach(
-input => {
-
-input.addEventListener(
-"keydown",
-event => {
-
-if(
-event.key === "Enter"
-){
-
-event.preventDefault();
-
-createBusiness();
-
-}
-
-});
-
-}
+  }
 );
 
 
@@ -2324,57 +2022,82 @@ LOAD LAST CARD
 
 function loadLastCard(){
 
-try{
+  try{
 
-const saved =
-localStorage.getItem(
-"smart_review_last_card"
-);
+    const saved =
+    localStorage.getItem(
+      "smart_review_last_card"
+    );
 
-if(!saved){
+    if(!saved){
+      return;
+    }
 
-return;
+    const data =
+    JSON.parse(saved);
+
+    if(
+      !data ||
+      !data.cardCode ||
+      !data.url
+    ){
+
+      return;
+
+    }
+
+    createdCode.textContent =
+    data.cardCode;
+
+    cardUrl.textContent =
+    data.url;
+
+    cardUrl.href =
+    data.url;
+
+    openCard.href =
+    data.url;
+
+    result.classList.add(
+      "show"
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+  }
 
 }
 
-const data =
-JSON.parse(saved);
 
-if(
-!data ||
-!data.cardCode ||
-!data.url
-){
+/* =========================================================
+CHECK EXISTING SESSION
+========================================================= */
 
-return;
+function checkSession(){
 
-}
+  const session =
+  getSession();
 
-createdCardCode.textContent =
-data.cardCode;
+  if(
+    session &&
+    session.access_token
+  ){
 
-cardLink.textContent =
-data.url;
+    showAdmin();
 
-cardLink.href =
-data.url;
+    loadLastCard();
 
-openCard.href =
-data.url;
+  }
+  else{
 
-cardResult.classList.add(
-"show"
-);
+    showLogin();
 
-}
-catch(error){
-
-console.warn(
-"Could not load previous card:",
-error
-);
-
-}
+  }
 
 }
 
@@ -2383,7 +2106,7 @@ error
 START
 ========================================================= */
 
-loadLastCard();
+checkSession();
 
 </script>
 
