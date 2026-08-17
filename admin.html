@@ -18,10 +18,6 @@
 
 <style>
 
-/* =========================================================
-SMART REVIEW ADMIN — PREMIUM MOBILE UI
-========================================================= */
-
 :root{
 
 --navy:#061b3a;
@@ -47,11 +43,6 @@ SMART REVIEW ADMIN — PREMIUM MOBILE UI
 
 }
 
-
-/* =========================================================
-RESET
-========================================================= */
-
 *{
 box-sizing:border-box;
 margin:0;
@@ -60,16 +51,12 @@ padding:0;
 
 html,
 body{
-
 width:100%;
 min-height:100%;
-
 }
 
 html{
-
 background:var(--navy);
-
 }
 
 body{
@@ -96,11 +83,6 @@ color:var(--ink);
 overflow-x:hidden;
 
 }
-
-
-/* =========================================================
-APP
-========================================================= */
 
 .app{
 
@@ -459,11 +441,6 @@ align-items:center;
 
 }
 
-
-/* =========================================================
-ADMIN CONTAINER
-========================================================= */
-
 .admin-container{
 
 width:100%;
@@ -583,7 +560,7 @@ margin-bottom:18px;
 
 
 /* =========================================================
-FORM LABEL
+FORM
 ========================================================= */
 
 .field{
@@ -607,11 +584,6 @@ color:var(--navy);
 margin-bottom:7px;
 
 }
-
-
-/* =========================================================
-INPUT
-========================================================= */
 
 .input{
 
@@ -660,11 +632,6 @@ rgba(22,93,255,.08);
 
 }
 
-
-/* =========================================================
-TEXTAREA
-========================================================= */
-
 textarea.input{
 
 min-height:120px;
@@ -677,7 +644,7 @@ line-height:1.5;
 
 
 /* =========================================================
-BUTTON
+BUTTONS
 ========================================================= */
 
 .button{
@@ -741,11 +708,6 @@ pointer-events:none;
 
 }
 
-
-/* =========================================================
-PRIMARY BUTTON
-========================================================= */
-
 .primary{
 
 color:#fff;
@@ -797,11 +759,6 @@ var(--gold-dark)
 
 }
 
-
-/* =========================================================
-SECONDARY BUTTON
-========================================================= */
-
 .secondary{
 
 color:#fff;
@@ -821,11 +778,6 @@ rgba(22,93,255,.22);
 
 }
 
-
-/* =========================================================
-GREEN BUTTON
-========================================================= */
-
 .success{
 
 color:#fff;
@@ -844,35 +796,6 @@ box-shadow:
 rgba(20,150,75,.22);
 
 }
-
-
-/* =========================================================
-DANGER BUTTON
-========================================================= */
-
-.danger{
-
-color:#fff;
-
-background:
-
-linear-gradient(
-135deg,
-#d83b3b,
-#a92525
-);
-
-box-shadow:
-
-0 11px 25px
-rgba(216,59,59,.18);
-
-}
-
-
-/* =========================================================
-BUTTON GROUP
-========================================================= */
 
 .button-group{
 
@@ -908,6 +831,8 @@ font-weight:750;
 line-height:1.45;
 
 margin-top:15px;
+
+word-break:break-word;
 
 }
 
@@ -958,7 +883,7 @@ rgba(22,93,255,.14);
 
 
 /* =========================================================
-CARD RESULT
+RESULT
 ========================================================= */
 
 .card-result{
@@ -1118,11 +1043,6 @@ text-decoration:none;
 margin-bottom:12px;
 
 }
-
-
-/* =========================================================
-STATS
-========================================================= */
 
 .stats-grid{
 
@@ -1390,11 +1310,6 @@ text-transform:uppercase;
 
 }
 
-
-/* =========================================================
-DESKTOP
-========================================================= */
-
 @media(width >= 700px){
 
 .hero{
@@ -1419,11 +1334,6 @@ padding:28px;
 }
 
 }
-
-
-/* =========================================================
-REDUCED MOTION
-========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1450,10 +1360,6 @@ transition-duration:.01ms !important;
 <div class="app">
 
 
-<!-- =====================================================
-HERO
-===================================================== -->
-
 <section class="hero">
 
 <div class="admin-mark">
@@ -1479,18 +1385,10 @@ Gérez vos établissements, vos cartes et vos liens de collecte d'avis.
 </section>
 
 
-<!-- =====================================================
-CONTENT
-===================================================== -->
-
 <main class="content">
 
 <div class="admin-container">
 
-
-<!-- ===================================================
-WELCOME
-=================================================== -->
 
 <section class="welcome">
 
@@ -1504,10 +1402,6 @@ Créez une carte Smart Review et testez-la immédiatement.
 
 </section>
 
-
-<!-- ===================================================
-CREATE CARD
-=================================================== -->
 
 <section class="admin-card">
 
@@ -1623,10 +1517,6 @@ class="status"
 ></div>
 
 
-<!-- =================================================
-RESULT
-================================================= -->
-
 <div
 id="cardResult"
 class="card-result"
@@ -1736,10 +1626,6 @@ Moyenne
 </section>
 
 
-<!-- ===================================================
-TEST CARD
-=================================================== -->
-
 <section class="admin-card">
 
 <h3>
@@ -1779,10 +1665,6 @@ class="button secondary"
 </section>
 
 
-<!-- ===================================================
-QUICK ACCESS
-=================================================== -->
-
 <section class="admin-card">
 
 <h3>
@@ -1790,11 +1672,9 @@ Accès rapide
 </h3>
 
 <p class="admin-card-description">
-Utilisez ces actions pour naviguer dans votre système Smart Review.
+Utilisez cette action pour revenir à la page principale.
 </p>
 
-
-<div class="button-group">
 
 <a
 class="button secondary"
@@ -1803,14 +1683,8 @@ href="index.html"
 🏠 Ouvrir la page principale
 </a>
 
-</div>
-
 </section>
 
-
-<!-- ===================================================
-FOOTER
-=================================================== -->
 
 <footer class="brand-footer">
 
@@ -1837,7 +1711,7 @@ Better feedback. Better businesses.
 <script>
 
 /* =========================================================
-SUPABASE CONFIG
+SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
@@ -1845,62 +1719,6 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
 "sb_publishable_4eVDX1IKZj7ClhpcjfiQFQ_hQ5Hr81k";
-
-
-/* =========================================================
-SUPABASE REQUEST
-========================================================= */
-
-async function supabaseRequest(
-endpoint,
-options = {}
-){
-
-const response =
-await fetch(
-`${SUPABASE_URL}/rest/v1/${endpoint}`,
-{
-
-...options,
-
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":`Bearer ${SUPABASE_KEY}`,
-"Content-Type":"application/json",
-...(options.headers || {})
-}
-
-}
-);
-
-
-if(!response.ok){
-
-const error =
-await response.text();
-
-throw new Error(
-error ||
-`Supabase error ${response.status}`
-);
-
-}
-
-
-const contentType =
-response.headers.get("content-type") || "";
-
-if(
-contentType.includes("application/json")
-){
-
-return response.json();
-
-}
-
-return null;
-
-}
 
 
 /* =========================================================
@@ -1937,7 +1755,8 @@ const error =
 await response.text();
 
 throw new Error(
-`${functionName}: ${error}`
+error ||
+`Supabase error ${response.status}`
 );
 
 }
@@ -2040,7 +1859,7 @@ STATUS
 
 function showStatus(
 message,
-type = "info"
+type="info"
 ){
 
 status.textContent =
@@ -2111,7 +1930,7 @@ return clean;
 
 
 /* =========================================================
-CREATE BUSINESS
+CREATE CARD
 ========================================================= */
 
 async function createBusiness(){
@@ -2202,189 +2021,63 @@ cardResult.classList.remove(
 
 try{
 
-
 /* =====================================================
-CHECK EXISTING BUSINESS
+CARD CODE
 ===================================================== */
 
-const existingBusinesses =
-await supabaseRequest(
-`businesses?name=eq.${encodeURIComponent(name)}&select=*`
-);
-
-
-/* =====================================================
-BUSINESS
-===================================================== */
-
-let business;
-
-if(
-existingBusinesses &&
-existingBusinesses.length
-){
-
-business =
-existingBusinesses[0];
-
-/* Update business */
-
-await supabaseRequest(
-`businesses?id=eq.${encodeURIComponent(business.id)}`,
-{
-method:"PATCH",
-
-headers:{
-"Prefer":"return=representation"
-},
-
-body:JSON.stringify({
-
-name:name,
-
-google_review_url:
-googleReviewUrl,
-
-whatsapp_number:
-whatsappNumber,
-
-logo_url:
-logoUrl || null
-
-})
-
-}
-);
-
-}
-else{
-
-/* Create business */
-
-const created =
-await supabaseRequest(
-"businesses",
-{
-method:"POST",
-
-headers:{
-"Prefer":"return=representation"
-},
-
-body:JSON.stringify({
-
-name:name,
-
-google_review_url:
-googleReviewUrl,
-
-whatsapp_number:
-whatsappNumber,
-
-logo_url:
-logoUrl || null
-
-})
-
-}
-);
-
-if(
-!created ||
-!created.length
-){
-
-throw new Error(
-"Impossible de créer l'établissement."
-);
-
-}
-
-business =
-created[0];
-
-}
-
-
-/* =====================================================
-GENERATE CARD CODE
-===================================================== */
-
-let cardCode =
+const cardCode =
 generateCardCode();
 
 
 /* =====================================================
-MAKE SURE CODE IS UNIQUE
+RPC
 ===================================================== */
 
-for(
-let attempt = 0;
-attempt < 5;
-attempt++
-){
-
-const existingCards =
-await supabaseRequest(
-`cards?card_code=eq.${encodeURIComponent(cardCode)}&select=id`
-);
-
-if(
-!existingCards.length
-){
-
-break;
-
-}
-
-cardCode =
-generateCardCode();
-
-}
-
-
-/* =====================================================
-CREATE CARD
-===================================================== */
-
-const createdCards =
-await supabaseRequest(
-"cards",
+const result =
+await supabaseRpc(
+"admin_create_business_and_card",
 {
-method:"POST",
 
-headers:{
-"Prefer":"return=representation"
-},
+p_name:name,
 
-body:JSON.stringify({
+p_google_review_url:
+googleReviewUrl,
 
-card_code:cardCode,
+p_whatsapp_number:
+whatsappNumber,
 
-business_id:business.id,
+p_logo_url:
+logoUrl || null,
 
-active:true
-
-})
+p_card_code:
+cardCode
 
 }
 );
 
 
 if(
-!createdCards ||
-!createdCards.length
+!result
 ){
 
 throw new Error(
-"Impossible de créer la carte."
+"Supabase n'a retourné aucune donnée."
 );
 
 }
 
 
 /* =====================================================
-CARD URL
+READ RESULT
+===================================================== */
+
+const finalCardCode =
+result.card_code ||
+cardCode;
+
+
+/* =====================================================
+BUILD LIVE URL
 ===================================================== */
 
 const cardUrl =
@@ -2395,7 +2088,7 @@ window.location.href
 
 cardUrl.searchParams.set(
 "card",
-cardCode
+finalCardCode
 );
 
 const finalUrl =
@@ -2403,11 +2096,11 @@ cardUrl.href;
 
 
 /* =====================================================
-DISPLAY RESULT
+DISPLAY
 ===================================================== */
 
 createdCardCode.textContent =
-cardCode;
+finalCardCode;
 
 cardLink.textContent =
 finalUrl;
@@ -2417,15 +2110,6 @@ finalUrl;
 
 openCard.href =
 finalUrl;
-
-scanCount.textContent =
-"0";
-
-ratingCount.textContent =
-"0";
-
-averageRating.textContent =
-"—";
 
 cardResult.classList.add(
 "show"
@@ -2438,7 +2122,7 @@ showStatus(
 
 
 /* =====================================================
-SAVE LAST CARD
+SAVE
 ===================================================== */
 
 try{
@@ -2447,13 +2131,11 @@ localStorage.setItem(
 "smart_review_last_card",
 JSON.stringify({
 
-cardCode:cardCode,
+cardCode:finalCardCode,
 
-businessId:business.id,
+url:finalUrl,
 
-businessName:name,
-
-url:finalUrl
+businessName:name
 
 })
 );
@@ -2501,7 +2183,7 @@ loading.classList.remove(
 
 
 /* =========================================================
-COPY CARD CODE
+COPY CODE
 ========================================================= */
 
 copyCode.addEventListener(
@@ -2554,7 +2236,7 @@ error
 
 
 /* =========================================================
-TEST CARD
+TEST EXISTING CARD
 ========================================================= */
 
 testButton.addEventListener(
@@ -2598,7 +2280,7 @@ url.href;
 
 
 /* =========================================================
-CREATE BUTTON
+EVENTS
 ========================================================= */
 
 createButton.addEventListener(
@@ -2606,10 +2288,6 @@ createButton.addEventListener(
 createBusiness
 );
 
-
-/* =========================================================
-ENTER KEY
-========================================================= */
 
 [
 businessNameInput,
@@ -2710,4 +2388,4 @@ loadLastCard();
 </script>
 
 </body>
-  </html>
+</html>
