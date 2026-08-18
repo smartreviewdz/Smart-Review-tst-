@@ -23,64 +23,64 @@
 ========================================================= */
 
 :root{
+
   --navy:#061b3a;
-  --navy2:#0b2c57;
-  --blue:#165dff;
-  --blue2:#4285ff;
-  --gold:#d99213;
-  --gold2:#ffcf55;
+  --navy-2:#0a2852;
+  --blue:#1683ff;
+  --blue-2:#0b67d1;
 
-  --green:#16834b;
-  --green-bg:#eaf8f0;
+  --gold:#f5b942;
+  --green:#18b878;
+  --red:#ef4444;
 
-  --red:#c93434;
-  --red-bg:#fff0f0;
+  --bg:#07111f;
+  --panel:#0d1b2e;
+  --panel-2:#10243c;
 
-  --orange:#b86f00;
-  --orange-bg:#fff7df;
+  --text:#f5f7fb;
+  --muted:#8793a3;
 
-  --white:#fff;
-  --ink:#071b3c;
-  --muted:#6b788a;
-  --soft:#f4f7fb;
-  --soft2:#f8faff;
-  --line:#e2e8f0;
+  --border:rgba(255,255,255,.08);
 
   --shadow:
-    0 10px 30px rgba(7,27,60,.055);
+    0 12px 40px
+    rgba(0,0,0,.24);
 
-  --shadow-strong:
-    0 18px 45px rgba(7,27,60,.14);
-
-  --radius:20px;
 }
 
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
 }
 
 html,
 body{
+  margin:0;
+  padding:0;
   min-height:100%;
 }
 
 body{
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(22,131,255,.13),
+      transparent 30%
+    ),
+    var(--bg);
+
+  color:var(--text);
+
   font-family:
+    Inter,
+    system-ui,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
-    Roboto,
-    Helvetica,
-    Arial,
     sans-serif;
 
-  background:var(--soft);
-  color:var(--ink);
+  font-size:14px;
 
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
 }
 
 button,
@@ -90,523 +90,586 @@ select{
 }
 
 button{
-  -webkit-tap-highlight-color:transparent;
+  cursor:pointer;
 }
 
-.hidden{
-  display:none!important;
+button:disabled{
+  cursor:not-allowed;
+  opacity:.6;
 }
+
+input,
+select{
+
+  width:100%;
+
+  min-height:48px;
+
+  border-radius:12px;
+
+  border:1px solid var(--border);
+
+  background:#081728;
+
+  color:var(--text);
+
+  padding:0 14px;
+
+  outline:none;
+
+}
+
+input:focus,
+select:focus{
+
+  border-color:
+    rgba(22,131,255,.7);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(22,131,255,.12);
+
+}
+
+button{
+  border:0;
+}
+
+h1,
+h2,
+h3,
+h4,
+p{
+  margin-top:0;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+#adminApp{
+  min-height:100vh;
+}
+
+.app-shell{
+
+  width:100%;
+
+  max-width:1500px;
+
+  margin:0 auto;
+
+  padding:
+    14px
+    14px
+    100px;
+
+}
+
 
 /* =========================================================
    LOGIN
 ========================================================= */
 
-.login-screen{
+#loginScreen{
+
   min-height:100vh;
-  min-height:100dvh;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
-  padding:
-    max(22px,env(safe-area-inset-top))
-    16px
-    max(22px,env(safe-area-inset-bottom));
+  padding:20px;
 
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      rgba(66,133,255,.32),
-      transparent 42%
-    ),
-    linear-gradient(
-      180deg,
-      #061b3a,
-      #08264d
-    );
 }
 
-.login-box{
+.login-card{
+
   width:100%;
-  max-width:420px;
 
-  background:#fff;
-  border-radius:28px;
+  max-width:430px;
 
-  padding:27px 20px;
+  padding:28px;
 
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.30);
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16,36,60,.98),
+      rgba(8,23,40,.98)
+    );
+
+  border:1px solid var(--border);
+
+  box-shadow:var(--shadow);
+
 }
 
 .login-logo{
-  width:76px;
-  height:76px;
 
-  margin:0 auto 16px;
+  width:64px;
+
+  height:64px;
+
+  border-radius:18px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
-  background:#fff;
-
-  border-radius:50%;
-
-  box-shadow:
-    0 12px 28px rgba(0,0,0,.18),
-    0 0 0 3px rgba(217,146,19,.9);
-}
-
-.logo-letter{
-  font-size:51px;
-  font-weight:950;
-  line-height:1;
+  margin-bottom:18px;
 
   background:
-    conic-gradient(
-      from -35deg,
-      #4285f4 0deg 80deg,
-      #34a853 80deg 170deg,
-      #fbbc05 170deg 245deg,
-      #ea4335 245deg 320deg,
-      #4285f4 320deg 360deg
+    linear-gradient(
+      135deg,
+      var(--blue),
+      #6ab4ff
     );
 
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+  font-size:30px;
+
 }
 
-.login-box h1{
-  text-align:center;
+.login-card h1{
 
-  color:var(--navy);
+  margin-bottom:7px;
 
-  font-size:29px;
-  font-weight:950;
-  letter-spacing:-.7px;
+  font-size:28px;
+
 }
 
-.login-box > p{
-  text-align:center;
+.login-card p{
 
   color:var(--muted);
 
-  font-size:14px;
-  line-height:1.4;
+  line-height:1.5;
 
-  margin:8px 0 22px;
+}
+
+.field{
+
+  margin-bottom:14px;
+
+}
+
+.field label{
+
+  display:block;
+
+  margin-bottom:7px;
+
+  color:#cbd5e1;
+
+  font-size:12px;
+
+  font-weight:700;
+
 }
 
 .login-error{
+
   display:none;
 
-  background:var(--red-bg);
-  border:1px solid #efc1c1;
+  margin-top:12px;
 
-  color:#a52626;
+  padding:11px 13px;
 
-  border-radius:14px;
+  border-radius:12px;
 
-  padding:13px;
+  background:
+    rgba(239,68,68,.12);
 
-  margin-bottom:15px;
+  color:#fca5a5;
 
-  font-size:13px;
-  line-height:1.45;
+  border:
+    1px solid
+    rgba(239,68,68,.2);
 
   white-space:pre-wrap;
+
 }
 
 .login-error.show{
   display:block;
 }
 
+
 /* =========================================================
-   FORMS
+   HEADER
 ========================================================= */
 
-.field{
-  margin-bottom:15px;
+.topbar{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:50;
+
+  margin:
+    -14px
+    -14px
+    16px;
+
+  padding:
+    14px;
+
+  background:
+    rgba(7,17,31,.9);
+
+  backdrop-filter:
+    blur(18px);
+
+  border-bottom:
+    1px solid var(--border);
+
 }
 
-.field label{
-  display:block;
+.topbar-inner{
 
-  font-size:12px;
-  font-weight:900;
+  max-width:1500px;
 
-  color:var(--navy);
+  margin:0 auto;
 
-  margin-bottom:7px;
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
 }
 
-.field input,
-.field select{
-  width:100%;
+.brand{
 
-  min-height:52px;
+  display:flex;
 
-  border-radius:14px;
+  align-items:center;
 
-  border:1px solid #d9e0e9;
+  gap:10px;
 
-  background:#f7f9fc;
+  min-width:0;
 
-  color:var(--ink);
-
-  padding:13px 14px;
-
-  outline:none;
-
-  transition:.15s ease;
 }
 
-.field input:focus,
-.field select:focus{
-  border-color:rgba(22,93,255,.55);
+.brand-icon{
 
-  box-shadow:
-    0 0 0 4px rgba(22,93,255,.08);
+  width:40px;
 
-  background:#fff;
+  height:40px;
+
+  flex:0 0 40px;
+
+  border-radius:12px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      #69b4ff
+    );
+
+  font-size:20px;
+
 }
+
+.brand-text{
+
+  min-width:0;
+
+}
+
+.brand-title{
+
+  font-size:15px;
+
+  font-weight:800;
+
+  white-space:nowrap;
+
+}
+
+.brand-subtitle{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:2px;
+
+}
+
+.header-actions{
+
+  display:flex;
+
+  gap:7px;
+
+  align-items:center;
+
+}
+
 
 /* =========================================================
    BUTTONS
 ========================================================= */
 
 .btn{
-  min-height:46px;
 
-  border:0;
-  border-radius:13px;
+  min-height:42px;
 
-  padding:10px 14px;
+  padding:
+    9px
+    13px;
+
+  border-radius:11px;
+
+  border:1px solid var(--border);
+
+  background:#12243a;
+
+  color:var(--text);
 
   display:inline-flex;
+
   align-items:center;
+
   justify-content:center;
 
   gap:7px;
 
-  font-size:12px;
-  font-weight:900;
-
-  cursor:pointer;
+  font-weight:700;
 
   transition:
-    transform .12s ease,
-    opacity .12s ease,
-    box-shadow .12s ease;
+    transform .15s ease,
+    opacity .15s ease,
+    background .15s ease;
+
 }
 
-.btn:active{
-  transform:scale(.97);
-}
+.btn:hover{
 
-.btn:disabled{
-  opacity:.5;
-  cursor:not-allowed;
+  transform:translateY(-1px);
+
 }
 
 .btn-primary{
-  color:#fff;
 
   background:
     linear-gradient(
       135deg,
-      #0a2d59,
-      #0d407a
+      var(--blue),
+      var(--blue-2)
     );
 
-  border:1px solid rgba(217,146,19,.85);
+  border-color:
+    rgba(255,255,255,.08);
 
-  box-shadow:
-    0 9px 20px rgba(7,27,60,.14);
 }
 
 .btn-blue{
-  background:#edf4ff;
-  color:#1551bd;
-  border:1px solid #c9dcff;
+
+  background:
+    rgba(22,131,255,.15);
+
+  color:#8fc8ff;
+
+  border-color:
+    rgba(22,131,255,.25);
+
 }
 
 .btn-soft{
-  background:#f1f5fa;
-  color:var(--navy);
-  border:1px solid var(--line);
-}
 
-.btn-green{
-  background:var(--green-bg);
-  color:#116b3d;
-  border:1px solid #b9e5ca;
-}
+  background:
+    rgba(255,255,255,.05);
 
-.btn-red{
-  background:var(--red-bg);
-  color:#a52626;
-  border:1px solid #efc1c1;
 }
 
 .btn-gold{
-  background:var(--orange-bg);
-  color:#8a5900;
-  border:1px solid #f1d27c;
-}
-
-/* =========================================================
-   APP HEADER
-========================================================= */
-
-.app{
-  min-height:100vh;
-  min-height:100dvh;
-}
-
-.top{
-  color:#fff;
 
   background:
-    radial-gradient(
-      circle at 80% -30%,
-      rgba(52,125,255,.38),
-      transparent 48%
-    ),
-    linear-gradient(
-      180deg,
-      #061b3a,
-      #08264d
-    );
+    rgba(245,185,66,.14);
 
-  padding:
-    max(15px,env(safe-area-inset-top))
-    14px
-    0;
+  color:#ffd77c;
+
+  border-color:
+    rgba(245,185,66,.24);
+
 }
 
-.top-inner{
-  max-width:1100px;
-  margin:auto;
+.btn-green{
+
+  background:
+    rgba(24,184,120,.14);
+
+  color:#6ee7b7;
+
+  border-color:
+    rgba(24,184,120,.25);
+
 }
 
-.brand-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.btn-red{
 
-  gap:10px;
+  background:
+    rgba(239,68,68,.14);
+
+  color:#fca5a5;
+
+  border-color:
+    rgba(239,68,68,.3);
+
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.btn-red:hover{
 
-  min-width:0;
+  background:
+    rgba(239,68,68,.24);
+
 }
 
-.brand-mark{
-  width:42px;
-  height:42px;
-
-  flex:none;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  box-shadow:
-    0 0 0 2px rgba(217,146,19,.9);
-}
-
-.brand-mark .logo-letter{
-  font-size:28px;
-}
-
-.brand-name{
-  font-size:17px;
-  font-weight:950;
-}
-
-.brand-sub{
-  color:#9fb2cb;
-
-  font-size:10px;
-
-  margin-top:1px;
-}
-
-.logout{
-  min-height:38px;
-
-  background:rgba(255,255,255,.08);
-
-  border:1px solid rgba(255,255,255,.16);
-
-  color:#fff;
-
-  border-radius:11px;
-
-  padding:8px 10px;
-
-  font-size:11px;
-  font-weight:850;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-  padding:20px 0 17px;
-}
-
-.hero small{
-  color:#91a8c5;
-
-  font-size:10px;
-  font-weight:850;
-
-  letter-spacing:1px;
-}
-
-.hero h1{
-  margin-top:4px;
-
-  font-size:28px;
-  line-height:1.05;
-
-  font-weight:950;
-
-  letter-spacing:-.8px;
-}
-
-.hero p{
-  margin-top:7px;
-
-  color:#c2d0e1;
-
-  font-size:12px;
-  line-height:1.4;
-}
-
-/* =========================================================
-   NAV
-========================================================= */
-
-.nav-wrap{
-  overflow-x:auto;
-
-  scrollbar-width:none;
-
-  margin:0 -14px;
-  padding:0 14px;
-}
-
-.nav-wrap::-webkit-scrollbar{
-  display:none;
-}
-
-.nav{
-  display:flex;
-
-  gap:6px;
-
-  min-width:max-content;
-
-  padding-bottom:0;
-}
-
-.nav button{
-  min-height:43px;
-
-  border:1px solid rgba(255,255,255,.11);
-
-  background:rgba(255,255,255,.065);
-
-  color:#cbd7e6;
-
-  padding:9px 12px;
-
-  border-radius:12px 12px 0 0;
-
-  font-size:11px;
-  font-weight:900;
-
-  white-space:nowrap;
-}
-
-.nav button.active{
-  background:#fff;
-  color:var(--navy);
-}
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main{
-  width:100%;
-  max-width:1100px;
-
-  margin:auto;
-
-  padding:
-    15px
-    14px
-    max(90px,env(safe-area-inset-bottom));
-}
 
 /* =========================================================
    STATUS
 ========================================================= */
 
 .status{
-  display:none;
 
-  padding:13px 14px;
+  position:fixed;
+
+  left:50%;
+
+  bottom:18px;
+
+  z-index:200;
+
+  transform:
+    translate(-50%,120px);
+
+  width:
+    calc(100% - 28px);
+
+  max-width:520px;
+
+  padding:13px 15px;
 
   border-radius:14px;
 
-  margin-bottom:13px;
+  background:#10243c;
 
-  font-size:12px;
-  font-weight:800;
+  border:1px solid var(--border);
 
-  line-height:1.4;
+  box-shadow:var(--shadow);
 
   white-space:pre-wrap;
+
+  transition:
+    transform .25s ease;
+
 }
 
 .status.show{
-  display:block;
+
+  transform:
+    translate(-50%,0);
+
 }
 
 .status.success{
-  background:var(--green-bg);
-  border:1px solid #b9e5ca;
-  color:#116b3d;
+
+  border-color:
+    rgba(24,184,120,.35);
+
 }
 
 .status.error{
-  background:var(--red-bg);
-  border:1px solid #efc1c1;
-  color:#a52626;
+
+  border-color:
+    rgba(239,68,68,.35);
+
 }
 
 .status.info{
-  background:#edf4ff;
-  border:1px solid #c7dcff;
-  color:#174f9f;
+
+  border-color:
+    rgba(22,131,255,.35);
+
 }
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav{
+
+  display:flex;
+
+  gap:7px;
+
+  overflow-x:auto;
+
+  padding-bottom:4px;
+
+  margin-bottom:16px;
+
+  scrollbar-width:none;
+
+}
+
+.nav::-webkit-scrollbar{
+  display:none;
+}
+
+.nav button{
+
+  flex:0 0 auto;
+
+  min-height:40px;
+
+  padding:
+    8px
+    12px;
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,.04);
+
+  color:var(--muted);
+
+  border:1px solid transparent;
+
+  font-weight:700;
+
+}
+
+.nav button.active{
+
+  background:
+    rgba(22,131,255,.14);
+
+  color:#8fc8ff;
+
+  border-color:
+    rgba(22,131,255,.24);
+
+}
+
 
 /* =========================================================
    VIEWS
@@ -620,850 +683,825 @@ button{
   display:block;
 }
 
-.section-head{
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.page-head{
+
   display:flex;
-  align-items:flex-end;
+
+  align-items:flex-start;
+
   justify-content:space-between;
 
-  gap:10px;
+  gap:14px;
 
-  margin-bottom:13px;
+  margin-bottom:18px;
+
 }
 
-.section-head h2{
-  font-size:22px;
-  font-weight:950;
+.page-title{
 
-  letter-spacing:-.5px;
+  margin:0;
+
+  font-size:
+    clamp(22px,5vw,32px);
+
 }
 
-.section-head p{
+.page-desc{
+
+  margin:
+    5px
+    0
+    0;
+
   color:var(--muted);
-
-  font-size:11px;
-
-  margin-top:3px;
-  line-height:1.4;
-}
-
-.section-head > .btn{
-  flex:none;
-}
-
-/* =========================================================
-   KPI
-========================================================= */
-
-.kpis{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  gap:9px;
-
-  margin-bottom:13px;
-}
-
-.kpi{
-  background:#fff;
-
-  border:1px solid var(--line);
-
-  border-radius:17px;
-
-  padding:14px;
-
-  box-shadow:var(--shadow);
-}
-
-.kpi-label{
-  color:var(--muted);
-
-  font-size:9px;
-  font-weight:900;
-
-  text-transform:uppercase;
-
-  letter-spacing:.45px;
-}
-
-.kpi-value{
-  margin-top:4px;
-
-  font-size:25px;
-  font-weight:950;
-
-  color:var(--navy);
-}
-
-.kpi-note{
-  color:#8794a5;
-
-  font-size:10px;
-
-  margin-top:1px;
-}
-
-/* =========================================================
-   PANEL
-========================================================= */
-
-.panel{
-  background:#fff;
-
-  border:1px solid var(--line);
-
-  border-radius:19px;
-
-  padding:16px;
-
-  margin-bottom:13px;
-
-  box-shadow:var(--shadow);
-}
-
-.panel h3{
-  font-size:16px;
-  font-weight:950;
-}
-
-.panel-desc{
-  color:var(--muted);
-
-  font-size:11px;
 
   line-height:1.45;
 
-  margin-top:4px;
 }
 
+.page-actions{
+
+  display:flex;
+
+  gap:8px;
+
+  flex-wrap:wrap;
+
+}
+
+
 /* =========================================================
-   QUICK ACTIONS
+   PANELS
 ========================================================= */
 
-.quick-grid{
+.panel{
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(13,27,46,.98),
+      rgba(10,24,41,.98)
+    );
+
+  border:
+    1px solid var(--border);
+
+  border-radius:18px;
+
+  padding:16px;
+
+  box-shadow:
+    0 8px 30px
+    rgba(0,0,0,.12);
+
+}
+
+.panel + .panel{
+  margin-top:14px;
+}
+
+.panel h3{
+
+  margin-bottom:5px;
+
+  font-size:16px;
+
+}
+
+.panel-desc{
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.5;
+
+  margin-bottom:14px;
+
+}
+
+
+/* =========================================================
+   STAT GRID
+========================================================= */
+
+.stats-grid{
+
   display:grid;
 
   grid-template-columns:
     repeat(2,minmax(0,1fr));
 
-  gap:8px;
+  gap:10px;
 
-  margin-top:13px;
+  margin-bottom:16px;
+
 }
 
-.quick-grid .btn{
-  width:100%;
-  min-height:52px;
+.stat-card{
+
+  padding:15px;
+
+  border-radius:16px;
+
+  background:
+    rgba(255,255,255,.035);
+
+  border:
+    1px solid var(--border);
+
 }
+
+.stat-icon{
+
+  font-size:20px;
+
+  margin-bottom:9px;
+
+}
+
+.stat-value{
+
+  font-size:24px;
+
+  font-weight:900;
+
+}
+
+.stat-label{
+
+  margin-top:3px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+}
+
 
 /* =========================================================
    SEARCH
 ========================================================= */
 
-.search{
+.search-wrap{
+
   position:relative;
 
   margin-bottom:12px;
+
 }
 
-.search input{
-  width:100%;
+.search-wrap span{
 
-  min-height:49px;
-
-  border-radius:15px;
-
-  border:1px solid var(--line);
-
-  background:#fff;
-
-  padding:
-    11px
-    13px
-    11px
-    41px;
-
-  outline:none;
-
-  color:var(--ink);
-
-  box-shadow:0 4px 15px rgba(7,27,60,.025);
-}
-
-.search input:focus{
-  border-color:#bdd2f8;
-
-  box-shadow:
-    0 0 0 4px rgba(22,93,255,.06);
-}
-
-.search span{
   position:absolute;
 
-  left:14px;
+  left:13px;
+
   top:50%;
 
-  transform:translateY(-50%);
-
-  color:#8795a8;
-
-  font-size:15px;
-}
-
-/* =========================================================
-   FILTERS
-========================================================= */
-
-.filters{
-  display:flex;
-
-  gap:7px;
-
-  overflow-x:auto;
-
-  scrollbar-width:none;
-
-  margin-bottom:12px;
-}
-
-.filters::-webkit-scrollbar{
-  display:none;
-}
-
-.filter-btn{
-  flex:none;
-
-  min-height:37px;
-
-  padding:7px 12px;
-
-  border-radius:11px;
-
-  border:1px solid var(--line);
-
-  background:#fff;
+  transform:
+    translateY(-50%);
 
   color:var(--muted);
 
-  font-size:10px;
-  font-weight:900;
 }
 
-.filter-btn.active{
-  background:var(--navy);
+.search-wrap input{
 
-  color:#fff;
+  padding-left:38px;
 
-  border-color:var(--navy);
 }
+
 
 /* =========================================================
-   BUSINESS CARD
+   BUSINESS CARDS
 ========================================================= */
 
 .business-card{
-  background:#fff;
-
-  border:1px solid var(--line);
-
-  border-radius:19px;
-
-  margin-bottom:11px;
-
-  overflow:hidden;
-
-  box-shadow:var(--shadow);
-}
-
-.business-head{
-  padding:15px;
-
-  display:flex;
-  align-items:center;
-
-  gap:10px;
-}
-
-.business-icon{
-  width:43px;
-  height:43px;
-
-  flex:none;
-
-  border-radius:13px;
 
   background:
     linear-gradient(
       145deg,
-      #edf4ff,
-      #dceaff
+      rgba(13,27,46,.98),
+      rgba(10,24,41,.98)
     );
 
+  border:
+    1px solid var(--border);
+
+  border-radius:18px;
+
+  padding:15px;
+
+  margin-bottom:12px;
+
+}
+
+.business-head{
+
   display:flex;
+
   align-items:center;
+
+  gap:11px;
+
+}
+
+.business-icon{
+
+  width:44px;
+
+  height:44px;
+
+  flex:0 0 44px;
+
+  border-radius:13px;
+
+  display:flex;
+
+  align-items:center;
+
   justify-content:center;
 
-  font-size:19px;
+  background:
+    rgba(22,131,255,.12);
+
+  font-size:21px;
+
 }
 
 .business-main{
+
   min-width:0;
+
   flex:1;
+
 }
 
 .business-name{
+
+  font-weight:800;
+
   font-size:15px;
-  font-weight:950;
 
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
+
 }
 
 .business-meta{
+
   color:var(--muted);
 
   font-size:10px;
 
   margin-top:3px;
+
 }
 
 .badge{
+
   display:inline-flex;
 
   align-items:center;
 
   gap:4px;
 
-  border-radius:20px;
+  padding:
+    5px
+    8px;
 
-  padding:5px 8px;
+  border-radius:999px;
 
   font-size:9px;
-  font-weight:950;
+
+  font-weight:800;
 
   white-space:nowrap;
+
 }
 
 .badge.active{
-  background:var(--green-bg);
-  color:#116b3d;
+
+  color:#6ee7b7;
+
+  background:
+    rgba(24,184,120,.11);
+
+  border:
+    1px solid
+    rgba(24,184,120,.2);
+
 }
 
 .badge.paused{
-  background:var(--orange-bg);
-  color:#8a5900;
+
+  color:#fca5a5;
+
+  background:
+    rgba(239,68,68,.11);
+
+  border:
+    1px solid
+    rgba(239,68,68,.2);
+
 }
 
 .business-actions{
-  display:grid;
 
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
+  display:flex;
 
   gap:7px;
 
-  padding:0 14px 13px;
-}
+  flex-wrap:wrap;
 
-.business-actions .btn{
-  width:100%;
+  margin-top:13px;
+
 }
 
 .cards-list{
-  border-top:1px solid var(--line);
 
-  background:#f9fbfd;
+  margin-top:13px;
 
-  padding:9px;
 }
-
-/* =========================================================
-   CARD ROW
-========================================================= */
 
 .card-row{
-  background:#fff;
 
-  border:1px solid var(--line);
+  padding:
+    12px;
 
-  border-radius:15px;
+  border-radius:14px;
 
-  padding:12px;
+  background:
+    rgba(255,255,255,.025);
 
-  margin-bottom:7px;
+  border:
+    1px solid var(--border);
+
 }
 
-.card-row:last-child{
-  margin-bottom:0;
+.card-row + .card-row{
+  margin-top:8px;
 }
 
 .card-top{
+
   display:flex;
 
   align-items:center;
+
   justify-content:space-between;
-
-  gap:8px;
-}
-
-.card-code{
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    monospace;
-
-  font-size:13px;
-  font-weight:950;
-
-  letter-spacing:.5px;
-
-  color:var(--navy);
-}
-
-.card-stats{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,minmax(0,1fr));
-
-  gap:6px;
-
-  margin-top:9px;
-}
-
-.mini-stat{
-  background:#f5f7fa;
-
-  border-radius:10px;
-
-  padding:8px;
-}
-
-.mini-stat b{
-  display:block;
-
-  font-size:13px;
-  font-weight:950;
-}
-
-.mini-stat span{
-  display:block;
-
-  color:var(--muted);
-
-  font-size:8px;
-
-  margin-top:1px;
-
-  text-transform:uppercase;
-}
-
-.card-row-actions{
-  display:grid;
-
-  grid-template-columns:
-    1.2fr 1fr 1fr;
-
-  gap:6px;
-
-  margin-top:9px;
-}
-
-.card-row-actions .btn{
-  min-height:38px;
-
-  font-size:10px;
-
-  padding:6px 7px;
-}
-
-/* =========================================================
-   CONTROL CENTER
-========================================================= */
-
-.control-hero{
-  position:relative;
-
-  overflow:hidden;
-
-  color:#fff;
-
-  background:
-    radial-gradient(
-      circle at 100% 0%,
-      rgba(66,133,255,.30),
-      transparent 43%
-    ),
-    linear-gradient(
-      145deg,
-      #061b3a,
-      #0d376b
-    );
-
-  border-radius:22px;
-
-  padding:17px;
-
-  margin-bottom:11px;
-
-  box-shadow:var(--shadow-strong);
-}
-
-.control-hero::after{
-  content:"";
-
-  position:absolute;
-
-  width:130px;
-  height:130px;
-
-  right:-60px;
-  bottom:-65px;
-
-  border-radius:50%;
-
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.control-back{
-  min-height:34px;
-
-  background:rgba(255,255,255,.08);
-
-  border:1px solid rgba(255,255,255,.14);
-
-  color:#fff;
-
-  border-radius:10px;
-
-  padding:7px 10px;
-
-  font-size:10px;
-  font-weight:850;
-
-  margin-bottom:16px;
-}
-
-.control-code{
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    monospace;
-
-  font-size:23px;
-  font-weight:950;
-
-  letter-spacing:1px;
-}
-
-.control-business{
-  color:#b9c9dc;
-
-  font-size:12px;
-
-  margin-top:4px;
-}
-
-.control-status{
-  margin-top:10px;
-}
-
-.control-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,minmax(0,1fr));
-
-  gap:7px;
-
-  margin-top:15px;
-}
-
-.control-stat{
-  background:rgba(255,255,255,.08);
-
-  border:1px solid rgba(255,255,255,.09);
-
-  border-radius:12px;
-
-  padding:10px 8px;
-}
-
-.control-stat span{
-  display:block;
-
-  color:#9eb2ca;
-
-  font-size:8px;
-
-  text-transform:uppercase;
-  letter-spacing:.3px;
-}
-
-.control-stat b{
-  display:block;
-
-  font-size:18px;
-
-  margin-top:2px;
-
-  white-space:nowrap;
-}
-
-/* =========================================================
-   CONTROL DETAILS
-========================================================= */
-
-.detail-list{
-  margin-top:11px;
-
-  border-top:1px solid var(--line);
-}
-
-.detail-row{
-  display:flex;
-
-  align-items:flex-start;
-  justify-content:space-between;
-
-  gap:15px;
-
-  padding:11px 0;
-
-  border-bottom:1px solid var(--line);
-
-  font-size:11px;
-}
-
-.detail-row:last-child{
-  border-bottom:0;
-}
-
-.detail-label{
-  color:var(--muted);
-}
-
-.detail-value{
-  color:var(--ink);
-
-  font-weight:850;
-
-  text-align:right;
-
-  word-break:break-word;
-}
-
-/* =========================================================
-   ACTION GRID
-========================================================= */
-
-.action-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  gap:8px;
-
-  margin-top:12px;
-}
-
-.action-grid .btn{
-  width:100%;
-
-  min-height:48px;
-}
-
-/* =========================================================
-   RATING DISTRIBUTION
-========================================================= */
-
-.rating-grid{
-  display:grid;
-
-  gap:9px;
-
-  margin-top:13px;
-}
-
-.rating-line{
-  display:grid;
-
-  grid-template-columns:
-    28px 1fr 28px;
-
-  align-items:center;
-
-  gap:7px;
-
-  font-size:11px;
-  font-weight:850;
-}
-
-.rating-track{
-  height:7px;
-
-  border-radius:20px;
-
-  background:#edf0f4;
-
-  overflow:hidden;
-}
-
-.rating-fill{
-  height:100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      #ffbf31,
-      #d99213
-    );
-
-  border-radius:20px;
-}
-
-/* =========================================================
-   CREATE CARD
-========================================================= */
-
-.create-card-box{
-  background:#f7faff;
-
-  border:1px solid #dce8f8;
-
-  border-radius:16px;
-
-  padding:14px;
-
-  margin-top:2px;
-}
-
-.create-card-box h4{
-  font-size:14px;
-  font-weight:950;
-}
-
-.create-card-box p{
-  color:var(--muted);
-
-  font-size:10px;
-
-  line-height:1.45;
-
-  margin-top:4px;
-  margin-bottom:13px;
-}
-
-/* =========================================================
-   ACTIVITY
-========================================================= */
-
-.activity-row{
-  display:flex;
 
   gap:10px;
 
-  padding:11px 0;
-
-  border-bottom:1px solid var(--line);
 }
 
-.activity-row:last-child{
-  border-bottom:0;
+.card-code{
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+
+  font-size:13px;
+
+  font-weight:900;
+
+  letter-spacing:.4px;
+
 }
 
-.activity-icon{
-  width:34px;
-  height:34px;
+.card-stats{
 
-  flex:none;
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  gap:7px;
+
+  margin-top:11px;
+
+}
+
+.mini-stat{
+
+  padding:8px;
 
   border-radius:10px;
 
-  background:#edf4ff;
+  background:
+    rgba(255,255,255,.035);
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  text-align:center;
+
 }
 
-.activity-text{
-  font-size:11px;
-  line-height:1.4;
+.mini-stat b{
+
+  display:block;
+
+  font-size:13px;
+
 }
 
-.activity-time{
-  color:#8a96a7;
+.mini-stat span{
+
+  display:block;
+
+  margin-top:2px;
+
+  color:var(--muted);
 
   font-size:9px;
 
-  margin-top:2px;
 }
+
+.card-row-actions{
+
+  display:flex;
+
+  gap:7px;
+
+  flex-wrap:wrap;
+
+  margin-top:11px;
+
+}
+
+.card-row-actions .btn{
+
+  flex:1;
+
+  min-width:100px;
+
+}
+
 
 /* =========================================================
    EMPTY
 ========================================================= */
 
 .empty{
+
   text-align:center;
 
-  padding:28px 14px;
+  padding:
+    28px
+    14px;
 
   color:var(--muted);
+
 }
 
 .empty-icon{
-  font-size:31px;
 
-  margin-bottom:7px;
+  font-size:32px;
+
+  margin-bottom:9px;
+
 }
 
 .empty h3{
-  color:var(--navy);
 
-  font-size:15px;
-  font-weight:950;
+  color:var(--text);
+
+  margin-bottom:6px;
+
 }
 
 .empty p{
+
+  margin-bottom:15px;
+
+  line-height:1.5;
+
+}
+
+
+/* =========================================================
+   ACTION GRID
+========================================================= */
+
+.action-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:8px;
+
+}
+
+.action-grid .btn{
+
+  width:100%;
+
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.rating-grid{
+
+  display:grid;
+
+  gap:8px;
+
+}
+
+.rating-line{
+
+  display:grid;
+
+  grid-template-columns:
+    28px
+    1fr
+    35px;
+
+  align-items:center;
+
+  gap:8px;
+
   font-size:11px;
 
-  margin-top:4px;
-
-  line-height:1.4;
 }
 
-.empty .btn{
-  margin-top:13px;
+.rating-track{
+
+  height:8px;
+
+  border-radius:999px;
+
+  overflow:hidden;
+
+  background:
+    rgba(255,255,255,.06);
+
 }
+
+.rating-fill{
+
+  height:100%;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold),
+      #ffe29a
+    );
+
+}
+
+
+/* =========================================================
+   DETAIL LIST
+========================================================= */
+
+.detail-list{
+
+  display:grid;
+
+  gap:1px;
+
+  border-radius:12px;
+
+  overflow:hidden;
+
+  border:1px solid var(--border);
+
+}
+
+.detail-row{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  padding:
+    10px
+    12px;
+
+  background:
+    rgba(255,255,255,.025);
+
+}
+
+.detail-label{
+
+  color:var(--muted);
+
+  font-size:11px;
+
+}
+
+.detail-value{
+
+  text-align:right;
+
+  font-size:11px;
+
+  font-weight:700;
+
+  word-break:break-word;
+
+}
+
+
+/* =========================================================
+   CONTROL HERO
+========================================================= */
+
+.control-hero{
+
+  padding:16px;
+
+  margin-bottom:14px;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22,131,255,.13),
+      rgba(13,27,46,.98)
+    );
+
+  border:
+    1px solid
+    rgba(22,131,255,.18);
+
+}
+
+.control-back{
+
+  margin-bottom:14px;
+
+  padding:0;
+
+  background:none;
+
+  color:#8fc8ff;
+
+  font-weight:800;
+
+}
+
+.control-code{
+
+  font-family:
+    ui-monospace,
+    monospace;
+
+  font-size:25px;
+
+  font-weight:900;
+
+  letter-spacing:.8px;
+
+}
+
+.control-business{
+
+  color:var(--muted);
+
+  margin-top:6px;
+
+  font-size:12px;
+
+}
+
+.control-status{
+
+  margin-top:10px;
+
+}
+
+.control-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  gap:8px;
+
+  margin-top:15px;
+
+}
+
+.control-stat{
+
+  padding:10px;
+
+  border-radius:11px;
+
+  background:
+    rgba(255,255,255,.045);
+
+}
+
+.control-stat span{
+
+  display:block;
+
+  color:var(--muted);
+
+  font-size:9px;
+
+}
+
+.control-stat b{
+
+  display:block;
+
+  margin-top:3px;
+
+  font-size:16px;
+
+}
+
+
+/* =========================================================
+   CREATE CARD
+========================================================= */
+
+.create-card-box{
+
+  padding:14px;
+
+  border-radius:15px;
+
+  background:
+    rgba(22,131,255,.07);
+
+  border:
+    1px solid
+    rgba(22,131,255,.15);
+
+}
+
+.create-card-box h4{
+
+  margin-bottom:5px;
+
+}
+
+.create-card-box p{
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  line-height:1.5;
+
+}
+
 
 /* =========================================================
    MODAL
 ========================================================= */
 
 .modal{
+
   position:fixed;
 
   inset:0;
 
-  background:rgba(3,14,31,.64);
-
-  z-index:100;
+  z-index:150;
 
   display:none;
 
   align-items:flex-end;
+
   justify-content:center;
+
+  padding:10px;
+
+  background:
+    rgba(0,0,0,.68);
+
+  backdrop-filter:
+    blur(7px);
+
 }
 
 .modal.show{
@@ -1471,132 +1509,177 @@ button{
 }
 
 .modal-box{
+
   width:100%;
-  max-width:620px;
+
+  max-width:650px;
 
   max-height:
-    calc(92vh - env(safe-area-inset-top));
+    calc(100vh - 20px);
 
   overflow:auto;
 
-  background:#fff;
-
   border-radius:
-    24px
-    24px
-    0
-    0;
-
-  padding:
-    18px
+    22px
+    22px
     16px
-    max(20px,env(safe-area-inset-bottom));
+    16px;
+
+  background:
+    #0b1a2d;
+
+  border:
+    1px solid var(--border);
+
+  box-shadow:
+    0 -15px 50px
+    rgba(0,0,0,.35);
+
 }
 
 .modal-head{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:2;
+
   display:flex;
 
   align-items:center;
+
   justify-content:space-between;
 
   gap:10px;
 
-  margin-bottom:15px;
+  padding:
+    15px
+    16px;
+
+  background:
+    rgba(11,26,45,.96);
+
+  backdrop-filter:
+    blur(15px);
+
+  border-bottom:
+    1px solid var(--border);
+
 }
 
 .modal-head h3{
-  font-size:19px;
-  font-weight:950;
+
+  margin:0;
+
+  font-size:16px;
+
 }
 
 .close{
-  width:38px;
-  height:38px;
 
-  flex:none;
+  width:34px;
 
-  border:0;
+  height:34px;
 
-  border-radius:11px;
+  border-radius:10px;
 
-  background:#f1f4f8;
+  background:
+    rgba(255,255,255,.05);
 
-  color:var(--navy);
+  color:var(--text);
 
   font-size:20px;
+
 }
+
+#modalBody{
+
+  padding:16px;
+
+}
+
 
 /* =========================================================
    MOBILE BOTTOM NAV
 ========================================================= */
 
-.mobile-nav{
+.bottom-nav{
+
   position:fixed;
 
   left:0;
+
   right:0;
+
   bottom:0;
 
-  z-index:50;
+  z-index:80;
 
   display:grid;
 
   grid-template-columns:
     repeat(4,1fr);
 
-  gap:2px;
+  gap:4px;
 
   padding:
-    7px
-    7px
-    max(7px,env(safe-area-inset-bottom));
+    8px
+    8px
+    calc(8px + env(safe-area-inset-bottom));
 
   background:
-    rgba(255,255,255,.96);
+    rgba(7,17,31,.94);
 
-  border-top:1px solid rgba(7,27,60,.09);
+  backdrop-filter:
+    blur(18px);
 
-  box-shadow:
-    0 -10px 30px rgba(7,27,60,.08);
+  border-top:
+    1px solid var(--border);
 
-  backdrop-filter:blur(18px);
 }
 
-.mobile-nav button{
-  min-height:49px;
+.bottom-nav button{
 
-  border:0;
+  min-height:52px;
 
-  border-radius:13px;
+  border-radius:12px;
 
-  background:transparent;
+  background:none;
 
-  color:#7b8797;
+  color:var(--muted);
 
   display:flex;
 
   flex-direction:column;
 
   align-items:center;
+
   justify-content:center;
 
-  gap:2px;
+  gap:3px;
 
-  font-size:9px;
-  font-weight:900;
+  font-size:10px;
+
+  font-weight:800;
+
 }
 
-.mobile-nav button strong{
+.bottom-nav button strong{
+
   font-size:18px;
 
-  line-height:1;
 }
 
-.mobile-nav button.active{
-  background:#edf4ff;
+.bottom-nav button.active{
 
-  color:#1551bd;
+  background:
+    rgba(22,131,255,.11);
+
+  color:#8fc8ff;
+
 }
+
 
 /* =========================================================
    DESKTOP
@@ -1604,113 +1687,210 @@ button{
 
 @media(min-width:760px){
 
-  .mobile-nav{
-    display:none;
+  .app-shell{
+
+    padding:
+      22px
+      22px
+      40px;
+
   }
 
-  .main{
-    padding-bottom:40px;
+  .topbar{
+
+    margin:
+      -22px
+      -22px
+      20px;
+
+    padding:
+      15px
+      22px;
+
   }
 
-  .kpis{
+  .stats-grid{
+
     grid-template-columns:
       repeat(4,minmax(0,1fr));
+
   }
 
-  .quick-grid{
-    grid-template-columns:
-      repeat(4,minmax(0,1fr));
-  }
+  .business-card{
 
-  .action-grid{
-    grid-template-columns:
-      repeat(4,minmax(0,1fr));
+    padding:18px;
+
   }
 
   .modal{
+
     align-items:center;
+
     padding:20px;
+
   }
 
   .modal-box{
-    border-radius:24px;
+
+    border-radius:20px;
+
+    max-height:
+      calc(100vh - 40px);
+
+  }
+
+  .bottom-nav{
+
+    display:none;
+
   }
 
 }
 
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media(min-width:1100px){
+
+  .app-shell{
+
+    padding:
+      28px
+      28px
+      50px;
+
+  }
+
+  .topbar{
+
+    margin:
+      -28px
+      -28px
+      24px;
+
+    padding:
+      17px
+      28px;
+
+  }
+
+  .content-grid{
+
+    display:grid;
+
+    grid-template-columns:
+      minmax(0,1.4fr)
+      minmax(320px,.6fr);
+
+    gap:15px;
+
+  }
+
+}
+
+
+/* =========================================================
+   UTILITY
+========================================================= */
+
+.hidden{
+  display:none !important;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.text-red{
+  color:#fca5a5;
+}
+
+.text-green{
+  color:#6ee7b7;
+}
+
+.text-blue{
+  color:#8fc8ff;
+}
+
 </style>
+
 </head>
 
 <body>
 
+
 <!-- =========================================================
-     LOGIN
+     LOGIN SCREEN
 ========================================================= -->
 
-<section
-  id="loginScreen"
-  class="login-screen"
->
+<section id="loginScreen">
 
-  <div class="login-box">
+  <div class="login-card">
 
     <div class="login-logo">
-      <div class="logo-letter">G</div>
+      ⭐
     </div>
 
-    <h1>Smart Review</h1>
+    <h1>
+      Smart Review
+    </h1>
 
     <p>
-      Connectez-vous à votre centre de contrôle.
+      Control Center — connexion administrateur
     </p>
-
-    <div
-      id="loginError"
-      class="login-error"
-    ></div>
 
     <form id="loginForm">
 
       <div class="field">
 
-        <label for="email">
-          E-mail
+        <label>
+          Email
         </label>
 
         <input
-          id="email"
+          id="loginEmail"
           type="email"
-          autocomplete="username"
+          autocomplete="email"
           required
-          placeholder="Votre adresse e-mail"
+          placeholder="admin@..."
         >
 
       </div>
 
+
       <div class="field">
 
-        <label for="password">
+        <label>
           Mot de passe
         </label>
 
         <input
-          id="password"
+          id="loginPassword"
           type="password"
           autocomplete="current-password"
           required
-          placeholder="Votre mot de passe"
+          placeholder="••••••••"
         >
 
       </div>
+
 
       <button
         id="loginButton"
         class="btn btn-primary"
         type="submit"
-        style="width:100%;min-height:56px;"
+        style="width:100%;min-height:52px;"
       >
         Se connecter
       </button>
+
+      <div
+        id="loginError"
+        class="login-error"
+      ></div>
 
     </form>
 
@@ -1720,94 +1900,57 @@ button{
 
 
 <!-- =========================================================
-     APPLICATION
+     ADMIN APP
 ========================================================= -->
 
-<div
+<section
   id="adminApp"
-  class="app hidden"
+  class="hidden"
 >
 
-  <header class="top">
+  <header class="topbar">
 
-    <div class="top-inner">
+    <div class="topbar-inner">
 
-      <div class="brand-row">
+      <div class="brand">
 
-        <div class="brand">
+        <div class="brand-icon">
+          ⭐
+        </div>
 
-          <div class="brand-mark">
-            <div class="logo-letter">G</div>
+        <div class="brand-text">
+
+          <div class="brand-title">
+            Smart Review
           </div>
 
-          <div>
-
-            <div class="brand-name">
-              Smart Review
-            </div>
-
-            <div class="brand-sub">
-              Control Center
-            </div>
-
+          <div class="brand-subtitle">
+            Control Center
           </div>
 
         </div>
 
+      </div>
+
+
+      <div class="header-actions">
+
+        <button
+          id="refreshButton"
+          class="btn btn-soft"
+          type="button"
+          title="Actualiser"
+        >
+          🔄
+        </button>
+
         <button
           id="logoutButton"
-          class="logout"
+          class="btn btn-soft"
           type="button"
         >
           Déconnexion
         </button>
-
-      </div>
-
-
-      <div class="hero">
-
-        <small>
-          SMART REVIEW
-        </small>
-
-        <h1>
-          Centre de contrôle
-        </h1>
-
-        <p>
-          Gérez vos établissements, vos cartes et leurs performances.
-        </p>
-
-      </div>
-
-
-      <!-- DESKTOP NAV -->
-
-      <div class="nav-wrap">
-
-        <nav class="nav">
-
-          <button
-            data-view="dashboard"
-            class="active"
-          >
-            ⚡ Centre
-          </button>
-
-          <button data-view="businesses">
-            🏢 Établissements
-          </button>
-
-          <button data-view="cards">
-            💳 Cartes
-          </button>
-
-          <button data-view="analytics">
-            📊 Statistiques
-          </button>
-
-        </nav>
 
       </div>
 
@@ -1816,146 +1959,71 @@ button{
   </header>
 
 
-  <main class="main">
+  <main class="app-shell">
 
-    <div
-      id="status"
-      class="status"
-    ></div>
+
+    <!-- =====================================================
+         DESKTOP NAV
+    ====================================================== -->
+
+    <nav class="nav">
+
+      <button
+        class="active"
+        data-view="dashboard"
+      >
+        🏠 Dashboard
+      </button>
+
+      <button
+        data-view="businesses"
+      >
+        🏢 Établissements
+      </button>
+
+      <button
+        data-view="cards"
+      >
+        💳 Cartes
+      </button>
+
+      <button
+        data-view="analytics"
+      >
+        📊 Analytics
+      </button>
+
+    </nav>
 
 
     <!-- =====================================================
          DASHBOARD
-    ===================================================== -->
+    ====================================================== -->
 
     <section
       id="view-dashboard"
       class="view active"
     >
 
-      <div class="section-head">
+      <div class="page-head">
 
         <div>
 
-          <h2>
-            Vue générale
+          <h2 class="page-title">
+            Dashboard
           </h2>
 
-          <p>
-            Tout ce qui compte, immédiatement.
+          <p class="page-desc">
+            Vue globale de votre réseau Smart Review.
           </p>
 
         </div>
 
-        <button
-          id="refreshButton"
-          class="btn btn-soft"
-          type="button"
-        >
-          🔄
-        </button>
-
-      </div>
-
-
-      <div class="kpis">
-
-        <div class="kpi">
-
-          <div class="kpi-label">
-            Établissements
-          </div>
-
-          <div
-            id="kpiBusinesses"
-            class="kpi-value"
-          >
-            —
-          </div>
-
-          <div class="kpi-note">
-            enregistrés
-          </div>
-
-        </div>
-
-
-        <div class="kpi">
-
-          <div class="kpi-label">
-            Cartes actives
-          </div>
-
-          <div
-            id="kpiCards"
-            class="kpi-value"
-          >
-            —
-          </div>
-
-          <div class="kpi-note">
-            opérationnelles
-          </div>
-
-        </div>
-
-
-        <div class="kpi">
-
-          <div class="kpi-label">
-            Scans
-          </div>
-
-          <div
-            id="kpiScans"
-            class="kpi-value"
-          >
-            —
-          </div>
-
-          <div class="kpi-note">
-            total
-          </div>
-
-        </div>
-
-
-        <div class="kpi">
-
-          <div class="kpi-label">
-            Avis
-          </div>
-
-          <div
-            id="kpiRatings"
-            class="kpi-value"
-          >
-            —
-          </div>
-
-          <div class="kpi-note">
-            ratings reçus
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="panel">
-
-        <h3>
-          ⚡ Actions rapides
-        </h3>
-
-        <p class="panel-desc">
-          Les opérations que vous utiliserez le plus.
-        </p>
-
-        <div class="quick-grid">
+        <div class="page-actions">
 
           <button
             class="btn btn-primary"
+            type="button"
             onclick="openCreateBusiness()"
           >
             ＋ Établissement
@@ -1963,23 +2031,10 @@ button{
 
           <button
             class="btn btn-blue"
+            type="button"
             onclick="openCreateCardPicker()"
           >
-            ＋ Nouvelle carte
-          </button>
-
-          <button
-            class="btn btn-soft"
-            onclick="switchView('businesses')"
-          >
-            🏢 Établissements
-          </button>
-
-          <button
-            class="btn btn-soft"
-            onclick="switchView('cards')"
-          >
-            💳 Toutes les cartes
+            ＋ Carte
           </button>
 
         </div>
@@ -1987,198 +2042,368 @@ button{
       </div>
 
 
-      <div class="panel">
+      <div class="stats-grid">
 
-        <h3>
-          🧠 Système
-        </h3>
+        <div class="stat-card">
 
-        <p
-          id="systemSummary"
-          class="panel-desc"
-          style="margin-top:8px;"
-        >
-          Chargement…
-        </p>
+          <div class="stat-icon">
+            🏢
+          </div>
+
+          <div
+            id="statBusinesses"
+            class="stat-value"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Établissements
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            💳
+          </div>
+
+          <div
+            id="statCards"
+            class="stat-value"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Cartes
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            📲
+          </div>
+
+          <div
+            id="statScans"
+            class="stat-value"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Scans
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⭐
+          </div>
+
+          <div
+            id="statRatings"
+            class="stat-value"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Avis
+          </div>
+
+        </div>
 
       </div>
 
 
-      <div class="section-head">
+      <div class="content-grid">
 
         <div>
 
-          <h2 style="font-size:18px;">
-            Vos établissements
-          </h2>
+          <div class="panel">
 
-          <p>
-            Accès rapide à vos cartes.
-          </p>
+            <h3>
+              🏢 Établissements récents
+            </h3>
+
+            <p class="panel-desc">
+              Les établissements actuellement enregistrés.
+            </p>
+
+            <div id="dashboardBusinesses"></div>
+
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="panel">
+
+            <h3>
+              ⭐ Ratings globaux
+            </h3>
+
+            <p class="panel-desc">
+              Répartition de tous les avis enregistrés.
+            </p>
+
+            <div
+              id="globalRatingBars"
+              class="rating-grid"
+            ></div>
+
+          </div>
+
+
+          <div
+            class="panel"
+            style="margin-top:14px;"
+          >
+
+            <h3>
+              ⚡ Actions rapides
+            </h3>
+
+            <p class="panel-desc">
+              Gestion rapide du système.
+            </p>
+
+            <div class="action-grid">
+
+              <button
+                class="btn btn-primary"
+                onclick="openCreateBusiness()"
+              >
+                ＋ Établissement
+              </button>
+
+              <button
+                class="btn btn-blue"
+                onclick="openCreateCardPicker()"
+              >
+                ＋ Carte
+              </button>
+
+              <button
+                class="btn btn-soft"
+                onclick="switchView('businesses')"
+              >
+                🏢 Voir établissements
+              </button>
+
+              <button
+                class="btn btn-soft"
+                onclick="switchView('cards')"
+              >
+                💳 Voir cartes
+              </button>
+
+            </div>
+
+          </div>
 
         </div>
 
       </div>
-
-      <div id="dashboardBusinesses"></div>
 
     </section>
 
 
     <!-- =====================================================
          BUSINESSES
-    ===================================================== -->
+    ====================================================== -->
 
     <section
       id="view-businesses"
       class="view"
     >
 
-      <div class="section-head">
+      <div class="page-head">
 
         <div>
 
-          <h2>
+          <h2 class="page-title">
             Établissements
           </h2>
 
-          <p>
+          <p class="page-desc">
             Gérez vos établissements et leurs cartes.
           </p>
 
         </div>
 
-        <button
-          class="btn btn-primary"
-          onclick="openCreateBusiness()"
-        >
-          ＋ Ajouter
-        </button>
+        <div class="page-actions">
+
+          <button
+            class="btn btn-primary"
+            onclick="openCreateBusiness()"
+          >
+            ＋ Créer
+          </button>
+
+        </div>
 
       </div>
 
 
-      <div class="search">
+      <div class="panel">
 
-        <span>
-          🔎
-        </span>
+        <div class="search-wrap">
 
-        <input
-          id="businessSearch"
-          type="search"
-          placeholder="Rechercher..."
-        >
+          <span>
+            🔎
+          </span>
+
+          <input
+            id="businessSearch"
+            type="search"
+            placeholder="Rechercher un établissement..."
+          >
+
+        </div>
 
       </div>
 
 
-      <div id="businessList"></div>
+      <div
+        id="businessList"
+        style="margin-top:14px;"
+      ></div>
 
     </section>
 
 
     <!-- =====================================================
          CARDS
-    ===================================================== -->
+    ====================================================== -->
 
     <section
       id="view-cards"
       class="view"
     >
 
-      <div class="section-head">
+      <div class="page-head">
 
         <div>
 
-          <h2>
+          <h2 class="page-title">
             Cartes
           </h2>
 
-          <p>
-            Chaque carte possède ses propres statistiques.
+          <p class="page-desc">
+            Gérez toutes les cartes Smart Review.
           </p>
 
         </div>
 
-        <button
-          class="btn btn-primary"
-          onclick="openCreateCardPicker()"
-        >
-          ＋ Carte
-        </button>
+        <div class="page-actions">
+
+          <button
+            class="btn btn-primary"
+            onclick="openCreateCardPicker()"
+          >
+            ＋ Créer
+          </button>
+
+        </div>
 
       </div>
 
 
-      <div class="search">
+      <div class="panel">
 
-        <span>
-          🔎
-        </span>
+        <div class="search-wrap">
 
-        <input
-          id="cardSearch"
-          type="search"
-          placeholder="Code ou établissement..."
+          <span>
+            🔎
+          </span>
+
+          <input
+            id="cardSearch"
+            type="search"
+            placeholder="Rechercher une carte ou un établissement..."
+          >
+
+        </div>
+
+
+        <div
+          style="
+            display:flex;
+            gap:7px;
+            overflow-x:auto;
+            padding-bottom:2px;
+          "
         >
+
+          <button
+            class="btn btn-soft active"
+            data-card-filter="all"
+            type="button"
+          >
+            Toutes
+          </button>
+
+          <button
+            class="btn btn-soft"
+            data-card-filter="active"
+            type="button"
+          >
+            ● Actives
+          </button>
+
+          <button
+            class="btn btn-soft"
+            data-card-filter="paused"
+            type="button"
+          >
+            ● En pause
+          </button>
+
+        </div>
 
       </div>
 
 
       <div
-        id="cardFilters"
-        class="filters"
-      >
-
-        <button
-          class="filter-btn active"
-          data-card-filter="all"
-        >
-          Toutes
-        </button>
-
-        <button
-          class="filter-btn"
-          data-card-filter="active"
-        >
-          ● Actives
-        </button>
-
-        <button
-          class="filter-btn"
-          data-card-filter="paused"
-        >
-          ● En pause
-        </button>
-
-      </div>
-
-
-      <div id="globalCardList"></div>
+        id="globalCardList"
+        style="margin-top:14px;"
+      ></div>
 
     </section>
 
 
     <!-- =====================================================
          ANALYTICS
-    ===================================================== -->
+    ====================================================== -->
 
     <section
       id="view-analytics"
       class="view"
     >
 
-      <div class="section-head">
+      <div class="page-head">
 
         <div>
 
-          <h2>
-            Statistiques
+          <h2 class="page-title">
+            Analytics
           </h2>
 
-          <p>
-            Vue globale des ratings.
+          <p class="page-desc">
+            Analyse globale des performances Smart Review.
           </p>
 
         </div>
@@ -2186,67 +2411,83 @@ button{
       </div>
 
 
-      <div class="kpis">
+      <div class="stats-grid">
 
-        <div class="kpi">
+        <div class="stat-card">
 
-          <div class="kpi-label">
-            1★
+          <div class="stat-icon">
+            ⭐
           </div>
 
           <div
-            id="rating1"
-            class="kpi-value"
+            id="rating5"
+            class="stat-value"
           >
             0
+          </div>
+
+          <div class="stat-label">
+            5 étoiles
           </div>
 
         </div>
 
 
-        <div class="kpi">
+        <div class="stat-card">
 
-          <div class="kpi-label">
-            2★
-          </div>
-
-          <div
-            id="rating2"
-            class="kpi-value"
-          >
-            0
-          </div>
-
-        </div>
-
-
-        <div class="kpi">
-
-          <div class="kpi-label">
-            3★
-          </div>
-
-          <div
-            id="rating3"
-            class="kpi-value"
-          >
-            0
-          </div>
-
-        </div>
-
-
-        <div class="kpi">
-
-          <div class="kpi-label">
-            4★
+          <div class="stat-icon">
+            ⭐
           </div>
 
           <div
             id="rating4"
-            class="kpi-value"
+            class="stat-value"
           >
             0
+          </div>
+
+          <div class="stat-label">
+            4 étoiles
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⭐
+          </div>
+
+          <div
+            id="rating3"
+            class="stat-value"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            3 étoiles
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ⭐
+          </div>
+
+          <div
+            id="rating2"
+            class="stat-value"
+          >
+            2 étoiles
+          </div>
+
+          <div class="stat-label">
+            Avis
           </div>
 
         </div>
@@ -2257,15 +2498,15 @@ button{
       <div class="panel">
 
         <h3>
-          ⭐ Distribution des avis
+          ⭐ Répartition des ratings
         </h3>
 
         <p class="panel-desc">
-          Répartition globale de tous les ratings.
+          Distribution globale des notes.
         </p>
 
         <div
-          id="globalRatingBars"
+          id="analyticsRatingBars"
           class="rating-grid"
         ></div>
 
@@ -2273,41 +2514,50 @@ button{
 
     </section>
 
+
   </main>
 
 
-  <!-- =====================================================
+  <!-- =======================================================
        MOBILE NAV
-  ===================================================== -->
+  ======================================================== -->
 
-  <nav class="mobile-nav">
+  <nav class="bottom-nav">
 
     <button
-      data-mobile-view="dashboard"
       class="active"
+      data-mobile-view="dashboard"
     >
-      <strong>⚡</strong>
-      Centre
+      <strong>
+        🏠
+      </strong>
+      Accueil
     </button>
 
     <button
       data-mobile-view="businesses"
     >
-      <strong>🏢</strong>
+      <strong>
+        🏢
+      </strong>
       Établissements
     </button>
 
     <button
       data-mobile-view="cards"
     >
-      <strong>💳</strong>
+      <strong>
+        💳
+      </strong>
       Cartes
     </button>
 
     <button
       data-mobile-view="analytics"
     >
-      <strong>📊</strong>
+      <strong>
+        📊
+      </strong>
       Stats
     </button>
 
@@ -2451,7 +2701,7 @@ function showStatus(
 
       }
 
-    },4500);
+    },4000);
 
   }
 
@@ -2460,496 +2710,81 @@ function showStatus(
 
 function clearStatus(){
 
-  statusBox.textContent = "";
-
   statusBox.className =
     "status";
 
+  statusBox.textContent =
+    "";
+
 }
 
 
 /* =========================================================
-   AUTH
+   ESCAPE HTML
 ========================================================= */
 
-async function getCurrentUser(){
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient.auth.getUser();
-
-  if(error){
-
-    console.error(
-      "AUTH USER ERROR:",
-      error
-    );
-
-    return null;
-
-  }
-
-  return data.user || null;
-
-}
-
-
-function showLogin(){
-
-  loginScreen.style.display =
-    "flex";
-
-  adminApp.classList.add(
-    "hidden"
-  );
-
-}
-
-
-async function showAdmin(){
-
-  const user =
-    await getCurrentUser();
-
-  if(!user){
-
-    showLogin();
-
-    return;
-
-  }
-
-  loginScreen.style.display =
-    "none";
-
-  adminApp.classList.remove(
-    "hidden"
-  );
-
-  if(!appInitialized){
-
-    appInitialized = true;
-
-    await loadEverything();
-
-  }
-
-}
-
-
-async function checkSession(){
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth.getSession();
-
-    if(error){
-
-      console.error(
-        "SESSION ERROR:",
-        error
-      );
-
-      showLogin();
-
-      return;
-
-    }
-
-    if(data.session){
-
-      await showAdmin();
-
-    }
-
-    else{
-
-      showLogin();
-
-    }
-
-  }
-
-  catch(error){
-
-    console.error(
-      "SESSION CHECK ERROR:",
-      error
-    );
-
-    showLogin();
-
-  }
-
-}
-
-
-supabaseClient.auth.onAuthStateChange(
-  (
-    event,
-    session
-  ) => {
-
-    if(session){
-
-      /*
-        Delay prevents auth callbacks from
-        competing with the login submit handler.
-      */
-
-      setTimeout(
-        () => showAdmin(),
-        0
-      );
-
-    }
-
-    else{
-
-      appInitialized = false;
-
-      showLogin();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-loginForm.addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-    loginError.classList.remove(
-      "show"
-    );
-
-    const email =
-      document
-        .getElementById("email")
-        .value
-        .trim();
-
-    const password =
-      document
-        .getElementById("password")
-        .value;
-
-    if(!email || !password){
-
-      return;
-
-    }
-
-    loginButton.disabled = true;
-
-    loginButton.textContent =
-      "Connexion…";
-
-    try{
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth.signInWithPassword({
-          email,
-          password
-        });
-
-      if(error){
-
-        throw error;
-
-      }
-
-      if(!data.session){
-
-        throw new Error(
-          "Aucune session n'a été créée."
-        );
-
-      }
-
-      /*
-        Do not wipe the form before authentication
-        has succeeded. This prevents the annoying
-        mobile experience where credentials disappear
-        while nothing visible happens.
-      */
-
-      document
-        .getElementById("password")
-        .value = "";
-
-      appInitialized = false;
-
-      await showAdmin();
-
-    }
-
-    catch(error){
-
-      console.error(
-        "LOGIN ERROR:",
-        error
-      );
-
-      loginError.textContent =
-        "Connexion refusée.\n\n" +
-        (
-          error?.message ||
-          "Une erreur inconnue est survenue."
-        );
-
-      loginError.classList.add(
-        "show"
-      );
-
-    }
-
-    finally{
-
-      loginButton.disabled = false;
-
-      loginButton.textContent =
-        "Se connecter";
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-document
-  .getElementById("logoutButton")
-  .addEventListener(
-    "click",
-    async () => {
-
-      const button =
-        document.getElementById(
-          "logoutButton"
-        );
-
-      button.disabled = true;
-
-      try{
-
-        await supabaseClient.auth.signOut();
-
-      }
-
-      finally{
-
-        button.disabled = false;
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function switchView(
-  view
+function escapeHtml(
+  value
 ){
 
-  document
-    .querySelectorAll(".view")
-    .forEach(
-      element =>
-        element.classList.remove(
-          "active"
-        )
-    );
-
-  const target =
-    document.getElementById(
-      "view-" + view
-    );
-
-  if(target){
-
-    target.classList.add(
-      "active"
-    );
-
-  }
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.view === view
-      );
-
-    });
-
-  document
-    .querySelectorAll(
-      ".mobile-nav button"
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
     )
-    .forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.mobileView === view
-      );
-
-    });
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
-document
-  .querySelectorAll(".nav button")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () =>
-        switchView(
-          button.dataset.view
-        )
-    );
-
-  });
-
-
-document
-  .querySelectorAll(
-    ".mobile-nav button"
-  )
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () =>
-        switchView(
-          button.dataset.mobileView
-        )
-    );
-
-  });
-
-
 /* =========================================================
-   LOAD EVERYTHING
+   DATE
 ========================================================= */
 
-async function loadEverything(){
+function formatDate(
+  value
+){
 
-  if(loadingData){
+  if(!value){
 
-    return;
+    return "—";
 
   }
 
-  loadingData = true;
-
   try{
 
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.rpc(
-        "get_admin_dashboard_data"
-      );
-
-    if(error){
-
-      throw new Error(
-        "Impossible de charger les données.\n\n" +
-        error.message
-      );
-
-    }
-
-    dashboardData.businesses =
-      Array.isArray(data?.businesses)
-      ? data.businesses
-      : [];
-
-    dashboardData.cards =
-      Array.isArray(data?.cards)
-      ? data.cards
-      : [];
-
-
-    const {
-      data:stats,
-      error:statsError
-    } =
-      await supabaseClient.rpc(
-        "get_admin_card_stats"
-      );
-
-    if(statsError){
-
-      throw new Error(
-        "Impossible de charger les statistiques des cartes.\n\n" +
-        statsError.message
-      );
-
-    }
-
-    dashboardData.stats =
-      Array.isArray(stats)
-      ? stats
-      : [];
-
-    mergeStats();
-
-    renderAll();
+    return new Date(
+      value
+    ).toLocaleString(
+      "fr-FR",
+      {
+        dateStyle:"medium",
+        timeStyle:"short"
+      }
+    );
 
   }
 
   catch(error){
 
-    console.error(
-      "LOAD ERROR:",
-      error
-    );
-
-    showStatus(
-      error.message ||
-      "Impossible de charger les données.",
-      "error"
-    );
-
-  }
-
-  finally{
-
-    loadingData = false;
+    return String(value);
 
   }
 
@@ -2957,63 +2792,7 @@ async function loadEverything(){
 
 
 /* =========================================================
-   MERGE STATS
-========================================================= */
-
-function mergeStats(){
-
-  dashboardData.cards =
-    dashboardData.cards.map(card => {
-
-      const stats =
-        dashboardData.stats.find(
-          item =>
-            item.card_id === card.id
-        );
-
-      return {
-
-        ...card,
-
-        total_scans:
-          Number(
-            stats?.total_scans || 0
-          ),
-
-        rating_1:
-          Number(
-            stats?.rating_1 || 0
-          ),
-
-        rating_2:
-          Number(
-            stats?.rating_2 || 0
-          ),
-
-        rating_3:
-          Number(
-            stats?.rating_3 || 0
-          ),
-
-        rating_4:
-          Number(
-            stats?.rating_4 || 0
-          ),
-
-        rating_5:
-          Number(
-            stats?.rating_5 || 0
-          )
-
-      };
-
-    });
-
-}
-
-
-/* =========================================================
-   HELPERS
+   DATA HELPERS
 ========================================================= */
 
 function getBusiness(
@@ -3044,13 +2823,17 @@ function totalRatings(
   card
 ){
 
-  return (
-    card.rating_1 +
-    card.rating_2 +
-    card.rating_3 +
-    card.rating_4 +
-    card.rating_5
-  );
+  return [1,2,3,4,5]
+    .reduce(
+      (sum, star) =>
+        sum +
+        Number(
+          card[
+            "rating_" + star
+          ] || 0
+        ),
+      0
+    );
 
 }
 
@@ -3064,20 +2847,30 @@ function averageRating(
 
   if(!total){
 
-    return "—";
+    return "0.0";
 
   }
 
-  const score =
-    (
-      card.rating_1 * 1 +
-      card.rating_2 * 2 +
-      card.rating_3 * 3 +
-      card.rating_4 * 4 +
-      card.rating_5 * 5
-    ) / total;
+  const weighted =
+    [1,2,3,4,5]
+      .reduce(
+        (sum, star) =>
+          sum +
+          (
+            star *
+            Number(
+              card[
+                "rating_" + star
+              ] || 0
+            )
+          ),
+        0
+      );
 
-  return score.toFixed(1);
+  return (
+    weighted /
+    total
+  ).toFixed(1);
 
 }
 
@@ -3086,65 +2879,89 @@ function cardStatus(
   card
 ){
 
-  if(card.active){
-
-    return `
+  return card.active
+    ?
+    `
       <span class="badge active">
         ● ACTIVE
       </span>
+    `
+    :
+    `
+      <span class="badge paused">
+        ● PAUSED
+      </span>
     `;
 
-  }
-
-  return `
-    <span class="badge paused">
-      ● PAUSED
-    </span>
-  `;
-
 }
 
 
-function escapeHtml(
-  value
-){
+/* =========================================================
+   SESSION
+========================================================= */
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-function formatDate(
-  value
-){
-
-  if(!value){
-
-    return "—";
-
-  }
+async function checkSession(){
 
   try{
 
-    return new Date(value)
-      .toLocaleString(
-        "fr-FR",
-        {
-          dateStyle:"medium",
-          timeStyle:"short"
-        }
-      );
+    const {
+      data
+    } =
+      await supabaseClient.auth.getSession();
+
+    if(
+      data?.session
+    ){
+
+      showAdmin();
+
+      return;
+
+    }
+
+    showLogin();
 
   }
 
-  catch{
+  catch(error){
 
-    return "—";
+    console.error(error);
+
+    showLogin();
+
+  }
+
+}
+
+
+function showLogin(){
+
+  loginScreen.classList.remove(
+    "hidden"
+  );
+
+  adminApp.classList.add(
+    "hidden"
+  );
+
+}
+
+
+async function showAdmin(){
+
+  loginScreen.classList.add(
+    "hidden"
+  );
+
+  adminApp.classList.remove(
+    "hidden"
+  );
+
+  if(!appInitialized){
+
+    appInitialized = true;
+
+    await loadEverything();
 
   }
 
@@ -3152,12 +2969,322 @@ function formatDate(
 
 
 /* =========================================================
-   RENDER
+   LOGIN
+========================================================= */
+
+loginForm.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    loginError.classList.remove(
+      "show"
+    );
+
+    loginButton.disabled = true;
+
+    loginButton.textContent =
+      "Connexion…";
+
+    try{
+
+      const email =
+        document
+          .getElementById(
+            "loginEmail"
+          )
+          .value
+          .trim();
+
+      const password =
+        document
+          .getElementById(
+            "loginPassword"
+          )
+          .value;
+
+      const {
+        error
+      } =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      if(error){
+
+        throw error;
+
+      }
+
+      await showAdmin();
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+      loginError.textContent =
+        error?.message ||
+        "Connexion impossible.";
+
+      loginError.classList.add(
+        "show"
+      );
+
+    }
+
+    finally{
+
+      loginButton.disabled = false;
+
+      loginButton.textContent =
+        "Se connecter";
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+document
+  .getElementById(
+    "logoutButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      await supabaseClient.auth.signOut();
+
+      appInitialized = false;
+
+      dashboardData = {
+        businesses:[],
+        cards:[],
+        stats:[]
+      };
+
+      showLogin();
+
+    }
+  );
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+  async (
+    event,
+    session
+  ) => {
+
+    if(
+      session
+    ){
+
+      await showAdmin();
+
+    }
+
+    else{
+
+      showLogin();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+async function loadEverything(){
+
+  if(loadingData){
+
+    return;
+
+  }
+
+  loadingData = true;
+
+  try{
+
+    const [
+      businessesResult,
+      cardsResult,
+      statsResult
+    ] =
+      await Promise.all([
+
+        supabaseClient
+          .from("businesses")
+          .select("*")
+          .order(
+            "created_at",
+            {
+              ascending:false
+            }
+          ),
+
+        supabaseClient
+          .from("cards")
+          .select("*")
+          .order(
+            "created_at",
+            {
+              ascending:false
+            }
+          ),
+
+        supabaseClient
+          .from("card_stats")
+          .select("*")
+
+      ]);
+
+
+    if(
+      businessesResult.error
+    ){
+
+      throw businessesResult.error;
+
+    }
+
+    if(
+      cardsResult.error
+    ){
+
+      throw cardsResult.error;
+
+    }
+
+    if(
+      statsResult.error
+    ){
+
+      throw statsResult.error;
+
+    }
+
+
+    dashboardData.businesses =
+      businessesResult.data || [];
+
+    dashboardData.cards =
+      cardsResult.data || [];
+
+    dashboardData.stats =
+      statsResult.data || [];
+
+
+    mergeStatsIntoCards();
+
+    renderAll();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "LOAD ERROR:",
+      error
+    );
+
+    showStatus(
+      "Impossible de charger les données.\n\n" +
+      (
+        error?.message ||
+        String(error)
+      ),
+      "error"
+    );
+
+  }
+
+  finally{
+
+    loadingData = false;
+
+  }
+
+}
+
+
+/* =========================================================
+   MERGE CARD STATS
+========================================================= */
+
+function mergeStatsIntoCards(){
+
+  const statsMap =
+    new Map();
+
+  dashboardData.stats.forEach(
+    stat => {
+
+      statsMap.set(
+        stat.card_id,
+        stat
+      );
+
+    }
+  );
+
+
+  dashboardData.cards =
+    dashboardData.cards.map(
+      card => {
+
+        const stat =
+          statsMap.get(
+            card.id
+          );
+
+        if(!stat){
+
+          return {
+            ...card,
+            total_scans:0,
+            rating_1:0,
+            rating_2:0,
+            rating_3:0,
+            rating_4:0,
+            rating_5:0
+          };
+
+        }
+
+        return {
+          ...card,
+          ...stat
+        };
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   RENDER ALL
 ========================================================= */
 
 function renderAll(){
 
-  renderKPIs();
+  renderStats();
 
   renderDashboardBusinesses();
 
@@ -3171,66 +3298,160 @@ function renderAll(){
 
 
 /* =========================================================
-   KPIs
+   STATS
 ========================================================= */
 
-function renderKPIs(){
+function renderStats(){
 
   const businesses =
     dashboardData.businesses.length;
 
-  const activeCards =
-    dashboardData.cards.filter(
-      card =>
-        card.active
-    ).length;
+  const cards =
+    dashboardData.cards.length;
 
   const scans =
     dashboardData.cards.reduce(
-      (sum,card) =>
+      (sum, card) =>
         sum +
-        Number(card.total_scans || 0),
+        Number(
+          card.total_scans || 0
+        ),
       0
     );
 
   const ratings =
     dashboardData.cards.reduce(
-      (sum,card) =>
+      (sum, card) =>
         sum +
         totalRatings(card),
       0
     );
 
+
   document.getElementById(
-    "kpiBusinesses"
+    "statBusinesses"
   ).textContent =
     businesses;
 
   document.getElementById(
-    "kpiCards"
+    "statCards"
   ).textContent =
-    activeCards;
+    cards;
 
   document.getElementById(
-    "kpiScans"
+    "statScans"
   ).textContent =
     scans;
 
   document.getElementById(
-    "kpiRatings"
+    "statRatings"
   ).textContent =
     ratings;
 
-  document.getElementById(
-    "systemSummary"
-  ).textContent =
-    `${businesses} établissement(s), ` +
-    `${dashboardData.cards.length} carte(s), ` +
-    `${activeCards} carte(s) active(s), ` +
-    `${scans} scan(s) et ` +
-    `${ratings} rating(s).`;
+}
+
+
+/* =========================================================
+   VIEW SWITCHING
+========================================================= */
+
+function switchView(
+  view
+){
+
+  document
+    .querySelectorAll(
+      ".view"
+    )
+    .forEach(
+      item => {
+
+        item.classList.toggle(
+          "active",
+          item.id ===
+            "view-" + view
+        );
+
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      ".nav button"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.view === view
+        );
+
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      ".bottom-nav button"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.mobileView === view
+        );
+
+      }
+    );
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
+
+
+document
+  .querySelectorAll(
+    ".nav button"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () =>
+          switchView(
+            button.dataset.view
+          )
+      );
+
+    }
+  );
+
+
+document
+  .querySelectorAll(
+    ".bottom-nav button"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () =>
+          switchView(
+            button.dataset.mobileView
+          )
+      );
+
+    }
+  );
 
 
 /* =========================================================
@@ -3298,6 +3519,13 @@ function businessHtml(
           onclick="openAddCard('${escapeHtml(business.id)}')"
         >
           ＋ Carte
+        </button>
+
+        <button
+          class="btn btn-red"
+          onclick="confirmDeleteBusiness('${escapeHtml(business.id)}')"
+        >
+          🗑️ Supprimer
         </button>
 
       </div>
@@ -3430,6 +3658,13 @@ function cardHtml(
           onclick="copyCardLink('${escapeHtml(card.card_code)}')"
         >
           📋 Copier
+        </button>
+
+        <button
+          class="btn btn-red"
+          onclick="confirmDeleteCard('${escapeHtml(card.id)}')"
+        >
+          🗑️ Supprimer
         </button>
 
       </div>
@@ -3800,6 +4035,13 @@ function renderCards(){
                 onclick="copyCardLink('${escapeHtml(card.card_code)}')"
               >
                 📋 Copier
+              </button>
+
+              <button
+                class="btn btn-red"
+                onclick="confirmDeleteCard('${escapeHtml(card.id)}')"
+              >
+                🗑️ Supprimer
               </button>
 
             </div>
@@ -4229,10 +4471,6 @@ function openCreateBusiness(){
 }
 
 
-/* =========================================================
-   CREATE BUSINESS ACTION
-========================================================= */
-
 async function createBusiness(
   event
 ){
@@ -4252,6 +4490,7 @@ async function createBusiness(
   try{
 
     const {
+      data,
       error
     } =
       await supabaseClient
@@ -4300,13 +4539,17 @@ async function createBusiness(
               .trim() ||
             null
 
-        });
+        })
+        .select()
+        .single();
+
 
     if(error){
 
       throw error;
 
     }
+
 
     closeModal();
 
@@ -4320,6 +4563,9 @@ async function createBusiness(
       "Établissement créé avec succès.",
       "success"
     );
+
+
+    return data;
 
   }
 
@@ -4465,6 +4711,15 @@ function openEditBusiness(
         </button>
 
       </form>
+
+      <button
+        class="btn btn-red"
+        type="button"
+        style="width:100%;min-height:53px;margin-top:10px;"
+        onclick="confirmDeleteBusiness('${escapeHtml(business.id)}')"
+      >
+        🗑️ Supprimer l'établissement
+      </button>
     `
   );
 
@@ -5168,6 +5423,18 @@ function openCardControl(
             }
           </button>
 
+
+          <button
+            class="btn btn-red"
+            onclick="
+              confirmDeleteCard(
+                '${escapeHtml(card.id)}'
+              )
+            "
+          >
+            🗑️ Supprimer définitivement
+          </button>
+
         </div>
 
       </div>
@@ -5284,326 +5551,4542 @@ function openCardControl(
         </div>
 
       </div>
+      <!-- ============================================================
+     SMART REVIEW ADMIN — HTML 2/4
+     DASHBOARD CONTENT + CARDS + ESTABLISHMENTS
+     ============================================================ -->
 
+        <!-- DASHBOARD -->
+        <section id="dashboardSection" class="page-section active">
+
+          <div class="page-header">
+            <div>
+              <div class="eyebrow">SMART REVIEW</div>
+              <h1>Dashboard</h1>
+              <p class="page-subtitle">
+                Your personal workspace for managing Smart Review.
+              </p>
+            </div>
+
+            <button class="primary-btn" onclick="openCreateCardModal()">
+              <span>＋</span>
+              New Card
+            </button>
+          </div>
+
+
+          <!-- STAT CARDS -->
+          <div class="stats-grid">
+
+            <div class="stat-card">
+              <div class="stat-icon">▣</div>
+              <div class="stat-content">
+                <span class="stat-label">Total Cards</span>
+                <strong id="totalCardsStat">0</strong>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">⌂</div>
+              <div class="stat-content">
+                <span class="stat-label">Establishments</span>
+                <strong id="totalBusinessesStat">0</strong>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">★</div>
+              <div class="stat-content">
+                <span class="stat-label">Total Ratings</span>
+                <strong id="totalRatingsStat">0</strong>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">◉</div>
+              <div class="stat-content">
+                <span class="stat-label">Total Scans</span>
+                <strong id="totalScansStat">0</strong>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- QUICK ACTIONS -->
+          <div class="section-heading">
+            <div>
+              <h2>Quick Actions</h2>
+              <p>Common things you can do from your workspace.</p>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+
+            <button class="quick-action" onclick="openCreateCardModal()">
+              <div class="quick-action-icon">＋</div>
+              <div>
+                <strong>Create Card</strong>
+                <span>Create a new Smart Review card</span>
+              </div>
+            </button>
+
+            <button class="quick-action" onclick="showSection('cardsSection')">
+              <div class="quick-action-icon">▣</div>
+              <div>
+                <strong>Manage Cards</strong>
+                <span>View, edit or delete your cards</span>
+              </div>
+            </button>
+
+            <button class="quick-action" onclick="showSection('businessesSection')">
+              <div class="quick-action-icon">⌂</div>
+              <div>
+                <strong>Establishments</strong>
+                <span>Manage your establishments</span>
+              </div>
+            </button>
+
+            <button class="quick-action" onclick="showSection('feedbackSection')">
+              <div class="quick-action-icon">✉</div>
+              <div>
+                <strong>Feedback</strong>
+                <span>Review private customer feedback</span>
+              </div>
+            </button>
+
+          </div>
+
+
+          <!-- RECENT CARDS -->
+          <div class="section-heading section-heading-spaced">
+            <div>
+              <h2>Recent Cards</h2>
+              <p>Your latest Smart Review cards.</p>
+            </div>
+
+            <button class="text-btn" onclick="showSection('cardsSection')">
+              View all →
+            </button>
+          </div>
+
+          <div id="recentCardsContainer" class="dashboard-list">
+            <div class="empty-state">
+              <div class="empty-icon">▣</div>
+              <h3>No cards yet</h3>
+              <p>Create your first Smart Review card to get started.</p>
+              <button class="primary-btn" onclick="openCreateCardModal()">
+                Create Card
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+
+
+        <!-- ======================================================
+             CARDS SECTION
+             ====================================================== -->
+
+        <section id="cardsSection" class="page-section">
+
+          <div class="page-header">
+            <div>
+              <div class="eyebrow">MANAGEMENT</div>
+              <h1>Cards</h1>
+              <p class="page-subtitle">
+                Create and manage your Smart Review cards.
+              </p>
+            </div>
+
+            <button class="primary-btn" onclick="openCreateCardModal()">
+              <span>＋</span>
+              New Card
+            </button>
+          </div>
+
+
+          <div class="toolbar">
+
+            <div class="search-box">
+              <span>⌕</span>
+              <input
+                type="text"
+                id="cardSearchInput"
+                placeholder="Search cards..."
+                oninput="filterCards()"
+              >
+            </div>
+
+            <button class="secondary-btn" onclick="loadCards()">
+              ↻ Refresh
+            </button>
+
+          </div>
+
+
+          <div id="cardsContainer" class="cards-grid">
+
+            <div class="loading-state">
+              <div class="spinner"></div>
+              <p>Loading cards...</p>
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ======================================================
+             ESTABLISHMENTS SECTION
+             ====================================================== -->
+
+        <section id="businessesSection" class="page-section">
+
+          <div class="page-header">
+            <div>
+              <div class="eyebrow">MANAGEMENT</div>
+              <h1>Establishments</h1>
+              <p class="page-subtitle">
+                Manage the businesses connected to Smart Review.
+              </p>
+            </div>
+
+            <button class="primary-btn" onclick="openCreateBusinessModal()">
+              <span>＋</span>
+              New Establishment
+            </button>
+          </div>
+
+
+          <div class="toolbar">
+
+            <div class="search-box">
+              <span>⌕</span>
+              <input
+                type="text"
+                id="businessSearchInput"
+                placeholder="Search establishments..."
+                oninput="filterBusinesses()"
+              >
+            </div>
+
+            <button class="secondary-btn" onclick="loadBusinesses()">
+              ↻ Refresh
+            </button>
+
+          </div>
+
+
+          <div id="businessesContainer" class="businesses-grid">
+
+            <div class="loading-state">
+              <div class="spinner"></div>
+              <p>Loading establishments...</p>
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ======================================================
+             FEEDBACK SECTION
+             ====================================================== -->
+
+        <section id="feedbackSection" class="page-section">
+
+          <div class="page-header">
+            <div>
+              <div class="eyebrow">CUSTOMER VOICE</div>
+              <h1>Private Feedback</h1>
+              <p class="page-subtitle">
+                Customer feedback sent through your Smart Review cards.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="info-banner">
+            <div class="info-banner-icon">ℹ</div>
+            <div>
+              <strong>Private WhatsApp feedback</strong>
+              <p>
+                Private feedback is intentionally handed directly to WhatsApp
+                and is not stored in Supabase.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="empty-state large-empty">
+            <div class="empty-icon">✉</div>
+            <h3>Feedback is handled privately</h3>
+            <p>
+              Customers who choose private feedback are sent directly to your
+              WhatsApp conversation.
+            </p>
+          </div>
+
+        </section>
+
+
+
+        <!-- ======================================================
+             ANALYTICS SECTION
+             ====================================================== -->
+
+        <section id="analyticsSection" class="page-section">
+
+          <div class="page-header">
+            <div>
+              <div class="eyebrow">INSIGHTS</div>
+              <h1>Analytics</h1>
+              <p class="page-subtitle">
+                Monitor how your Smart Review cards are performing.
+              </p>
+            </div>
+
+            <button class="secondary-btn" onclick="loadDashboardStats()">
+              ↻ Refresh
+            </button>
+          </div>
+
+
+          <div class="analytics-grid">
+
+            <div class="analytics-card">
+              <div class="analytics-card-header">
+                <span>Total Scans</span>
+                <span class="analytics-icon">◉</span>
+              </div>
+
+              <strong id="analyticsScans">0</strong>
+
+              <p>
+                Total Smart Review QR scans.
+              </p>
+            </div>
+
+
+            <div class="analytics-card">
+              <div class="analytics-card-header">
+                <span>Total Ratings</span>
+                <span class="analytics-icon">★</span>
+              </div>
+
+              <strong id="analyticsRatings">0</strong>
+
+              <p>
+                Customer ratings submitted through your cards.
+              </p>
+            </div>
+
+
+            <div class="analytics-card">
+              <div class="analytics-card-header">
+                <span>Cards</span>
+                <span class="analytics-icon">▣</span>
+              </div>
+
+              <strong id="analyticsCards">0</strong>
+
+              <p>
+                Active Smart Review cards.
+              </p>
+            </div>
+
+
+            <div class="analytics-card">
+              <div class="analytics-card-header">
+                <span>Establishments</span>
+                <span class="analytics-icon">⌂</span>
+              </div>
+
+              <strong id="analyticsBusinesses">0</strong>
+
+              <p>
+                Establishments managed from this dashboard.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="analytics-panel">
+
+            <div class="section-heading">
+              <div>
+                <h2>Performance Overview</h2>
+                <p>
+                  Your Smart Review activity at a glance.
+                </p>
+              </div>
+            </div>
+
+            <div id="analyticsOverview" class="analytics-overview">
+
+              <div class="analytics-overview-item">
+                <span>Scans per card</span>
+                <strong id="scansPerCard">0</strong>
+              </div>
+
+              <div class="analytics-overview-item">
+                <span>Ratings per card</span>
+                <strong id="ratingsPerCard">0</strong>
+              </div>
+
+              <div class="analytics-overview-item">
+                <span>Average rating</span>
+                <strong id="averageRating">0.0 ★</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ======================================================
+             SETTINGS SECTION
+             ====================================================== -->
+
+        <section id="settingsSection" class="page-section">
+
+          <div class="page-header">
+            <div>
+              <div class="eyebrow">WORKSPACE</div>
+              <h1>Settings</h1>
+              <p class="page-subtitle">
+                Manage your Smart Review dashboard.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="settings-card">
+
+            <div class="settings-row">
+              <div>
+                <strong>Dashboard status</strong>
+                <span>Your Smart Review administration workspace.</span>
+              </div>
+
+              <span class="status-badge active">
+                Active
+              </span>
+            </div>
+
+
+            <div class="settings-row">
+              <div>
+                <strong>Supabase connection</strong>
+                <span>Database connection used by Smart Review.</span>
+              </div>
+
+              <span id="supabaseStatus" class="status-badge">
+                Checking...
+              </span>
+            </div>
+
+
+            <div class="settings-row">
+              <div>
+                <strong>Private feedback</strong>
+                <span>
+                  Direct WhatsApp handoff — not stored in Supabase.
+                </span>
+              </div>
+
+              <span class="status-badge active">
+                Enabled
+              </span>
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ======================================================
+             CREATE CARD MODAL
+             ====================================================== -->
+
+        <div id="createCardModal" class="modal-overlay">
+
+          <div class="modal">
+
+            <div class="modal-header">
+
+              <div>
+                <div class="eyebrow">SMART REVIEW</div>
+                <h2>Create Card</h2>
+              </div>
+
+              <button
+                class="modal-close"
+                onclick="closeModal('createCardModal')"
+                aria-label="Close"
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <form id="createCardForm" onsubmit="createCard(event)">
+
+              <div class="form-group">
+
+                <label for="cardIdInput">
+                  Card ID
+                </label>
+
+                <input
+                  type="text"
+                  id="cardIdInput"
+                  placeholder="CARD002"
+                  required
+                  autocomplete="off"
+                >
+
+                <small>
+                  Example: CARD002
+                </small>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="cardBusinessInput">
+                  Establishment
+                </label>
+
+                <select
+                  id="cardBusinessInput"
+                  required
+                >
+                  <option value="">
+                    Select an establishment
+                  </option>
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="cardTitleInput">
+                  Card title
+                </label>
+
+                <input
+                  type="text"
+                  id="cardTitleInput"
+                  placeholder="Smart Review"
+                  autocomplete="off"
+                >
+
+              </div>
+
+
+              <div class="form-actions">
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  onclick="closeModal('createCardModal')"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  class="primary-btn"
+                >
+                  Create Card
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ======================================================
+             CREATE BUSINESS MODAL
+             ====================================================== -->
+
+        <div id="createBusinessModal" class="modal-overlay">
+
+          <div class="modal">
+
+            <div class="modal-header">
+
+              <div>
+                <div class="eyebrow">SMART REVIEW</div>
+                <h2>New Establishment</h2>
+              </div>
+
+              <button
+                class="modal-close"
+                onclick="closeModal('createBusinessModal')"
+                aria-label="Close"
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <form
+              id="createBusinessForm"
+              onsubmit="createBusiness(event)"
+            >
+
+              <div class="form-group">
+
+                <label for="businessNameInput">
+                  Establishment name
+                </label>
+
+                <input
+                  type="text"
+                  id="businessNameInput"
+                  placeholder="My Restaurant"
+                  required
+                  autocomplete="off"
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="businessPhoneInput">
+                  Phone
+                </label>
+
+                <input
+                  type="text"
+                  id="businessPhoneInput"
+                  placeholder="+213..."
+                  autocomplete="off"
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="businessAddressInput">
+                  Address
+                </label>
+
+                <input
+                  type="text"
+                  id="businessAddressInput"
+                  placeholder="Address"
+                  autocomplete="off"
+                >
+
+              </div>
+
+
+              <div class="form-actions">
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  onclick="closeModal('createBusinessModal')"
+                >
+                  Cancel
+                </button>
+
+                <button
+                  type="submit"
+                  class="primary-btn"
+                >
+                  Create Establishment
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ======================================================
+             DELETE CONFIRMATION MODAL
+             ====================================================== -->
+
+        <div id="deleteConfirmModal" class="modal-overlay">
+
+          <div class="modal delete-modal">
+
+            <div class="delete-warning-icon">
+              !
+            </div>
+
+            <div class="modal-header centered">
+
+              <div>
+                <h2 id="deleteConfirmTitle">
+                  Are you sure?
+                </h2>
+
+                <p id="deleteConfirmMessage">
+                  This action cannot be undone.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="delete-item-preview">
+
+              <span class="delete-preview-label">
+                Item to delete
+              </span>
+
+              <strong id="deleteItemName">
+                —
+              </strong>
+
+            </div>
+
+
+            <div class="form-actions">
+
+              <button
+                type="button"
+                class="secondary-btn"
+                onclick="cancelDelete()"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                id="confirmDeleteButton"
+                class="danger-btn"
+                onclick="executeConfirmedDelete()"
+              >
+                Delete permanently
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ======================================================
+             TOAST
+             ====================================================== -->
+
+        <div id="toastContainer" class="toast-container"></div>
+
+
+
+        <!-- ======================================================
+             CARD DETAIL MODAL
+             ====================================================== -->
+
+        <div id="cardDetailModal" class="modal-overlay">
+
+          <div class="modal modal-large">
+
+            <div class="modal-header">
+
+              <div>
+                <div class="eyebrow">CARD DETAILS</div>
+                <h2 id="cardDetailTitle">
+                  Smart Review Card
+                </h2>
+              </div>
+
+              <button
+                class="modal-close"
+                onclick="closeModal('cardDetailModal')"
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <div id="cardDetailContent">
+
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ======================================================
+             BUSINESS DETAIL MODAL
+             ====================================================== -->
+
+        <div id="businessDetailModal" class="modal-overlay">
+
+          <div class="modal modal-large">
+
+            <div class="modal-header">
+
+              <div>
+                <div class="eyebrow">ESTABLISHMENT</div>
+                <h2 id="businessDetailTitle">
+                  Establishment
+                </h2>
+              </div>
+
+              <button
+                class="modal-close"
+                onclick="closeModal('businessDetailModal')"
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <div id="businessDetailContent">
+
+              <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+<!-- ============================================================
+     END HTML 2/4
+     ============================================================ -->
+     
+<!-- =========================================================
+     SMART REVIEW — ADMIN DASHBOARD
+     PART 3 / 4
+     Dashboard workspace logic + UI interactions
+     ========================================================= -->
+
+<script>
+(() => {
+  "use strict";
+
+  /* =========================================================
+     GLOBAL DASHBOARD STATE
+     ========================================================= */
+
+  const SR = window.SmartReview || (window.SmartReview = {});
+
+  SR.state = SR.state || {
+    activeSection: "dashboard",
+    businesses: [],
+    cards: [],
+    stats: [],
+    selectedBusiness: null,
+    selectedCard: null,
+    searchTerm: "",
+    cardSearchTerm: "",
+    businessSearchTerm: "",
+    sortBy: "recent",
+    dashboardLoaded: false
+  };
+
+  /* =========================================================
+     HELPERS
+     ========================================================= */
+
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) =>
+    Array.from(root.querySelectorAll(selector));
+
+  const escapeHTML = (value) => {
+    if (value === null || value === undefined) return "";
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  };
+
+  const formatNumber = (value) => {
+    const number = Number(value || 0);
+    return new Intl.NumberFormat("fr-FR").format(number);
+  };
+
+  const formatDate = (value) => {
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return String(value);
+    }
+
+    return new Intl.DateTimeFormat("fr-FR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric"
+    }).format(date);
+  };
+
+  const formatDateTime = (value) => {
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return String(value);
+    }
+
+    return new Intl.DateTimeFormat("fr-FR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(date);
+  };
+
+  const average = (numbers) => {
+    const valid = numbers
+      .map(Number)
+      .filter((n) => Number.isFinite(n));
+
+    if (!valid.length) return 0;
+
+    return valid.reduce((sum, n) => sum + n, 0) / valid.length;
+  };
+
+  const clamp = (value, min, max) =>
+    Math.min(Math.max(Number(value) || 0, min), max);
+
+  const showToast = (message, type = "info") => {
+    if (typeof window.showToast === "function") {
+      window.showToast(message, type);
+      return;
+    }
+
+    let container = $("#sr-toast-container");
+
+    if (!container) {
+      container = document.createElement("div");
+      container.id = "sr-toast-container";
+      container.style.cssText = `
+        position:fixed;
+        right:20px;
+        bottom:20px;
+        z-index:99999;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+      `;
+      document.body.appendChild(container);
+    }
+
+    const toast = document.createElement("div");
+
+    toast.textContent = message;
+
+    toast.style.cssText = `
+      min-width:240px;
+      max-width:360px;
+      padding:13px 16px;
+      border-radius:12px;
+      background:#171717;
+      color:#fff;
+      box-shadow:0 10px 30px rgba(0,0,0,.18);
+      font-size:14px;
+      line-height:1.4;
+      border:1px solid rgba(255,255,255,.08);
+      opacity:0;
+      transform:translateY(8px);
+      transition:.2s ease;
+    `;
+
+    if (type === "success") {
+      toast.style.borderColor = "rgba(34,197,94,.35)";
+    }
+
+    if (type === "error") {
+      toast.style.borderColor = "rgba(239,68,68,.35)";
+    }
+
+    container.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      toast.style.opacity = "1";
+      toast.style.transform = "translateY(0)";
+    });
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(8px)";
+
+      setTimeout(() => toast.remove(), 220);
+    }, 3200);
+  };
+
+  const copyText = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("Copié dans le presse-papiers.", "success");
+      return true;
+    } catch (error) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        document.execCommand("copy");
+        showToast("Copié dans le presse-papiers.", "success");
+        textarea.remove();
+        return true;
+      } catch {
+        textarea.remove();
+        showToast("Impossible de copier automatiquement.", "error");
+        return false;
+      }
+    }
+  };
+
+  const getCardUrl = (card) => {
+    if (!card) return "";
+
+    return (
+      card.public_url ||
+      card.url ||
+      card.share_url ||
+      card.card_url ||
+      `${window.location.origin}/card.html?id=${encodeURIComponent(
+        card.id || card.card_id || ""
+      )}`
+    );
+  };
+
+  const getBusinessName = (business) => {
+    if (!business) return "Établissement sans nom";
+
+    return (
+      business.name ||
+      business.business_name ||
+      business.company_name ||
+      business.title ||
+      "Établissement sans nom"
+    );
+  };
+
+  const getCardName = (card) => {
+    if (!card) return "Carte sans nom";
+
+    return (
+      card.name ||
+      card.title ||
+      card.card_name ||
+      card.label ||
+      card.card_id ||
+      "Carte sans nom"
+    );
+  };
+
+  const getCardId = (card) =>
+    card?.id ||
+    card?.card_id ||
+    card?.slug ||
+    "";
+
+  const getBusinessId = (business) =>
+    business?.id ||
+    business?.business_id ||
+    "";
+
+  /* =========================================================
+     DOM DISCOVERY
+     ========================================================= */
+
+  const findElement = (...selectors) => {
+    for (const selector of selectors) {
+      const element = $(selector);
+      if (element) return element;
+    }
+
+    return null;
+  };
+
+  const dashboardRoot = () =>
+    findElement(
+      "#dashboard",
+      "#dashboard-section",
+      "[data-section='dashboard']"
+    );
+
+  const cardsRoot = () =>
+    findElement(
+      "#cards",
+      "#cards-section",
+      "[data-section='cards']"
+    );
+
+  const businessesRoot = () =>
+    findElement(
+      "#businesses",
+      "#businesses-section",
+      "[data-section='businesses']"
+    );
+
+  /* =========================================================
+     NAVIGATION
+     ========================================================= */
+
+  function activateSection(sectionName) {
+    SR.state.activeSection = sectionName;
+
+    $$("[data-section-target]").forEach((button) => {
+      const active =
+        button.dataset.sectionTarget === sectionName;
+
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-current", active ? "page" : "false");
+    });
+
+    $$("[data-section]").forEach((section) => {
+      const active =
+        section.dataset.section === sectionName;
+
+      section.classList.toggle("active", active);
+
+      if (active) {
+        section.removeAttribute("hidden");
+      } else {
+        section.setAttribute("hidden", "");
+      }
+    });
+
+    /*
+     * Compatibility with dashboards that use IDs instead
+     * of data-section attributes.
+     */
+    const knownSections = {
+      dashboard: ["#dashboard", "#dashboard-section"],
+      businesses: ["#businesses", "#businesses-section"],
+      cards: ["#cards", "#cards-section"],
+      create: ["#create", "#create-section"]
+    };
+
+    Object.entries(knownSections).forEach(([name, selectors]) => {
+      selectors.forEach((selector) => {
+        const section = $(selector);
+
+        if (!section) return;
+
+        const active = name === sectionName;
+
+        section.classList.toggle("active", active);
+
+        if (active) {
+          section.removeAttribute("hidden");
+        } else {
+          section.setAttribute("hidden", "");
+        }
+      });
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+    if (sectionName === "dashboard") {
+      renderDashboard();
+    }
+
+    if (sectionName === "businesses") {
+      renderBusinesses();
+    }
+
+    if (sectionName === "cards") {
+      renderCards();
+    }
+  }
+
+  function setupNavigation() {
+    $$("[data-section-target]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const target = button.dataset.sectionTarget;
+
+        if (!target) return;
+
+        activateSection(target);
+      });
+    });
+
+    /*
+     * Also support common button IDs from earlier dashboard
+     * versions without requiring a markup rewrite.
+     */
+    const fallbackNavigation = {
+      "#nav-dashboard": "dashboard",
+      "#nav-businesses": "businesses",
+      "#nav-cards": "cards",
+      "#nav-create": "create"
+    };
+
+    Object.entries(fallbackNavigation).forEach(([selector, section]) => {
+      const button = $(selector);
+
+      if (!button) return;
+
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        activateSection(section);
+      });
+    });
+  }
+
+  /* =========================================================
+     DATA NORMALIZATION
+     ========================================================= */
+
+  function normalizeBusinessRows(rows) {
+    if (!Array.isArray(rows)) return [];
+
+    return rows.map((row) => ({
+      ...row,
+      _id: getBusinessId(row),
+      _name: getBusinessName(row)
+    }));
+  }
+
+  function normalizeCardRows(rows) {
+    if (!Array.isArray(rows)) return [];
+
+    return rows.map((row) => ({
+      ...row,
+      _id: getCardId(row),
+      _name: getCardName(row)
+    }));
+  }
+
+  function normalizeStatsRows(rows) {
+    if (!Array.isArray(rows)) return [];
+
+    return rows.map((row) => ({
+      ...row,
+      scans: Number(
+        row.scans ??
+        row.scan_count ??
+        row.total_scans ??
+        0
+      ),
+      ratings: Number(
+        row.ratings ??
+        row.rating_count ??
+        row.total_ratings ??
+        0
+      ),
+      fiveStars: Number(
+        row.five_stars ??
+        row.five_star_count ??
+        row.rating_5_count ??
+        0
+      )
+    }));
+  }
+
+  /* =========================================================
+     OPTIONAL DATA LOADER
+     ========================================================= */
+
+  async function loadDashboardData() {
+    /*
+     * If the existing application already exposes a loader,
+     * use it instead of duplicating database logic.
+     */
+    if (typeof window.loadDashboardData === "function" &&
+        window.loadDashboardData !== loadDashboardData) {
+      try {
+        const result = await window.loadDashboardData();
+
+        if (result?.businesses) {
+          SR.state.businesses = normalizeBusinessRows(
+            result.businesses
+          );
+        }
+
+        if (result?.cards) {
+          SR.state.cards = normalizeCardRows(result.cards);
+        }
+
+        if (result?.stats) {
+          SR.state.stats = normalizeStatsRows(result.stats);
+        }
+
+        SR.state.dashboardLoaded = true;
+
+        return result;
+      } catch (error) {
+        console.error("Smart Review dashboard loader:", error);
+      }
+    }
+
+    /*
+     * Do not force a schema assumption here.
+     *
+     * Existing Supabase queries from the project should remain
+     * the source of truth. This fallback simply attempts to
+     * consume common arrays already attached to window.
+     */
+    if (Array.isArray(window.businesses)) {
+      SR.state.businesses = normalizeBusinessRows(
+        window.businesses
+      );
+    }
+
+    if (Array.isArray(window.cards)) {
+      SR.state.cards = normalizeCardRows(
+        window.cards
+      );
+    }
+
+    if (Array.isArray(window.cardStats)) {
+      SR.state.stats = normalizeStatsRows(
+        window.cardStats
+      );
+    }
+
+    SR.state.dashboardLoaded = true;
+  }
+
+  /* =========================================================
+     DASHBOARD METRICS
+     ========================================================= */
+
+  function calculateMetrics() {
+    const businesses = SR.state.businesses || [];
+    const cards = SR.state.cards || [];
+    const stats = SR.state.stats || [];
+
+    const totalScans = stats.reduce(
+      (sum, row) => sum + Number(row.scans || 0),
+      0
+    );
+
+    const totalRatings = stats.reduce(
+      (sum, row) => sum + Number(row.ratings || 0),
+      0
+    );
+
+    const totalFiveStars = stats.reduce(
+      (sum, row) => sum + Number(row.fiveStars || 0),
+      0
+    );
+
+    const ratingValues = [];
+
+    stats.forEach((row) => {
+      const ratings = Number(row.ratings || 0);
+      const fiveStars = Number(row.fiveStars || 0);
+
+      if (ratings > 0) {
+        /*
+         * This is intentionally conservative. If the existing
+         * stats object exposes a true average, use that instead.
+         */
+        const implied =
+          (fiveStars / ratings) * 5;
+
+        if (Number.isFinite(implied)) {
+          ratingValues.push(implied);
+        }
+      }
+    });
+
+    const averageRating = clamp(
+      average(ratingValues),
+      0,
+      5
+    );
+
+    return {
+      businesses: businesses.length,
+      cards: cards.length,
+      scans: totalScans,
+      ratings: totalRatings,
+      fiveStars: totalFiveStars,
+      averageRating
+    };
+  }
+
+  function setMetricValue(selectors, value) {
+    const selectorList = Array.isArray(selectors)
+      ? selectors
+      : [selectors];
+
+    selectorList.forEach((selector) => {
+      $$(selector).forEach((element) => {
+        element.textContent = value;
+      });
+    });
+  }
+
+  function renderMetrics() {
+    const metrics = calculateMetrics();
+
+    setMetricValue(
+      [
+        "[data-metric='businesses']",
+        "#metric-businesses",
+        "#total-businesses"
+      ],
+      formatNumber(metrics.businesses)
+    );
+
+    setMetricValue(
+      [
+        "[data-metric='cards']",
+        "#metric-cards",
+        "#total-cards"
+      ],
+      formatNumber(metrics.cards)
+    );
+
+    setMetricValue(
+      [
+        "[data-metric='scans']",
+        "#metric-scans",
+        "#total-scans"
+      ],
+      formatNumber(metrics.scans)
+    );
+
+    setMetricValue(
+      [
+        "[data-metric='ratings']",
+        "#metric-ratings",
+        "#total-ratings"
+      ],
+      formatNumber(metrics.ratings)
+    );
+
+    setMetricValue(
+      [
+        "[data-metric='five-stars']",
+        "#metric-five-stars",
+        "#total-five-stars"
+      ],
+      formatNumber(metrics.fiveStars)
+    );
+
+    setMetricValue(
+      [
+        "[data-metric='average-rating']",
+        "#metric-average-rating",
+        "#average-rating"
+      ],
+      metrics.averageRating
+        ? metrics.averageRating.toFixed(1)
+        : "—"
+    );
+  }
+
+  /* =========================================================
+     RECENT CARDS
+     ========================================================= */
+
+  function getRecentCards(limit = 6) {
+    const cards = [...(SR.state.cards || [])];
+
+    cards.sort((a, b) => {
+      const aDate =
+        new Date(
+          a.updated_at ||
+          a.created_at ||
+          a.updatedAt ||
+          a.createdAt ||
+          0
+        ).getTime();
+
+      const bDate =
+        new Date(
+          b.updated_at ||
+          b.created_at ||
+          b.updatedAt ||
+          b.createdAt ||
+          0
+        ).getTime();
+
+      return bDate - aDate;
+    });
+
+    return cards.slice(0, limit);
+  }
+
+  function findStatsForCard(card) {
+    if (!card) return null;
+
+    const id = getCardId(card);
+
+    return (
+      SR.state.stats.find((stat) => {
+        return (
+          String(stat.card_id ?? stat.cardId ?? stat.id ?? "") ===
+          String(id)
+        );
+      }) || null
+    );
+  }
+
+  function renderRecentCards() {
+    const container = findElement(
+      "#recent-cards",
+      "[data-dashboard='recent-cards']",
+      "[data-list='recent-cards']"
+    );
+
+    if (!container) return;
+
+    const cards = getRecentCards();
+
+    if (!cards.length) {
+      container.innerHTML = `
+        <div class="sr-empty-state">
+          <div class="sr-empty-icon">▣</div>
+          <strong>Aucune carte pour le moment</strong>
+          <span>Créez votre première carte pour commencer.</span>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = cards.map((card) => {
+      const stats = findStatsForCard(card);
+
+      const scans = stats?.scans || 0;
+      const ratings = stats?.ratings || 0;
+
+      const url = getCardUrl(card);
+
+      return `
+        <article class="sr-dashboard-card-row">
+          <div class="sr-card-row-main">
+            <div class="sr-card-row-icon">▣</div>
+
+            <div class="sr-card-row-copy">
+              <strong>${escapeHTML(getCardName(card))}</strong>
+
+              <span>
+                ${escapeHTML(
+                  card.business_name ||
+                  card.business ||
+                  ""
+                )}
+              </span>
+
+              <small>
+                ${
+                  card.updated_at ||
+                  card.created_at
+                    ? `Mis à jour le ${formatDate(
+                        card.updated_at ||
+                        card.created_at
+                      )}`
+                    : "Carte active"
+                }
+              </small>
+            </div>
+          </div>
+
+          <div class="sr-card-row-stats">
+            <span>
+              <b>${formatNumber(scans)}</b>
+              scans
+            </span>
+
+            <span>
+              <b>${formatNumber(ratings)}</b>
+              avis
+            </span>
+          </div>
+
+          <div class="sr-card-row-actions">
+            ${
+              url
+                ? `
+                  <button
+                    type="button"
+                    class="sr-mini-btn"
+                    data-action="open-card"
+                    data-card-id="${escapeHTML(
+                      getCardId(card)
+                    )}"
+                  >
+                    Ouvrir
+                  </button>
+
+                  <button
+                    type="button"
+                    class="sr-mini-btn secondary"
+                    data-action="copy-card"
+                    data-card-url="${escapeHTML(url)}"
+                  >
+                    Copier
+                  </button>
+                `
+                : ""
+            }
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  /* =========================================================
+     BUSINESS LIST
+     ========================================================= */
+
+  function filteredBusinesses() {
+    const term =
+      String(SR.state.businessSearchTerm || "")
+        .trim()
+        .toLowerCase();
+
+    let businesses = [...(SR.state.businesses || [])];
+
+    if (term) {
+      businesses = businesses.filter((business) => {
+        const text = [
+          business.name,
+          business.business_name,
+          business.company_name,
+          business.email,
+          business.phone,
+          business.city,
+          business.address
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        return text.includes(term);
+      });
+    }
+
+    businesses.sort((a, b) => {
+      if (SR.state.sortBy === "name") {
+        return getBusinessName(a)
+          .localeCompare(
+            getBusinessName(b),
+            "fr",
+            { sensitivity: "base" }
+          );
+      }
+
+      const aDate = new Date(
+        a.updated_at ||
+        a.created_at ||
+        0
+      ).getTime();
+
+      const bDate = new Date(
+        b.updated_at ||
+        b.created_at ||
+        0
+      ).getTime();
+
+      return bDate - aDate;
+    });
+
+    return businesses;
+  }
+
+  function getCardsForBusiness(business) {
+    if (!business) return [];
+
+    const businessId = getBusinessId(business);
+
+    return SR.state.cards.filter((card) => {
+      const cardBusinessId =
+        card.business_id ??
+        card.businessId ??
+        card.establishment_id ??
+        card.establishmentId;
+
+      if (
+        cardBusinessId !== undefined &&
+        cardBusinessId !== null
+      ) {
+        return String(cardBusinessId) === String(businessId);
+      }
+
+      const cardBusinessName =
+        card.business_name ||
+        card.business ||
+        "";
+
+      return (
+        cardBusinessName &&
+        cardBusinessName === getBusinessName(business)
+      );
+    });
+  }
+
+  function renderBusinesses() {
+    const container = findElement(
+      "#business-list",
+      "[data-list='businesses']",
+      "[data-dashboard='businesses']"
+    );
+
+    if (!container) return;
+
+    const businesses = filteredBusinesses();
+
+    if (!businesses.length) {
+      container.innerHTML = `
+        <div class="sr-empty-state">
+          <div class="sr-empty-icon">⌂</div>
+          <strong>Aucun établissement trouvé</strong>
+          <span>
+            ${
+              SR.state.businessSearchTerm
+                ? "Essayez une autre recherche."
+                : "Ajoutez votre premier établissement."
+            }
+          </span>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = businesses.map((business) => {
+      const cards = getCardsForBusiness(business);
+
+      return `
+        <article
+          class="sr-business-row"
+          data-business-id="${escapeHTML(
+            getBusinessId(business)
+          )}"
+        >
+          <div class="sr-business-avatar">
+            ${escapeHTML(
+              getBusinessName(business)
+                .trim()
+                .charAt(0)
+                .toUpperCase() || "?"
+            )}
+          </div>
+
+          <div class="sr-business-info">
+            <strong>
+              ${escapeHTML(getBusinessName(business))}
+            </strong>
+
+            <span>
+              ${
+                escapeHTML(
+                  business.city ||
+                  business.address ||
+                  business.email ||
+                  "Établissement"
+                )
+              }
+            </span>
+
+            <small>
+              ${formatNumber(cards.length)}
+              ${cards.length === 1 ? "carte" : "cartes"}
+            </small>
+          </div>
+
+          <div class="sr-business-meta">
+            <span class="sr-status-dot"></span>
+            <span>
+              ${
+                business.status ||
+                business.active === false
+                  ? escapeHTML(
+                      business.status ||
+                      "Inactif"
+                    )
+                  : "Actif"
+              }
+            </span>
+          </div>
+
+          <div class="sr-business-actions">
+            <button
+              type="button"
+              class="sr-mini-btn"
+              data-action="select-business"
+              data-business-id="${escapeHTML(
+                getBusinessId(business)
+              )}"
+            >
+              Voir
+            </button>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  /* =========================================================
+     CARD LIST
+     ========================================================= */
+
+  function filteredCards() {
+    const term =
+      String(SR.state.cardSearchTerm || "")
+        .trim()
+        .toLowerCase();
+
+    let cards = [...(SR.state.cards || [])];
+
+    if (term) {
+      cards = cards.filter((card) => {
+        const text = [
+          card.name,
+          card.title,
+          card.card_name,
+          card.card_id,
+          card.business_name,
+          card.business
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        return text.includes(term);
+      });
+    }
+
+    cards.sort((a, b) => {
+      const aDate = new Date(
+        a.updated_at ||
+        a.created_at ||
+        0
+      ).getTime();
+
+      const bDate = new Date(
+        b.updated_at ||
+        b.created_at ||
+        0
+      ).getTime();
+
+      return bDate - aDate;
+    });
+
+    return cards;
+  }
+
+  function renderCards() {
+    const container = findElement(
+      "#card-list",
+      "[data-list='cards']",
+      "[data-dashboard='cards']"
+    );
+
+    if (!container) return;
+
+    const cards = filteredCards();
+
+    if (!cards.length) {
+      container.innerHTML = `
+        <div class="sr-empty-state">
+          <div class="sr-empty-icon">▣</div>
+          <strong>Aucune carte trouvée</strong>
+          <span>
+            ${
+              SR.state.cardSearchTerm
+                ? "Essayez une autre recherche."
+                : "Vos cartes apparaîtront ici."
+            }
+          </span>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = cards.map((card) => {
+      const stats = findStatsForCard(card);
+
+      const scans = stats?.scans || 0;
+      const ratings = stats?.ratings || 0;
+      const fiveStars = stats?.fiveStars || 0;
+
+      const url = getCardUrl(card);
+
+      return `
+        <article
+          class="sr-full-card"
+          data-card-id="${escapeHTML(
+            getCardId(card)
+          )}"
+        >
+          <div class="sr-full-card-header">
+            <div class="sr-card-row-icon">▣</div>
+
+            <div>
+              <strong>
+                ${escapeHTML(getCardName(card))}
+              </strong>
+
+              <span>
+                ${escapeHTML(
+                  card.business_name ||
+                  card.business ||
+                  "Smart Review"
+                )}
+              </span>
+            </div>
+
+            <span class="sr-card-status">
+              ${
+                card.active === false ||
+                card.status === "inactive"
+                  ? "Inactive"
+                  : "Active"
+              }
+            </span>
+          </div>
+
+          <div class="sr-full-card-metrics">
+            <div>
+              <strong>${formatNumber(scans)}</strong>
+              <span>Scans</span>
+            </div>
+
+            <div>
+              <strong>${formatNumber(ratings)}</strong>
+              <span>Notes</span>
+            </div>
+
+            <div>
+              <strong>${formatNumber(fiveStars)}</strong>
+              <span>5 étoiles</span>
+            </div>
+          </div>
+
+          <div class="sr-full-card-footer">
+            <small>
+              ${
+                card.created_at
+                  ? `Créée le ${formatDate(
+                      card.created_at
+                    )}`
+                  : "Carte Smart Review"
+              }
+            </small>
+
+            <div class="sr-inline-actions">
+              ${
+                url
+                  ? `
+                    <button
+                      type="button"
+                      class="sr-mini-btn"
+                      data-action="open-card"
+                      data-card-id="${escapeHTML(
+                        getCardId(card)
+                      )}"
+                    >
+                      Ouvrir
+                    </button>
+
+                    <button
+                      type="button"
+                      class="sr-mini-btn secondary"
+                      data-action="copy-card"
+                      data-card-url="${escapeHTML(url)}"
+                    >
+                      Copier le lien
+                    </button>
+                  `
+                  : ""
+              }
+            </div>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  /* =========================================================
+     CARD OPENING
+     ========================================================= */
+
+  function openCardById(cardId) {
+    const card = SR.state.cards.find(
+      (item) =>
+        String(getCardId(item)) === String(cardId)
+    );
+
+    if (!card) {
+      showToast("Carte introuvable.", "error");
+      return;
+    }
+
+    const url = getCardUrl(card);
+
+    if (!url) {
+      showToast("Cette carte n'a pas encore de lien public.", "error");
+      return;
+    }
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  /* =========================================================
+     BUSINESS SELECTION
+     ========================================================= */
+
+  function selectBusinessById(businessId) {
+    const business = SR.state.businesses.find(
+      (item) =>
+        String(getBusinessId(item)) ===
+        String(businessId)
+    );
+
+    if (!business) {
+      showToast("Établissement introuvable.", "error");
+      return;
+    }
+
+    SR.state.selectedBusiness = business;
+
+    const cards = getCardsForBusiness(business);
+
+    const nameElements = $$(
+      "[data-selected-business-name]"
+    );
+
+    nameElements.forEach((element) => {
+      element.textContent =
+        getBusinessName(business);
+    });
+
+    const countElements = $$(
+      "[data-selected-business-card-count]"
+    );
+
+    countElements.forEach((element) => {
+      element.textContent =
+        formatNumber(cards.length);
+    });
+
+    /*
+     * If a dedicated detail panel exists, populate it.
+     */
+    const detail = findElement(
+      "#business-detail",
+      "[data-business-detail]"
+    );
+
+    if (detail) {
+      detail.innerHTML = `
+        <div class="sr-detail-heading">
+          <div class="sr-business-avatar">
+            ${escapeHTML(
+              getBusinessName(business)
+                .trim()
+                .charAt(0)
+                .toUpperCase() || "?"
+            )}
+          </div>
+
+          <div>
+            <h3>
+              ${escapeHTML(
+                getBusinessName(business)
+              )}
+            </h3>
+
+            <p>
+              ${
+                escapeHTML(
+                  business.address ||
+                  business.city ||
+                  business.email ||
+                  "Établissement"
+                )
+              }
+            </p>
+          </div>
+        </div>
+
+        <div class="sr-detail-grid">
+          <div>
+            <span>Cartes</span>
+            <strong>${formatNumber(cards.length)}</strong>
+          </div>
+
+          <div>
+            <span>Créé le</span>
+            <strong>
+              ${formatDate(
+                business.created_at
+              )}
+            </strong>
+          </div>
+        </div>
+      `;
+    }
+
+    /*
+     * If cards are available, filter the card workspace.
+     */
+    if (cards.length) {
+      SR.state.cards = [
+        ...SR.state.cards
+      ];
+
+      SR.state.cardSearchTerm =
+        getBusinessName(business);
+
+      renderCards();
+    }
+
+    showToast(
+      `${getBusinessName(business)} sélectionné.`,
+      "success"
+    );
+  }
+
+  /* =========================================================
+     SEARCH
+     ========================================================= */
+
+  function setupSearch() {
+    const businessInputs = [
+      "#business-search",
+      "[data-search='businesses']"
+    ];
+
+    businessInputs.forEach((selector) => {
+      const input = $(selector);
+
+      if (!input) return;
+
+      input.addEventListener("input", () => {
+        SR.state.businessSearchTerm =
+          input.value;
+
+        renderBusinesses();
+      });
+    });
+
+    const cardInputs = [
+      "#card-search",
+      "[data-search='cards']"
+    ];
+
+    cardInputs.forEach((selector) => {
+      const input = $(selector);
+
+      if (!input) return;
+
+      input.addEventListener("input", () => {
+        SR.state.cardSearchTerm =
+          input.value;
+
+        renderCards();
+      });
+    });
+
+    const globalInputs = [
+      "#global-search",
+      "[data-search='global']"
+    ];
+
+    globalInputs.forEach((input) => {
+      if (!input) return;
+
+      input.addEventListener("input", () => {
+        SR.state.searchTerm =
+          input.value.trim().toLowerCase();
+
+        if (!SR.state.searchTerm) {
+          return;
+        }
+
+        const businessMatch =
+          SR.state.businesses.find((business) =>
+            getBusinessName(business)
+              .toLowerCase()
+              .includes(SR.state.searchTerm)
+          );
+
+        if (businessMatch) {
+          SR.state.businessSearchTerm =
+            SR.state.searchTerm;
+
+          activateSection("businesses");
+          renderBusinesses();
+          return;
+        }
+
+        const cardMatch =
+          SR.state.cards.find((card) =>
+            getCardName(card)
+              .toLowerCase()
+              .includes(SR.state.searchTerm)
+          );
+
+        if (cardMatch) {
+          SR.state.cardSearchTerm =
+            SR.state.searchTerm;
+
+          activateSection("cards");
+          renderCards();
+        }
+      });
+    });
+  }
+
+  /* =========================================================
+     QUICK ACTIONS
+     ========================================================= */
+
+  function setupQuickActions() {
+    $$("[data-action]").forEach((element) => {
+      /*
+       * Delegated handler below handles dynamic elements.
+       * This loop is intentionally only for static elements.
+       */
+    });
+  }
+
+  function handleAction(element) {
+    const action = element.dataset.action;
+
+    if (!action) return;
+
+    switch (action) {
+      case "open-card":
+        openCardById(
+          element.dataset.cardId
+        );
+        break;
+
+      case "copy-card":
+        copyText(
+          element.dataset.cardUrl || ""
+        );
+        break;
+
+      case "select-business":
+        selectBusinessById(
+          element.dataset.businessId
+        );
+        break;
+
+      case "go-dashboard":
+        activateSection("dashboard");
+        break;
+
+      case "go-businesses":
+        activateSection("businesses");
+        break;
+
+      case "go-cards":
+        activateSection("cards");
+        break;
+
+      case "go-create":
+        activateSection("create");
+        break;
+
+      case "refresh-dashboard":
+        refreshDashboard();
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  function setupDelegatedActions() {
+    document.addEventListener("click", (event) => {
+      const actionElement =
+        event.target.closest("[data-action]");
+
+      if (!actionElement) return;
+
+      handleAction(actionElement);
+    });
+  }
+
+  /* =========================================================
+     DASHBOARD RENDER
+     ========================================================= */
+
+  function renderDashboard() {
+    renderMetrics();
+    renderRecentCards();
+  }
+
+  /* =========================================================
+     REFRESH
+     ========================================================= */
+
+  async function refreshDashboard() {
+    const refreshButtons = $$(
+      "[data-action='refresh-dashboard']"
+    );
+
+    refreshButtons.forEach((button) => {
+      button.disabled = true;
+      button.classList.add("is-loading");
+    });
+
+    try {
+      await loadDashboardData();
+
+      renderDashboard();
+      renderBusinesses();
+      renderCards();
+
+      showToast(
+        "Tableau de bord actualisé.",
+        "success"
+      );
+    } catch (error) {
+      console.error(error);
+
+      showToast(
+        "Impossible d'actualiser le tableau de bord.",
+        "error"
+      );
+    } finally {
+      refreshButtons.forEach((button) => {
+        button.disabled = false;
+        button.classList.remove("is-loading");
+      });
+    }
+  }
+
+  /* =========================================================
+     CREATE WORKSPACE HOOK
+     ========================================================= */
+
+  function setupCreateWorkspace() {
+    /*
+     * Preserve existing create functionality.
+     *
+     * If the original HTML already has a create form,
+     * this code does NOT replace or intercept it.
+     */
+
+    const createButtons = $$(
+      "[data-action='go-create']"
+    );
+
+    createButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activateSection("create");
+      });
+    });
+  }
+
+  /* =========================================================
+     EMPTY STATE ENHANCEMENT
+     ========================================================= */
+
+  function addEmptyStateStyles() {
+    if ($("#sr-part3-styles")) return;
+
+    const style = document.createElement("style");
+    style.id = "sr-part3-styles";
+
+    style.textContent = `
+      .sr-empty-state {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:7px;
+        min-height:180px;
+        padding:28px;
+        text-align:center;
+        border:1px dashed rgba(127,127,127,.25);
+        border-radius:16px;
+      }
+
+      .sr-empty-state strong {
+        font-size:15px;
+      }
+
+      .sr-empty-state span {
+        font-size:13px;
+        opacity:.65;
+      }
+
+      .sr-empty-icon {
+        width:42px;
+        height:42px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:12px;
+        background:rgba(127,127,127,.08);
+        font-size:18px;
+        margin-bottom:5px;
+      }
+
+      .sr-dashboard-card-row,
+      .sr-business-row,
+      .sr-full-card {
+        position:relative;
+      }
+
+      .sr-dashboard-card-row {
+        display:grid;
+        grid-template-columns:minmax(0,1fr) auto auto;
+        align-items:center;
+        gap:20px;
+        padding:16px 0;
+        border-bottom:1px solid rgba(127,127,127,.12);
+      }
+
+      .sr-dashboard-card-row:last-child {
+        border-bottom:0;
+      }
+
+      .sr-card-row-main {
+        display:flex;
+        align-items:center;
+        gap:12px;
+        min-width:0;
+      }
+
+      .sr-card-row-icon {
+        width:40px;
+        height:40px;
+        flex:0 0 40px;
+        border-radius:11px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:rgba(127,127,127,.09);
+        font-size:16px;
+      }
+
+      .sr-card-row-copy {
+        display:flex;
+        flex-direction:column;
+        gap:3px;
+        min-width:0;
+      }
+
+      .sr-card-row-copy strong,
+      .sr-full-card-header strong {
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+
+      .sr-card-row-copy span,
+      .sr-full-card-header span {
+        font-size:13px;
+        opacity:.68;
+      }
+
+      .sr-card-row-copy small {
+        font-size:11px;
+        opacity:.48;
+      }
+
+      .sr-card-row-stats {
+        display:flex;
+        gap:18px;
+      }
+
+      .sr-card-row-stats span {
+        display:flex;
+        flex-direction:column;
+        gap:2px;
+        font-size:11px;
+        opacity:.55;
+      }
+
+      .sr-card-row-stats b {
+        font-size:14px;
+        opacity:1;
+      }
+
+      .sr-card-row-actions,
+      .sr-inline-actions,
+      .sr-business-actions {
+        display:flex;
+        gap:7px;
+        align-items:center;
+      }
+
+      .sr-mini-btn {
+        appearance:none;
+        border:0;
+        border-radius:9px;
+        padding:8px 11px;
+        cursor:pointer;
+        background:rgba(0,0,0,.88);
+        color:#fff;
+        font:inherit;
+        font-size:12px;
+        white-space:nowrap;
+      }
+
+      .sr-mini-btn.secondary {
+        background:rgba(127,127,127,.1);
+        color:inherit;
+      }
+
+      .sr-mini-btn:hover {
+        transform:translateY(-1px);
+      }
+
+      .sr-business-row {
+        display:grid;
+        grid-template-columns:auto minmax(0,1fr) auto auto;
+        align-items:center;
+        gap:14px;
+        padding:15px 0;
+        border-bottom:1px solid rgba(127,127,127,.12);
+      }
+
+      .sr-business-avatar {
+        width:42px;
+        height:42px;
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:rgba(127,127,127,.1);
+        font-weight:700;
+      }
+
+      .sr-business-info {
+        display:flex;
+        flex-direction:column;
+        gap:3px;
+        min-width:0;
+      }
+
+      .sr-business-info strong {
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+
+      .sr-business-info span {
+        font-size:13px;
+        opacity:.68;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+
+      .sr-business-info small {
+        font-size:11px;
+        opacity:.48;
+      }
+
+      .sr-business-meta {
+        display:flex;
+        align-items:center;
+        gap:6px;
+        font-size:12px;
+        opacity:.7;
+      }
+
+      .sr-status-dot {
+        width:7px;
+        height:7px;
+        border-radius:50%;
+        background:currentColor;
+      }
+
+      .sr-full-card {
+        padding:18px;
+        border:1px solid rgba(127,127,127,.15);
+        border-radius:16px;
+        background:rgba(127,127,127,.025);
+      }
+
+      .sr-full-card-header {
+        display:flex;
+        align-items:center;
+        gap:11px;
+      }
+
+      .sr-full-card-header > div:nth-child(2) {
+        display:flex;
+        flex-direction:column;
+        gap:3px;
+        min-width:0;
+        flex:1;
+      }
+
+      .sr-card-status {
+        padding:5px 8px;
+        border-radius:999px;
+        background:rgba(34,197,94,.1);
+        font-size:10px;
+        white-space:nowrap;
+      }
+
+      .sr-full-card-metrics {
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+        margin:18px 0;
+      }
+
+      .sr-full-card-metrics > div {
+        padding:12px;
+        border-radius:11px;
+        background:rgba(127,127,127,.06);
+      }
+
+      .sr-full-card-metrics strong,
+      .sr-full-card-metrics span {
+        display:block;
+      }
+
+      .sr-full-card-metrics strong {
+        font-size:18px;
+      }
+
+      .sr-full-card-metrics span {
+        margin-top:2px;
+        font-size:11px;
+        opacity:.55;
+      }
+
+      .sr-full-card-footer {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+
+      .sr-full-card-footer small {
+        opacity:.5;
+        font-size:11px;
+      }
+
+      .is-loading {
+        opacity:.6;
+        pointer-events:none;
+      }
+
+      @media (max-width: 760px) {
+        .sr-dashboard-card-row {
+          grid-template-columns:1fr;
+          gap:12px;
+        }
+
+        .sr-card-row-stats {
+          padding-left:52px;
+        }
+
+        .sr-card-row-actions {
+          padding-left:52px;
+        }
+
+        .sr-business-row {
+          grid-template-columns:auto minmax(0,1fr);
+        }
+
+        .sr-business-meta,
+        .sr-business-actions {
+          grid-column:2;
+        }
+
+        .sr-full-card-footer {
+          align-items:flex-start;
+          flex-direction:column;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  /* =========================================================
+     INITIALIZATION
+     ========================================================= */
+
+  async function initPart3() {
+    addEmptyStateStyles();
+
+    setupNavigation();
+    setupSearch();
+    setupQuickActions();
+    setupDelegatedActions();
+    setupCreateWorkspace();
+
+    try {
+      await loadDashboardData();
+    } catch (error) {
+      console.error(
+        "Smart Review Part 3 initialization:",
+        error
+      );
+    }
+
+    renderDashboard();
+    renderBusinesses();
+    renderCards();
+
+    /*
+     * Do not force a section if the earlier HTML already
+     * established one.
+     */
+    if (!SR.state.activeSection) {
+      SR.state.activeSection = "dashboard";
+    }
+
+    SR.ready = true;
+
+    document.dispatchEvent(
+      new CustomEvent(
+        "smartreview:part3-ready",
+        {
+          detail: SR.state
+        }
+      )
+    );
+  }
+
+  /*
+   * Public API for the rest of admin.html.
+   *
+   * This lets Part 4 call the dashboard without duplicating
+   * any of this logic.
+   */
+  SR.dashboard = {
+    state: SR.state,
+    refresh: refreshDashboard,
+    render: renderDashboard,
+    renderBusinesses,
+    renderCards,
+    activateSection,
+    openCardById,
+    selectBusinessById,
+    copyText,
+    calculateMetrics
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initPart3,
+      { once: true }
+    );
+  } else {
+    initPart3();
+  }
+
+})();
+</script>
+
+<!-- =========================================================
+     END PART 3 / 4
+     ========================================================= -->
+  <!-- ============================================================
+     SMART REVIEW — DASHBOARD HTML
+     PART 4 / 4
+     ============================================================ -->
+
+<!-- ============================================================
+     DASHBOARD MODALS
+     ============================================================ -->
+
+<div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+
+    <!-- QUICK NOTE MODAL -->
+    <div id="quickNoteModal" class="modal-panel" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <div>
+                <span class="modal-eyebrow">PERSONAL WORKSPACE</span>
+                <h3>Add a quick note</h3>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                data-close-modal="quickNoteModal"
+                aria-label="Close"
+            >
+                ×
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <label class="field-label" for="quickNoteTitle">Title</label>
+            <input
+                id="quickNoteTitle"
+                class="dashboard-input"
+                type="text"
+                placeholder="e.g. Follow up with restaurant"
+                maxlength="120"
+            >
+
+            <label class="field-label" for="quickNoteText">Note</label>
+            <textarea
+                id="quickNoteText"
+                class="dashboard-textarea"
+                rows="6"
+                placeholder="Write something you want to remember..."
+                maxlength="1000"
+            ></textarea>
+        </div>
+
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="dashboard-btn secondary"
+                data-close-modal="quickNoteModal"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                id="saveQuickNoteBtn"
+                class="dashboard-btn primary"
+            >
+                Save note
+            </button>
+        </div>
+    </div>
+
+
+    <!-- CARD DETAIL MODAL -->
+    <div id="cardDetailModal" class="modal-panel wide-modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <div>
+                <span class="modal-eyebrow">SMART REVIEW CARD</span>
+                <h3 id="cardDetailTitle">Card details</h3>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                data-close-modal="cardDetailModal"
+                aria-label="Close"
+            >
+                ×
+            </button>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="detail-grid">
+
+                <div class="detail-block">
+                    <span class="detail-label">Card ID</span>
+                    <strong id="detailCardId">—</strong>
+                </div>
+
+                <div class="detail-block">
+                    <span class="detail-label">Status</span>
+                    <strong id="detailCardStatus">—</strong>
+                </div>
+
+                <div class="detail-block">
+                    <span class="detail-label">Scans</span>
+                    <strong id="detailCardScans">0</strong>
+                </div>
+
+                <div class="detail-block">
+                    <span class="detail-label">Average rating</span>
+                    <strong id="detailCardRating">—</strong>
+                </div>
+
+            </div>
+
+            <div class="detail-section">
+                <span class="detail-label">Destination</span>
+
+                <div class="detail-url-box">
+                    <span id="detailCardUrl">—</span>
+
+                    <button
+                        type="button"
+                        class="icon-btn"
+                        id="copyCardUrlBtn"
+                        title="Copy URL"
+                    >
+                        ⧉
+                    </button>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <span class="detail-label">Description</span>
+                <p id="detailCardDescription" class="detail-description">
+                    No description available.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="dashboard-btn secondary"
+                data-close-modal="cardDetailModal"
+            >
+                Close
+            </button>
+
+            <button
+                type="button"
+                id="openCardBtn"
+                class="dashboard-btn primary"
+            >
+                Open card
+            </button>
+        </div>
+    </div>
+
+
+    <!-- CONFIRM MODAL -->
+    <div id="confirmModal" class="modal-panel small-modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <div>
+                <span class="modal-eyebrow">CONFIRM ACTION</span>
+                <h3 id="confirmModalTitle">Are you sure?</h3>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                data-close-modal="confirmModal"
+                aria-label="Close"
+            >
+                ×
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <p id="confirmModalMessage" class="confirm-message">
+                This action cannot be undone.
+            </p>
+        </div>
+
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="dashboard-btn secondary"
+                data-close-modal="confirmModal"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                id="confirmActionBtn"
+                class="dashboard-btn danger"
+            >
+                Confirm
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ============================================================
+     TOAST / NOTIFICATION AREA
+     ============================================================ -->
+
+<div
+    id="dashboardToastContainer"
+    class="dashboard-toast-container"
+    aria-live="polite"
+    aria-atomic="true"
+></div>
+
+
+<!-- ============================================================
+     MOBILE SIDEBAR OVERLAY
+     ============================================================ -->
+
+<div
+    id="mobileSidebarOverlay"
+    class="mobile-sidebar-overlay"
+    aria-hidden="true"
+></div>
+
+
+<!-- ============================================================
+     DASHBOARD JAVASCRIPT
+     ============================================================ -->
+
+<script>
+(function () {
+    "use strict";
+
+    /*
+     * ==========================================================
+     * SMART REVIEW DASHBOARD — PART 4
+     * ==========================================================
+     *
+     * This section intentionally stays frontend-only.
+     *
+     * Existing Supabase client / public-card functionality is
+     * not replaced here.
+     *
+     * The dashboard can use an already-created `supabase` client
+     * if one exists elsewhere in the HTML.
+     *
+     * ==========================================================
+     */
+
+    const state = {
+        currentSection: "overview",
+        notes: [],
+        currentCard: null,
+        confirmAction: null,
+        sidebarOpen: false
+    };
+
+
+    /* =========================================================
+       DOM HELPERS
+       ========================================================= */
+
+    function $(selector) {
+        return document.querySelector(selector);
+    }
+
+    function $all(selector) {
+        return Array.from(document.querySelectorAll(selector));
+    }
+
+
+    /* =========================================================
+       TOASTS
+       ========================================================= */
+
+    function showToast(message, type = "info") {
+        const container = $("#dashboardToastContainer");
+
+        if (!container) return;
+
+        const toast = document.createElement("div");
+
+        toast.className = "dashboard-toast " + type;
+
+        toast.innerHTML = `
+            <div class="toast-indicator"></div>
+            <div class="toast-content">
+                <strong>${escapeHtml(
+                    type === "success"
+                        ? "Success"
+                        : type === "error"
+                            ? "Something went wrong"
+                            : "Smart Review"
+                )}</strong>
+
+                <span>${escapeHtml(message)}</span>
+            </div>
+
+            <button
+                type="button"
+                class="toast-close"
+                aria-label="Dismiss"
+            >
+                ×
+            </button>
+        `;
+
+        container.appendChild(toast);
+
+        const closeBtn = toast.querySelector(".toast-close");
+
+        if (closeBtn) {
+            closeBtn.addEventListener("click", function () {
+                removeToast(toast);
+            });
+        }
+
+        setTimeout(function () {
+            removeToast(toast);
+        }, 4500);
+    }
+
+
+    function removeToast(toast) {
+        if (!toast || !toast.parentNode) return;
+
+        toast.classList.add("leaving");
+
+        setTimeout(function () {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 220);
+    }
+
+
+    /* =========================================================
+       HTML ESCAPING
+       ========================================================= */
+
+    function escapeHtml(value) {
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /* =========================================================
+       MODALS
+       ========================================================= */
+
+    function openModal(id) {
+        const overlay = $("#modalOverlay");
+        const modal = document.getElementById(id);
+
+        if (!overlay || !modal) return;
+
+        overlay.classList.add("visible");
+        modal.classList.add("visible");
+
+        overlay.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add("modal-open");
+    }
+
+
+    function closeModal(id) {
+        const overlay = $("#modalOverlay");
+        const modal = document.getElementById(id);
+
+        if (modal) {
+            modal.classList.remove("visible");
+        }
+
+        const visibleModal = document.querySelector(
+            ".modal-panel.visible"
+        );
+
+        if (!visibleModal && overlay) {
+            overlay.classList.remove("visible");
+            overlay.setAttribute("aria-hidden", "true");
+
+            document.body.classList.remove("modal-open");
+        }
+    }
+
+
+    function closeAllModals() {
+        $all(".modal-panel.visible").forEach(function (modal) {
+            modal.classList.remove("visible");
+        });
+
+        const overlay = $("#modalOverlay");
+
+        if (overlay) {
+            overlay.classList.remove("visible");
+            overlay.setAttribute("aria-hidden", "true");
+        }
+
+        document.body.classList.remove("modal-open");
+    }
+
+
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
+
+    function activateSection(section) {
+        if (!section) return;
+
+        state.currentSection = section;
+
+        $all("[data-dashboard-section]").forEach(function (item) {
+            const target = item.getAttribute("data-dashboard-section");
+
+            item.classList.toggle(
+                "active",
+                target === section
+            );
+        });
+
+        $all("[data-section-view]").forEach(function (view) {
+            const target = view.getAttribute("data-section-view");
+
+            view.classList.toggle(
+                "active",
+                target === section
+            );
+        });
+
+        const titleMap = {
+            overview: "Overview",
+            cards: "My Cards",
+            analytics: "Analytics",
+            feedback: "Feedback",
+            notes: "Notes",
+            activity: "Activity",
+            settings: "Settings"
+        };
+
+        const subtitleMap = {
+            overview: "Your Smart Review workspace at a glance.",
+            cards: "Manage and monitor your review cards.",
+            analytics: "Understand how your cards are performing.",
+            feedback: "Keep track of customer feedback and signals.",
+            notes: "Your private workspace notes.",
+            activity: "Recent activity across your workspace.",
+            settings: "Manage your dashboard preferences."
+        };
+
+        const title = $("#dashboardPageTitle");
+        const subtitle = $("#dashboardPageSubtitle");
+
+        if (title) {
+            title.textContent = titleMap[section] || "Dashboard";
+        }
+
+        if (subtitle) {
+            subtitle.textContent =
+                subtitleMap[section] ||
+                "Your Smart Review workspace.";
+        }
+
+        closeMobileSidebar();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       MOBILE SIDEBAR
+       ========================================================= */
+
+    function openMobileSidebar() {
+        const sidebar = $("#dashboardSidebar");
+        const overlay = $("#mobileSidebarOverlay");
+
+        state.sidebarOpen = true;
+
+        if (sidebar) {
+            sidebar.classList.add("mobile-open");
+        }
+
+        if (overlay) {
+            overlay.classList.add("visible");
+            overlay.setAttribute("aria-hidden", "false");
+        }
+
+        document.body.classList.add("sidebar-open");
+    }
+
+
+    function closeMobileSidebar() {
+        const sidebar = $("#dashboardSidebar");
+        const overlay = $("#mobileSidebarOverlay");
+
+        state.sidebarOpen = false;
+
+        if (sidebar) {
+            sidebar.classList.remove("mobile-open");
+        }
+
+        if (overlay) {
+            overlay.classList.remove("visible");
+            overlay.setAttribute("aria-hidden", "true");
+        }
+
+        document.body.classList.remove("sidebar-open");
+    }
+
+
+    /* =========================================================
+       NOTES
+       ========================================================= */
+
+    function loadNotes() {
+        try {
+            const saved = localStorage.getItem(
+                "smartReviewDashboardNotes"
+            );
+
+            if (!saved) {
+                state.notes = [];
+                renderNotes();
+                return;
+            }
+
+            const parsed = JSON.parse(saved);
+
+            state.notes = Array.isArray(parsed)
+                ? parsed
+                : [];
+
+        } catch (error) {
+            console.warn(
+                "Unable to load dashboard notes.",
+                error
+            );
+
+            state.notes = [];
+        }
+
+        renderNotes();
+    }
+
+
+    function saveNotes() {
+        try {
+            localStorage.setItem(
+                "smartReviewDashboardNotes",
+                JSON.stringify(state.notes)
+            );
+        } catch (error) {
+            console.warn(
+                "Unable to save dashboard notes.",
+                error
+            );
+        }
+    }
+
+
+    function renderNotes() {
+        const containers = $all(
+            "[data-notes-container]"
+        );
+
+        containers.forEach(function (container) {
+            if (!state.notes.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">✦</div>
+                        <h4>No notes yet</h4>
+                        <p>
+                            Keep useful reminders, ideas and
+                            follow-ups here.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="dashboard-btn primary"
+                            data-open-modal="quickNoteModal"
+                        >
+                            Add your first note
+                        </button>
+                    </div>
+                `;
+
+                return;
+            }
+
+            container.innerHTML = state.notes
+                .map(function (note, index) {
+                    return `
+                        <article
+                            class="workspace-note"
+                            data-note-index="${index}"
+                        >
+                            <div class="note-main">
+                                <div class="note-icon">✎</div>
+
+                                <div>
+                                    <h4>
+                                        ${escapeHtml(
+                                            note.title ||
+                                            "Untitled note"
+                                        )}
+                                    </h4>
+
+                                    <p>
+                                        ${escapeHtml(
+                                            note.text || ""
+                                        )}
+                                    </p>
+
+                                    <small>
+                                        ${escapeHtml(
+                                            formatDate(
+                                                note.createdAt
+                                            )
+                                        )}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <button
+                                type="button"
+                                class="icon-btn note-delete"
+                                data-delete-note="${index}"
+                                title="Delete note"
+                            >
+                                ×
+                            </button>
+                        </article>
+                    `;
+                })
+                .join("");
+        });
+    }
+
+
+    function addNote() {
+        const titleInput = $("#quickNoteTitle");
+        const textInput = $("#quickNoteText");
+
+        if (!titleInput || !textInput) return;
+
+        const title = titleInput.value.trim();
+        const text = textInput.value.trim();
+
+        if (!title && !text) {
+            showToast(
+                "Please write something before saving.",
+                "error"
+            );
+
+            return;
+        }
+
+        state.notes.unshift({
+            id:
+                "note_" +
+                Date.now() +
+                "_" +
+                Math.random()
+                    .toString(36)
+                    .slice(2, 8),
+
+            title: title || "Untitled note",
+
+            text: text,
+
+            createdAt: new Date().toISOString()
+        });
+
+        saveNotes();
+        renderNotes();
+
+        titleInput.value = "";
+        textInput.value = "";
+
+        closeModal("quickNoteModal");
+
+        showToast(
+            "Your note has been saved.",
+            "success"
+        );
+    }
+
+
+    function deleteNote(index) {
+        const note = state.notes[index];
+
+        if (!note) return;
+
+        openConfirmModal(
+            "Delete this note?",
+            "This will permanently remove the note from this browser.",
+            function () {
+                state.notes.splice(index, 1);
+
+                saveNotes();
+                renderNotes();
+
+                showToast(
+                    "Note deleted.",
+                    "success"
+                );
+            }
+        );
+    }
+
+
+    /* =========================================================
+       CONFIRMATION
+       ========================================================= */
+
+    function openConfirmModal(
+        title,
+        message,
+        action
+    ) {
+        const titleElement = $("#confirmModalTitle");
+        const messageElement = $("#confirmModalMessage");
+
+        if (titleElement) {
+            titleElement.textContent = title;
+        }
+
+        if (messageElement) {
+            messageElement.textContent = message;
+        }
+
+        state.confirmAction = action;
+
+        openModal("confirmModal");
+    }
+
+
+    function executeConfirmAction() {
+        if (
+            typeof state.confirmAction ===
+            "function"
+        ) {
+            state.confirmAction();
+        }
+
+        state.confirmAction = null;
+
+        closeModal("confirmModal");
+    }
+
+
+    /* =========================================================
+       CARD DETAILS
+       ========================================================= */
+
+    function openCardDetails(card) {
+        if (!card) return;
+
+        state.currentCard = card;
+
+        const title =
+            card.title ||
+            card.name ||
+            card.card_name ||
+            card.id ||
+            "Card details";
+
+        const id =
+            card.id ||
+            card.card_id ||
+            card.code ||
+            "—";
+
+        const status =
+            card.status ||
+            "Active";
+
+        const scans =
+            card.scans ??
+            card.scan_count ??
+            card.total_scans ??
+            0;
+
+        const rating =
+            card.average_rating ??
+            card.avg_rating ??
+            card.rating ??
+            "—";
+
+        const url =
+            card.url ||
+            card.public_url ||
+            card.destination_url ||
+            "";
+
+        const description =
+            card.description ||
+            "No description available.";
+
+        const titleElement =
+            $("#cardDetailTitle");
+
+        const idElement =
+            $("#detailCardId");
+
+        const statusElement =
+            $("#detailCardStatus");
+
+        const scansElement =
+            $("#detailCardScans");
+
+        const ratingElement =
+            $("#detailCardRating");
+
+        const urlElement =
+            $("#detailCardUrl");
+
+        const descriptionElement =
+            $("#detailCardDescription");
+
+        if (titleElement) {
+            titleElement.textContent = title;
+        }
+
+        if (idElement) {
+            idElement.textContent = id;
+        }
+
+        if (statusElement) {
+            statusElement.textContent = status;
+        }
+
+        if (scansElement) {
+            scansElement.textContent = formatNumber(scans);
+        }
+
+        if (ratingElement) {
+            ratingElement.textContent =
+                typeof rating === "number"
+                    ? rating.toFixed(1) + " / 5"
+                    : rating;
+        }
+
+        if (urlElement) {
+            urlElement.textContent =
+                url || "No URL available.";
+        }
+
+        if (descriptionElement) {
+            descriptionElement.textContent =
+                description;
+        }
+
+        openModal("cardDetailModal");
+    }
+
+
+    function openCurrentCard() {
+        if (!state.currentCard) return;
+
+        const url =
+            state.currentCard.url ||
+            state.currentCard.public_url ||
+            state.currentCard.destination_url;
+
+        if (!url) {
+            showToast(
+                "This card does not have a public URL yet.",
+                "error"
+            );
+
+            return;
+        }
+
+        window.open(
+            url,
+            "_blank",
+            "noopener,noreferrer"
+        );
+    }
+
+
+    /* =========================================================
+       COPY HELPERS
+       ========================================================= */
+
+    async function copyText(text) {
+        if (!text) {
+            showToast(
+                "Nothing to copy.",
+                "error"
+            );
+
+            return false;
+        }
+
+        try {
+            if (
+                navigator.clipboard &&
+                navigator.clipboard.writeText
+            ) {
+                await navigator.clipboard.writeText(
+                    text
+                );
+            } else {
+                const textarea =
+                    document.createElement("textarea");
+
+                textarea.value = text;
+
+                textarea.style.position = "fixed";
+                textarea.style.opacity = "0";
+
+                document.body.appendChild(
+                    textarea
+                );
+
+                textarea.focus();
+                textarea.select();
+
+                document.execCommand("copy");
+
+                textarea.remove();
+            }
+
+            showToast(
+                "Copied to clipboard.",
+                "success"
+            );
+
+            return true;
+
+        } catch (error) {
+            console.error(error);
+
+            showToast(
+                "Unable to copy that value.",
+                "error"
+            );
+
+            return false;
+        }
+    }
+
+
+    /* =========================================================
+       FORMATTING
+       ========================================================= */
+
+    function formatNumber(value) {
+        const number = Number(value);
+
+        if (!Number.isFinite(number)) {
+            return "0";
+        }
+
+        return new Intl.NumberFormat(
+            undefined
+        ).format(number);
+    }
+
+
+    function formatDate(value) {
+        if (!value) {
+            return "Just now";
+        }
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return String(value);
+        }
+
+        return new Intl.DateTimeFormat(
+            undefined,
+            {
+                dateStyle: "medium",
+                timeStyle: "short"
+            }
+        ).format(date);
+    }
+
+
+    /* =========================================================
+       DASHBOARD SEARCH
+       ========================================================= */
+
+    function performDashboardSearch(query) {
+        const normalized =
+            String(query || "")
+                .trim()
+                .toLowerCase();
+
+        const searchableItems =
+            $all("[data-searchable]");
+
+        if (!normalized) {
+            searchableItems.forEach(function (item) {
+                item.hidden = false;
+            });
+
+            return;
+        }
+
+        searchableItems.forEach(function (item) {
+            const text =
+                item.textContent
+                    .toLowerCase();
+
+            item.hidden =
+                !text.includes(normalized);
+        });
+    }
+
+
+    /* =========================================================
+       REFRESH ANIMATION
+       ========================================================= */
+
+    function showRefreshing() {
+        const refreshButtons =
+            $all("[data-refresh-dashboard]");
+
+        refreshButtons.forEach(function (button) {
+            button.classList.add("is-refreshing");
+            button.disabled = true;
+        });
+    }
+
+
+    function hideRefreshing() {
+        const refreshButtons =
+            $all("[data-refresh-dashboard]");
+
+        refreshButtons.forEach(function (button) {
+            button.classList.remove(
+                "is-refreshing"
+            );
+
+            button.disabled = false;
+        });
+    }
+
+
+    /*
+     * Let the existing application expose a dashboard
+     * refresh function if it already has one.
+     *
+     * We deliberately do not replace the application's
+     * Supabase data-loading logic here.
+     */
+    async function refreshDashboard() {
+        showRefreshing();
+
+        try {
+            if (
+                typeof window.refreshDashboardData ===
+                "function"
+            ) {
+                await window.refreshDashboardData();
+            } else if (
+                typeof window.loadDashboard ===
+                "function"
+            ) {
+                await window.loadDashboard();
+            } else if (
+                typeof window.loadDashboardData ===
+                "function"
+            ) {
+                await window.loadDashboardData();
+            }
+
+            showToast(
+                "Dashboard refreshed.",
+                "success"
+            );
+
+        } catch (error) {
+            console.error(
+                "Dashboard refresh failed:",
+                error
+            );
+
+            showToast(
+                "The dashboard could not be refreshed.",
+                "error"
+            );
+
+        } finally {
+            hideRefreshing();
+        }
+    }
+
+
+    /* =========================================================
+       THEME
+       ========================================================= */
+
+    function getStoredTheme() {
+        try {
+            return localStorage.getItem(
+                "smartReviewDashboardTheme"
+            );
+        } catch (_) {
+            return null;
+        }
+    }
+
+
+    function setTheme(theme) {
+        const root =
+            document.documentElement;
+
+        if (!root) return;
+
+        if (theme === "light") {
+            root.setAttribute(
+                "data-theme",
+                "light"
+            );
+        } else if (theme === "dark") {
+            root.setAttribute(
+                "data-theme",
+                "dark"
+            );
+        } else {
+            root.removeAttribute(
+                "data-theme"
+            );
+        }
+
+        try {
+            localStorage.setItem(
+                "smartReviewDashboardTheme",
+                theme
+            );
+        } catch (_) {}
+    }
+
+
+    function initializeTheme() {
+        const stored =
+            getStoredTheme();
+
+        if (stored) {
+            setTheme(stored);
+        }
+    }
+
+
+    /* =========================================================
+       EVENT DELEGATION
+       ========================================================= */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            /*
+             * Dashboard navigation
+             */
+
+            const navItem =
+                event.target.closest(
+                    "[data-dashboard-section]"
+                );
+
+            if (navItem) {
+                event.preventDefault();
+
+                activateSection(
+                    navItem.getAttribute(
+                        "data-dashboard-section"
+                    )
+                );
+
+                return;
+            }
+
+
+            /*
+             * Open modal
+             */
+
+            const modalTrigger =
+                event.target.closest(
+                    "[data-open-modal]"
+                );
+
+            if (modalTrigger) {
+                event.preventDefault();
+
+                openModal(
+                    modalTrigger.getAttribute(
+                        "data-open-modal"
+                    )
+                );
+
+                return;
+            }
+
+
+            /*
+             * Close modal
+             */
+
+            const closeTrigger =
+                event.target.closest(
+                    "[data-close-modal]"
+                );
+
+            if (closeTrigger) {
+                event.preventDefault();
+
+                closeModal(
+                    closeTrigger.getAttribute(
+                        "data-close-modal"
+                    )
+                );
+
+                return;
+            }
+
+
+            /*
+             * Delete note
+             */
+
+            const deleteNoteButton =
+                event.target.closest(
+                    "[data-delete-note]"
+                );
+
+            if (deleteNoteButton) {
+                event.preventDefault();
+
+                const index =
+                    Number(
+                        deleteNoteButton.getAttribute(
+                            "data-delete-note"
+                        )
+                    );
+
+                deleteNote(index);
+
+                return;
+            }
+
+
+            /*
+             * Card details
+             *
+             * Supports either:
+             *
+             * data-card-details
+             *
+             * with JSON in the attribute,
+             *
+             * or an element with data-card-id
+             * where another script can populate
+             * the details.
+             */
+
+            const cardButton =
+                event.target.closest(
+                    "[data-card-details]"
+                );
+
+            if (cardButton) {
+                event.preventDefault();
+
+                try {
+                    const raw =
+                        cardButton.getAttribute(
+                            "data-card-details"
+                        );
+
+                    const card =
+                        JSON.parse(raw);
+
+                    openCardDetails(card);
+
+                } catch (error) {
+                    console.warn(
+                        "Invalid card details payload.",
+                        error
+                    );
+                }
+
+                return;
+            }
+
+
+            /*
+             * Copy URL
+             */
+
+            const copyUrlButton =
+                event.target.closest(
+                    "#copyCardUrlBtn"
+                );
+
+            if (copyUrlButton) {
+                event.preventDefault();
+
+                if (state.currentCard) {
+                    const url =
+                        state.currentCard.url ||
+                        state.currentCard.public_url ||
+                        state.currentCard.destination_url;
+
+                    copyText(url);
+                }
+
+                return;
+            }
+
+
+            /*
+             * Open card
+             */
+
+            const openCardButton =
+                event.target.closest(
+                    "#openCardBtn"
+                );
+
+            if (openCardButton) {
+                event.preventDefault();
+
+                openCurrentCard();
+
+                return;
+            }
+
+
+            /*
+             * Refresh dashboard
+             */
+
+            const refreshButton =
+                event.target.closest(
+                    "[data-refresh-dashboard]"
+                );
+
+            if (refreshButton) {
+                event.preventDefault();
+
+                refreshDashboard();
+
+                return;
+            }
+
+
+            /*
+             * Mobile menu
+             */
+
+            const mobileMenuButton =
+                event.target.closest(
+                    "[data-dashboard-menu]"
+                );
+
+            if (mobileMenuButton) {
+                event.preventDefault();
+
+                if (state.sidebarOpen) {
+                    closeMobileSidebar();
+                } else {
+                    openMobileSidebar();
+                }
+
+                return;
+            }
+
+
+            /*
+             * Mobile sidebar overlay
+             */
+
+            if (
+                event.target.id ===
+                "mobileSidebarOverlay"
+            ) {
+                closeMobileSidebar();
+
+                return;
+            }
+
+
+            /*
+             * Confirm action
+             */
+
+            const confirmButton =
+                event.target.closest(
+                    "#confirmActionBtn"
+                );
+
+            if (confirmButton) {
+                event.preventDefault();
+
+                executeConfirmAction();
+
+                return;
+            }
+
+
+            /*
+             * Theme buttons
+             */
+
+            const themeButton =
+                event.target.closest(
+                    "[data-dashboard-theme]"
+                );
+
+            if (themeButton) {
+                event.preventDefault();
+
+                const theme =
+                    themeButton.getAttribute(
+                        "data-dashboard-theme"
+                    );
+
+                setTheme(theme);
+
+                $all(
+                    "[data-dashboard-theme]"
+                ).forEach(function (button) {
+                    button.classList.toggle(
+                        "active",
+                        button.getAttribute(
+                            "data-dashboard-theme"
+                        ) === theme
+                    );
+                });
+
+                return;
+            }
+        }
+    );
+
+
+    /* =========================================================
+       KEYBOARD SHORTCUTS
+       ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            /*
+             * Escape closes overlays.
+             */
+
+            if (event.key === "Escape") {
+                closeAllModals();
+                closeMobileSidebar();
+            }
+
+
+            /*
+             * Cmd/Ctrl + K focuses dashboard search.
+             */
+
+            if (
+                (event.ctrlKey || event.metaKey) &&
+                event.key.toLowerCase() === "k"
+            ) {
+                event.preventDefault();
+
+                const search =
+                    $("#dashboardSearch");
+
+                if (search) {
+                    search.focus();
+                }
+            }
+        }
+    );
+
+
+    /* =========================================================
+       SEARCH LISTENER
+       ========================================================= */
+
+    const dashboardSearch =
+        $("#dashboardSearch");
+
+    if (dashboardSearch) {
+        dashboardSearch.addEventListener(
+            "input",
+            function () {
+                performDashboardSearch(
+                    dashboardSearch.value
+                );
+            }
+        );
+    }
+
+
+    /* =========================================================
+       SAVE NOTE BUTTON
+       ========================================================= */
+
+    const saveNoteButton =
+        $("#saveQuickNoteBtn");
+
+    if (saveNoteButton) {
+        saveNoteButton.addEventListener(
+            "click",
+            addNote
+        );
+    }
+
+
+    /* =========================================================
+       CLOSE MODAL WHEN CLICKING OUTSIDE
+       ========================================================= */
+
+    const modalOverlay =
+        $("#modalOverlay");
+
+    if (modalOverlay) {
+        modalOverlay.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    modalOverlay
+                ) {
+                    closeAllModals();
+                }
+            }
+        );
+    }
+
+
+    /* =========================================================
+       INITIALIZATION
+       ========================================================= */
+
+    function initializeDashboardWorkspace() {
+        initializeTheme();
+
+        loadNotes();
+
+        activateSection(
+            state.currentSection
+        );
+
+        /*
+         * Mark initial theme button.
+         */
+
+        const currentTheme =
+            getStoredTheme();
+
+        if (currentTheme) {
+            $all(
+                "[data-dashboard-theme]"
+            ).forEach(function (button) {
+                button.classList.toggle(
+                    "active",
+                    button.getAttribute(
+                        "data-dashboard-theme"
+                    ) === currentTheme
+                );
+            });
+        }
+
+        /*
+         * Allow Enter in the note title to move
+         * naturally without submitting anything.
+         */
+
+        const noteTitle =
+            $("#quickNoteTitle");
+
+        if (noteTitle) {
+            noteTitle.addEventListener(
+                "keydown",
+                function (event) {
+                    if (
+                        event.key === "Enter" &&
+                        !event.shiftKey
+                    ) {
+                        event.preventDefault();
+
+                        const noteText =
+                            $("#quickNoteText");
+
+                        if (noteText) {
+                            noteText.focus();
+                        }
+                    }
+                }
+            );
+        }
+    }
+
+
+    /*
+     * Initialize after DOM is ready.
+     */
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeDashboardWorkspace
+        );
+    } else {
+        initializeDashboardWorkspace();
+    }
+
+
+    /* =========================================================
+       PUBLIC DASHBOARD API
+       =========================================================
+       
+       These functions are intentionally exposed so the
+       existing application can interact with the workspace
+       without having to rewrite its current logic.
+       ========================================================= */
+
+    window.SmartReviewDashboard = {
+
+        openModal,
+
+        closeModal,
+
+        closeAllModals,
+
+        showToast,
+
+        activateSection,
+
+        openCardDetails,
+
+        refreshDashboard,
+
+        addNote,
+
+        renderNotes,
+
+        copyText,
+
+        setTheme,
+
+        state
+    };
+
+})();
+</script>
+
+
+<!-- ============================================================
+     FINAL DASHBOARD FOOTER
+     ============================================================ -->
+
+<footer class="dashboard-footer">
+
+    <div class="dashboard-footer-left">
+
+        <div class="footer-brand-mark">
+            SR
+        </div>
+
+        <div>
+            <strong>Smart Review</strong>
+
+            <span>
+                Personal workspace
+            </span>
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-footer-center">
+
+        <span>
+            Your review system, in one place.
+        </span>
+
+    </div>
+
+
+    <div class="dashboard-footer-right">
+
+        <span
+            id="dashboardLastUpdated"
+            class="last-updated"
+        >
+            Ready
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- ============================================================
+     FINAL DASHBOARD BOOTSTRAP
+     ============================================================ -->
+
+<script>
+(function () {
+    "use strict";
+
+    function updateLastUpdated() {
+        const element =
+            document.getElementById(
+                "dashboardLastUpdated"
+            );
+
+        if (!element) return;
+
+        const now = new Date();
+
+        element.textContent =
+            "Updated " +
+            new Intl.DateTimeFormat(
+                undefined,
+                {
+                    dateStyle: "medium",
+                    timeStyle: "short"
+                }
+            ).format(now);
+    }
+
+    updateLastUpdated();
+
+})();
+</script>
     `
   );
 
 }
-
-
-/* =========================================================
-   SHARE
-========================================================= */
-
-async function shareCard(
-  code
-){
-
-  const url =
-    getCustomerUrl(code);
-
-  if(
-    navigator.share
-  ){
-
-    try{
-
-      await navigator.share({
-
-        title:
-          "Smart Review",
-
-        text:
-          "Ma carte Smart Review",
-
-        url
-
-      });
-
-    }
-
-    catch(error){
-
-      /*
-        User cancelled share.
-        Nothing to do.
-      */
-
-    }
-
-    return;
-
-  }
-
-  await copyCardLink(code);
-
-}
-
-
-/* =========================================================
-   DUPLICATE CARD
-========================================================= */
-
-async function duplicateCard(
-  cardId
-){
-
-  const original =
-    dashboardData.cards.find(
-      card =>
-        card.id === cardId
-    );
-
-  if(!original){
-
-    showStatus(
-      "Carte introuvable.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const business =
-    getBusiness(
-      original.business_id
-    );
-
-
-  const confirmed =
-    window.confirm(
-      `Créer une nouvelle carte pour ${
-        business?.name ||
-        "cet établissement"
-      } ?`
-    );
-
-
-  if(!confirmed){
-
-    return;
-
-  }
-
-
-  try{
-
-    const newCode =
-      generateCardCode();
-
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("cards")
-        .insert({
-
-          business_id:
-            original.business_id,
-
-          card_code:
-            newCode,
-
-          active:true
-
-        })
-        .select()
-        .single();
-
-
-    if(error){
-
-      throw error;
-
-    }
-
-
-    closeModal();
-
-    await loadEverything();
-
-    showStatus(
-      `Nouvelle carte ${newCode} créée.`,
-      "success"
-    );
-
-
-    if(data?.id){
-
-      setTimeout(
-        () =>
-          openCardControl(
-            data.id
-          ),
-        150
-      );
-
-    }
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    showStatus(
-      "Impossible de dupliquer la carte.\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   TOGGLE CARD
-========================================================= */
-
-async function toggleCard(
-  cardId
-){
-
-  const card =
-    dashboardData.cards.find(
-      item =>
-        item.id === cardId
-    );
-
-  if(!card){
-
-    return;
-
-  }
-
-
-  const action =
-    card.active
-    ? "mettre en pause"
-    : "réactiver";
-
-
-  const confirmed =
-    window.confirm(
-      `Voulez-vous ${action} la carte ${card.card_code} ?`
-    );
-
-
-  if(!confirmed){
-
-    return;
-
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("cards")
-        .update({
-
-          active:
-            !card.active
-
-        })
-        .eq(
-          "id",
-          cardId
-        );
-
-
-    if(error){
-
-      throw error;
-
-    }
-
-
-    closeModal();
-
-    await loadEverything();
-
-    showStatus(
-      card.active
-      ? "Carte mise en pause."
-      : "Carte réactivée.",
-      "success"
-    );
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    showStatus(
-      "Impossible de modifier le statut de la carte.\n\n" +
-      error.message,
-      "error"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   REFRESH CARD CONTROL
-========================================================= */
-
-async function refreshCardControl(
-  cardId
-){
-
-  await loadEverything();
-
-  closeModal();
-
-  setTimeout(
-    () =>
-      openCardControl(cardId),
-    120
-  );
-
-}
-
-
-/* =========================================================
-   KEYBOARD / BACKDROP
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if(
-      event.key === "Escape" &&
-      modal.classList.contains("show")
-    ){
-
-      closeModal();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-checkSession();
-
-</script>
-
-</body>
-  </html>
