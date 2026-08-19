@@ -1640,156 +1640,333 @@ button{
 
 
 /* =========================================================
-   SMART REVIEW — 30 DAY ANALYTICS ADDITIONS
-   Existing UI styles remain untouched.
+   30-DAY RESEARCH LAYER
+   ---------------------------------------------------------
+   This layer extends the existing analytics view without
+   changing the original dashboard visual system.
 ========================================================= */
-.analytics-30-wrap{margin-top:13px;}
-.analytics-30-note{color:var(--muted);font-size:11px;line-height:1.45;margin-top:4px;}
-.analytics-30-badge{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:11px;background:#edf4ff;border:1px solid #c9dcff;color:#1551bd;font-size:10px;font-weight:950;white-space:nowrap;}
-.analytics-30-chart{display:grid;grid-template-columns:repeat(30,minmax(3px,1fr));align-items:end;gap:3px;height:145px;margin-top:15px;padding:10px 3px 4px;border-bottom:1px solid var(--line);}
-.analytics-30-bar-wrap{height:100%;display:flex;align-items:flex-end;justify-content:center;min-width:0;}
-.analytics-30-bar{width:100%;min-height:3px;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,#4285ff,#165dff);}
-.analytics-30-labels{display:flex;justify-content:space-between;color:#8a96a7;font-size:8px;margin-top:6px;}
-.analytics-30-summary{border-top:1px solid var(--line);padding:13px 0;}
-.analytics-30-summary:first-child{border-top:0;padding-top:2px;}
-.analytics-30-summary-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-.analytics-30-summary-name{font-size:13px;font-weight:950;}
-.analytics-30-summary-meta{color:var(--muted);font-size:9px;margin-top:3px;}
-.analytics-30-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:9px;}
-.analytics-30-mini{background:#f5f7fa;border-radius:10px;padding:8px;min-width:0;}
-.analytics-30-mini b{display:block;font-size:12px;font-weight:950;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.analytics-30-mini span{display:block;color:var(--muted);font-size:8px;margin-top:1px;text-transform:uppercase;}
-.analytics-30-actions{margin-top:8px;}
-.analytics-30-actions .btn{width:100%;}
-.client-summary-text{width:100%;min-height:320px;resize:vertical;border:1px solid #d9e0e9;border-radius:13px;background:#fff;color:var(--ink);padding:12px;font-size:11px;line-height:1.55;outline:none;}
-.client-summary-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px;}
 
-.analytics-research-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px;}
-.analytics-research-kpi{background:#f5f7fa;border:1px solid var(--line);border-radius:13px;padding:10px;}
-.analytics-research-kpi b{display:block;font-size:17px;font-weight:950;}
-.analytics-research-kpi span{display:block;color:var(--muted);font-size:9px;margin-top:3px;text-transform:uppercase;}
-.analytics-research-section{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
-.analytics-research-section h4{margin:0 0 8px;font-size:12px;font-weight:950;}
-.analytics-research-insight{background:#f7f9fc;border-left:3px solid #165dff;border-radius:9px;padding:9px 10px;margin-top:7px;font-size:10px;line-height:1.5;}
-.analytics-research-table{width:100%;border-collapse:collapse;font-size:9px;}
-.analytics-research-table th,.analytics-research-table td{padding:7px 5px;border-bottom:1px solid var(--line);text-align:left;}
-.analytics-research-table th{color:var(--muted);font-size:8px;text-transform:uppercase;}
-.analytics-research-table td:not(:first-child),.analytics-research-table th:not(:first-child){text-align:right;}
-.analytics-research-chart{display:grid;grid-template-columns:repeat(30,minmax(2px,1fr));align-items:end;gap:2px;height:110px;margin-top:9px;padding:8px 2px 3px;border-bottom:1px solid var(--line);}
-.analytics-research-bar{width:100%;min-height:2px;border-radius:4px 4px 1px 1px;background:linear-gradient(180deg,#4285ff,#165dff);}
-@media(max-width:759px){.analytics-research-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.analytics-research-table{font-size:8px;}}
-@media(min-width:760px){.analytics-30-actions{display:flex;justify-content:flex-end;}.analytics-30-actions .btn{width:auto;min-width:220px;}}
+.research-toolbar{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  gap:8px;
+  margin-top:13px;
+}
 
-</style>
-</head>
+.research-search{
+  min-height:44px;
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:10px 12px;
+  background:#fff;
+  color:var(--ink);
+  outline:none;
+}
 
-<body>
+.research-search:focus{
+  border-color:#bdd2f8;
+  box-shadow:0 0 0 4px rgba(22,93,255,.06);
+}
 
-<!-- =========================================================
-     LOGIN
-========================================================= -->
+.research-actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
 
-<section
-  id="loginScreen"
-  class="login-screen"
->
+.research-actions .btn{
+  min-height:44px;
+}
 
-  <div class="login-box">
+.research-period{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:10px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:850;
+}
 
-    <div class="login-logo">
-      <div class="logo-letter">G</div>
-    </div>
+.research-period strong{
+  color:var(--ink);
+}
 
-    <h1>Smart Review</h1>
+.research-overview{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  margin-top:13px;
+}
 
-    <p>
-      Connectez-vous à votre centre de contrôle.
-    </p>
+.research-metric{
+  background:#f7faff;
+  border:1px solid #e0e9f6;
+  border-radius:14px;
+  padding:11px;
+}
 
-    <div
-      id="loginError"
-      class="login-error"
-    ></div>
+.research-metric span{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.35px;
+}
 
-    <form id="loginForm">
+.research-metric b{
+  display:block;
+  color:var(--navy);
+  font-size:19px;
+  font-weight:950;
+  margin-top:3px;
+}
 
-      <div class="field">
+.research-metric small{
+  display:block;
+  color:#8794a5;
+  font-size:8px;
+  margin-top:2px;
+}
 
-        <label for="email">
-          E-mail
-        </label>
+.research-chart{
+  display:grid;
+  grid-template-columns:repeat(30,minmax(3px,1fr));
+  align-items:end;
+  gap:3px;
+  height:150px;
+  margin-top:16px;
+  padding:10px 4px 2px;
+  border-bottom:1px solid var(--line);
+}
 
-        <input
-          id="email"
-          type="email"
-          autocomplete="username"
-          required
-          placeholder="Votre adresse e-mail"
-        >
+.research-bar-wrap{
+  height:100%;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  min-width:0;
+}
 
-      </div>
+.research-bar{
+  width:100%;
+  min-height:2px;
+  border-radius:5px 5px 2px 2px;
+  background:linear-gradient(180deg,#4285ff,#165dff);
+}
 
-      <div class="field">
+.research-bar:hover{
+  filter:brightness(.96);
+}
 
-        <label for="password">
-          Mot de passe
-        </label>
+.research-chart-labels{
+  display:grid;
+  grid-template-columns:repeat(30,minmax(3px,1fr));
+  gap:3px;
+  margin-top:5px;
+}
 
-        <input
-          id="password"
-          type="password"
-          autocomplete="current-password"
-          required
-          placeholder="Votre mot de passe"
-        >
+.research-chart-label{
+  min-width:0;
+  color:#9aa6b5;
+  font-size:7px;
+  text-align:center;
+  overflow:hidden;
+}
 
-      </div>
+.research-section-title{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
 
-      <button
-        id="loginButton"
-        class="btn btn-primary"
-        type="submit"
-        style="width:100%;min-height:56px;"
-      >
-        Se connecter
-      </button>
+.research-section-title h4{
+  font-size:13px;
+  font-weight:950;
+}
 
-    </form>
+.research-section-title p{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.4;
+  margin-top:2px;
+}
 
-  </div>
+.research-list{
+  display:grid;
+  gap:10px;
+  margin-top:13px;
+}
 
-</section>
+.research-business{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
 
+.research-business-head{
+  padding:14px;
+  background:linear-gradient(180deg,#fff,#f9fbfe);
+  border-bottom:1px solid var(--line);
+}
 
-<!-- =========================================================
-     APPLICATION
-========================================================= -->
+.research-business-title{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
 
-<div
-  id="adminApp"
-  class="app hidden"
->
+.research-business-name{
+  min-width:0;
+  font-size:15px;
+  font-weight:950;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
 
-  <header class="top">
+.research-business-sub{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
 
-    <div class="top-inner">
+.research-score{
+  flex:none;
+  min-width:64px;
+  text-align:center;
+  border-radius:12px;
+  padding:7px 8px;
+  background:#f4f7fb;
+  border:1px solid #e3e8ef;
+}
 
-      <div class="brand-row">
+.research-score b{
+  display:block;
+  color:var(--navy);
+  font-size:15px;
+  font-weight:950;
+}
 
-        <div class="brand">
+.research-score span{
+  display:block;
+  color:var(--muted);
+  font-size:7px;
+  text-transform:uppercase;
+  font-weight:900;
+}
 
-          <div class="brand-mark">
-            <div class="logo-letter">G</div>
-          </div>
+.research-business-body{
+  padding:13px;
+}
 
-          <div>
+.research-mini-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:7px;
+}
 
-            <div class="brand-name">
-              Smart Review
-            </div>
+.research-mini{
+  border-radius:11px;
+  background:#f7f8fa;
+  padding:9px;
+}
 
-            <div class="brand-sub">
-              Control Center
-            </div>
+.research-mini span{
+  display:block;
+  color:var(--muted);
+  font-size:7px;
+  text-transform:uppercase;
+  font-weight:900;
+}
 
-          </div>
+.research-mini b{
+  display:block;
+  margin-top:2px;
+  color:var(--ink);
+  font-size:13px;
+  font-weight:950;
+}
+
+.research-insight{
+  margin-top:10px;
+  padding:10px 11px;
+  border-radius:12px;
+  background:#f7faff;
+  border:1px solid #e0e9f6;
+  color:#42536b;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.research-insight strong{
+  color:var(--navy);
+}
+
+.research-rating-grid{
+  display:grid;
+  gap:6px;
+  margin-top:10px;
+}
+
+.research-rating-row{
+  display:grid;
+  grid-template-columns:24px 1fr 38px;
+  gap:6px;
+  align-items:center;
+  font-size:9px;
+  font-weight:850;
+}
+
+.research-rating-track{
+  height:6px;
+  border-radius:20px;
+  background:#edf0f4;
+  overflow:hidden;
+}
+
+.research-rating-fill{
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#ffcf55,#d99213);
+}
+
+.research-cards{
+  margin-top:11px;
+  border-top:1px solid var(--line);
+}
+
+.research-card-row{
+  display:grid;
+  grid-template-columns:minmax(90px,1.2fr) repeat(5,minmax(42px,1fr));
+  gap:6px;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid var(--line);
+  font-size:8px;
+}
+
+.research-card-row:last-child{
+  border-bottom:0;
+}
+
+.research-card-row.header{
+  color:var(--muted);
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.2px;
+}
+
+.research-card-code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-weight:950;
+  color:var(--navy);
+  overflow:hidden;
+  text-overflow:ellipsis;
