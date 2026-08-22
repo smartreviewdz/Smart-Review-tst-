@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#061b3a">
 <title>Avify Stat</title>
 
@@ -48,7 +48,7 @@ body{
 .hero{
   position:relative;
   min-height:325px;
-  padding:24px 18px 80px;
+  padding:calc(24px + env(safe-area-inset-top)) 18px 80px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -719,6 +719,11 @@ textarea:focus{
   stroke:var(--navy);
   stroke-width:2.6;
   stroke-linecap:round;
+  transition:opacity .25s ease;
+}
+
+#faceMouthOpen{
+  transition:opacity .25s ease;
 }
 
 .face-sparkle{
@@ -866,6 +871,53 @@ textarea:focus{
 .star:active{
   transform:scale(.88);
 }
+
+/* ---- 2. smart empty state ---- */
+.empty-state{
+  width:100%;
+  max-width:420px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:30px 10px 10px;
+}
+.empty-state.hidden{ display:none; }
+.empty-icon{
+  margin-bottom:16px;
+  animation:emptyFloat 3.2s ease-in-out infinite;
+}
+@keyframes emptyFloat{
+  0%, 100%{ transform:translateY(0) rotate(0deg); }
+  50%{ transform:translateY(-6px) rotate(-3deg); }
+}
+.empty-title{
+  font-size:clamp(20px,5.5vw,26px);
+  font-weight:900;
+  margin-bottom:8px;
+  color:var(--navy);
+}
+.empty-text{
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.5;
+  max-width:340px;
+}
+
+/* ---- 4. private-feedback success confirmation ---- */
+.button.sent{
+  background:#1f9d5a !important;
+  pointer-events:none;
+}
+.send-check{
+  display:inline-block;
+  transform:scale(0);
+  animation:checkPop .4s cubic-bezier(.34,1.56,.64,1) forwards;
+  margin-right:6px;
+}
+@keyframes checkPop{
+  to{ transform:scale(1); }
+}
 </style>
 </head>
 
@@ -876,6 +928,11 @@ textarea:focus{
     <linearGradient id="faceGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffcf55"/>
       <stop offset="100%" stop-color="#d99213"/>
+    </linearGradient>
+
+    <linearGradient id="faceCalmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6fa3ff"/>
+      <stop offset="100%" stop-color="#2f6fd6"/>
     </linearGradient>
 
     <radialGradient id="faceDome" cx="35%" cy="30%" r="75%">
@@ -932,7 +989,7 @@ textarea:focus{
 
 <main class="content">
 
-<section class="client-brand">
+<section class="client-brand" id="clientBrand">
 
   <div class="logo-frame">
 
@@ -980,6 +1037,11 @@ textarea:focus{
                 </g>
 
                 <path class="mouth-path" id="faceMouthPath" d="M27 45 Q38 48 49 45" filter="url(#faceDepth)"/>
+
+                <g id="faceMouthOpen" style="opacity:0" filter="url(#faceDepth)">
+                  <path d="M22 40 Q38 60 54 40 Q38 47 22 40 Z" fill="#0d2447"/>
+                  <path d="M25 40.5 Q38 46 51 40.5 Q38 43.5 25 40.5 Z" fill="#ffffff"/>
+                </g>
               </svg>
             </div>
           </div>
@@ -1002,6 +1064,24 @@ textarea:focus{
     id="subtitle"
   >
     Chargement de votre établissement
+  </p>
+
+</section>
+
+<section id="emptyState" class="empty-state hidden">
+
+  <div class="empty-icon">
+    <svg viewBox="0 0 64 64" width="56" height="56">
+      <circle cx="27" cy="27" r="16" fill="none" stroke="url(#faceGoldGrad)" stroke-width="3"/>
+      <line x1="38" y1="38" x2="52" y2="52" stroke="url(#faceGoldGrad)" stroke-width="3" stroke-linecap="round"/>
+      <line x1="21" y1="21" x2="33" y2="33" stroke="#061b3a" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+      <line x1="33" y1="21" x2="21" y2="33" stroke="#061b3a" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+    </svg>
+  </div>
+
+  <h2 class="empty-title" id="emptyTitle">Carte introuvable</h2>
+  <p class="empty-text" id="emptyText">
+    Ce lien ne correspond à aucun établissement actif pour le moment.
   </p>
 
 </section>
@@ -1383,19 +1463,12 @@ async function loadCard(){
 
   if(!cardCode){
 
-    businessName.textContent =
-      "Carte introuvable";
+    document.getElementById("clientBrand").classList.add("hidden");
 
-    businessName.classList.remove("skeleton");
-    businessName.classList.add("reveal");
-
-
-    subtitle.innerHTML =
-      '<span class="error">Aucun code de carte fourni.</span>';
-
-    subtitle.classList.remove("skeleton");
-    subtitle.classList.add("reveal");
-
+    const emptyState = document.getElementById("emptyState");
+    document.getElementById("emptyText").textContent =
+      "Aucun code de carte n'a été fourni dans ce lien.";
+    emptyState.classList.remove("hidden");
 
     return;
 
@@ -1500,6 +1573,9 @@ async function loadCard(){
     businessName.textContent =
       "Carte introuvable";
 
+    businessName.textContent =
+      "Carte introuvable";
+
     businessName.classList.remove("skeleton");
     businessName.classList.add("reveal");
 
@@ -1509,6 +1585,14 @@ async function loadCard(){
 
     subtitle.classList.remove("skeleton");
     subtitle.classList.add("reveal");
+
+
+    document.getElementById("clientBrand").classList.add("hidden");
+
+    const emptyState2 = document.getElementById("emptyState");
+    document.getElementById("emptyText").textContent =
+      "Cette carte est inactive ou n'existe plus. Vérifiez le lien ou contactez l'établissement.";
+    emptyState2.classList.remove("hidden");
 
   }
 
@@ -1590,6 +1674,11 @@ stars.forEach(
 
         selectedRating =
           rating;
+
+
+        if(navigator.vibrate){
+          navigator.vibrate(10);
+        }
 
 
         if(typeof reactToRating === "function"){
@@ -1859,8 +1948,18 @@ sendPrivate.addEventListener(
     );
 
 
-    window.location.href =
-      whatsappURL;
+    sendPrivate.classList.remove("sending");
+    sendPrivate.classList.add("sent");
+    sendPrivate.innerHTML =
+      '<span class="send-check">✓</span> Envoyé';
+
+
+    setTimeout(() => {
+
+      window.location.href =
+        whatsappURL;
+
+    }, 650);
 
   }
 );
@@ -1969,6 +2068,7 @@ const faceEyeRhappy = document.getElementById("faceEyeRhappy");
 const faceCheekL = document.getElementById("faceCheekL");
 const faceCheekR = document.getElementById("faceCheekR");
 const faceMouthPath = document.getElementById("faceMouthPath");
+const faceMouthOpen = document.getElementById("faceMouthOpen");
 const faceSparkles = [
   document.getElementById("fsp1"),
   document.getElementById("fsp2"),
@@ -2062,6 +2162,10 @@ function setFaceExpression(value, skipPop){
   faceSparkles.forEach(s => s.classList.toggle("on", value === 5));
   faceSparkles.forEach(s => s.classList.toggle("orbit", value === 5));
 
+  const bigSmile = value === 5;
+  faceMouthOpen.style.opacity = bigSmile ? 1 : 0;
+  faceMouthPath.style.opacity = bigSmile ? 0 : 1;
+
   if(value === 5){
     faceShine.classList.remove("fire");
     void faceShine.offsetWidth;
@@ -2081,6 +2185,9 @@ function reactToRating(value){
   faceWrap.classList.remove("waiting");
   faceWrap.classList.add("shown");
   setFaceExpression(value);
+
+  faceRingFill.style.stroke =
+    value <= 2 ? "url(#faceCalmGrad)" : "url(#faceGoldGrad)";
 
   const offset = FACE_CIRCUM - (FACE_CIRCUM * (value / 5));
   faceRingFill.style.strokeDashoffset = offset;
