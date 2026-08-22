@@ -31,14 +31,14 @@ html,body{
 body{
   min-height:100vh;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:#fff;
+  background:#061b3a;
   color:var(--navy);
   overflow-x:hidden;
 }
 
 .app{
   min-height:100vh;
-  background:#fff;
+  background:#061b3a;
 }
 
 /* =========================
@@ -54,9 +54,7 @@ body{
   align-items:center;
   text-align:center;
   color:#fff;
-  background:
-    radial-gradient(circle at 50% 5%,rgba(255,255,255,.10),transparent 30%),
-    linear-gradient(180deg,#061b3a 0%,#08264d 70%,#092e5c 100%);
+  background:linear-gradient(180deg,#061b3a 0%,#08264d 70%,#092e5c 100%);
   overflow:hidden;
 }
 
@@ -74,6 +72,29 @@ body{
   box-shadow:
     0 15px 34px rgba(0,0,0,.30),
     0 0 0 3px rgba(217,146,19,.95);
+  animation:markPop .7s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+@keyframes markPop{
+  0%{ opacity:0; transform:scale(.4) rotate(-8deg); }
+  60%{ opacity:1; transform:scale(1.08) rotate(3deg); }
+  100%{ transform:scale(1) rotate(0deg); }
+}
+
+.google-mark::before{
+  content:'';
+  position:absolute;
+  inset:-10px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(217,146,19,.35), transparent 70%);
+  filter:blur(6px);
+  z-index:-1;
+  animation:markGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes markGlow{
+  0%, 100%{ opacity:.4; transform:scale(1); }
+  50%{ opacity:.85; transform:scale(1.12); }
 }
 
 .google-letter{
@@ -142,6 +163,21 @@ body{
   font-size:clamp(24px,6.4vw,39px);
   color:var(--gold-light);
   text-shadow:0 4px 5px rgba(0,0,0,.45);
+  display:inline-block;
+  opacity:0;
+  animation:starDrop .55s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+.hero-star:nth-of-type(1){ animation-delay:.9s; }
+.hero-star:nth-of-type(2){ animation-delay:.97s; }
+.hero-star:nth-of-type(3){ animation-delay:1.04s; }
+.hero-star:nth-of-type(4){ animation-delay:1.11s; }
+.hero-star:nth-of-type(5){ animation-delay:1.18s; }
+
+@keyframes starDrop{
+  0%{ opacity:0; transform:translateY(-14px) scale(.4) rotate(-15deg); }
+  70%{ opacity:1; transform:translateY(2px) scale(1.15) rotate(4deg); }
+  100%{ opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
 }
 
 .wave-blue{
@@ -242,16 +278,27 @@ body{
   text-align:center;
   margin-bottom:8px;
   overflow-wrap:anywhere;
+  background:linear-gradient(100deg,var(--navy) 30%,var(--gold) 50%,var(--navy) 70%);
+  background-size:220% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:nameShine 4.5s ease-in-out infinite;
+}
+
+@keyframes nameShine{
+  0%{ background-position:200% center; }
+  100%{ background-position:-20% center; }
 }
 
 .subtitle{
   width:100%;
   max-width:600px;
   color:#53657d;
-  font-size:clamp(16px,4.5vw,20px);
+  font-size:clamp(13px,3.6vw,16px);
   font-weight:600;
   text-align:center;
-  line-height:1.45;
+  line-height:1.4;
   margin-bottom:28px;
 }
 
@@ -691,6 +738,134 @@ textarea:focus{
 .fs1{ top:-4px; left:2px; transform-origin:2px 36px; }
 .fs2{ top:2px; right:-6px; transform-origin:-28px 28px; }
 .fs3{ bottom:0; left:-8px; transform-origin:10px -28px; }
+
+/* =========================================================
+   PREMIUM POLISH LAYER
+========================================================= */
+
+/* ---- 1. choreographed hero entrance ---- */
+.hero-title{
+  opacity:0;
+  animation:titleReveal .65s ease .3s both;
+}
+@keyframes titleReveal{
+  0%{ opacity:0; transform:translateY(10px); }
+  100%{ opacity:1; transform:translateY(0); }
+}
+
+/* ---- 2. film-grain + vignette on the navy hero ---- */
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  opacity:.05;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:radial-gradient(ellipse at 50% 30%, transparent 45%, rgba(0,0,0,.28) 100%);
+}
+
+/* ---- 3. slow ambient light blooms ---- */
+.ambient-glow{
+  position:absolute;
+  z-index:1;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(40px);
+  opacity:.35;
+}
+.ambient-glow-1{
+  width:220px; height:220px;
+  left:-60px; top:-40px;
+  background:radial-gradient(circle, rgba(217,146,19,.55), transparent 70%);
+  animation:driftA 26s ease-in-out infinite alternate;
+}
+.ambient-glow-2{
+  width:260px; height:260px;
+  right:-80px; bottom:20px;
+  background:radial-gradient(circle, rgba(38,129,255,.4), transparent 70%);
+  animation:driftB 32s ease-in-out infinite alternate;
+}
+@keyframes driftA{
+  0%{ transform:translate(0,0) scale(1); }
+  100%{ transform:translate(30px,20px) scale(1.15); }
+}
+@keyframes driftB{
+  0%{ transform:translate(0,0) scale(1); }
+  100%{ transform:translate(-25px,-15px) scale(1.1); }
+}
+
+/* ---- 4. skeleton loading shimmer ---- */
+.skeleton{
+  color:transparent !important;
+  border-radius:8px;
+  background:linear-gradient(90deg, #e9eef6 25%, #f6f9fc 37%, #e9eef6 63%);
+  background-size:400% 100%;
+  animation:skeletonWave 1.4s ease-in-out infinite;
+}
+@keyframes skeletonWave{
+  0%{ background-position:100% 50%; }
+  100%{ background-position:0% 50%; }
+}
+.reveal{
+  animation:contentReveal .5s ease both;
+}
+@keyframes contentReveal{
+  0%{ opacity:0; transform:translateY(8px); }
+  100%{ opacity:1; transform:translateY(0); }
+}
+
+/* ---- 5. payoff moment overlay ---- */
+.payoff-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at 50% 50%, rgba(217,146,19,.96), rgba(6,27,58,.98) 72%);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
+}
+.payoff-overlay.show{ opacity:1; }
+.payoff-text{
+  font-weight:900;
+  font-size:clamp(26px,8vw,42px);
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  text-align:center;
+  transform:scale(.6);
+  opacity:0;
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+}
+.payoff-overlay.show .payoff-text{
+  transform:scale(1);
+  opacity:1;
+}
+
+/* ---- 6. micro-press feedback on buttons ---- */
+.button{
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.button:active{
+  transform:scale(.96);
+}
+.star{
+  transition:transform .15s ease;
+}
+.star:active{
+  transform:scale(.88);
+}
 </style>
 </head>
 
@@ -724,6 +899,9 @@ textarea:focus{
 <div class="app">
 
 <section class="hero">
+
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
 
   <div class="google-mark">
     <div class="google-letter">G</div>
@@ -813,17 +991,17 @@ textarea:focus{
   </div>
 
   <h2
-    class="business-name"
+    class="business-name skeleton"
     id="businessName"
   >
     Chargement...
   </h2>
 
   <p
-    class="subtitle"
+    class="subtitle skeleton"
     id="subtitle"
   >
-    Chargement...
+    Chargement de votre établissement
   </p>
 
 </section>
@@ -954,6 +1132,10 @@ textarea:focus{
 
 </main>
 
+</div>
+
+<div class="payoff-overlay" id="payoffOverlay">
+  <div class="payoff-text">Merci ! ✦</div>
 </div>
 
 <script>
@@ -1204,8 +1386,16 @@ async function loadCard(){
     businessName.textContent =
       "Carte introuvable";
 
+    businessName.classList.remove("skeleton");
+    businessName.classList.add("reveal");
+
+
     subtitle.innerHTML =
       '<span class="error">Aucun code de carte fourni.</span>';
+
+    subtitle.classList.remove("skeleton");
+    subtitle.classList.add("reveal");
+
 
     return;
 
@@ -1262,9 +1452,15 @@ async function loadCard(){
       currentBusiness.name ||
       "Votre établissement";
 
+    businessName.classList.remove("skeleton");
+    businessName.classList.add("reveal");
+
 
     subtitle.textContent =
       "Votre opinion compte pour nous.";
+
+    subtitle.classList.remove("skeleton");
+    subtitle.classList.add("reveal");
 
 
     document.title =
@@ -1304,8 +1500,15 @@ async function loadCard(){
     businessName.textContent =
       "Carte introuvable";
 
+    businessName.classList.remove("skeleton");
+    businessName.classList.add("reveal");
+
+
     subtitle.innerHTML =
       '<span class="error">Cette carte est inactive ou n’existe pas.</span>';
+
+    subtitle.classList.remove("skeleton");
+    subtitle.classList.add("reveal");
 
   }
 
@@ -1703,6 +1906,11 @@ googleButton.addEventListener(
       "true";
 
 
+    if(typeof showPayoffMoment === "function"){
+      showPayoffMoment();
+    }
+
+
     const finalRating =
       selectedRating;
 
@@ -1962,6 +2170,20 @@ function faceGreet(){
 }
 
 faceGreet();
+
+/* payoff moment shown right when a 4-5★ review is submitted to Google.
+   The link itself opens in a new tab (target="_blank", untouched) —
+   this overlay is just a brief "thank you" on the page left behind. */
+function showPayoffMoment(){
+  const overlay = document.getElementById("payoffOverlay");
+  if(!overlay){ return; }
+
+  overlay.classList.add("show");
+
+  setTimeout(() => {
+    overlay.classList.remove("show");
+  }, 1500);
+}
 
 /* natural, randomized blinking */
 function scheduleFaceBlink(){
