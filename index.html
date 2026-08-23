@@ -950,6 +950,10 @@ textarea:focus{
     <filter id="faceDepth" x="-40%" y="-40%" width="180%" height="180%">
       <feDropShadow dx="0" dy="1" stdDeviation="0.8" flood-color="#061b3a" flood-opacity="0.28"/>
     </filter>
+
+    <clipPath id="mouthClip">
+      <ellipse cx="38" cy="47" rx="16" ry="9.5"/>
+    </clipPath>
   </defs>
 </svg>
 
@@ -1039,8 +1043,14 @@ textarea:focus{
                 <path class="mouth-path" id="faceMouthPath" d="M27 45 Q38 48 49 45" filter="url(#faceDepth)"/>
 
                 <g id="faceMouthOpen" style="opacity:0" filter="url(#faceDepth)">
-                  <path d="M22 40 Q38 60 54 40 Q38 47 22 40 Z" fill="#0d2447"/>
-                  <path d="M25 40.5 Q38 46 51 40.5 Q38 43.5 25 40.5 Z" fill="#ffffff"/>
+                  <g clip-path="url(#mouthClip)">
+                    <ellipse cx="38" cy="47" rx="16" ry="9.5" fill="#c96b6e"/>
+                    <rect x="20" y="36" width="36" height="12" fill="#ffffff"/>
+                    <line x1="30" y1="38" x2="30" y2="48" stroke="rgba(7,27,60,.15)" stroke-width="0.6"/>
+                    <line x1="38" y1="37.5" x2="38" y2="48" stroke="rgba(7,27,60,.15)" stroke-width="0.6"/>
+                    <line x1="46" y1="38" x2="46" y2="48" stroke="rgba(7,27,60,.15)" stroke-width="0.6"/>
+                  </g>
+                  <ellipse cx="38" cy="47" rx="16" ry="9.5" fill="none" stroke="var(--navy)" stroke-width="1"/>
                 </g>
               </svg>
             </div>
