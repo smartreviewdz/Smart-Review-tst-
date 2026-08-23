@@ -1047,6 +1047,121 @@ textarea:focus{
   50%{ transform:translate(-50%,-50%) rotate(180deg) scale(1.08); opacity:1; }
   100%{ transform:translate(-50%,-50%) rotate(360deg) scale(1); opacity:.6; }
 }
+
+/* =========================================================
+   PREMIUM POLISH LAYER 3
+========================================================= */
+
+/* ---- custom scrollbar (desktop) ---- */
+::-webkit-scrollbar{ width:10px; }
+::-webkit-scrollbar-track{ background:#eef2f8; }
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg, var(--gold-light), var(--gold));
+  border-radius:10px;
+  border:2px solid #eef2f8;
+}
+html{ scrollbar-color: var(--gold) #eef2f8; }
+
+/* ---- cursor-reactive ambient glow (fine-pointer devices only) ---- */
+.cursor-glow{
+  position:fixed;
+  z-index:0;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle, rgba(217,146,19,.14), transparent 70%);
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:opacity .4s ease;
+  filter:blur(10px);
+}
+.cursor-glow.active{ opacity:1; }
+@media (hover:none){
+  .cursor-glow{ display:none; }
+}
+
+/* ---- button shimmer sweep when it first appears ---- */
+.button{
+  position:relative;
+  overflow:hidden;
+}
+.button::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-60%;
+  width:40%;
+  height:100%;
+  background:linear-gradient(115deg, transparent, rgba(255,255,255,.5), transparent);
+  transform:skewX(-20deg);
+  pointer-events:none;
+}
+.reveal .button::after,
+.button.sweep-in::after{
+  animation:buttonSweep 1s ease-out .3s;
+}
+@keyframes buttonSweep{
+  0%{ left:-60%; }
+  100%{ left:130%; }
+}
+
+/* ---- trust strip ---- */
+.trust-strip{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:14px;
+  font-size:11.5px;
+  font-weight:700;
+  color:var(--muted);
+  letter-spacing:.2px;
+}
+
+/* ---- frosted glass message panel ---- */
+.message{
+  padding:22px 20px;
+  border-radius:22px;
+  background:linear-gradient(160deg, rgba(255,255,255,.7), rgba(240,244,250,.55));
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:0 20px 45px -20px rgba(7,27,60,.18);
+}
+
+/* ---- confetti burst on the 5★ payoff moment ---- */
+.confetti-field{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.confetti-piece{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:8px;
+  height:8px;
+  opacity:0;
+}
+.payoff-overlay.show .confetti-piece{
+  animation:confettiBurst .9s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes confettiBurst{
+  0%{
+    opacity:1;
+    transform:translate(-50%,-50%) rotate(0deg) translateY(0) scale(1);
+  }
+  100%{
+    opacity:0;
+    transform:
+      translate(-50%,-50%)
+      rotate(var(--rot,180deg))
+      translate(var(--tx,0px), var(--ty,-120px))
+      scale(.4);
+  }
+}
 </style>
 </head>
 
@@ -1296,6 +1411,12 @@ textarea:focus{
         ⭐ Écrire mon avis sur Google
       </a>
 
+      <div class="trust-strip">
+        <span>🔒 Confidentiel</span>
+        <span>⚡ Instantané</span>
+        <span>✓ Vérifié</span>
+      </div>
+
     </div>
 
     <div
@@ -1315,6 +1436,11 @@ textarea:focus{
       >
         💬 Envoyer mon retour
       </button>
+
+      <div class="trust-strip">
+        <span>🔒 Confidentiel</span>
+        <span>⚡ Instantané</span>
+      </div>
 
     </div>
 
@@ -1341,8 +1467,11 @@ textarea:focus{
 </div>
 
 <div class="payoff-overlay" id="payoffOverlay">
+  <div class="confetti-field" id="confettiField"></div>
   <div class="payoff-text">Merci ! ✦</div>
 </div>
+
+<div class="cursor-glow" id="cursorGlow"></div>
 
 <script>
 
@@ -1957,7 +2086,7 @@ stars.forEach(
 
 
           messageText.textContent =
-            "Votre avis peut aider d'autres clients. Nous apprécierions beaucoup votre avis sur Google.";
+            "";
 
         }
 
@@ -2456,15 +2585,64 @@ faceGreet();
 /* payoff moment shown right when a 4-5★ review is submitted to Google.
    The link itself opens in a new tab (target="_blank", untouched) —
    this overlay is just a brief "thank you" on the page left behind. */
+function spawnConfetti(){
+  const field = document.getElementById("confettiField");
+  if(!field){ return; }
+
+  field.innerHTML = "";
+
+  const colors = ["#ffcf55", "#d99213", "#ffffff", "#6fa3ff"];
+  const count = 18;
+
+  for(let i = 0; i < count; i++){
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+
+    const angle = (Math.PI * 2 * i) / count + (Math.random() * 0.4 - 0.2);
+    const distance = 90 + Math.random() * 70;
+    const tx = Math.cos(angle) * distance;
+    const ty = Math.sin(angle) * distance;
+    const rot = (Math.random() * 360 - 180) + "deg";
+
+    piece.style.setProperty("--tx", tx.toFixed(0) + "px");
+    piece.style.setProperty("--ty", ty.toFixed(0) + "px");
+    piece.style.setProperty("--rot", rot);
+    piece.style.background = colors[i % colors.length];
+    piece.style.borderRadius = (i % 3 === 0) ? "50%" : "2px";
+    piece.style.animationDelay = (Math.random() * 0.1) + "s";
+
+    field.appendChild(piece);
+  }
+}
+
 function showPayoffMoment(){
   const overlay = document.getElementById("payoffOverlay");
   if(!overlay){ return; }
 
+  spawnConfetti();
   overlay.classList.add("show");
 
   setTimeout(() => {
     overlay.classList.remove("show");
   }, 1500);
+}
+
+/* ---- cursor-reactive ambient glow (desktop only) ---- */
+const cursorGlow = document.getElementById("cursorGlow");
+const heroSection = document.querySelector(".hero");
+
+if(cursorGlow && heroSection && window.matchMedia("(hover: hover)").matches){
+
+  heroSection.addEventListener("mousemove", (event) => {
+    cursorGlow.style.left = event.clientX + "px";
+    cursorGlow.style.top = event.clientY + "px";
+    cursorGlow.classList.add("active");
+  });
+
+  heroSection.addEventListener("mouseleave", () => {
+    cursorGlow.classList.remove("active");
+  });
+
 }
 
 /* natural, randomized blinking */
