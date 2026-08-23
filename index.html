@@ -125,6 +125,30 @@ body{
   text-transform:uppercase;
 }
 
+.hero-eyebrow{
+  position:relative;
+  z-index:2;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold-light);
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after{
+  content:'';
+  width:16px;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold-light));
+}
+.hero-eyebrow::after{
+  background:linear-gradient(90deg, var(--gold-light), transparent);
+}
+
 .hero-rating{
   position:relative;
   z-index:2;
@@ -371,10 +395,39 @@ body{
 
 .rating-text{
   min-height:28px;
-  color:var(--muted);
-  font-size:16px;
-  font-weight:650;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--navy2);
+  font-size:12.5px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
   margin-bottom:19px;
+  padding-bottom:6px;
+  position:relative;
+}
+.rating-text::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform:translateX(-50%);
+  transition:width .4s cubic-bezier(.2,.8,.2,1);
+}
+.rating-text.set::after{
+  width:70%;
+}
+.rating-text .word-reveal{
+  display:inline-block;
+  animation:wordIn .35s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes wordIn{
+  0%{ opacity:0; transform:translateY(6px); }
+  100%{ opacity:1; transform:translateY(0); }
 }
 
 /* =========================
@@ -394,6 +447,11 @@ body{
   line-height:1.18;
   font-weight:900;
   margin-bottom:9px;
+}
+
+.message h2 .word-reveal{
+  display:inline-block;
+  animation:wordIn .4s cubic-bezier(.2,.8,.2,1) both;
 }
 
 .message p{
@@ -747,11 +805,20 @@ textarea:focus{
 /* ---- 1. choreographed hero entrance ---- */
 .hero-title{
   opacity:0;
-  animation:titleReveal .65s ease .3s both;
+  animation:titleReveal .65s ease .38s both;
 }
 @keyframes titleReveal{
   0%{ opacity:0; transform:translateY(10px); }
   100%{ opacity:1; transform:translateY(0); }
+}
+
+.hero-eyebrow{
+  opacity:0;
+  animation:eyebrowReveal .5s ease .18s both;
+}
+@keyframes eyebrowReveal{
+  0%{ opacity:0; letter-spacing:1px; }
+  100%{ opacity:1; letter-spacing:3px; }
 }
 
 /* ---- 2. film-grain + vignette on the navy hero ---- */
@@ -787,22 +854,22 @@ textarea:focus{
   left:-60px; top:-40px;
   background:radial-gradient(circle, rgba(217,146,19,.55), transparent 70%);
   animation:driftA 26s ease-in-out infinite alternate;
-  filter:blur(calc(40px + var(--dofExtra, 0px)));
+  filter:blur(40px);
 }
 .ambient-glow-2{
   width:260px; height:260px;
   right:-80px; bottom:20px;
   background:radial-gradient(circle, rgba(38,129,255,.4), transparent 70%);
   animation:driftB 32s ease-in-out infinite alternate;
-  filter:blur(calc(40px + var(--dofExtra, 0px)));
+  filter:blur(40px);
 }
 @keyframes driftA{
-  0%{ transform:translate(0,0) translateY(var(--parallaxY,0px)) scale(1); }
-  100%{ transform:translate(30px,20px) translateY(var(--parallaxY,0px)) scale(1.15); }
+  0%{ transform:translate(0,0) scale(1); }
+  100%{ transform:translate(30px,20px) scale(1.15); }
 }
 @keyframes driftB{
-  0%{ transform:translate(0,0) translateY(var(--parallaxY,0px)) scale(1); }
-  100%{ transform:translate(-25px,-15px) translateY(var(--parallaxY,0px)) scale(1.1); }
+  0%{ transform:translate(0,0) scale(1); }
+  100%{ transform:translate(-25px,-15px) scale(1.1); }
 }
 
 /* ---- 4. skeleton loading shimmer ---- */
@@ -922,13 +989,7 @@ textarea:focus{
    PREMIUM POLISH LAYER 2
 ========================================================= */
 
-/* ---- 1 & 5. scroll-linked parallax + depth-of-field (JS sets --parallaxY / --dofExtra) ---- */
-.hero, .content{
-  will-change:transform;
-}
-
-/* ---- 2. tap ripple ---- */
-.ripple{
+/* ---- tap ripple ---- */
   position:absolute;
   border-radius:50%;
   background:rgba(217,146,19,.45);
@@ -941,14 +1002,14 @@ textarea:focus{
   to{ transform:scale(1); opacity:0; }
 }
 
-/* ---- 4. page-transition reveal (reuses .reveal, adds a touch more motion) ---- */
+/* ---- page-transition reveal (reuses .reveal, adds a touch more motion) ---- */
 .message.reveal,
 #googleArea.reveal,
 #privateArea.reveal{
   animation:contentReveal .45s cubic-bezier(.2,.8,.2,1) both;
 }
 
-/* ---- 6. whole-card impact thunk ---- */
+/* ---- whole-card impact thunk ---- */
 .content.thunk{
   animation:cardThunk .38s cubic-bezier(.2,.8,.2,1);
 }
@@ -958,7 +1019,7 @@ textarea:focus{
   100%{ transform:scale(1); }
 }
 
-/* ---- 7. idle breathing glow behind footer brand ---- */
+/* ---- idle breathing glow behind footer brand ---- */
 .brand-footer{
   position:relative;
 }
@@ -1031,6 +1092,8 @@ textarea:focus{
   <div class="google-mark">
     <div class="google-letter">G</div>
   </div>
+
+  <div class="hero-eyebrow">Avis vérifié</div>
 
   <h1 class="hero-title">
     LAISSEZ-NOUS VOTRE AVIS SUR GOOGLE
@@ -1206,7 +1269,7 @@ textarea:focus{
     class="rating-text"
     id="ratingText"
   >
-    Touchez une étoile pour commencer
+    Choisissez une note
   </div>
 
   <section
@@ -1676,6 +1739,19 @@ const ratingText =
     "ratingText"
   );
 
+function revealWords(el, text){
+  el.innerHTML = "";
+  const words = text.split(" ");
+
+  words.forEach((word, i) => {
+    const span = document.createElement("span");
+    span.className = "word-reveal";
+    span.style.animationDelay = (i * 0.06) + "s";
+    span.textContent = word + (i < words.length - 1 ? "\u00A0" : "");
+    el.appendChild(span);
+  });
+}
+
 const message =
   document.getElementById(
     "message"
@@ -1776,25 +1852,26 @@ stars.forEach(
         const labels = {
 
           1:
-          "Nous aimerions faire mieux.",
+          "Décevant",
 
           2:
-          "Merci de nous l'avoir signalé.",
+          "Peut mieux faire",
 
           3:
-          "Merci pour votre retour.",
+          "Correct",
 
           4:
-          "Ravi de l'entendre !",
+          "Très bien",
 
           5:
-          "Incroyable ! Merci beaucoup !"
+          "Excellent"
 
         };
 
 
-        ratingText.textContent =
-          labels[selectedRating];
+        revealWords(ratingText, labels[selectedRating]);
+
+        ratingText.classList.add("set");
 
 
         message
@@ -1816,8 +1893,7 @@ stars.forEach(
           selectedRating <= 2
         ){
 
-          messageTitle.textContent =
-            "Nous sommes désolés pour votre expérience.";
+          revealWords(messageTitle, "Nous sommes désolés pour votre expérience.");
 
           messageText.textContent =
             "";
@@ -1865,20 +1941,17 @@ stars.forEach(
             selectedRating === 3
           ){
 
-            messageTitle.textContent =
-              "Merci pour votre retour !";
+            revealWords(messageTitle, "Merci pour votre retour !");
 
           }else if(
             selectedRating === 4
           ){
 
-            messageTitle.textContent =
-              "Nous sommes ravis !";
+            revealWords(messageTitle, "Nous sommes ravis !");
 
           }else{
 
-            messageTitle.textContent =
-              "Merci ! Nous sommes ravis que vous ayez adoré ! ❤️";
+            revealWords(messageTitle, "Merci ! Vous êtes formidable ! ❤️");
 
           }
 
@@ -2410,35 +2483,6 @@ function scheduleFaceBlink(){
 }
 
 scheduleFaceBlink();
-
-
-/* ---- scroll-linked parallax + depth-of-field on the ambient glows ---- */
-const ambientGlow1 = document.getElementById("ambientGlow1");
-const ambientGlow2 = document.getElementById("ambientGlow2");
-
-let scrollTicking = false;
-
-function updateScrollEffects(){
-  const y = window.scrollY || 0;
-
-  if(ambientGlow1){
-    ambientGlow1.style.setProperty("--parallaxY", (y * 0.12).toFixed(1) + "px");
-    ambientGlow1.style.setProperty("--dofExtra", Math.min(20, y * 0.04).toFixed(1) + "px");
-  }
-  if(ambientGlow2){
-    ambientGlow2.style.setProperty("--parallaxY", (y * 0.08).toFixed(1) + "px");
-    ambientGlow2.style.setProperty("--dofExtra", Math.min(20, y * 0.04).toFixed(1) + "px");
-  }
-
-  scrollTicking = false;
-}
-
-window.addEventListener("scroll", () => {
-  if(!scrollTicking){
-    requestAnimationFrame(updateScrollEffects);
-    scrollTicking = true;
-  }
-}, { passive:true });
 
 
 /* ---- tap ripple feedback on buttons and stars ---- */
