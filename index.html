@@ -722,10 +722,6 @@ textarea:focus{
   transition:opacity .25s ease;
 }
 
-#faceMouthOpen{
-  transition:opacity .25s ease;
-}
-
 .face-sparkle{
   position:absolute;
   opacity:0;
@@ -784,7 +780,6 @@ textarea:focus{
   z-index:1;
   border-radius:50%;
   pointer-events:none;
-  filter:blur(40px);
   opacity:.35;
 }
 .ambient-glow-1{
@@ -792,20 +787,22 @@ textarea:focus{
   left:-60px; top:-40px;
   background:radial-gradient(circle, rgba(217,146,19,.55), transparent 70%);
   animation:driftA 26s ease-in-out infinite alternate;
+  filter:blur(calc(40px + var(--dofExtra, 0px)));
 }
 .ambient-glow-2{
   width:260px; height:260px;
   right:-80px; bottom:20px;
   background:radial-gradient(circle, rgba(38,129,255,.4), transparent 70%);
   animation:driftB 32s ease-in-out infinite alternate;
+  filter:blur(calc(40px + var(--dofExtra, 0px)));
 }
 @keyframes driftA{
-  0%{ transform:translate(0,0) scale(1); }
-  100%{ transform:translate(30px,20px) scale(1.15); }
+  0%{ transform:translate(0,0) translateY(var(--parallaxY,0px)) scale(1); }
+  100%{ transform:translate(30px,20px) translateY(var(--parallaxY,0px)) scale(1.15); }
 }
 @keyframes driftB{
-  0%{ transform:translate(0,0) scale(1); }
-  100%{ transform:translate(-25px,-15px) scale(1.1); }
+  0%{ transform:translate(0,0) translateY(var(--parallaxY,0px)) scale(1); }
+  100%{ transform:translate(-25px,-15px) translateY(var(--parallaxY,0px)) scale(1.1); }
 }
 
 /* ---- 4. skeleton loading shimmer ---- */
@@ -861,12 +858,14 @@ textarea:focus{
 /* ---- 6. micro-press feedback on buttons ---- */
 .button{
   transition:transform .15s ease, box-shadow .15s ease;
+  position:relative;
 }
 .button:active{
   transform:scale(.96);
 }
 .star{
   transition:transform .15s ease;
+  position:relative;
 }
 .star:active{
   transform:scale(.88);
@@ -918,6 +917,75 @@ textarea:focus{
 @keyframes checkPop{
   to{ transform:scale(1); }
 }
+
+/* =========================================================
+   PREMIUM POLISH LAYER 2
+========================================================= */
+
+/* ---- 1 & 5. scroll-linked parallax + depth-of-field (JS sets --parallaxY / --dofExtra) ---- */
+.hero, .content{
+  will-change:transform;
+}
+
+/* ---- 2. tap ripple ---- */
+.ripple{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(217,146,19,.45);
+  transform:scale(0);
+  opacity:.9;
+  pointer-events:none;
+  animation:rippleOut .55s ease-out forwards;
+}
+@keyframes rippleOut{
+  to{ transform:scale(1); opacity:0; }
+}
+
+/* ---- 4. page-transition reveal (reuses .reveal, adds a touch more motion) ---- */
+.message.reveal,
+#googleArea.reveal,
+#privateArea.reveal{
+  animation:contentReveal .45s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* ---- 6. whole-card impact thunk ---- */
+.content.thunk{
+  animation:cardThunk .38s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes cardThunk{
+  0%{ transform:scale(1); }
+  35%{ transform:scale(.985); }
+  100%{ transform:scale(1); }
+}
+
+/* ---- 7. idle breathing glow behind footer brand ---- */
+.brand-footer{
+  position:relative;
+}
+.brand-footer::before{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:220px;
+  height:100px;
+  transform:translate(-50%,-50%);
+  background:conic-gradient(from 0deg, rgba(217,146,19,.10), rgba(38,129,255,.08), rgba(217,146,19,.10));
+  filter:blur(22px);
+  border-radius:50%;
+  animation:footerBreathe 10s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+.brand-footer > *{
+  position:relative;
+  z-index:1;
+}
+@keyframes footerBreathe{
+  0%{ transform:translate(-50%,-50%) rotate(0deg) scale(1); opacity:.6; }
+  50%{ transform:translate(-50%,-50%) rotate(180deg) scale(1.08); opacity:1; }
+  100%{ transform:translate(-50%,-50%) rotate(360deg) scale(1); opacity:.6; }
+}
 </style>
 </head>
 
@@ -950,10 +1018,6 @@ textarea:focus{
     <filter id="faceDepth" x="-40%" y="-40%" width="180%" height="180%">
       <feDropShadow dx="0" dy="1" stdDeviation="0.8" flood-color="#061b3a" flood-opacity="0.28"/>
     </filter>
-
-    <clipPath id="mouthClip">
-      <ellipse cx="38" cy="47" rx="16" ry="9.5"/>
-    </clipPath>
   </defs>
 </svg>
 
@@ -961,8 +1025,8 @@ textarea:focus{
 
 <section class="hero">
 
-  <div class="ambient-glow ambient-glow-1"></div>
-  <div class="ambient-glow ambient-glow-2"></div>
+  <div class="ambient-glow ambient-glow-1" id="ambientGlow1"></div>
+  <div class="ambient-glow ambient-glow-2" id="ambientGlow2"></div>
 
   <div class="google-mark">
     <div class="google-letter">G</div>
@@ -1041,17 +1105,6 @@ textarea:focus{
                 </g>
 
                 <path class="mouth-path" id="faceMouthPath" d="M27 45 Q38 48 49 45" filter="url(#faceDepth)"/>
-
-                <g id="faceMouthOpen" style="opacity:0" filter="url(#faceDepth)">
-                  <g clip-path="url(#mouthClip)">
-                    <ellipse cx="38" cy="47" rx="16" ry="9.5" fill="#c96b6e"/>
-                    <rect x="20" y="36" width="36" height="12" fill="#ffffff"/>
-                    <line x1="30" y1="38" x2="30" y2="48" stroke="rgba(7,27,60,.15)" stroke-width="0.6"/>
-                    <line x1="38" y1="37.5" x2="38" y2="48" stroke="rgba(7,27,60,.15)" stroke-width="0.6"/>
-                    <line x1="46" y1="38" x2="46" y2="48" stroke="rgba(7,27,60,.15)" stroke-width="0.6"/>
-                  </g>
-                  <ellipse cx="38" cy="47" rx="16" ry="9.5" fill="none" stroke="var(--navy)" stroke-width="1"/>
-                </g>
               </svg>
             </div>
           </div>
@@ -1748,6 +1801,16 @@ stars.forEach(
           .classList
           .remove("hidden");
 
+        message
+          .classList
+          .remove("reveal");
+
+        void message.offsetWidth;
+
+        message
+          .classList
+          .add("reveal");
+
 
         if(
           selectedRating <= 2
@@ -1767,6 +1830,16 @@ stars.forEach(
             .classList
             .remove("hidden");
 
+          privateArea
+            .classList
+            .remove("reveal");
+
+          void privateArea.offsetWidth;
+
+          privateArea
+            .classList
+            .add("reveal");
+
         }else{
 
           privateArea
@@ -1776,6 +1849,16 @@ stars.forEach(
           googleArea
             .classList
             .remove("hidden");
+
+          googleArea
+            .classList
+            .remove("reveal");
+
+          void googleArea.offsetWidth;
+
+          googleArea
+            .classList
+            .add("reveal");
 
 
           if(
@@ -2078,7 +2161,6 @@ const faceEyeRhappy = document.getElementById("faceEyeRhappy");
 const faceCheekL = document.getElementById("faceCheekL");
 const faceCheekR = document.getElementById("faceCheekR");
 const faceMouthPath = document.getElementById("faceMouthPath");
-const faceMouthOpen = document.getElementById("faceMouthOpen");
 const faceSparkles = [
   document.getElementById("fsp1"),
   document.getElementById("fsp2"),
@@ -2114,10 +2196,17 @@ function faceEaseOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
 
 function faceTweenMouth(targetKey, duration){
   const target = faceMouthShapes[targetKey];
+
+  if(faceMouthAnimFrame){ cancelAnimationFrame(faceMouthAnimFrame); faceMouthAnimFrame = null; }
+
+  if(!duration || duration <= 0){
+    faceCurrentMouth = { s:[...target.s], c:[...target.c], e:[...target.e] };
+    faceMouthPath.setAttribute("d", faceMouthToD(faceCurrentMouth));
+    return;
+  }
+
   const from = { s:[...faceCurrentMouth.s], c:[...faceCurrentMouth.c], e:[...faceCurrentMouth.e] };
   const start = performance.now();
-
-  if(faceMouthAnimFrame){ cancelAnimationFrame(faceMouthAnimFrame); }
 
   function frame(now){
     const t = Math.min(1, (now - start) / duration);
@@ -2172,10 +2261,6 @@ function setFaceExpression(value, skipPop){
   faceSparkles.forEach(s => s.classList.toggle("on", value === 5));
   faceSparkles.forEach(s => s.classList.toggle("orbit", value === 5));
 
-  const bigSmile = value === 5;
-  faceMouthOpen.style.opacity = bigSmile ? 1 : 0;
-  faceMouthPath.style.opacity = bigSmile ? 0 : 1;
-
   if(value === 5){
     faceShine.classList.remove("fire");
     void faceShine.offsetWidth;
@@ -2201,6 +2286,13 @@ function reactToRating(value){
 
   const offset = FACE_CIRCUM - (FACE_CIRCUM * (value / 5));
   faceRingFill.style.strokeDashoffset = offset;
+
+  const contentCard = document.querySelector(".content");
+  if(contentCard){
+    contentCard.classList.remove("thunk");
+    void contentCard.offsetWidth;
+    contentCard.classList.add("thunk");
+  }
 }
 
 function previewFaceMood(value){
@@ -2318,6 +2410,84 @@ function scheduleFaceBlink(){
 }
 
 scheduleFaceBlink();
+
+
+/* ---- scroll-linked parallax + depth-of-field on the ambient glows ---- */
+const ambientGlow1 = document.getElementById("ambientGlow1");
+const ambientGlow2 = document.getElementById("ambientGlow2");
+
+let scrollTicking = false;
+
+function updateScrollEffects(){
+  const y = window.scrollY || 0;
+
+  if(ambientGlow1){
+    ambientGlow1.style.setProperty("--parallaxY", (y * 0.12).toFixed(1) + "px");
+    ambientGlow1.style.setProperty("--dofExtra", Math.min(20, y * 0.04).toFixed(1) + "px");
+  }
+  if(ambientGlow2){
+    ambientGlow2.style.setProperty("--parallaxY", (y * 0.08).toFixed(1) + "px");
+    ambientGlow2.style.setProperty("--dofExtra", Math.min(20, y * 0.04).toFixed(1) + "px");
+  }
+
+  scrollTicking = false;
+}
+
+window.addEventListener("scroll", () => {
+  if(!scrollTicking){
+    requestAnimationFrame(updateScrollEffects);
+    scrollTicking = true;
+  }
+}, { passive:true });
+
+
+/* ---- tap ripple feedback on buttons and stars ---- */
+function spawnRipple(target, clientX, clientY){
+  const rect = target.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 1.4;
+
+  const ripple = document.createElement("span");
+  ripple.className = "ripple";
+  ripple.style.width = size + "px";
+  ripple.style.height = size + "px";
+  ripple.style.left = (clientX - rect.left - size / 2) + "px";
+  ripple.style.top = (clientY - rect.top - size / 2) + "px";
+
+  target.appendChild(ripple);
+
+  ripple.addEventListener("animationend", () => {
+    ripple.remove();
+  });
+}
+
+document.addEventListener("pointerdown", (event) => {
+  const target = event.target.closest(".button, .star");
+  if(!target){ return; }
+  spawnRipple(target, event.clientX, event.clientY);
+});
+
+
+/* ---- time-of-day micro-copy ---- */
+function timeOfDayGreeting(){
+  const hour = new Date().getHours();
+  if(hour < 5){ return "Bonne nuit"; }
+  if(hour < 12){ return "Bonjour"; }
+  if(hour < 18){ return "Bon après-midi"; }
+  return "Bonsoir";
+}
+
+const subtitleEl = document.getElementById("subtitle");
+if(subtitleEl){
+  const applyGreeting = () => {
+    if(subtitleEl.textContent.indexOf("Votre opinion compte") === 0){
+      subtitleEl.textContent =
+        timeOfDayGreeting() + " — Votre opinion compte pour nous.";
+    }
+  };
+
+  const subtitleObserver = new MutationObserver(applyGreeting);
+  subtitleObserver.observe(subtitleEl, { childList:true, characterData:true, subtree:true });
+}
 
 </script>
 
