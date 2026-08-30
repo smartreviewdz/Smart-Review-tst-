@@ -48,208 +48,184 @@ body{
 }
 
 /* =========================
-   HERO
+   HERO — NEW STYLES
 ========================= */
 
-.hero{
-  position:relative;
-  min-height:325px;
-  padding:calc(24px + env(safe-area-inset-top)) 18px 80px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  color:#fff;
-  background:linear-gradient(180deg,#061b3a 0%,#08264d 70%,#092e5c 100%);
-  overflow:hidden;
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 92vh;
+  background: linear-gradient(180deg, #061b3a 0%, #08264d 48%, #092e5c 100%);
+  clip-path: ellipse(150% 100% at 50% 0%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(3rem, 8vw, 5rem) 1.5rem clamp(7rem, 14vw, 10rem);
 }
 
-.google-mark{
-  position:relative;
-  z-index:2;
-  width:84px;
-  height:84px;
-  border-radius:50%;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:16px;
+/* Soft pulsing gold glow behind the badge */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: clamp(2rem, 6vw, 4rem);
+  left: 50%;
+  width: 340px;
+  height: 340px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(216,180,110,0.35) 0%, rgba(216,180,110,0.12) 40%, transparent 70%);
+  filter: blur(10px);
+  animation: glowBreathe 5.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  pointer-events: none;
+}
+@keyframes glowBreathe {
+  0%, 100% { transform: translateX(-50%) scale(1);    opacity: 0.65; }
+  50%      { transform: translateX(-50%) scale(1.18); opacity: 1;    }
+}
+
+/* Badge */
+.badge {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #c9a24b;
   box-shadow:
-    0 15px 34px rgba(0,0,0,.30),
-    0 0 0 3px rgba(217,146,19,.95);
-  animation:markPop .7s cubic-bezier(.34,1.56,.64,1) both;
+    0 0 0 6px rgba(201,162,75,0.18),
+    0 18px 40px -12px rgba(3,14,32,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+  opacity: 0;
+  transform: scale(0.4) rotate(-14deg);
+  animation: badgePop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
+  z-index: 1;
+}
+.badge svg { width: 40px; height: 40px; }
+@keyframes badgePop {
+  0%   { opacity: 0; transform: scale(0.4) rotate(-14deg); }
+  60%  { opacity: 1; transform: scale(1.08) rotate(3deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
 }
 
-@keyframes markPop{
-  0%{ opacity:0; transform:scale(.4) rotate(-8deg); }
-  60%{ opacity:1; transform:scale(1.08) rotate(3deg); }
-  100%{ transform:scale(1) rotate(0deg); }
+/* Eyebrow */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: #d8b46e;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  opacity: 0;
+  animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+  z-index: 1;
+}
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a24b);
+}
+.eyebrow::after { background: linear-gradient(90deg, #c9a24b, transparent); }
+
+/* Heading */
+.hero-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: clamp(2rem, 6.5vw, 3.6rem);
+  line-height: 1.15;
+  max-width: 18ch;
+  background: linear-gradient(180deg, #ffffff 20%, #dfe6f0 55%, #aebbd2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 6px rgba(3,14,32,0.55));
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  opacity: 0;
+  transform: translateY(26px);
+  animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
+  z-index: 1;
 }
 
-.google-mark::before{
-  content:'';
-  position:absolute;
-  inset:-10px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(217,146,19,.35), transparent 70%);
-  filter:blur(6px);
-  z-index:-1;
-  animation:markGlow 2.8s ease-in-out infinite;
+/* Stars */
+.hero-stars {
+  display: flex;
+  gap: clamp(0.5rem, 2vw, 0.85rem);
+  z-index: 1;
+}
+.hero-star {
+  width: clamp(38px, 9vw, 56px);
+  height: auto;
+  opacity: 0;
+  transform: translateY(-34px) scale(0.5);
+  animation: starDrop 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  filter: drop-shadow(0 4px 6px rgba(3,14,32,0.5));
+}
+.hero-star:nth-child(1) { animation-delay: 1.55s; }
+.hero-star:nth-child(2) { animation-delay: 1.70s; }
+.hero-star:nth-child(3) { animation-delay: 1.85s; }
+.hero-star:nth-child(4) { animation-delay: 2.00s; }
+.hero-star:nth-child(5) { animation-delay: 2.15s; }
+@keyframes starDrop {
+  0%   { opacity: 0; transform: translateY(-34px) scale(0.5); }
+  60%  { opacity: 1; transform: translateY(6px)  scale(1.15); }
+  100% { opacity: 1; transform: translateY(0)    scale(1); }
 }
 
-@keyframes markGlow{
-  0%, 100%{ opacity:.4; transform:scale(1); }
-  50%{ opacity:.85; transform:scale(1.12); }
+/* Wave trace */
+.wave-trace {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: clamp(90px, 16vw, 170px);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 2.4s forwards;
 }
 
-.google-letter{
-  font-family:Arial,sans-serif;
-  font-size:54px;
-  font-weight:800;
-  line-height:1;
-  background:conic-gradient(
-    from -35deg,
-    #4285f4 0deg 80deg,
-    #34a853 80deg 170deg,
-    #fbbc05 170deg 245deg,
-    #ea4335 245deg 320deg,
-    #4285f4 320deg 360deg
-  );
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+/* Shared entrance keyframes */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.hero-title{
-  position:relative;
-  z-index:2;
-  max-width:560px;
-  font-family:var(--font-display);
-  font-size:clamp(19px,5.4vw,28px);
-  line-height:1.2;
-  font-weight:600;
-  font-style:normal;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  background:linear-gradient(180deg, #ffffff 45%, #c9d1dc 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  text-shadow:0 2px 4px rgba(0,0,0,.35);
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .badge, .eyebrow, .hero-title, .hero-star, .wave-trace, .hero::before {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
-.hero-eyebrow{
-  position:relative;
-  z-index:2;
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:var(--gold-light);
-  margin-bottom:8px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.hero-eyebrow::before,
-.hero-eyebrow::after{
-  content:'';
-  width:16px;
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--gold-light));
-}
-.hero-eyebrow::after{
-  background:linear-gradient(90deg, var(--gold-light), transparent);
+/* Old hero styles overrides — keep wave-blue, wave-gold-trace, wave hidden */
+.wave-blue,
+.wave-gold-trace,
+.wave {
+  display: none !important;
 }
 
-.hero-rating{
-  position:relative;
-  z-index:2;
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  margin-top:20px;
+.hero-rating,
+.rating-line {
+  display: none !important;
 }
 
-.rating-line{
-  width:clamp(20px,9vw,68px);
-  height:2px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(38,129,255,.95)
-  );
-}
-
-.rating-line.right{
-  background:linear-gradient(
-    90deg,
-    rgba(38,129,255,.95),
-    transparent
-  );
-}
-
-.hero-stars{
-  display:flex;
-  gap:4px;
-}
-
-.hero-star{
-  display:inline-block;
-  opacity:0;
-  animation:starDrop .55s cubic-bezier(.34,1.56,.64,1) both;
-}
-.hero-star-svg{
-  width:clamp(24px,6.4vw,39px);
-  height:auto;
-  display:block;
-}
-
-.hero-star:nth-of-type(1){ animation-delay:.9s; }
-.hero-star:nth-of-type(2){ animation-delay:.97s; }
-.hero-star:nth-of-type(3){ animation-delay:1.04s; }
-.hero-star:nth-of-type(4){ animation-delay:1.11s; }
-.hero-star:nth-of-type(5){ animation-delay:1.18s; }
-
-@keyframes starDrop{
-  0%{ opacity:0; transform:translateY(-14px) scale(.4) rotate(-15deg); }
-  70%{ opacity:1; transform:translateY(2px) scale(1.15) rotate(4deg); }
-  100%{ opacity:1; transform:translateY(0) scale(1) rotate(0deg); }
-}
-
-.wave-blue{
-  position:absolute;
-  z-index:3;
-  left:-5%;
-  bottom:44px;
-  width:110%;
-  height:52px;
-  background:linear-gradient(180deg,#0c63ff,#164fd1);
-  clip-path:ellipse(78% 52% at 50% 100%);
-}
-
-.wave-gold-trace{
-  position:absolute;
-  z-index:5;
-  left:-5%;
-  bottom:88px;
-  width:110%;
-  height:20px;
-  overflow:visible;
-}
-
-.wave{
-  position:absolute;
-  z-index:4;
-  left:-5%;
-  bottom:-1px;
-  width:110%;
-  height:84px;
-  background:#fff;
-  clip-path:ellipse(80% 54% at 50% 100%);
+.google-mark {
+  display: none !important;
 }
 
 /* =========================
@@ -891,16 +867,6 @@ textarea:focus{
 }
 
 /* ---- 2. film-grain + vignette on the navy hero ---- */
-.hero::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  opacity:.05;
-  mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-}
 .hero::after{
   content:'';
   position:absolute;
@@ -1611,46 +1577,68 @@ html{ scrollbar-color: var(--gold) #eef2f8; }
 
 <div class="app">
 
-<section class="hero">
+<!-- ============ HERO — NEW ============ -->
+<header class="hero">
 
-  <div class="ambient-glow ambient-glow-1" id="ambientGlow1"></div>
-  <div class="ambient-glow ambient-glow-2" id="ambientGlow2"></div>
+  <!-- Soft pulsing gold glow behind the badge (via ::before) -->
 
-  <div class="google-mark">
-    <div class="google-letter">G</div>
-  </div>
-
-  <div class="hero-eyebrow">Avis vérifié</div>
-
-  <h1 class="hero-title">
-    Laissez-nous votre avis sur Google
-  </h1>
-
-  <div class="hero-rating">
-    <div class="rating-line"></div>
-
-    <div class="hero-stars">
-      <span class="hero-star"><svg class="hero-star-svg" viewBox="0 0 51 48" filter="url(#starDepth)"><path d="M25.5 1 L31.5 18 L50 18.5 L35 29.5 L40.5 47 L25.5 36.5 L10.5 47 L16 29.5 L1 18.5 L19.5 18 Z" fill="url(#starGrad)" stroke="#8a5a08" stroke-width="0.6"/></svg></span>
-      <span class="hero-star"><svg class="hero-star-svg" viewBox="0 0 51 48" filter="url(#starDepth)"><path d="M25.5 1 L31.5 18 L50 18.5 L35 29.5 L40.5 47 L25.5 36.5 L10.5 47 L16 29.5 L1 18.5 L19.5 18 Z" fill="url(#starGrad)" stroke="#8a5a08" stroke-width="0.6"/></svg></span>
-      <span class="hero-star"><svg class="hero-star-svg" viewBox="0 0 51 48" filter="url(#starDepth)"><path d="M25.5 1 L31.5 18 L50 18.5 L35 29.5 L40.5 47 L25.5 36.5 L10.5 47 L16 29.5 L1 18.5 L19.5 18 Z" fill="url(#starGrad)" stroke="#8a5a08" stroke-width="0.6"/></svg></span>
-      <span class="hero-star"><svg class="hero-star-svg" viewBox="0 0 51 48" filter="url(#starDepth)"><path d="M25.5 1 L31.5 18 L50 18.5 L35 29.5 L40.5 47 L25.5 36.5 L10.5 47 L16 29.5 L1 18.5 L19.5 18 Z" fill="url(#starGrad)" stroke="#8a5a08" stroke-width="0.6"/></svg></span>
-      <span class="hero-star"><svg class="hero-star-svg" viewBox="0 0 51 48" filter="url(#starDepth)"><path d="M25.5 1 L31.5 18 L50 18.5 L35 29.5 L40.5 47 L25.5 36.5 L10.5 47 L16 29.5 L1 18.5 L19.5 18 Z" fill="url(#starGrad)" stroke="#8a5a08" stroke-width="0.6"/></svg></span>
-    </div>
-
-    <div class="rating-line right"></div>
-  </div>
-
-  <div class="wave-blue"></div>
-
-  <div class="wave-gold-trace">
-    <svg viewBox="0 0 100 20" preserveAspectRatio="none" width="100%" height="100%">
-      <path d="M0,18 Q50,-6 100,18" fill="none" stroke="url(#waveGoldGrad)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <!-- Badge -->
+  <div class="badge">
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <circle cx="24" cy="24" r="19" stroke="#08264d" stroke-width="2.5"/>
+      <path d="M24 13l3.1 6.4 7.1 1-5.1 5 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5.1-5 7.1-1z"
+            fill="url(#badgeGold)" stroke="#8a6a24" stroke-width="1"/>
+      <defs>
+        <linearGradient id="badgeGold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f3d98b"/>
+          <stop offset="55%" stop-color="#d8b46e"/>
+          <stop offset="100%" stop-color="#a37c2e"/>
+        </linearGradient>
+      </defs>
     </svg>
   </div>
 
-  <div class="wave"></div>
+  <!-- Eyebrow -->
+  <p class="eyebrow">Verified</p>
 
-</section>
+  <!-- Heading -->
+  <h1 class="hero-title">Leave us your review</h1>
+
+  <!-- Stars -->
+  <div class="hero-stars" aria-label="Five star rating">
+    <svg class="hero-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.83 5.98 6.42.93-4.65 4.63 1.1 6.5L12 17.58 6.3 20.64l1.1-6.5L2.75 9.5l6.42-.93L12 2.6z" fill="url(#starGold)" stroke="#8a6a24" stroke-width="0.9" stroke-linejoin="round"/></svg>
+    <svg class="hero-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.83 5.98 6.42.93-4.65 4.63 1.1 6.5L12 17.58 6.3 20.64l1.1-6.5L2.75 9.5l6.42-.93L12 2.6z" fill="url(#starGold)" stroke="#8a6a24" stroke-width="0.9" stroke-linejoin="round"/></svg>
+    <svg class="hero-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.83 5.98 6.42.93-4.65 4.63 1.1 6.5L12 17.58 6.3 20.64l1.1-6.5L2.75 9.5l6.42-.93L12 2.6z" fill="url(#starGold)" stroke="#8a6a24" stroke-width="0.9" stroke-linejoin="round"/></svg>
+    <svg class="hero-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.83 5.98 6.42.93-4.65 4.63 1.1 6.5L12 17.58 6.3 20.64l1.1-6.5L2.75 9.5l6.42-.93L12 2.6z" fill="url(#starGold)" stroke="#8a6a24" stroke-width="0.9" stroke-linejoin="round"/></svg>
+    <svg class="hero-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.83 5.98 6.42.93-4.65 4.63 1.1 6.5L12 17.58 6.3 20.64l1.1-6.5L2.75 9.5l6.42-.93L12 2.6z" fill="url(#starGold)" stroke="#8a6a24" stroke-width="0.9" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- Shared star gradient (defined once) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="starGold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f6e2a0"/>
+        <stop offset="45%" stop-color="#d8b46e"/>
+        <stop offset="100%" stop-color="#9c7524"/>
+      </linearGradient>
+      <linearGradient id="waveGold" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#d8b46e" stop-opacity="0"/>
+        <stop offset="50%"  stop-color="#d8b46e" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#d8b46e" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Wave trace: gold line along the curved crest -->
+  <svg class="wave-trace" viewBox="0 0 1440 170" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,40 Q360,150 720,120 T1440,40" fill="none" stroke="url(#waveGold)" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+
+  <!-- Ambient glows (preserved from original) -->
+  <div class="ambient-glow ambient-glow-1" id="ambientGlow1"></div>
+  <div class="ambient-glow ambient-glow-2" id="ambientGlow2"></div>
+
+</header>
 
 <main class="content">
 
@@ -3321,7 +3309,25 @@ if(scrollRevealEls.length){
   scrollRevealEls.forEach((el) => revealObserver.observe(el));
 }
 
+/* ---- badge tilt on pointer move (GPU-friendly) ---- */
+(function () {
+  var badge = document.querySelector('.badge');
+  var hero  = document.querySelector('.hero');
+  if (!badge || !hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  hero.addEventListener('pointermove', function (e) {
+    var r = hero.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5;
+    var y = (e.clientY - r.top) / r.height - 0.5;
+    badge.style.transform = 'translate(' + x * 10 + 'px,' + y * 8 + 'px) rotate(' + x * 4 + 'deg)';
+  });
+  hero.addEventListener('pointerleave', function () {
+    badge.style.transform = '';
+  });
+})();
+
 </script>
 
 </body>
 </html>
+```
