@@ -1,0 +1,2773 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#061b3a" />
+    <title>Avify Stat — Business JARVIS</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+    <style>
+        /* =========================================================
+           AVIFY BUSINESS — JARVIS EDITION
+        ========================================================= */
+        :root {
+            --navy: #061b3a;
+            --navy2: #0b2c57;
+            --blue: #165dff;
+            --blue2: #4285ff;
+            --gold: #d99213;
+            --gold2: #ffcf55;
+            --green: #16834b;
+            --green-bg: #eaf8f0;
+            --red: #c93434;
+            --red-bg: #fff0f0;
+            --orange: #b86f00;
+            --orange-bg: #fff7df;
+            --white: #fff;
+            --ink: #071b3c;
+            --muted: #6b788a;
+            --soft: #f4f7fb;
+            --soft2: #f8faff;
+            --line: #e2e8f0;
+            --shadow: 0 10px 30px rgba(7, 27, 60, .055);
+            --shadow-strong: 0 18px 45px rgba(7, 27, 60, .14);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body {
+            min-height: 100%;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--soft);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+        button {
+            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* Scrollbar */
+        * {
+            scrollbar-color: rgba(217, 146, 19, .55) transparent;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gold), var(--gold2));
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Login */
+        .login-screen {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: max(22px, env(safe-area-inset-top)) 16px max(22px, env(safe-area-inset-bottom));
+            background: radial-gradient(circle at 50% -10%, rgba(66, 133, 255, .32), transparent 42%),
+                linear-gradient(180deg, #061b3a, #08264d);
+            position: relative;
+            overflow: hidden;
+            background-size: 200% 200%;
+            animation: avifyGradientShift 14s ease infinite;
+        }
+        .login-screen::before,
+        .login-screen::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(2px 2px at 12% 22%, rgba(255, 207, 85, .9), transparent 60%),
+                radial-gradient(2px 2px at 82% 18%, rgba(255, 207, 85, .75), transparent 60%),
+                radial-gradient(1.5px 1.5px at 32% 68%, rgba(255, 255, 255, .65), transparent 60%),
+                radial-gradient(2px 2px at 68% 78%, rgba(255, 207, 85, .8), transparent 60%),
+                radial-gradient(1.5px 1.5px at 92% 55%, rgba(255, 255, 255, .55), transparent 60%),
+                radial-gradient(1.5px 1.5px at 6% 82%, rgba(255, 207, 85, .6), transparent 60%);
+            animation: avifyTwinkle 4.5s ease-in-out infinite;
+        }
+        .login-screen::after {
+            animation-delay: 1.8s;
+        }
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 28px;
+            padding: 27px 20px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, .30);
+            position: relative;
+            z-index: 1;
+            animation: avifyScaleIn .5s cubic-bezier(.2, .8, .2, 1) both;
+            border: 1px solid rgba(217, 146, 19, .18);
+        }
+        .login-logo {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, .18), 0 0 0 3px rgba(217, 146, 19, .9);
+            animation: avifyGoldPulse 2.6s ease-in-out infinite;
+        }
+        .app-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+        .logo-letter {
+            font-size: 51px;
+            font-weight: 950;
+            line-height: 1;
+            background: conic-gradient(from -35deg, #4285f4 0deg 80deg, #34a853 80deg 170deg, #fbbc05 170deg 245deg, #ea4335 245deg 320deg, #4285f4 320deg 360deg);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .login-box h1 {
+            text-align: center;
+            font-size: 29px;
+            font-weight: 950;
+            letter-spacing: -.7px;
+            background: linear-gradient(90deg, var(--navy), #0d407a, var(--gold), var(--navy));
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: avifyGradientShift 6s ease infinite;
+        }
+        .login-box>p {
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.4;
+            margin: 8px 0 22px;
+        }
+        .login-error {
+            display: none;
+            background: var(--red-bg);
+            border: 1px solid #efc1c1;
+            color: #a52626;
+            border-radius: 14px;
+            padding: 13px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            line-height: 1.45;
+            white-space: pre-wrap;
+        }
+        .login-error.show {
+            display: block;
+        }
+
+        /* Forms */
+        .field {
+            margin-bottom: 15px;
+        }
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 7px;
+        }
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            min-height: 52px;
+            border-radius: 14px;
+            border: 1px solid #d9e0e9;
+            background: #f7f9fc;
+            color: var(--ink);
+            padding: 13px 14px;
+            outline: none;
+            transition: .15s ease;
+        }
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: rgba(22, 93, 255, .55);
+            box-shadow: 0 0 0 4px rgba(22, 93, 255, .08);
+            background: #fff;
+            transform: translateY(-1px);
+        }
+        .field textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        .btn {
+            min-height: 46px;
+            border: 0;
+            border-radius: 13px;
+            padding: 10px 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:active {
+            transform: scale(.97);
+        }
+        .btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 36%;
+            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, .4), transparent);
+            transform: translateX(-130%) skewX(-20deg);
+            pointer-events: none;
+        }
+        .btn:hover::after {
+            animation: avifySweep .85s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.04);
+        }
+        .btn-primary {
+            color: #fff;
+            background-size: 200% auto;
+            background-image: linear-gradient(135deg, #0a2d59, #0d407a, #0a2d59);
+            animation: avifyGradientShift 6s ease infinite;
+            box-shadow: 0 9px 20px rgba(7, 27, 60, .14), 0 0 0 1px rgba(217, 146, 19, .25) inset;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 14px 28px rgba(7, 27, 60, .22), 0 0 0 1px rgba(217, 146, 19, .5) inset;
+        }
+        .btn-blue {
+            background: #edf4ff;
+            color: #1551bd;
+            border: 1px solid #c9dcff;
+        }
+        .btn-soft {
+            background: #f1f5fa;
+            color: var(--navy);
+            border: 1px solid var(--line);
+        }
+        .btn-green {
+            background: var(--green-bg);
+            color: #116b3d;
+            border: 1px solid #b9e5ca;
+        }
+        .btn-red {
+            background: var(--red-bg);
+            color: #a52626;
+            border: 1px solid #efc1c1;
+        }
+        .btn-gold {
+            background: var(--orange-bg);
+            color: #8a5900;
+            border: 1px solid #f1d27c;
+        }
+        .btn-sm {
+            min-height: 34px;
+            font-size: 10px;
+            padding: 6px 10px;
+        }
+        .btn-block {
+            width: 100%;
+        }
+
+        /* App Header */
+        .app {
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+        .top {
+            color: #fff;
+            background: radial-gradient(circle at 80% -30%, rgba(52, 125, 255, .38), transparent 48%),
+                linear-gradient(180deg, #061b3a, #08264d);
+            padding: max(15px, env(safe-area-inset-top)) 14px 0;
+            position: relative;
+            background-size: 200% 200%;
+            animation: avifyGradientShift 16s ease infinite;
+        }
+        .top::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--gold2), var(--gold), transparent);
+            background-size: 200% auto;
+            animation: avifyGradientShift 5s linear infinite;
+            opacity: .85;
+        }
+        .top-inner {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .brand-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            flex: none;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 2px rgba(217, 146, 19, .9);
+            animation: avifyGoldPulse 3s ease-in-out infinite;
+            transition: transform .2s ease;
+        }
+        .brand-mark:hover {
+            transform: scale(1.06) rotate(-2deg);
+        }
+        .brand-mark .logo-letter {
+            font-size: 28px;
+        }
+        .brand-name {
+            font-size: 17px;
+            font-weight: 950;
+        }
+        .brand-sub {
+            color: #9fb2cb;
+            font-size: 10px;
+            margin-top: 1px;
+        }
+        .logout {
+            min-height: 38px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .16);
+            color: #fff;
+            border-radius: 11px;
+            padding: 8px 10px;
+            font-size: 11px;
+            font-weight: 850;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 20px 0 17px;
+        }
+        .hero small {
+            color: #91a8c5;
+            font-size: 10px;
+            font-weight: 850;
+            letter-spacing: 1px;
+        }
+        .hero h1 {
+            margin-top: 4px;
+            font-size: 28px;
+            line-height: 1.05;
+            font-weight: 950;
+            letter-spacing: -.8px;
+        }
+        .hero p {
+            margin-top: 7px;
+            color: #c2d0e1;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* Nav */
+        .nav-wrap {
+            overflow-x: auto;
+            scrollbar-width: none;
+            margin: 0 -14px;
+            padding: 0 14px;
+        }
+        .nav-wrap::-webkit-scrollbar {
+            display: none;
+        }
+        .nav {
+            display: flex;
+            gap: 6px;
+            min-width: max-content;
+            padding-bottom: 0;
+        }
+        .nav button {
+            min-height: 43px;
+            border: 1px solid rgba(255, 255, 255, .11);
+            background: rgba(255, 255, 255, .065);
+            color: #cbd7e6;
+            padding: 9px 12px;
+            border-radius: 12px 12px 0 0;
+            font-size: 11px;
+            font-weight: 900;
+            white-space: nowrap;
+            transition: background .2s ease, color .2s ease, transform .15s ease;
+            position: relative;
+        }
+        .nav button:active {
+            transform: scale(.96);
+        }
+        .nav button.active {
+            background: #fff;
+            color: var(--navy);
+            animation: avifyFadeIn .25s ease both;
+            box-shadow: 0 -2px 0 var(--gold) inset;
+        }
+
+        /* Main */
+        .main {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 14px max(90px, env(safe-area-inset-bottom));
+        }
+
+        /* Status */
+        .status {
+            display: none;
+            padding: 13px 14px;
+            border-radius: 14px;
+            margin-bottom: 13px;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+        .status.show {
+            display: block;
+            animation: avifyFadeInUp .32s cubic-bezier(.2, .8, .2, 1) both;
+        }
+        .status.success {
+            background: var(--green-bg);
+            border: 1px solid #b9e5ca;
+            color: #116b3d;
+        }
+        .status.error {
+            background: var(--red-bg);
+            border: 1px solid #efc1c1;
+            color: #a52626;
+        }
+        .status.info {
+            background: #edf4ff;
+            border: 1px solid #c7dcff;
+            color: #174f9f;
+        }
+
+        /* Views */
+        .view {
+            display: none;
+        }
+        .view.active {
+            display: block;
+            animation: avifyFadeInUp .38s cubic-bezier(.2, .8, .2, 1) both;
+        }
+        .section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 13px;
+            flex-wrap: wrap;
+        }
+        .section-head h2 {
+            font-size: 22px;
+            font-weight: 950;
+            letter-spacing: -.5px;
+        }
+        .section-head p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 3px;
+            line-height: 1.4;
+        }
+        .section-head>.btn {
+            flex: none;
+        }
+
+        /* KPI */
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px;
+            margin-bottom: 13px;
+        }
+        .kpi {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 17px;
+            padding: 14px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform .22s cubic-bezier(.2, .8, .2, 1), box-shadow .22s ease, border-color .22s ease;
+            animation: avifyFadeInUp .5s cubic-bezier(.2, .8, .2, 1) both;
+        }
+        .kpi::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+            background-size: 200% auto;
+            animation: avifyGradientShift 4s linear infinite;
+            opacity: 0;
+            transition: opacity .2s ease;
+        }
+        .kpi:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(7, 27, 60, .14), 0 0 0 1px rgba(217, 146, 19, .25);
+            border-color: rgba(217, 146, 19, .35);
+        }
+        .kpi:hover::before {
+            opacity: 1;
+        }
+        .kpi-label {
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .45px;
+        }
+        .kpi-value {
+            margin-top: 4px;
+            font-size: 25px;
+            font-weight: 950;
+            color: var(--navy);
+            transition: color .2s ease;
+        }
+        .kpi:hover .kpi-value {
+            color: var(--gold);
+        }
+        .kpi-note {
+            color: #8794a5;
+            font-size: 10px;
+            margin-top: 1px;
+        }
+        .kpi .kpi-value.green {
+            color: var(--green);
+        }
+        .kpi .kpi-value.red {
+            color: var(--red);
+        }
+        .kpi .kpi-value.gold {
+            color: var(--gold);
+        }
+
+        /* Panel */
+        .panel {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 19px;
+            padding: 16px;
+            margin-bottom: 13px;
+            box-shadow: var(--shadow);
+            transition: transform .2s cubic-bezier(.2, .8, .2, 1), box-shadow .2s ease, border-color .2s ease;
+            animation: avifyFadeInUp .5s cubic-bezier(.2, .8, .2, 1) both;
+        }
+        .panel:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-strong);
+            border-color: rgba(217, 146, 19, .28);
+        }
+        .panel h3 {
+            font-size: 16px;
+            font-weight: 950;
+        }
+        .panel-desc {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.45;
+            margin-top: 4px;
+        }
+
+        /* Search */
+        .search {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .search input,
+        .search select {
+            width: 100%;
+            min-height: 49px;
+            border-radius: 15px;
+            border: 1px solid var(--line);
+            background: #fff;
+            padding: 11px 13px 11px 41px;
+            outline: none;
+            color: var(--ink);
+            box-shadow: 0 4px 15px rgba(7, 27, 60, .025);
+            transition: border-color .2s ease, box-shadow .25s ease;
+            appearance: auto;
+        }
+        .search input:focus,
+        .search select:focus {
+            border-color: #bdd2f8;
+            box-shadow: 0 0 0 4px rgba(22, 93, 255, .06);
+        }
+        .search span {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8795a8;
+            font-size: 15px;
+        }
+
+        /* Client Card */
+        .client-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 19px;
+            margin-bottom: 11px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform .2s cubic-bezier(.2, .8, .2, 1), box-shadow .2s ease, border-color .2s ease;
+            animation: avifyFadeInUp .5s cubic-bezier(.2, .8, .2, 1) both;
+        }
+        .client-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-strong);
+            border-color: rgba(217, 146, 19, .28);
+        }
+        .client-head {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .client-icon {
+            width: 43px;
+            height: 43px;
+            flex: none;
+            border-radius: 13px;
+            background: linear-gradient(145deg, #edf4ff, #dceaff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            transition: transform .25s ease;
+        }
+        .client-card:hover .client-icon {
+            transform: scale(1.08) rotate(-3deg);
+        }
+        .client-main {
+            min-width: 0;
+            flex: 1;
+        }
+        .client-name {
+            font-size: 15px;
+            font-weight: 950;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .client-meta {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        .client-expand {
+            font-size: 18px;
+            color: var(--muted);
+            transition: transform .25s ease;
+        }
+        .client-card.open .client-expand {
+            transform: rotate(180deg);
+        }
+        .client-body {
+            display: none;
+            padding: 0 15px 15px;
+            border-top: 1px solid var(--line);
+        }
+        .client-card.open .client-body {
+            display: block;
+            animation: avifyFadeInUp .3s ease both;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border-radius: 20px;
+            padding: 5px 8px;
+            font-size: 9px;
+            font-weight: 950;
+            white-space: nowrap;
+        }
+        .badge.active {
+            background: var(--green-bg);
+            color: #116b3d;
+        }
+        .badge.expiring {
+            background: var(--orange-bg);
+            color: #8a5900;
+        }
+        .badge.expired {
+            background: var(--red-bg);
+            color: #a52626;
+        }
+        .badge.paused {
+            background: var(--orange-bg);
+            color: #8a5900;
+        }
+
+        /* Mini table */
+        .mini-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 8px;
+        }
+        .mini-table th {
+            text-align: left;
+            font-weight: 900;
+            color: var(--muted);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            padding: 6px 4px;
+            border-bottom: 1px solid var(--line);
+        }
+        .mini-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid var(--line);
+        }
+        .mini-table tr:last-child td {
+            border-bottom: 0;
+        }
+        .mini-table .total-row td {
+            font-weight: 900;
+            border-top: 2px solid var(--navy);
+        }
+        .mini-table .clickable {
+            cursor: pointer;
+            color: var(--blue);
+        }
+        .mini-table .clickable:hover {
+            text-decoration: underline;
+        }
+
+        /* Empty */
+        .empty {
+            text-align: center;
+            padding: 28px 14px;
+            color: var(--muted);
+        }
+        .empty-icon {
+            font-size: 31px;
+            margin-bottom: 7px;
+        }
+        .empty h3 {
+            color: var(--navy);
+            font-size: 15px;
+            font-weight: 950;
+        }
+        .empty p {
+            font-size: 11px;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+        .empty .btn {
+            margin-top: 13px;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 14, 31, .64);
+            z-index: 100;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            transition: opacity .22s ease, background .22s ease;
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-box {
+            width: 100%;
+            max-width: 680px;
+            max-height: calc(92vh - env(safe-area-inset-top));
+            overflow: auto;
+            background: #fff;
+            border-radius: 24px 24px 0 0;
+            padding: 18px 16px max(20px, env(safe-area-inset-bottom));
+            animation: avifyScaleIn .28s cubic-bezier(.2, .8, .2, 1) both;
+        }
+        .modal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-head h3 {
+            font-size: 19px;
+            font-weight: 950;
+        }
+        .close {
+            width: 38px;
+            height: 38px;
+            flex: none;
+            border: 0;
+            border-radius: 11px;
+            background: #f1f4f8;
+            color: var(--navy);
+            font-size: 20px;
+        }
+
+        /* Mobile nav */
+        .mobile-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 50;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2px;
+            padding: 7px 7px max(7px, env(safe-area-inset-bottom));
+            background: rgba(255, 255, 255, .96);
+            border-top: 1px solid rgba(7, 27, 60, .09);
+            box-shadow: 0 -10px 30px rgba(7, 27, 60, .08);
+            backdrop-filter: blur(18px);
+        }
+        .mobile-nav button {
+            min-height: 49px;
+            border: 0;
+            border-radius: 13px;
+            background: transparent;
+            color: #7b8797;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            font-size: 8px;
+            font-weight: 900;
+        }
+        .mobile-nav button strong {
+            font-size: 16px;
+            line-height: 1;
+        }
+        .mobile-nav button.active {
+            background: #edf4ff;
+            color: #1551bd;
+        }
+
+        /* Desktop */
+        @media(min-width:760px) {
+            .mobile-nav {
+                display: none;
+            }
+            .main {
+                padding-bottom: 40px;
+            }
+            .kpis {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+            .modal {
+                align-items: center;
+                padding: 20px;
+            }
+            .modal-box {
+                border-radius: 24px;
+            }
+        }
+        @media(min-width:1024px) {
+            .kpis {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+            }
+        }
+
+        /* Animations */
+        @keyframes avifyFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes avifyFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes avifyScaleIn {
+            from {
+                opacity: 0;
+                transform: scale(.94) translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        @keyframes avifySweep {
+            0% {
+                transform: translateX(-130%) skewX(-20deg);
+            }
+            100% {
+                transform: translateX(230%) skewX(-20deg);
+            }
+        }
+        @keyframes avifyGradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        @keyframes avifyTwinkle {
+            0%,
+            100% {
+                opacity: .25;
+                transform: scale(.85);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.15);
+            }
+        }
+        @keyframes avifyGoldPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(217, 146, 19, .45), 0 12px 28px rgba(0, 0, 0, .18);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(217, 146, 19, 0), 0 12px 28px rgba(0, 0, 0, .18);
+            }
+        }
+        @keyframes avifySpin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .avify-spin {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid rgba(217, 146, 19, .25);
+            border-top-color: var(--gold);
+            animation: avifySpin .7s linear infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: .001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .001ms !important;
+            }
+        }
+
+        /* Utilities */
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .flex {
+            display: flex;
+        }
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+        .flex-center {
+            align-items: center;
+            justify-content: center;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-muted {
+            color: var(--muted);
+        }
+        .text-gold {
+            color: var(--gold);
+        }
+        .text-green {
+            color: var(--green);
+        }
+        .text-red {
+            color: var(--red);
+        }
+        .fw-900 {
+            font-weight: 900;
+        }
+        .fs-10 {
+            font-size: 10px;
+        }
+        .fs-11 {
+            font-size: 11px;
+        }
+        .fs-12 {
+            font-size: 12px;
+        }
+        .w-full {
+            width: 100%;
+        }
+        .stock-low {
+            color: var(--red);
+        }
+        .stock-ok {
+            color: var(--green);
+        }
+        .stock-warn {
+            color: var(--orange);
+        }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mt-4 {
+            margin-top: 4px;
+        }
+        .mb-4 {
+            margin-bottom: 4px;
+        }
+        .p-4 {
+            padding: 4px;
+        }
+        .stock-expense-badge {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 900;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =========================================================
+    LOGIN
+    ========================================================= -->
+    <section id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <div class="login-logo">
+                <span class="logo-letter">A</span>
+            </div>
+            <h1>Avify Stat</h1>
+            <p>JARVIS — Business Intelligence</p>
+            <div id="loginError" class="login-error"></div>
+            <form id="loginForm">
+                <div class="field">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email" autocomplete="username" required placeholder="Votre adresse e-mail">
+                </div>
+                <div class="field">
+                    <label for="password">Mot de passe</label>
+                    <input id="password" type="password" autocomplete="current-password" required placeholder="Votre mot de passe">
+                </div>
+                <button id="loginButton" class="btn btn-primary" type="submit" style="width:100%;min-height:56px;">Se connecter</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- =========================================================
+    APPLICATION
+    ========================================================= -->
+    <div id="adminApp" class="app hidden">
+        <header class="top">
+            <div class="top-inner">
+                <div class="brand-row">
+                    <div class="brand">
+                        <div class="brand-mark"><span class="logo-letter">A</span></div>
+                        <div>
+                            <div class="brand-name">Avify Stat</div>
+                            <div class="brand-sub">JARVIS</div>
+                        </div>
+                    </div>
+                    <button id="logoutButton" class="logout" type="button">Déconnexion</button>
+                </div>
+                <div class="hero">
+                    <small>⚡ JARVIS BUSINESS INTELLIGENCE</small>
+                    <h1>Tableau de bord intelligent</h1>
+                    <p>Analyse, prévisions et contrôle total de votre business AVIFY.</p>
+                </div>
+                <div class="nav-wrap">
+                    <nav class="nav">
+                        <button data-view="dashboard" class="active">📊 Dashboard</button>
+                        <button data-view="clients">👥 Clients</button>
+                        <button data-view="sales">💰 Ventes</button>
+                        <button data-view="stock">📦 Stock</button>
+                        <button data-view="expenses">💸 Dépenses</button>
+                        <button data-view="insights">🧠 Insights</button>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div id="status" class="status"></div>
+
+            <!-- =========================================================
+            DASHBOARD
+            ========================================================= -->
+            <section id="view-dashboard" class="view active">
+                <div class="section-head">
+                    <div>
+                        <h2>Indicateurs clés</h2>
+                        <p>Synthèse complète de votre activité.</p>
+                    </div>
+                    <button id="refreshButton" class="btn btn-soft" type="button">🔄</button>
+                </div>
+
+                <div class="kpis">
+                    <div class="kpi"><div class="kpi-label">Revenus</div><div id="kpiRevenue" class="kpi-value gold">0</div><div class="kpi-note">DA</div></div>
+                    <div class="kpi"><div class="kpi-label">Dépenses (dont stock)</div><div id="kpiExpenses" class="kpi-value red">0</div><div class="kpi-note">DA</div></div>
+                    <div class="kpi"><div class="kpi-label">Bénéfice net</div><div id="kpiProfit" class="kpi-value green">0</div><div class="kpi-note">DA</div></div>
+                    <div class="kpi"><div class="kpi-label">ROI</div><div id="kpiRoi" class="kpi-value gold">0%</div><div class="kpi-note">retour sur investissement</div></div>
+                    <div class="kpi"><div class="kpi-label">COGS (coût ventes)</div><div id="kpiCogs" class="kpi-value red">0</div><div class="kpi-note">coût des cartes vendues</div></div>
+                    <div class="kpi"><div class="kpi-label">Clients</div><div id="kpiClients" class="kpi-value">0</div><div class="kpi-note">établissements</div></div>
+                    <div class="kpi"><div class="kpi-label">Cartes vendues</div><div id="kpiCardsSold" class="kpi-value">0</div><div class="kpi-note">total</div></div>
+                    <div class="kpi"><div class="kpi-label">Stock total</div><div id="kpiStock" class="kpi-value">0</div><div class="kpi-note">unités restantes</div></div>
+                    <div class="kpi"><div class="kpi-label">Abonnements actifs</div><div id="kpiSubsActive" class="kpi-value green">0</div><div class="kpi-note">/ expirés</div></div>
+                    <div class="kpi"><div class="kpi-label">Expirant &lt;7j</div><div id="kpiSubsExpiring" class="kpi-value red">0</div><div class="kpi-note">abonnements</div></div>
+                </div>
+
+                <div class="panel" style="border-left:4px solid var(--gold);">
+                    <h3>🧠 JARVIS — Analyse rapide</h3>
+                    <div id="jarvisQuickInsights" class="panel-desc">Chargement...</div>
+                </div>
+
+                <div class="panel">
+                    <h3>📌 Actions rapides</h3>
+                    <div class="flex flex-wrap gap-8 mt-8">
+                        <button class="btn btn-primary" onclick="openSaleModal()">💰 Vente</button>
+                        <button class="btn btn-blue" onclick="openStockEntryModal()">📦 Entrée stock</button>
+                        <button class="btn btn-gold" onclick="openExpenseModal()">💸 Dépense</button>
+                        <button class="btn btn-soft" onclick="switchView('clients')">👥 Clients</button>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>🔄 Abonnements expirant bientôt</h3>
+                    <div id="expiringSubsList"><p class="panel-desc">Chargement...</p></div>
+                </div>
+            </section>
+
+            <!-- =========================================================
+            CLIENTS
+            ========================================================= -->
+            <section id="view-clients" class="view">
+                <div class="section-head">
+                    <div>
+                        <h2>Clients</h2>
+                        <p>Recherchez un établissement et consultez ses données.</p>
+                    </div>
+                </div>
+                <div class="search">
+                    <span>🔎</span>
+                    <input id="clientSearch" type="search" placeholder="Nom de l'établissement...">
+                </div>
+                <div id="clientList"></div>
+            </section>
+
+            <!-- =========================================================
+            VENTES
+            ========================================================= -->
+            <section id="view-sales" class="view">
+                <div class="section-head">
+                    <div>
+                        <h2>Ventes</h2>
+                        <p>Historique complet des ventes.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openSaleModal()">💰 Nouvelle vente</button>
+                </div>
+                <div class="search">
+                    <span>🔎</span>
+                    <input id="salesSearch" type="search" placeholder="Rechercher par client ou produit...">
+                </div>
+                <div id="salesList"><p class="panel-desc">Chargement...</p></div>
+            </section>
+
+            <!-- =========================================================
+            STOCK
+            ========================================================= -->
+            <section id="view-stock" class="view">
+                <div class="section-head">
+                    <div>
+                        <h2>Stock &amp; produits</h2>
+                        <p>Suivez vos entrées, ventes et niveaux de stock.</p>
+                    </div>
+                    <button class="btn btn-blue" onclick="openStockEntryModal()">📦 Entrée de stock</button>
+                </div>
+                <div id="stockList"><p class="panel-desc">Chargement...</p></div>
+                <div class="mt-8">
+                    <h3>📋 Historique des mouvements</h3>
+                    <div id="stockMovementsList"><p class="panel-desc">Chargement...</p></div>
+                </div>
+            </section>
+
+            <!-- =========================================================
+            DÉPENSES
+            ========================================================= -->
+            <section id="view-expenses" class="view">
+                <div class="section-head">
+                    <div>
+                        <h2>Dépenses</h2>
+                        <p>Gérez toutes vos charges, y compris le coût des produits.</p>
+                        <p class="fs-10 text-muted">💡 Les entrées de stock sont automatiquement ajoutées comme dépenses "Stock / Produits".</p>
+                    </div>
+                    <button class="btn btn-gold" onclick="openExpenseModal()">💸 Ajouter une dépense</button>
+                </div>
+                <div class="search">
+                    <span>🔎</span>
+                    <select id="expenseFilter" onchange="renderExpenses()">
+                        <option value="all">Toutes les catégories</option>
+                        <option value="Loyer">Loyer</option>
+                        <option value="Salaires">Salaires</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Stock / Produits">📦 Stock / Produits</option>
+                        <option value="Fournitures">Fournitures</option>
+                        <option value="Impôts">Impôts</option>
+                        <option value="Divers">Divers</option>
+                    </select>
+                </div>
+                <div id="expensesList"><p class="panel-desc">Chargement...</p></div>
+            </section>
+
+            <!-- =========================================================
+            INSIGHTS
+            ========================================================= -->
+            <section id="view-insights" class="view">
+                <div class="section-head">
+                    <div>
+                        <h2>🧠 Insights JARVIS</h2>
+                        <p>Analyse avancée avec prise en compte complète des coûts produits.</p>
+                    </div>
+                    <button class="btn btn-soft" onclick="renderInsights()">🔄 Actualiser</button>
+                </div>
+                <div id="insightsContent"><p class="panel-desc">Chargement...</p></div>
+            </section>
+
+        </main>
+
+        <!-- =========================================================
+        MOBILE NAV
+        ========================================================= -->
+        <nav class="mobile-nav">
+            <button data-mobile-view="dashboard" class="active"><strong>📊</strong> Dash</button>
+            <button data-mobile-view="clients"><strong>👥</strong> Clients</button>
+            <button data-mobile-view="sales"><strong>💰</strong> Ventes</button>
+            <button data-mobile-view="stock"><strong>📦</strong> Stock</button>
+            <button data-mobile-view="expenses"><strong>💸</strong> Dép.</button>
+            <button data-mobile-view="insights"><strong>🧠</strong> AI</button>
+        </nav>
+    </div>
+
+    <!-- =========================================================
+    MODAL
+    ========================================================= -->
+    <div id="modal" class="modal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3 id="modalTitle">Avify Stat</h3>
+                <button id="modalClose" class="close" type="button">×</button>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // =========================================================
+        // SUPABASE
+        // =========================================================
+        const SUPABASE_URL = "https://ptfijeyhgmtcsedyiwto.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_gtihO7sbuhLIOG7ausRhXg_sYupQjXZ";
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+            auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+        });
+
+        // =========================================================
+        // STATE
+        // =========================================================
+        let allBusinesses = [];
+        let allProducts = [];
+        let allSales = [];
+        let allSaleItems = [];
+        let allStockMovements = [];
+        let allSubscriptions = [];
+        let allExpenses = [];
+        let appInitialized = false;
+        let loadingData = false;
+        let editingSaleId = null;
+        let editingExpenseId = null;
+        let editingStockMovementId = null;
+
+        // =========================================================
+        // DOM REFS
+        // =========================================================
+        const loginScreen = document.getElementById("loginScreen");
+        const adminApp = document.getElementById("adminApp");
+        const loginForm = document.getElementById("loginForm");
+        const loginButton = document.getElementById("loginButton");
+        const loginError = document.getElementById("loginError");
+        const statusBox = document.getElementById("status");
+        const modal = document.getElementById("modal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalBody = document.getElementById("modalBody");
+
+        // =========================================================
+        // AUTH
+        // =========================================================
+        async function getCurrentUser() {
+            const { data, error } = await supabaseClient.auth.getUser();
+            if (error) { console.error("AUTH USER ERROR:", error); return null; }
+            return data.user || null;
+        }
+
+        function showLogin() {
+            loginScreen.style.display = "flex";
+            adminApp.classList.add("hidden");
+        }
+
+        async function showAdmin() {
+            const user = await getCurrentUser();
+            if (!user) { showLogin(); return; }
+            loginScreen.style.display = "none";
+            adminApp.classList.remove("hidden");
+            if (!appInitialized) { appInitialized = true; await loadEverything(); }
+        }
+
+        async function checkSession() {
+            try {
+                const { data, error } = await supabaseClient.auth.getSession();
+                if (error) { console.error("SESSION ERROR:", error); showLogin(); return; }
+                if (data.session) { await showAdmin(); } else { showLogin(); }
+            } catch (e) { console.error(e); showLogin(); }
+        }
+
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (session) { setTimeout(() => showAdmin(), 0); } else { appInitialized = false;
+                showLogin(); }
+        });
+
+        // =========================================================
+        // LOGIN
+        // =========================================================
+        loginForm.addEventListener("submit", async event => {
+            event.preventDefault();
+            loginError.classList.remove("show");
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            if (!email || !password) return;
+            loginButton.disabled = true;
+            loginButton.textContent = "Connexion…";
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                if (error) throw error;
+                if (!data.session) throw new Error("Aucune session créée.");
+                document.getElementById("password").value = "";
+                appInitialized = false;
+                await showAdmin();
+            } catch (error) {
+                console.error("LOGIN ERROR:", error);
+                loginError.textContent = "Connexion refusée.\n\n" + (error?.message || "Erreur inconnue.");
+                loginError.classList.add("show");
+            } finally {
+                loginButton.disabled = false;
+                loginButton.textContent = "Se connecter";
+            }
+        });
+
+        document.getElementById("logoutButton").addEventListener("click", async () => {
+            const btn = document.getElementById("logoutButton");
+            btn.disabled = true;
+            try { await supabaseClient.auth.signOut(); } finally { btn.disabled = false; }
+        });
+
+        // =========================================================
+        // NAVIGATION
+        // =========================================================
+        function switchView(view) {
+            document.querySelectorAll(".view").forEach(el => el.classList.remove("active"));
+            const target = document.getElementById("view-" + view);
+            if (target) target.classList.add("active");
+            document.querySelectorAll(".nav button").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.view === view);
+            });
+            document.querySelectorAll(".mobile-nav button").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.mobileView === view);
+            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (view === "insights") renderInsights();
+        }
+
+        document.querySelectorAll(".nav button").forEach(btn => {
+            btn.addEventListener("click", () => switchView(btn.dataset.view));
+        });
+        document.querySelectorAll(".mobile-nav button").forEach(btn => {
+            btn.addEventListener("click", () => switchView(btn.dataset.mobileView));
+        });
+
+        // =========================================================
+        // HELPERS
+        // =========================================================
+        function escapeHtml(v) { return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g,
+                "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); }
+
+        function formatDate(d) { if (!d) return "—"; try { return new Date(d).toLocaleDateString("fr-FR"); } catch (
+                e) { return "—"; } }
+
+        function formatDateShort(d) { if (!d) return "—"; try { return new Date(d).toLocaleDateString("fr-FR", { day: "numeric",
+                    month: "short" }); } catch (e) { return "—"; } }
+
+        function formatCurrency(v) { return Number(v || 0).toLocaleString("fr-FR") + " DA"; }
+
+        function showStatus(msg, type = "info") {
+            statusBox.textContent = msg;
+            statusBox.className = "status show " + type;
+            if (type === "success") setTimeout(() => { if (statusBox.textContent === msg) clearStatus(); }, 4500);
+        }
+
+        function clearStatus() { statusBox.textContent = "";
+            statusBox.className = "status"; }
+
+        function getProduct(id) { return allProducts.find(p => p.id === id); }
+
+        function getBusiness(id) { return allBusinesses.find(b => b.id === id); }
+
+        function getStockForProduct(productId) {
+            let total = 0;
+            allStockMovements.forEach(m => {
+                if (m.product_id === productId) total += Number(m.quantity || 0);
+            });
+            return total;
+        }
+
+        function getTotalRevenue() {
+            let rev = 0;
+            allSales.forEach(s => rev += Number(s.total_amount || 0));
+            return rev;
+        }
+
+        function getTotalExpenses() {
+            let exp = 0;
+            allExpenses.forEach(e => exp += Number(e.amount || 0));
+            return exp;
+        }
+
+        function getNetProfitWithStock() { return getTotalRevenue() - getTotalExpenses(); }
+
+        function getROIWithStock() {
+            const exp = getTotalExpenses();
+            if (exp === 0) return 0;
+            return ((getTotalRevenue() - exp) / exp) * 100;
+        }
+
+        function getCardsSold() {
+            let sold = 0;
+            allSaleItems.forEach(item => sold += Number(item.quantity || 0));
+            return sold;
+        }
+
+        function getTotalDiscount() {
+            let disc = 0;
+            allSales.forEach(s => disc += Number(s.discount || 0));
+            return disc;
+        }
+
+        function getTotalClients() { return allBusinesses.length; }
+
+        function getTotalStock() {
+            let sum = 0;
+            allProducts.forEach(p => sum += getStockForProduct(p.id));
+            return sum;
+        }
+
+        function getSubscriptionsActive() {
+            const now = new Date();
+            return allSubscriptions.filter(s => s.active && new Date(s.expiry_date) >= now).length;
+        }
+
+        function getSubscriptionsExpiring() {
+            const now = new Date();
+            const in7 = new Date(now);
+            in7.setDate(in7.getDate() + 7);
+            return allSubscriptions.filter(s => s.active && new Date(s.expiry_date) >= now && new Date(s.expiry_date) <=
+                in7).length;
+        }
+
+        function getExpiredSubscriptions() {
+            const now = new Date();
+            return allSubscriptions.filter(s => s.active && new Date(s.expiry_date) < now);
+        }
+
+        function getCostOfGoodsSold() {
+            let totalCost = 0;
+            allSaleItems.forEach(item => {
+                const entries = allStockMovements.filter(m =>
+                    m.product_id === item.product_id &&
+                    Number(m.quantity) > 0 &&
+                    m.cost_per_unit !== null &&
+                    m.cost_per_unit !== undefined
+                );
+                let totalQty = 0;
+                let totalCostIn = 0;
+                entries.forEach(e => {
+                    totalQty += Number(e.quantity);
+                    totalCostIn += Number(e.cost_per_unit) * Number(e.quantity);
+                });
+                const avgCost = totalQty > 0 ? totalCostIn / totalQty : 0;
+                totalCost += avgCost * Number(item.quantity);
+            });
+            return totalCost;
+        }
+
+        function getStockExpensesTotal() {
+            return allExpenses
+                .filter(e => e.category === "Stock / Produits")
+                .reduce((sum, e) => sum + Number(e.amount || 0), 0);
+        }
+
+        function getGrossProfit() { return getTotalRevenue() - getCostOfGoodsSold(); }
+
+        function getGrossMargin() {
+            const rev = getTotalRevenue();
+            if (rev === 0) return 0;
+            return (getGrossProfit() / rev) * 100;
+        }
+
+        function getTopClient() {
+            const clientRevenue = {};
+            allSales.forEach(s => {
+                const biz = getBusiness(s.business_id);
+                if (biz) {
+                    clientRevenue[biz.id] = (clientRevenue[biz.id] || 0) + Number(s.total_amount || 0);
+                }
+            });
+            let top = null;
+            let max = 0;
+            Object.keys(clientRevenue).forEach(id => {
+                if (clientRevenue[id] > max) {
+                    max = clientRevenue[id];
+                    top = getBusiness(id);
+                    top.revenue = max;
+                }
+            });
+            return top;
+        }
+
+        function getTopProduct() {
+            const productQty = {};
+            allSaleItems.forEach(item => {
+                const prod = getProduct(item.product_id);
+                if (prod) {
+                    productQty[prod.id] = (productQty[prod.id] || 0) + Number(item.quantity || 0);
+                }
+            });
+            let top = null;
+            let max = 0;
+            Object.keys(productQty).forEach(id => {
+                if (productQty[id] > max) {
+                    max = productQty[id];
+                    top = getProduct(id);
+                    top.qty = max;
+                }
+            });
+            return top;
+        }
+
+        // =========================================================
+        // MODAL
+        // =========================================================
+        function openModal(title, body) { modalTitle.textContent = title;
+            modalBody.innerHTML = body;
+            modal.classList.add("show");
+            document.body.style.overflow = "hidden"; }
+
+        function closeModal() { modal.classList.remove("show");
+            document.body.style.overflow = ""; }
+        document.getElementById("modalClose").addEventListener("click", closeModal);
+        modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+
+        // =========================================================
+        // LOAD DATA
+        // =========================================================
+        async function loadEverything() {
+            if (loadingData) return;
+            loadingData = true;
+            try {
+                const { data: businesses, error: bErr } = await supabaseClient.from("businesses").select("*");
+                if (bErr) throw new Error("Erreur chargement établissements: " + bErr.message);
+                allBusinesses = businesses || [];
+
+                const { data: products, error: pErr } = await supabaseClient.from("products").select("*");
+                if (pErr) throw new Error("Erreur chargement produits: " + pErr.message);
+                allProducts = products || [];
+
+                const { data: sales, error: sErr } = await supabaseClient.from("sales").select("*").order("sale_date",
+                    { ascending: false });
+                if (sErr) throw new Error("Erreur chargement ventes: " + sErr.message);
+                allSales = sales || [];
+
+                const { data: saleItems, error: siErr } = await supabaseClient.from("sale_items").select("*");
+                if (siErr) throw new Error("Erreur chargement détails ventes: " + siErr.message);
+                allSaleItems = saleItems || [];
+
+                const { data: stockMov, error: stErr } = await supabaseClient.from("stock_movements").select("*")
+                    .order("created_at", { ascending: false });
+                if (stErr) throw new Error("Erreur chargement stock: " + stErr.message);
+                allStockMovements = stockMov || [];
+
+                const { data: subs, error: subErr } = await supabaseClient.from("subscriptions").select("*")
+                    .order("expiry_date", { ascending: true });
+                if (subErr) throw new Error("Erreur chargement abonnements: " + subErr.message);
+                allSubscriptions = subs || [];
+
+                const { data: expenses, error: eErr } = await supabaseClient.from("expenses").select("*")
+                    .order("expense_date", { ascending: false });
+                if (eErr) throw new Error("Erreur chargement dépenses: " + eErr.message);
+                allExpenses = expenses || [];
+
+                renderAll();
+            } catch (error) {
+                console.error("LOAD ERROR:", error);
+                showStatus(error.message || "Impossible de charger les données.", "error");
+            } finally { loadingData = false; }
+        }
+
+        document.getElementById("refreshButton").addEventListener("click", async () => {
+            if (loadingData) return;
+            const btn = document.getElementById("refreshButton");
+            btn.disabled = true;
+            btn.textContent = "⏳";
+            await loadEverything();
+            btn.disabled = false;
+            btn.textContent = "🔄";
+        });
+
+        // =========================================================
+        // RENDER DASHBOARD
+        // =========================================================
+        function renderDashboard() {
+            const revenue = getTotalRevenue();
+            const expenses = getTotalExpenses();
+            const profit = getNetProfitWithStock();
+            const roi = getROIWithStock();
+            const cogs = getCostOfGoodsSold();
+
+            document.getElementById("kpiRevenue").textContent = formatCurrency(revenue);
+            document.getElementById("kpiExpenses").textContent = formatCurrency(expenses);
+            document.getElementById("kpiProfit").textContent = formatCurrency(profit);
+            document.getElementById("kpiRoi").textContent = roi.toFixed(1) + "%";
+            document.getElementById("kpiCogs").textContent = formatCurrency(cogs);
+            document.getElementById("kpiClients").textContent = getTotalClients();
+            document.getElementById("kpiCardsSold").textContent = getCardsSold();
+            document.getElementById("kpiStock").textContent = getTotalStock();
+            document.getElementById("kpiSubsActive").textContent = getSubscriptionsActive();
+            document.getElementById("kpiSubsExpiring").textContent = getSubscriptionsExpiring();
+
+            const jarvis = document.getElementById("jarvisQuickInsights");
+            const topClient = getTopClient();
+            const topProduct = getTopProduct();
+            const avgMargin = revenue > 0 ? ((profit / revenue) * 100).toFixed(1) : 0;
+            const grossMargin = getGrossMargin().toFixed(1);
+            const expiring = getSubscriptionsExpiring();
+            const lowStock = allProducts.filter(p => getStockForProduct(p.id) < 5);
+            const stockExpenses = getStockExpensesTotal();
+
+            let html = `<div class="flex flex-wrap gap-8">`;
+            if (topClient) html +=
+                `<span class="badge active">🏆 Meilleur client : ${escapeHtml(topClient.name)} (${formatCurrency(topClient.revenue)})</span>`;
+            if (topProduct) html +=
+                `<span class="badge active">📦 Top produit : ${escapeHtml(topProduct.name)} (${topProduct.qty} vendus)</span>`;
+            html += `<span class="badge ${avgMargin > 30 ? 'active' : 'expiring'}">📈 Marge nette : ${avgMargin}%</span>`;
+            html += `<span class="badge active">📊 Marge brute : ${grossMargin}%</span>`;
+            html += `<span class="badge" style="background:#fff3e0;color:#e65100;">📦 Coût produits : ${formatCurrency(stockExpenses)}</span>`;
+            if (expiring > 0) html +=
+                `<span class="badge expired">⚠️ ${expiring} abonnements expirent bientôt</span>`;
+            if (lowStock.length > 0) html +=
+                `<span class="badge expired">📦 ${lowStock.length} produit(s) en stock bas</span>`;
+            html += `</div>`;
+            jarvis.innerHTML = html;
+
+            const expiringSubs = allSubscriptions.filter(s => {
+                const now = new Date();
+                const expiry = new Date(s.expiry_date);
+                return s.active && expiry >= now && expiry <= new Date(now.getTime() + 7 * 86400000);
+            });
+            const container = document.getElementById("expiringSubsList");
+            if (expiringSubs.length === 0) {
+                container.innerHTML = '<p class="panel-desc">Aucun abonnement expirant dans les 7 jours.</p>';
+            } else {
+                container.innerHTML = expiringSubs.map(s => {
+                    const biz = getBusiness(s.business_id);
+                    return `<div class="fs-11" style="padding:6px 0;border-bottom:1px solid var(--line);">
+                                🏢 ${escapeHtml(biz?.name || "Inconnu")} — ${s.plan} — expire le ${formatDate(s.expiry_date)}
+                                <span class="badge expiring">Expirant</span>
+                            </div>`;
+                }).join("");
+            }
+        }
+
+        // =========================================================
+        // RENDER CLIENTS
+        // =========================================================
+        function renderClients() {
+            const container = document.getElementById("clientList");
+            const q = document.getElementById("clientSearch").value.toLowerCase().trim();
+            let list = allBusinesses;
+            if (q) list = list.filter(b => (b.name || "").toLowerCase().includes(q));
+
+            if (!list.length) {
+                container.innerHTML =
+                    `<div class="panel"><div class="empty"><div class="empty-icon">👥</div><h3>Aucun client</h3><p>Ajoutez des établissements depuis admin.html.</p></div></div>`;
+                return;
+            }
+
+            container.innerHTML = list.map(b => {
+                const cards = allSaleItems.filter(item => {
+                    const sale = allSales.find(s => s.id === item.sale_id);
+                    return sale && sale.business_id === b.id;
+                });
+                const totalSpent = allSales.filter(s => s.business_id === b.id).reduce((sum, s) => sum + Number(s
+                    .total_amount || 0), 0);
+                const subs = allSubscriptions.filter(s => s.business_id === b.id);
+                const activeSub = subs.find(s => s.active && new Date(s.expiry_date) >= new Date());
+                return `
+                            <div class="client-card" onclick="toggleClient(this)">
+                                <div class="client-head">
+                                    <div class="client-icon">🏢</div>
+                                    <div class="client-main">
+                                        <div class="client-name">${escapeHtml(b.name)}</div>
+                                        <div class="client-meta">${cards.reduce((sum,item)=>sum+Number(item.quantity||0),0)} cartes · ${formatCurrency(totalSpent)} dépensé</div>
+                                    </div>
+                                    <span class="client-expand">▼</span>
+                                </div>
+                                <div class="client-body">
+                                    <div class="client-detail-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;">
+                                        <div class="client-detail-item" style="background:var(--soft);border-radius:12px;padding:10px;"><label>Contact</label><div class="value">${escapeHtml(b.whatsapp_number || "—")}</div></div>
+                                        <div class="client-detail-item" style="background:var(--soft);border-radius:12px;padding:10px;"><label>Site</label><div class="value">${b.website_url ? `<a href="${escapeHtml(b.website_url)}" target="_blank">🔗</a>` : "—"}</div></div>
+                                        <div class="client-detail-item" style="background:var(--soft);border-radius:12px;padding:10px;"><label>Abonnement</label><div class="value">${activeSub ? `<span class="badge active">${activeSub.plan}</span>` : "<span class=\"badge expired\">Aucun actif</span>"}</div></div>
+                                        <div class="client-detail-item" style="background:var(--soft);border-radius:12px;padding:10px;"><label>Fin abo.</label><div class="value">${activeSub ? formatDate(activeSub.expiry_date) : "—"} ${activeSub && new Date(activeSub.expiry_date) < new Date() ? '⚠️' : ''}</div></div>
+                                    </div>
+                                    <div><strong>Historique des achats</strong></div>
+                                    ${renderPurchaseHistory(b.id)}
+                                    <div class="mt-8"><strong>Total généré :</strong> <span class="text-gold fw-900">${formatCurrency(totalSpent)}</span></div>
+                                </div>
+                            </div>
+                        `;
+            }).join("");
+        }
+
+        function renderPurchaseHistory(businessId) {
+            const sales = allSales.filter(s => s.business_id === businessId).sort((a, b) => new Date(b.sale_date) -
+                new Date(a.sale_date));
+            if (!sales.length) return '<p class="panel-desc">Aucun achat enregistré.</p>';
+            let html =
+                `<table class="mini-table"><thead><tr><th>Date</th><th>Total</th><th>Remise</th></tr></thead><tbody>`;
+            sales.forEach(s => {
+                html +=
+                    `<tr><td>${formatDate(s.sale_date)}</td><td>${formatCurrency(s.total_amount)}</td><td>${formatCurrency(s.discount)}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            return html;
+        }
+
+        function toggleClient(el) { el.classList.toggle("open"); }
+        document.getElementById("clientSearch").addEventListener("input", renderClients);
+
+        // =========================================================
+        // RENDER SALES
+        // =========================================================
+        function renderSales() {
+            const container = document.getElementById("salesList");
+            const q = document.getElementById("salesSearch").value.toLowerCase().trim();
+
+            let filtered = allSales;
+            if (q) {
+                filtered = allSales.filter(s => {
+                    const biz = getBusiness(s.business_id);
+                    const bizName = (biz?.name || "").toLowerCase();
+                    const items = allSaleItems.filter(item => item.sale_id === s.id);
+                    const productNames = items.map(item => {
+                        const prod = getProduct(item.product_id);
+                        return (prod?.name || "").toLowerCase();
+                    }).join(" ");
+                    return bizName.includes(q) || productNames.includes(q);
+                });
+            }
+
+            if (!filtered.length) {
+                container.innerHTML =
+                    `<div class="panel"><div class="empty"><div class="empty-icon">💰</div><h3>Aucune vente</h3><p>Enregistrez votre première vente.</p></div></div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.slice(0, 50).map(s => {
+                const biz = getBusiness(s.business_id);
+                const items = allSaleItems.filter(item => item.sale_id === s.id);
+                const details = items.map(item => {
+                    const prod = getProduct(item.product_id);
+                    return `${prod ? prod.name : "?"} ×${item.quantity} (${formatCurrency(item.unit_price)}/u)`;
+                }).join("; ");
+                return `
+                            <div class="panel" style="padding:12px;position:relative;">
+                                <div class="flex flex-wrap" style="justify-content:space-between;">
+                                    <div><strong>${escapeHtml(biz?.name || "Inconnu")}</strong> <span class="text-muted fs-10">${formatDate(s.sale_date)}</span></div>
+                                    <div><span class="fw-900 text-gold">${formatCurrency(s.total_amount)}</span> <span class="text-muted fs-10">remise ${formatCurrency(s.discount)}</span></div>
+                                </div>
+                                <div class="fs-11 text-muted">${details}</div>
+                                <div class="flex gap-8 mt-8">
+                                    <button class="btn btn-blue btn-sm" onclick="editSale('${s.id}')">✏️ Modifier</button>
+                                    <button class="btn btn-red btn-sm" onclick="deleteSale('${s.id}')">🗑️ Supprimer</button>
+                                </div>
+                            </div>
+                        `;
+            }).join("");
+        }
+
+        document.getElementById("salesSearch").addEventListener("input", renderSales);
+
+        // =========================================================
+        // RENDER STOCK
+        // =========================================================
+        function renderStock() {
+            const container = document.getElementById("stockList");
+            if (!allProducts.length) {
+                container.innerHTML =
+                    `<div class="panel"><div class="empty"><div class="empty-icon">📦</div><h3>Aucun produit</h3><p>Veuillez insérer les produits de base via SQL.</p></div></div>`;
+                return;
+            }
+            let html = `<div class="panel"><table class="mini-table"><thead><tr><th>Produit</th><th>Prix par défaut</th><th>Stock</th><th>Coût unitaire moyen</th><th>Revenu</th><th>Coût des ventes</th><th>Bénéfice</th><th>Actions</th></tr></thead><tbody>`;
+            allProducts.forEach(p => {
+                const stock = getStockForProduct(p.id);
+                const entries = allStockMovements.filter(m => m.product_id === p.id && Number(m.quantity) >
+                    0 && m.cost_per_unit !== null && m.cost_per_unit !== undefined);
+                let totalQty = 0;
+                let totalCost = 0;
+                entries.forEach(e => {
+                    totalQty += Number(e.quantity);
+                    totalCost += Number(e.cost_per_unit) * Number(e.quantity);
+                });
+                const avgCost = totalQty > 0 ? totalCost / totalQty : 0;
+
+                const soldItems = allSaleItems.filter(item => item.product_id === p.id);
+                const revenue = soldItems.reduce((sum, item) => sum + Number(item.unit_price) * Number(item
+                    .quantity), 0);
+                const cogs = soldItems.reduce((sum, item) => sum + avgCost * Number(item.quantity), 0);
+                const profit = revenue - cogs;
+
+                const stockStatus = stock <= 0 ? 'stock-low' : stock < 10 ? 'stock-warn' : 'stock-ok';
+                html += `<tr>
+                                <td><strong>${escapeHtml(p.name)}</strong></td>
+                                <td>${formatCurrency(p.default_price)}</td>
+                                <td class="${stockStatus}">${stock}</td>
+                                <td>${avgCost ? formatCurrency(avgCost) : "—"}</td>
+                                <td>${formatCurrency(revenue)}</td>
+                                <td>${formatCurrency(cogs)}</td>
+                                <td class="${profit >= 0 ? 'text-green' : 'text-red'}">${formatCurrency(profit)}</td>
+                                <td>
+                                    <button class="btn btn-blue btn-sm" onclick="openStockEntryModal('${p.id}')">➕</button>
+                                </td>
+                            </tr>`;
+            });
+            html += `</tbody></table></div>`;
+            container.innerHTML = html;
+
+            // Stock movements history with edit/delete
+            const movContainer = document.getElementById("stockMovementsList");
+            if (!allStockMovements.length) {
+                movContainer.innerHTML = '<p class="panel-desc">Aucun mouvement de stock.</p>';
+                return;
+            }
+            let movHtml =
+                `<div class="panel"><table class="mini-table"><thead><tr><th>Produit</th><th>Quantité</th><th>Coût unit.</th><th>Type</th><th>Date</th><th>Actions</th></tr></thead><tbody>`;
+            allStockMovements.slice(0, 50).forEach(m => {
+                const prod = getProduct(m.product_id);
+                const isIn = Number(m.quantity) > 0;
+                movHtml += `<tr>
+                                <td>${escapeHtml(prod?.name || "?")}</td>
+                                <td class="${isIn ? 'text-green' : 'text-red'}">${isIn ? '+' : ''}${m.quantity}</td>
+                                <td>${m.cost_per_unit ? formatCurrency(m.cost_per_unit) : "—"}</td>
+                                <td>${isIn ? '📦 Entrée' : '💳 Vente'}</td>
+                                <td>${formatDate(m.created_at)}</td>
+                                <td>
+                                    <button class="btn btn-blue btn-sm" onclick="editStockMovement('${m.id}')">✏️</button>
+                                    <button class="btn btn-red btn-sm" onclick="deleteStockMovement('${m.id}')">🗑️</button>
+                                </td>
+                            </tr>`;
+            });
+            movHtml += `</tbody></table></div>`;
+            movContainer.innerHTML = movHtml;
+        }
+
+        // =========================================================
+        // STOCK MOVEMENT CRUD
+        // =========================================================
+        function editStockMovement(movementId) {
+            const movement = allStockMovements.find(m => m.id === movementId);
+            if (!movement) { showStatus("Mouvement introuvable.", "error"); return; }
+            const isIn = Number(movement.quantity) > 0;
+
+            // Only allow editing stock entries (positive quantities)
+            if (!isIn) {
+                showStatus("Les sorties de stock (ventes) ne peuvent pas être modifiées directement. Modifiez la vente associée.", "info");
+                return;
+            }
+
+            const prod = getProduct(movement.product_id);
+            let productOptions = allProducts.map(p =>
+                `<option value="${p.id}" ${p.id === movement.product_id ? 'selected' : ''}>${escapeHtml(p.name)}</option>`
+                ).join("");
+
+            openModal("✏️ Modifier l'entrée de stock", `
+                        <form id="editStockForm">
+                            <div class="field"><label>Produit</label><select id="editStockProduct">${productOptions}</select></div>
+                            <div class="field"><label>Quantité</label><input id="editStockQty" type="number" value="${Math.abs(movement.quantity)}" min="1" required></div>
+                            <div class="field"><label>Coût unitaire (DA)</label><input id="editStockCost" type="number" value="${movement.cost_per_unit || ''}" placeholder="ex: 2000" required></div>
+                            <div class="field"><label>Note</label><input id="editStockNote" value="${escapeHtml(movement.note || '')}" placeholder="Optionnel"></div>
+                            <div class="field" style="background:var(--soft);padding:12px;border-radius:12px;">
+                                <p class="fs-11" style="color:var(--muted);">
+                                    💡 <strong>Impact :</strong><br>
+                                    La dépense associée sera mise à jour automatiquement.
+                                </p>
+                            </div>
+                            <button class="btn btn-primary btn-block" type="submit">Mettre à jour</button>
+                            <button type="button" class="btn btn-red btn-block mt-8" onclick="deleteStockMovement('${movement.id}')">🗑️ Supprimer</button>
+                        </form>
+                    `);
+
+            document.getElementById("editStockForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const productId = document.getElementById("editStockProduct").value;
+                const qty = Number(document.getElementById("editStockQty").value);
+                const cost = Number(document.getElementById("editStockCost").value);
+                const note = document.getElementById("editStockNote").value.trim() || "Entrée stock";
+                if (!productId || qty <= 0 || cost < 0) {
+                    showStatus("Veuillez remplir correctement.", "error");
+                    return;
+                }
+                try {
+                    // Update stock movement
+                    const { error: stockErr } = await supabaseClient.from("stock_movements").update({
+                        product_id: productId,
+                        quantity: qty,
+                        cost_per_unit: cost,
+                        note: note
+                    }).eq("id", movementId);
+                    if (stockErr) throw stockErr;
+
+                    // Update associated expense
+                    const prod = getProduct(productId);
+                    const totalCost = qty * cost;
+                    // Find expense linked to this stock entry (by note containing the product name)
+                    const expenseName = `📦 Stock: ${prod?.name || "Produit"}`;
+                    const { data: expenses, error: findErr } = await supabaseClient.from("expenses")
+                        .select("*")
+                        .eq("category", "Stock / Produits")
+                        .like("name", `%${prod?.name || "Produit"}%`)
+                        .order("created_at", { ascending: false })
+                        .limit(1);
+                    if (findErr) throw findErr;
+
+                    if (expenses && expenses.length > 0) {
+                        // Update the most recent matching expense
+                        const { error: expErr } = await supabaseClient.from("expenses").update({
+                            amount: totalCost,
+                            notes: `${qty} × ${formatCurrency(cost)} — ${note}`
+                        }).eq("id", expenses[0].id);
+                        if (expErr) throw expErr;
+                    } else {
+                        // Create new expense if not found
+                        const { error: expErr } = await supabaseClient.from("expenses").insert({
+                            name: expenseName,
+                            category: "Stock / Produits",
+                            amount: totalCost,
+                            expense_date: new Date().toISOString().slice(0, 10),
+                            notes: `${qty} × ${formatCurrency(cost)} — ${note}`
+                        });
+                        if (expErr) throw expErr;
+                    }
+
+                    closeModal();
+                    await loadEverything();
+                    showStatus("Mouvement de stock mis à jour.", "success");
+                } catch (err) {
+                    showStatus("Erreur: " + err.message, "error");
+                }
+            });
+        }
+
+        async function deleteStockMovement(movementId) {
+            const movement = allStockMovements.find(m => m.id === movementId);
+            if (!movement) { showStatus("Mouvement introuvable.", "error"); return; }
+            const isIn = Number(movement.quantity) > 0;
+
+            if (!isIn) {
+                showStatus("Les sorties de stock ne peuvent pas être supprimées directement. Supprimez la vente associée.", "info");
+                return;
+            }
+
+            if (!confirm("Supprimer cette entrée de stock et la dépense associée ? Cette action est irréversible.")) return;
+
+            try {
+                // Delete stock movement
+                const { error: stockErr } = await supabaseClient.from("stock_movements").delete().eq("id", movementId);
+                if (stockErr) throw stockErr;
+
+                // Delete associated expense
+                const prod = getProduct(movement.product_id);
+                const expenseName = `📦 Stock: ${prod?.name || "Produit"}`;
+                const { data: expenses, error: findErr } = await supabaseClient.from("expenses")
+                    .select("*")
+                    .eq("category", "Stock / Produits")
+                    .like("name", `%${prod?.name || "Produit"}%`)
+                    .order("created_at", { ascending: false })
+                    .limit(1);
+                if (findErr) throw findErr;
+
+                if (expenses && expenses.length > 0) {
+                    const { error: expErr } = await supabaseClient.from("expenses").delete().eq("id", expenses[0].id);
+                    if (expErr) throw expErr;
+                }
+
+                closeModal();
+                await loadEverything();
+                showStatus("Entrée de stock et dépense associée supprimées.", "success");
+            } catch (err) {
+                showStatus("Erreur: " + err.message, "error");
+            }
+        }
+
+        // =========================================================
+        // RENDER EXPENSES
+        // =========================================================
+        function renderExpenses() {
+            const container = document.getElementById("expensesList");
+            const filter = document.getElementById("expenseFilter")?.value || "all";
+
+            let filtered = allExpenses;
+            if (filter !== "all") {
+                filtered = allExpenses.filter(e => e.category === filter);
+            }
+
+            if (!filtered.length) {
+                container.innerHTML =
+                    `<div class="panel"><div class="empty"><div class="empty-icon">💸</div><h3>Aucune dépense</h3><p>Ajoutez vos dépenses pour suivre vos charges.</p></div></div>`;
+                return;
+            }
+
+            const totalByCategory = {};
+            filtered.forEach(e => {
+                totalByCategory[e.category] = (totalByCategory[e.category] || 0) + Number(e.amount);
+            });
+
+            let summaryHtml = `<div class="flex flex-wrap gap-8 mb-8">`;
+            Object.keys(totalByCategory).forEach(cat => {
+                const isStock = cat === "Stock / Produits";
+                summaryHtml += `<span class="badge ${isStock ? 'active' : 'paused'}">
+                                ${isStock ? '📦' : '💸'} ${escapeHtml(cat)} : ${formatCurrency(totalByCategory[cat])}
+                            </span>`;
+            });
+            summaryHtml += `</div>`;
+
+            const listHtml = filtered.slice(0, 50).map(e => {
+                const biz = getBusiness(e.business_id);
+                const isStock = e.category === "Stock / Produits";
+                return `
+                            <div class="panel" style="padding:12px;${isStock ? 'border-left:4px solid #e65100;' : ''}">
+                                <div class="flex flex-wrap" style="justify-content:space-between;">
+                                    <div>
+                                        <strong>${escapeHtml(e.name)}</strong>
+                                        <span class="badge ${isStock ? 'active' : 'paused'}">${escapeHtml(e.category)}</span>
+                                        ${isStock ? '<span class="stock-expense-badge">📦 Coût produit</span>' : ''}
+                                    </div>
+                                    <div><span class="fw-900 text-red">${formatCurrency(e.amount)}</span> <span class="text-muted fs-10">${formatDate(e.expense_date)}</span></div>
+                                </div>
+                                ${biz ? `<div class="fs-10 text-muted">🏢 ${escapeHtml(biz.name)}</div>` : ''}
+                                ${e.notes ? `<div class="fs-10 text-muted">📝 ${escapeHtml(e.notes)}</div>` : ''}
+                                <div class="flex gap-8 mt-8">
+                                    <button class="btn btn-blue btn-sm" onclick="editExpense('${e.id}')">✏️ Modifier</button>
+                                    <button class="btn btn-red btn-sm" onclick="deleteExpense('${e.id}')">🗑️ Supprimer</button>
+                                </div>
+                            </div>
+                        `;
+            }).join("");
+
+            container.innerHTML = summaryHtml + listHtml;
+        }
+
+        // =========================================================
+        // RENDER INSIGHTS
+        // =========================================================
+        function renderInsights() {
+            const container = document.getElementById("insightsContent");
+
+            const revenue = getTotalRevenue();
+            const expenses = getTotalExpenses();
+            const profit = getNetProfitWithStock();
+            const roi = getROIWithStock();
+            const cogs = getCostOfGoodsSold();
+            const grossProfit = getGrossProfit();
+            const grossMargin = getGrossMargin();
+            const cardsSold = getCardsSold();
+            const topClient = getTopClient();
+            const topProduct = getTopProduct();
+            const activeSubs = getSubscriptionsActive();
+            const expiredSubs = getExpiredSubscriptions();
+            const expiringSubs = getSubscriptionsExpiring();
+            const totalClients = getTotalClients();
+            const conversionRate = totalClients > 0 ? ((activeSubs / totalClients) * 100).toFixed(1) : 0;
+            const netMargin = revenue > 0 ? ((profit / revenue) * 100).toFixed(1) : 0;
+            const stockExpenses = getStockExpensesTotal();
+
+            const last30Days = allSales.filter(s => {
+                const d = new Date(s.sale_date);
+                const now = new Date();
+                const diff = (now - d) / (1000 * 60 * 60 * 24);
+                return diff <= 30;
+            });
+            const avgDailyRevenue = last30Days.length > 0 ? last30Days.reduce((sum, s) => sum + Number(s.total_amount || 0),
+                0) / 30 : 0;
+            const projection30 = avgDailyRevenue * 30;
+
+            const lowStock = allProducts.filter(p => getStockForProduct(p.id) < 5);
+
+            let html = `
+                        <div class="kpis">
+                            <div class="kpi"><div class="kpi-label">📈 Marge brute</div><div class="kpi-value gold">${grossMargin.toFixed(1)}%</div><div class="kpi-note">${formatCurrency(grossProfit)} de marge</div></div>
+                            <div class="kpi"><div class="kpi-label">📊 Marge nette</div><div class="kpi-value ${netMargin > 20 ? 'green' : 'red'}">${netMargin}%</div><div class="kpi-note">${formatCurrency(profit)} bénéfice</div></div>
+                            <div class="kpi"><div class="kpi-label">🔄 Taux conversion abo.</div><div class="kpi-value">${conversionRate}%</div><div class="kpi-note">${activeSubs} actifs / ${totalClients} clients</div></div>
+                            <div class="kpi"><div class="kpi-label">📊 Proj. 30 jours</div><div class="kpi-value gold">${formatCurrency(projection30)}</div><div class="kpi-note">basé sur la moyenne des 30 derniers jours</div></div>
+                            <div class="kpi"><div class="kpi-label">📦 Coût des ventes (COGS)</div><div class="kpi-value">${formatCurrency(cogs)}</div><div class="kpi-note">coût d'achat des cartes vendues</div></div>
+                            <div class="kpi"><div class="kpi-label">📦 Dépenses stock total</div><div class="kpi-value red">${formatCurrency(stockExpenses)}</div><div class="kpi-note">tous les achats de produits</div></div>
+                        </div>
+
+                        <div class="panel">
+                            <h3>🏆 Top performances</h3>
+                            <div class="flex flex-wrap gap-8 mt-8">
+                                ${topClient ? `<div class="panel" style="flex:1;min-width:200px;padding:12px;border-left:4px solid var(--gold);"><strong>Meilleur client</strong><br>${escapeHtml(topClient.name)}<br><span class="text-gold">${formatCurrency(topClient.revenue)}</span></div>` : ''}
+                                ${topProduct ? `<div class="panel" style="flex:1;min-width:200px;padding:12px;border-left:4px solid var(--blue);"><strong>Produit le plus vendu</strong><br>${escapeHtml(topProduct.name)}<br><span class="text-gold">${topProduct.qty} unités</span></div>` : ''}
+                                <div class="panel" style="flex:1;min-width:200px;padding:12px;border-left:4px solid var(--green);"><strong>Marge nette moyenne</strong><br>${netMargin}%<br><span class="text-muted fs-10">bénéfice net / revenu</span></div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <h3>⚠️ Alertes</h3>
+                            <div class="flex flex-wrap gap-8 mt-8">
+                                ${lowStock.length > 0 ? `<div class="panel" style="padding:12px;background:var(--red-bg);border:1px solid var(--red);"><strong>📦 Stock bas :</strong> ${lowStock.map(p => `${p.name} (${getStockForProduct(p.id)})`).join(', ')}</div>` : '<div class="text-green">✅ Tous les produits ont un stock suffisant.</div>'}
+                                ${expiredSubs.length > 0 ? `<div class="panel" style="padding:12px;background:var(--red-bg);border:1px solid var(--red);"><strong>⏰ Abonnements expirés :</strong> ${expiredSubs.length} client(s) sans abonnement actif.</div>` : ''}
+                                ${expiringSubs > 0 ? `<div class="panel" style="padding:12px;background:var(--orange-bg);border:1px solid var(--orange);"><strong>⏳ ${expiringSubs} abonnement(s) expirent dans &lt;7 jours.</strong></div>` : ''}
+                                ${cogs > revenue * 0.5 ? `<div class="panel" style="padding:12px;background:var(--orange-bg);border:1px solid var(--orange);"><strong>⚠️ COGS élevé :</strong> ${(cogs/revenue*100).toFixed(1)}% du revenu part dans le coût des produits.</div>` : ''}
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <h3>📋 Résumé exécutif</h3>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+                                <div><strong>Revenus totaux :</strong> ${formatCurrency(revenue)}</div>
+                                <div><strong>Dépenses totales :</strong> ${formatCurrency(expenses)}</div>
+                                <div><strong>Bénéfice net :</strong> ${formatCurrency(profit)}</div>
+                                <div><strong>ROI :</strong> ${roi.toFixed(1)}%</div>
+                                <div><strong>COGS :</strong> ${formatCurrency(cogs)}</div>
+                                <div><strong>Marge brute :</strong> ${grossMargin.toFixed(1)}%</div>
+                                <div><strong>Cartes vendues :</strong> ${cardsSold}</div>
+                                <div><strong>Stock total :</strong> ${getTotalStock()}</div>
+                            </div>
+                        </div>
+                    `;
+
+            container.innerHTML = html;
+        }
+
+        // =========================================================
+        // RENDER ALL
+        // =========================================================
+        function renderAll() {
+            renderDashboard();
+            renderClients();
+            renderSales();
+            renderStock();
+            renderExpenses();
+        }
+
+        // =========================================================
+        // MODALS - SALE
+        // =========================================================
+        function openSaleModal(editSaleId = null) {
+            editingSaleId = editSaleId;
+            if (!allBusinesses.length) {
+                showStatus("Aucun établissement. Créez-en un d'abord.", "info");
+                return;
+            }
+            if (!allProducts.length) {
+                showStatus("Aucun produit. Veuillez insérer les produits de base.", "error");
+                return;
+            }
+
+            let businessOptions = allBusinesses.map(b =>
+                `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join("");
+            let productOptions = allProducts.map(p =>
+                `<option value="${p.id}" data-price="${p.default_price}">${escapeHtml(p.name)} (${formatCurrency(p.default_price)})</option>`
+                ).join("");
+
+            let saleData = null;
+            let saleItems = [];
+            if (editSaleId) {
+                saleData = allSales.find(s => s.id === editSaleId);
+                if (saleData) {
+                    saleItems = allSaleItems.filter(item => item.sale_id === editSaleId);
+                }
+            }
+
+            const title = editSaleId ? "✏️ Modifier la vente" : "💰 Nouvelle vente";
+            const submitText = editSaleId ? "Mettre à jour" : "Enregistrer la vente";
+
+            let itemsHtml = '';
+            if (editSaleId && saleItems.length) {
+                itemsHtml = saleItems.map((item) => {
+                    return `
+                                <div class="sale-item-row flex flex-wrap gap-8" style="margin-bottom:8px;">
+                                    <select class="saleProduct" style="flex:2;min-height:40px;">
+                                        ${allProducts.map(p => `<option value="${p.id}" ${p.id === item.product_id ? 'selected' : ''} data-price="${p.default_price}">${escapeHtml(p.name)} (${formatCurrency(p.default_price)})</option>`).join('')}
+                                    </select>
+                                    <input class="saleQty" type="number" value="${item.quantity}" min="1" style="flex:1;min-height:40px;">
+                                    <input class="salePrice" type="number" value="${item.unit_price}" placeholder="Prix unitaire" style="flex:1;min-height:40px;">
+                                    <button type="button" class="btn btn-red btn-sm" onclick="removeSaleItem(this)">✕</button>
+                                </div>
+                            `;
+                }).join('');
+            } else {
+                itemsHtml = `
+                            <div class="sale-item-row flex flex-wrap gap-8" style="margin-bottom:8px;">
+                                <select class="saleProduct" style="flex:2;min-height:40px;">${productOptions}</select>
+                                <input class="saleQty" type="number" value="1" min="1" style="flex:1;min-height:40px;">
+                                <input class="salePrice" type="number" placeholder="Prix unitaire" style="flex:1;min-height:40px;">
+                                <button type="button" class="btn btn-red btn-sm" onclick="removeSaleItem(this)">✕</button>
+                            </div>
+                        `;
+            }
+
+            openModal(title, `
+                        <form id="saleForm">
+                            <div class="field"><label>Établissement</label><select id="saleBusiness">${businessOptions}</select></div>
+                            <div class="field"><label>Date de vente</label><input id="saleDate" type="date" value="${editSaleId && saleData ? saleData.sale_date : new Date().toISOString().slice(0,10)}"></div>
+                            <div id="saleItemsContainer">
+                                ${itemsHtml}
+                            </div>
+                            <button type="button" class="btn btn-soft btn-sm" onclick="addSaleItem()">➕ Ajouter un produit</button>
+                            <div class="field mt-8"><label>Remise totale (DA)</label><input id="saleDiscount" type="number" value="${editSaleId && saleData ? saleData.discount : 0}" min="0"></div>
+                            <div class="field"><label>Abonnement (optionnel)</label>
+                                <select id="saleSubscription">
+                                    <option value="">Aucun</option>
+                                    <option value="1mois">1 mois (3500 DA)</option>
+                                    <option value="6mois">6 mois (prix personnalisé)</option>
+                                </select>
+                            </div>
+                            <div class="field"><label>Prix de l'abonnement (DA)</label><input id="saleSubPrice" type="number" placeholder="ex: 18000"></div>
+                            <button class="btn btn-primary btn-block" type="submit">${submitText}</button>
+                            ${editSaleId ? `<button type="button" class="btn btn-red btn-block mt-8" onclick="deleteSale('${editSaleId}')">🗑️ Supprimer cette vente</button>` : ''}
+                        </form>
+                    `);
+
+            document.querySelectorAll(".saleProduct").forEach(sel => {
+                sel.addEventListener("change", function() {
+                    const price = this.options[this.selectedIndex].dataset.price;
+                    const row = this.closest(".sale-item-row");
+                    if (row) {
+                        const priceInput = row.querySelector(".salePrice");
+                        if (priceInput && !priceInput.value) priceInput.value = price;
+                    }
+                });
+                const price = sel.options[sel.selectedIndex].dataset.price;
+                const row = sel.closest(".sale-item-row");
+                if (row) {
+                    const priceInput = row.querySelector(".salePrice");
+                    if (priceInput && !priceInput.value) priceInput.value = price;
+                }
+            });
+
+            document.getElementById("saleForm").addEventListener("submit", (e) => {
+                e.preventDefault();
+                if (editingSaleId) {
+                    updateSale(editingSaleId);
+                } else {
+                    submitSale();
+                }
+            });
+        }
+
+        function addSaleItem() {
+            const container = document.getElementById("saleItemsContainer");
+            const first = container.querySelector(".sale-item-row");
+            if (!first) return;
+            const clone = first.cloneNode(true);
+            clone.querySelector(".saleQty").value = 1;
+            clone.querySelector(".salePrice").value = "";
+            const sel = clone.querySelector(".saleProduct");
+            sel.addEventListener("change", function() {
+                const price = this.options[this.selectedIndex].dataset.price;
+                const row = this.closest(".sale-item-row");
+                if (row) {
+                    const priceInput = row.querySelector(".salePrice");
+                    if (priceInput && !priceInput.value) priceInput.value = price;
+                }
+            });
+            container.appendChild(clone);
+        }
+
+        function removeSaleItem(btn) {
+            const container = document.getElementById("saleItemsContainer");
+            if (container.querySelectorAll(".sale-item-row").length <= 1) {
+                showStatus("Gardez au moins un produit.", "info");
+                return;
+            }
+            btn.closest(".sale-item-row").remove();
+        }
+
+        async function submitSale() {
+            const businessId = document.getElementById("saleBusiness").value;
+            const saleDate = document.getElementById("saleDate").value;
+            const discount = Number(document.getElementById("saleDiscount").value) || 0;
+            const subscriptionPlan = document.getElementById("saleSubscription").value;
+            const subPrice = Number(document.getElementById("saleSubPrice").value) || 0;
+
+            const rows = document.querySelectorAll(".sale-item-row");
+            let items = [];
+            let totalAmount = 0;
+            let valid = true;
+            rows.forEach(row => {
+                const productId = row.querySelector(".saleProduct").value;
+                const qty = Number(row.querySelector(".saleQty").value) || 0;
+                const unitPrice = Number(row.querySelector(".salePrice").value) || 0;
+                if (!productId || qty <= 0 || unitPrice <= 0) { valid = false; return; }
+                items.push({ productId, qty, unitPrice });
+                totalAmount += qty * unitPrice;
+            });
+            if (!valid || items.length === 0) {
+                showStatus("Remplissez correctement tous les produits.", "error");
+                return;
+            }
+            totalAmount -= discount;
+            if (totalAmount < 0) totalAmount = 0;
+
+            if (subscriptionPlan && subPrice > 0) {
+                totalAmount += subPrice;
+            }
+
+            try {
+                const { data: saleData, error: saleErr } = await supabaseClient.from("sales").insert({
+                    business_id: businessId,
+                    sale_date: saleDate,
+                    total_amount: totalAmount,
+                    discount: discount
+                }).select().single();
+                if (saleErr) throw saleErr;
+                const saleId = saleData.id;
+
+                for (let item of items) {
+                    const { error: itemErr } = await supabaseClient.from("sale_items").insert({
+                        sale_id: saleId,
+                        product_id: item.productId,
+                        quantity: item.qty,
+                        unit_price: item.unitPrice
+                    });
+                    if (itemErr) throw itemErr;
+                    const { error: stockErr } = await supabaseClient.from("stock_movements").insert({
+                        product_id: item.productId,
+                        quantity: -item.qty,
+                        cost_per_unit: null,
+                        note: `Vente #${saleId}`
+                    });
+                    if (stockErr) throw stockErr;
+                }
+
+                if (subscriptionPlan && subPrice > 0) {
+                    const startDate = new Date();
+                    let expiryDate = new Date(startDate);
+                    if (subscriptionPlan === "1mois") expiryDate.setMonth(expiryDate.getMonth() + 1);
+                    else if (subscriptionPlan === "6mois") expiryDate.setMonth(expiryDate.getMonth() + 6);
+                    const { error: subErr } = await supabaseClient.from("subscriptions").insert({
+                        business_id: businessId,
+                        plan: subscriptionPlan,
+                        price_paid: subPrice,
+                        start_date: startDate.toISOString().slice(0, 10),
+                        expiry_date: expiryDate.toISOString().slice(0, 10),
+                        active: true
+                    });
+                    if (subErr) throw subErr;
+                }
+
+                closeModal();
+                await loadEverything();
+                showStatus("Vente enregistrée avec succès.", "success");
+            } catch (error) {
+                console.error(error);
+                showStatus("Erreur: " + error.message, "error");
+            }
+        }
+
+        async function updateSale(saleId) {
+            const businessId = document.getElementById("saleBusiness").value;
+            const saleDate = document.getElementById("saleDate").value;
+            const discount = Number(document.getElementById("saleDiscount").value) || 0;
+            const subscriptionPlan = document.getElementById("saleSubscription").value;
+            const subPrice = Number(document.getElementById("saleSubPrice").value) || 0;
+
+            const rows = document.querySelectorAll(".sale-item-row");
+            let items = [];
+            let totalAmount = 0;
+            let valid = true;
+            rows.forEach(row => {
+                const productId = row.querySelector(".saleProduct").value;
+                const qty = Number(row.querySelector(".saleQty").value) || 0;
+                const unitPrice = Number(row.querySelector(".salePrice").value) || 0;
+                if (!productId || qty <= 0 || unitPrice <= 0) { valid = false; return; }
+                items.push({ productId, qty, unitPrice });
+                totalAmount += qty * unitPrice;
+            });
+            if (!valid || items.length === 0) {
+                showStatus("Remplissez correctement tous les produits.", "error");
+                return;
+            }
+            totalAmount -= discount;
+            if (totalAmount < 0) totalAmount = 0;
+
+            if (subscriptionPlan && subPrice > 0) {
+                totalAmount += subPrice;
+            }
+
+            try {
+                const { error: saleErr } = await supabaseClient.from("sales").update({
+                    business_id: businessId,
+                    sale_date: saleDate,
+                    total_amount: totalAmount,
+                    discount: discount
+                }).eq("id", saleId);
+                if (saleErr) throw saleErr;
+
+                await supabaseClient.from("sale_items").delete().eq("sale_id", saleId);
+                await supabaseClient.from("stock_movements").delete().eq("note", `Vente #${saleId}`);
+
+                for (let item of items) {
+                    const { error: itemErr } = await supabaseClient.from("sale_items").insert({
+                        sale_id: saleId,
+                        product_id: item.productId,
+                        quantity: item.qty,
+                        unit_price: item.unitPrice
+                    });
+                    if (itemErr) throw itemErr;
+                    const { error: stockErr } = await supabaseClient.from("stock_movements").insert({
+                        product_id: item.productId,
+                        quantity: -item.qty,
+                        cost_per_unit: null,
+                        note: `Vente #${saleId}`
+                    });
+                    if (stockErr) throw stockErr;
+                }
+
+                closeModal();
+                await loadEverything();
+                showStatus("Vente mise à jour.", "success");
+            } catch (error) {
+                console.error(error);
+                showStatus("Erreur: " + error.message, "error");
+            }
+        }
+
+        async function deleteSale(saleId) {
+            if (!confirm("Supprimer cette vente ? Cette action est irréversible.")) return;
+            try {
+                await supabaseClient.from("sale_items").delete().eq("sale_id", saleId);
+                await supabaseClient.from("stock_movements").delete().eq("note", `Vente #${saleId}`);
+                const { error } = await supabaseClient.from("sales").delete().eq("id", saleId);
+                if (error) throw error;
+                closeModal();
+                await loadEverything();
+                showStatus("Vente supprimée.", "success");
+            } catch (error) {
+                showStatus("Erreur: " + error.message, "error");
+            }
+        }
+
+        function editSale(saleId) {
+            openSaleModal(saleId);
+        }
+
+        // =========================================================
+        // MODAL - STOCK ENTRY
+        // =========================================================
+        function openStockEntryModal(productId = null) {
+            if (!allProducts.length) {
+                showStatus("Aucun produit trouvé.", "error");
+                return;
+            }
+            let productOptions = allProducts.map(p =>
+                `<option value="${p.id}" ${p.id === productId ? 'selected' : ''}>${escapeHtml(p.name)}</option>`
+                ).join("");
+            openModal("📦 Entrée de stock", `
+                        <form id="stockEntryForm">
+                            <div class="field"><label>Produit</label><select id="stockProduct">${productOptions}</select></div>
+                            <div class="field"><label>Quantité reçue</label><input id="stockQty" type="number" value="1" min="1" required></div>
+                            <div class="field"><label>Coût unitaire (DA) — sera ajouté comme dépense "Stock / Produits"</label><input id="stockCost" type="number" placeholder="ex: 2000" required></div>
+                            <div class="field"><label>Note (optionnel)</label><input id="stockNote" placeholder="Fournisseur, batch..."></div>
+                            <div class="field" style="background:var(--soft);padding:12px;border-radius:12px;">
+                                <p class="fs-11" style="color:var(--muted);">
+                                    💡 <strong>Impact financier :</strong><br>
+                                    Coût total : <strong id="stockTotalCostPreview" class="text-gold">0 DA</strong><br>
+                                    ✅ Sera ajouté automatiquement comme <strong>dépense</strong> pour impacter le ROI et le bénéfice net.
+                                </p>
+                            </div>
+                            <button class="btn btn-primary btn-block" type="submit">Ajouter au stock</button>
+                        </form>
+                    `);
+
+            document.getElementById("stockQty").addEventListener("input", updateStockCostPreview);
+            document.getElementById("stockCost").addEventListener("input", updateStockCostPreview);
+
+            function updateStockCostPreview() {
+                const qty = Number(document.getElementById("stockQty").value) || 0;
+                const cost = Number(document.getElementById("stockCost").value) || 0;
+                document.getElementById("stockTotalCostPreview").textContent = formatCurrency(qty * cost);
+            }
+            updateStockCostPreview();
+
+            document.getElementById("stockEntryForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const productId = document.getElementById("stockProduct").value;
+                const qty = Number(document.getElementById("stockQty").value);
+                const cost = Number(document.getElementById("stockCost").value);
+                const note = document.getElementById("stockNote").value || "Entrée stock";
+                if (!productId || qty <= 0 || cost < 0) {
+                    showStatus("Veuillez remplir correctement.", "error");
+                    return;
+                }
+                try {
+                    const { error: stockErr } = await supabaseClient.from("stock_movements").insert({
+                        product_id: productId,
+                        quantity: qty,
+                        cost_per_unit: cost,
+                        note: note
+                    });
+                    if (stockErr) throw stockErr;
+
+                    const prod = getProduct(productId);
+                    const totalCost = qty * cost;
+                    const { error: expErr } = await supabaseClient.from("expenses").insert({
+                        name: `📦 Stock: ${prod?.name || "Produit"}`,
+                        category: "Stock / Produits",
+                        amount: totalCost,
+                        expense_date: new Date().toISOString().slice(0, 10),
+                        notes: `${qty} × ${formatCurrency(cost)} — ${note}`
+                    });
+                    if (expErr) throw expErr;
+
+                    closeModal();
+                    await loadEverything();
+                    showStatus(`✅ Stock ajouté (${formatCurrency(totalCost)} enregistré comme dépense).`, "success");
+                } catch (err) {
+                    showStatus("Erreur: " + err.message, "error");
+                }
+            });
+        }
+
+        // =========================================================
+        // MODAL - EXPENSE
+        // =========================================================
+        function openExpenseModal(editExpenseId = null) {
+            editingExpenseId = editExpenseId;
+            let expenseData = null;
+            if (editExpenseId) {
+                expenseData = allExpenses.find(e => e.id === editExpenseId);
+            }
+
+            let businessOptions = allBusinesses.map(b =>
+                `<option value="${b.id}" ${expenseData && expenseData.business_id === b.id ? 'selected' : ''}>${escapeHtml(b.name)}</option>`
+                ).join("");
+
+            const title = editExpenseId ? "✏️ Modifier la dépense" : "💸 Ajouter une dépense";
+            const submitText = editExpenseId ? "Mettre à jour" : "Ajouter la dépense";
+
+            openModal(title, `
+                        <form id="expenseForm">
+                            <div class="field"><label>Nom</label><input id="expenseName" value="${editExpenseId && expenseData ? escapeHtml(expenseData.name) : ''}" placeholder="Ex: Loyer" required></div>
+                            <div class="field"><label>Catégorie</label>
+                                <select id="expenseCategory">
+                                    <option value="Loyer" ${editExpenseId && expenseData?.category === 'Loyer' ? 'selected' : ''}>Loyer</option>
+                                    <option value="Salaires" ${editExpenseId && expenseData?.category === 'Salaires' ? 'selected' : ''}>Salaires</option>
+                                    <option value="Marketing" ${editExpenseId && expenseData?.category === 'Marketing' ? 'selected' : ''}>Marketing</option>
+                                    <option value="Fournitures" ${editExpenseId && expenseData?.category === 'Fournitures' ? 'selected' : ''}>Fournitures</option>
+                                    <option value="Impôts" ${editExpenseId && expenseData?.category === 'Impôts' ? 'selected' : ''}>Impôts</option>
+                                    <option value="Stock / Produits" ${editExpenseId && expenseData?.category === 'Stock / Produits' ? 'selected' : ''}>📦 Stock / Produits</option>
+                                    <option value="Divers" ${editExpenseId && expenseData?.category === 'Divers' ? 'selected' : ''}>Divers</option>
+                                </select>
+                            </div>
+                            <div class="field"><label>Montant (DA)</label><input id="expenseAmount" type="number" value="${editExpenseId && expenseData ? expenseData.amount : ''}" placeholder="0" required></div>
+                            <div class="field"><label>Date</label><input id="expenseDate" type="date" value="${editExpenseId && expenseData ? expenseData.expense_date : new Date().toISOString().slice(0,10)}"></div>
+                            <div class="field"><label>Établissement lié (optionnel)</label><select id="expenseBusiness"><option value="">Aucun</option>${businessOptions}</select></div>
+                            <div class="field"><label>Notes</label><input id="expenseNotes" value="${editExpenseId && expenseData ? escapeHtml(expenseData.notes || '') : ''}" placeholder="Optionnel"></div>
+                            <button class="btn btn-primary btn-block" type="submit">${submitText}</button>
+                            ${editExpenseId ? `<button type="button" class="btn btn-red btn-block mt-8" onclick="deleteExpense('${editExpenseId}')">🗑️ Supprimer</button>` : ''}
+                        </form>
+                    `);
+            document.getElementById("expenseForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                if (editingExpenseId) {
+                    updateExpense(editingExpenseId);
+                } else {
+                    submitExpense();
+                }
+            });
+        }
+
+        async function submitExpense() {
+            const name = document.getElementById("expenseName").value.trim();
+            const category = document.getElementById("expenseCategory").value;
+            const amount = Number(document.getElementById("expenseAmount").value);
+            const expenseDate = document.getElementById("expenseDate").value;
+            const businessId = document.getElementById("expenseBusiness").value || null;
+            const notes = document.getElementById("expenseNotes").value.trim() || null;
+            if (!name || amount <= 0) {
+                showStatus("Remplissez les champs obligatoires.", "error");
+                return;
+            }
+            try {
+                const { error } = await supabaseClient.from("expenses").insert({
+                    name,
+                    category,
+                    amount,
+                    expense_date: expenseDate,
+                    business_id: businessId,
+                    notes
+                });
+                if (error) throw error;
+                closeModal();
+                await loadEverything();
+                showStatus("Dépense ajoutée.", "success");
+            } catch (err) {
+                showStatus("Erreur: " + err.message, "error");
+            }
+        }
+
+        async function updateExpense(expenseId) {
+            const name = document.getElementById("expenseName").value.trim();
+            const category = document.getElementById("expenseCategory").value;
+            const amount = Number(document.getElementById("expenseAmount").value);
+            const expenseDate = document.getElementById("expenseDate").value;
+            const businessId = document.getElementById("expenseBusiness").value || null;
+            const notes = document.getElementById("expenseNotes").value.trim() || null;
+            if (!name || amount <= 0) {
+                showStatus("Remplissez les champs obligatoires.", "error");
+                return;
+            }
+            try {
+                const { error } = await supabaseClient.from("expenses").update({
+                    name,
+                    category,
+                    amount,
+                    expense_date: expenseDate,
+                    business_id: businessId,
+                    notes
+                }).eq("id", expenseId);
+                if (error) throw error;
+                closeModal();
+                await loadEverything();
+                showStatus("Dépense mise à jour.", "success");
+            } catch (err) {
+                showStatus("Erreur: " + err.message, "error");
+            }
+        }
+
+        async function deleteExpense(expenseId) {
+            if (!confirm("Supprimer cette dépense ?")) return;
+            try {
+                const { error } = await supabaseClient.from("expenses").delete().eq("id", expenseId);
+                if (error) throw error;
+                closeModal();
+                await loadEverything();
+                showStatus("Dépense supprimée.", "success");
+            } catch (err) {
+                showStatus("Erreur: " + err.message, "error");
+            }
+        }
+
+        function editExpense(expenseId) {
+            openExpenseModal(expenseId);
+        }
+
+        // =========================================================
+        // INIT
+        // =========================================================
+        checkSession();
+    </script>
+</body>
+</html>
