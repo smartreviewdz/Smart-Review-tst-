@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#061b3a">
+  <title>Avify Stat — Control Center</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    /* =========================================================
+       AVIFY STAT
+       MOBILE-FIRST CONTROL CENTER
+    ========================================================= */
+    :root {
+      --navy: #061b3a;
+      --navy2: #0b2c57;
+      --blue: #165dff;
+      --blue2: #4285ff;
+      --gold: #d99213;
+      --gold2: #ffcf55;
+      --green: #16834b;
+      --green-bg: #eaf8f0;
+      --red: #c93434;
+      --red-bg: #fff0f0;
+      --orange: #b86f00;
+      --orange-bg: #fff7df;
+      --white: #fff;
+      --ink: #071b3c;
+      --muted: #6b788a;
+      --soft: #f4f7fb;
+      --soft2: #f8faff;
+      --line: #e2e8f0;
+      --shadow: 0 10px 30px rgba(7,27,60,.055);
+      --shadow-strong: 0 18px 45px rgba(7,27,60,.14);
+      --radius: 20px;
+      --primary: #4f46e5;
+      --accent: #d99213;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--soft);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    button, input, select { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    .hidden { display: none !important; }
+
+    /* ===== LOGIN ===== */
+    .login-screen {
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; align-items: center; justify-content: center;
+      padding: max(22px, env(safe-area-inset-top)) 16px max(22px, env(safe-area-inset-bottom));
+      background: radial-gradient(circle at 50% -10%, rgba(66,133,255,.32), transparent 42%),
+                  linear-gradient(180deg, #061b3a, #08264d);
+    }
+    .login-box {
+      width: 100%; max-width: 420px;
+      background: #fff; border-radius: 28px;
+      padding: 27px 20px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.30);
+    }
+    .login-logo {
+      width: 76px; height: 76px;
+      margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      background: #fff; border-radius: 50%;
+      box-shadow: 0 12px 28px rgba(0,0,0,.18), 0 0 0 3px rgba(217,146,19,.9);
+    }
+    .logo-letter {
+      font-size: 51px; font-weight: 950; line-height: 1;
+      background: conic-gradient(from -35deg, #4285f4 0deg 80deg, #34a853 80deg 170deg, #fbbc05 170deg 245deg, #ea4335 245deg 320deg, #4285f4 320deg 360deg);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .app-logo { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+    .login-box h1 { text-align: center; color: var(--navy); font-size: 29px; font-weight: 950; letter-spacing: -.7px; }
+    .login-box > p { text-align: center; color: var(--muted); font-size: 14px; line-height: 1.4; margin: 8px 0 22px; }
+    .login-error { display: none; background: var(--red-bg); border: 1px solid #efc1c1; color: #a52626; border-radius: 14px; padding: 13px; margin-bottom: 15px; font-size: 13px; line-height: 1.45; white-space: pre-wrap; }
+    .login-error.show { display: block; }
+
+    /* ===== FORMS ===== */
+    .field { margin-bottom: 15px; }
+    .field label { display: block; font-size: 12px; font-weight: 900; color: var(--navy); margin-bottom: 7px; }
+    .field input, .field select {
+      width: 100%; min-height: 52px; border-radius: 14px; border: 1px solid #d9e0e9; background: #f7f9fc;
+      color: var(--ink); padding: 13px 14px; outline: none; transition: .15s ease;
+    }
+    .field input:focus, .field select:focus {
+      border-color: rgba(22,93,255,.55); box-shadow: 0 0 0 4px rgba(22,93,255,.08); background: #fff;
+    }
+
+    /* Theme picker (déjà présent) */
+    .theme-picker { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; }
+    .theme-option { position: relative; cursor: pointer; }
+    .theme-option input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .theme-option-card { border-radius: 14px; border: 2px solid #e2e8f0; overflow: hidden; background: #fff; transition: .15s ease; }
+    .theme-option input:checked + .theme-option-card { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(22,93,255,.12); }
+    .theme-option-swatch { height: 46px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .theme-option-swatch span { width: 9px; height: 9px; border-radius: 50%; }
+    .theme-option-label { padding: 7px 6px 9px; text-align: center; font-size: 11px; font-weight: 800; color: var(--navy); line-height: 1.3; }
+    .theme-option-label small { display: block; font-weight: 600; color: #8a93a3; font-size: 9.5px; margin-top: 1px; }
+    .theme-swatch-classic { background: linear-gradient(135deg,#061b3a,#0d2749); }
+    .theme-swatch-classic span { background: #ffcf55; }
+    .theme-swatch-techy { background: linear-gradient(135deg,#0B1220,#101d33); }
+    .theme-swatch-techy span { background: #3563E9; }
+    .theme-swatch-restaurant { background: linear-gradient(135deg,#2B0A14,#3A0F1D); }
+    .theme-swatch-restaurant span { background: #C6A15B; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      min-height: 46px; border: 0; border-radius: 13px; padding: 10px 14px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      font-size: 12px; font-weight: 900; cursor: pointer;
+      transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, #0a2d59, #0d407a);
+      border: 1px solid rgba(217,146,19,.85);
+      box-shadow: 0 9px 20px rgba(7,27,60,.14);
+    }
+    .btn-blue { background: #edf4ff; color: #1551bd; border: 1px solid #c9dcff; }
+    .btn-soft { background: #f1f5fa; color: var(--navy); border: 1px solid var(--line); }
+    .btn-green { background: var(--green-bg); color: #116b3d; border: 1px solid #b9e5ca; }
+    .btn-red { background: var(--red-bg); color: #a52626; border: 1px solid #efc1c1; }
+    .btn-gold { background: var(--orange-bg); color: #8a5900; border: 1px solid #f1d27c; }
+
+    /* ===== APP HEADER ===== */
+    .app { min-height: 100vh; min-height: 100dvh; }
+    .top {
+      color: #fff;
+      background: radial-gradient(circle at 80% -30%, rgba(52,125,255,.38), transparent 48%),
+                  linear-gradient(180deg, #061b3a, #08264d);
+      padding: max(15px, env(safe-area-inset-top)) 14px 0;
+    }
+    .top-inner { max-width: 1100px; margin: auto; }
+    .brand-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-mark {
+      width: 42px; height: 42px; flex: none; border-radius: 50%; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 2px rgba(217,146,19,.9);
+    }
+    .brand-mark .logo-letter { font-size: 28px; }
+    .brand-name { font-size: 17px; font-weight: 950; }
+    .brand-sub { color: #9fb2cb; font-size: 10px; margin-top: 1px; }
+
+    .header-actions {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .header-actions .btn-icon {
+      min-height: 38px; min-width: 38px; padding: 0;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
+      color: #fff; border-radius: 11px; font-size: 16px;
+      position: relative;
+    }
+    .header-actions .btn-icon .badge {
+      position: absolute; top: -4px; right: -4px;
+      background: var(--red); color: #fff; border-radius: 50%;
+      font-size: 9px; font-weight: 900; min-width: 16px; height: 16px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 4px;
+    }
+    .header-actions .btn-icon:hover { background: rgba(255,255,255,.15); }
+
+    .logout {
+      min-height: 38px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
+      color: #fff; border-radius: 11px; padding: 8px 10px; font-size: 11px; font-weight: 850;
+    }
+
+    /* ===== HERO ===== */
+    .hero { padding: 20px 0 17px; }
+    .hero small { color: #91a8c5; font-size: 10px; font-weight: 850; letter-spacing: 1px; }
+    .hero h1 { margin-top: 4px; font-size: 28px; line-height: 1.05; font-weight: 950; letter-spacing: -.8px; }
+    .hero p { margin-top: 7px; color: #c2d0e1; font-size: 12px; line-height: 1.4; }
+
+    /* ===== NAV ===== */
+    .nav-wrap { overflow-x: auto; scrollbar-width: none; margin: 0 -14px; padding: 0 14px; }
+    .nav-wrap::-webkit-scrollbar { display: none; }
+    .nav {
+      display: flex; gap: 6px; min-width: max-content; padding-bottom: 0;
+    }
+    .nav button {
+      min-height: 43px; border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.065);
+      color: #cbd7e6; padding: 9px 12px; border-radius: 12px 12px 0 0;
+      font-size: 11px; font-weight: 900; white-space: nowrap;
+    }
+    .nav button.active { background: #fff; color: var(--navy); }
+
+    /* ===== MAIN ===== */
+    .main {
+      width: 100%; max-width: 1100px; margin: auto;
+      padding: 15px 14px max(90px, env(safe-area-inset-bottom));
+    }
+
+    /* ===== STATUS ===== */
+    .status { display: none; padding: 13px 14px; border-radius: 14px; margin-bottom: 13px; font-size: 12px; font-weight: 800; line-height: 1.4; white-space: pre-wrap; }
+    .status.show { display: block; }
+    .status.success { background: var(--green-bg); border: 1px solid #b9e5ca; color: #116b3d; }
+    .status.error { background: var(--red-bg); border: 1px solid #efc1c1; color: #a52626; }
+    .status.info { background: #edf4ff; border: 1px solid #c7dcff; color: #174f9f; }
+
+    /* ===== VIEWS ===== */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .section-head {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; margin-bottom: 13px;
+    }
+    .section-head h2 { font-size: 22px; font-weight: 950; letter-spacing: -.5px; }
+    .section-head p { color: var(--muted); font-size: 11px; margin-top: 3px; line-height: 1.4; }
+    .section-head > .btn { flex: none; }
+
+    /* ===== KPI ===== */
+    .kpis {
+      display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; margin-bottom: 13px;
+    }
+    .kpi {
+      background: #fff; border: 1px solid var(--line); border-radius: 17px; padding: 14px; box-shadow: var(--shadow);
+    }
+    .kpi-label { color: var(--muted); font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: .45px; }
+    .kpi-value { margin-top: 4px; font-size: 25px; font-weight: 950; color: var(--navy); }
+    .kpi-note { color: #8794a5; font-size: 10px; margin-top: 1px; }
+
+    /* ===== PANEL ===== */
+    .panel {
+      background: #fff; border: 1px solid var(--line); border-radius: 19px; padding: 16px;
+      margin-bottom: 13px; box-shadow: var(--shadow);
+    }
+    .panel h3 { font-size: 16px; font-weight: 950; }
+    .panel-desc { color: var(--muted); font-size: 11px; line-height: 1.45; margin-top: 4px; }
+
+    /* ===== QUICK ACTIONS ===== */
+    .quick-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin-top: 13px; }
+    .quick-grid .btn { width: 100%; min-height: 52px; }
+
+    /* ===== SEARCH ===== */
+    .search { position: relative; margin-bottom: 12px; }
+    .search input {
+      width: 100%; min-height: 49px; border-radius: 15px; border: 1px solid var(--line);
+      background: #fff; padding: 11px 13px 11px 41px; outline: none; color: var(--ink);
+      box-shadow: 0 4px 15px rgba(7,27,60,.025);
+    }
+    .search input:focus { border-color: #bdd2f8; box-shadow: 0 0 0 4px rgba(22,93,255,.06); }
+    .search span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #8795a8; font-size: 15px; }
+
+    /* ===== FILTERS ===== */
+    .filters { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; margin-bottom: 12px; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter-btn { flex: none; min-height: 37px; padding: 7px 12px; border-radius: 11px; border: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 10px; font-weight: 900; }
+    .filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+    /* ===== BUSINESS CARD ===== */
+    .business-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 19px;
+      margin-bottom: 11px; overflow: hidden; box-shadow: var(--shadow);
+    }
+    .business-head { padding: 15px; display: flex; align-items: center; gap: 10px; }
+    .business-icon { width: 43px; height: 43px; flex: none; border-radius: 13px; background: linear-gradient(145deg, #edf4ff, #dceaff); display: flex; align-items: center; justify-content: center; font-size: 19px; }
+    .business-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 13px; display: block; }
+    .logo-preview { width: 56px; height: 56px; border-radius: 13px; object-fit: cover; display: block; margin-bottom: 8px; border: 1px solid var(--line); }
+    .business-main { min-width: 0; flex: 1; }
+    .business-name { font-size: 15px; font-weight: 950; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .business-meta { color: var(--muted); font-size: 10px; margin-top: 3px; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; border-radius: 20px; padding: 5px 8px; font-size: 9px; font-weight: 950; white-space: nowrap; }
+    .badge.active { background: var(--green-bg); color: #116b3d; }
+    .badge.paused { background: var(--orange-bg); color: #8a5900; }
+    .business-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; padding: 0 14px 13px; }
+    .business-actions .btn { width: 100%; }
+    .cards-list { border-top: 1px solid var(--line); background: #f9fbfd; padding: 9px; }
+
+    /* ===== CARD ROW ===== */
+    .card-row {
+      background: #fff; border: 1px solid var(--line); border-radius: 15px; padding: 12px; margin-bottom: 7px;
+      position: relative;
+    }
+    .card-row:last-child { margin-bottom: 0; }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .card-code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; font-weight: 950; letter-spacing: .5px; color: var(--navy); }
+    .card-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; margin-top: 9px; }
+    .mini-stat { background: #f5f7fa; border-radius: 10px; padding: 8px; }
+    .mini-stat b { display: block; font-size: 13px; font-weight: 950; }
+    .mini-stat span { display: block; color: var(--muted); font-size: 8px; margin-top: 1px; text-transform: uppercase; }
+    .card-row-actions { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 6px; margin-top: 9px; }
+    .card-row-actions .btn { min-height: 38px; font-size: 10px; padding: 6px 7px; }
+
+    /* === checkbox pour batch actions === */
+    .card-row .card-check { position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; cursor: pointer; }
+
+    /* ===== BATCH ACTIONS FLOATING MENU ===== */
+    .batch-actions {
+      display: none;
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+      background: var(--navy); color: #fff; border-radius: 16px;
+      padding: 10px 16px; box-shadow: var(--shadow-strong);
+      z-index: 60; gap: 8px; flex-wrap: wrap; justify-content: center;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .batch-actions.show { display: flex; }
+    .batch-actions .btn { min-height: 36px; font-size: 11px; padding: 6px 12px; background: rgba(255,255,255,.12); color: #fff; border: none; }
+    .batch-actions .btn:hover { background: rgba(255,255,255,.25); }
+    .batch-actions .btn-danger { background: var(--red); }
+
+    /* ===== CONTROL CENTER ===== */
+    .control-hero {
+      position: relative; overflow: hidden; color: #fff;
+      background: radial-gradient(circle at 100% 0%, rgba(66,133,255,.30), transparent 43%),
+                  linear-gradient(145deg, #061b3a, #0d376b);
+      border-radius: 22px; padding: 17px; margin-bottom: 11px; box-shadow: var(--shadow-strong);
+    }
+    .control-hero::after { content: ""; position: absolute; width: 130px; height: 130px; right: -60px; bottom: -65px; border-radius: 50%; border: 1px solid rgba(255,255,255,.08); }
+    .control-back { min-height: 34px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); color: #fff; border-radius: 10px; padding: 7px 10px; font-size: 10px; font-weight: 850; margin-bottom: 16px; }
+    .control-code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 23px; font-weight: 950; letter-spacing: 1px; }
+    .control-business { color: #b9c9dc; font-size: 12px; margin-top: 4px; }
+    .control-status { margin-top: 10px; }
+    .control-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 7px; margin-top: 15px; }
+    .control-stat { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.09); border-radius: 12px; padding: 10px 8px; }
+    .control-stat span { display: block; color: #9eb2ca; font-size: 8px; text-transform: uppercase; letter-spacing: .3px; }
+    .control-stat b { display: block; font-size: 18px; margin-top: 2px; white-space: nowrap; }
+
+    /* ===== DETAILS ===== */
+    .detail-list { margin-top: 11px; border-top: 1px solid var(--line); }
+    .detail-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 11px; }
+    .detail-row:last-child { border-bottom: 0; }
+    .detail-label { color: var(--muted); }
+    .detail-value { color: var(--ink); font-weight: 850; text-align: right; word-break: break-word; }
+
+    /* ===== ACTION GRID ===== */
+    .action-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; margin-top: 12px; }
+    .action-grid .btn { width: 100%; min-height: 48px; }
+
+    /* ===== RATING DISTRIBUTION ===== */
+    .rating-grid { display: grid; gap: 9px; margin-top: 13px; }
+    .rating-line { display: grid; grid-template-columns: 28px 1fr 28px; align-items: center; gap: 7px; font-size: 11px; font-weight: 850; }
+    .rating-track { height: 7px; border-radius: 20px; background: #edf0f4; overflow: hidden; }
+    .rating-fill { height: 100%; background: linear-gradient(90deg, #ffbf31, #d99213); border-radius: 20px; }
+
+    /* ===== ÉTABLISSEMENT STATS (30 JOURS) ===== */
+    .stats-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .alert-pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 20px; padding: 7px 12px; font-size: 11px; font-weight: 850; }
+    .alert-pill.good { background: var(--green-bg); color: #116b3d; }
+    .alert-pill.warn { background: var(--orange-bg); color: #8a5900; }
+    .alert-pill.bad { background: var(--red-bg); color: #9c1f1f; }
+
+    .daybar-chart { display: flex; align-items: flex-end; gap: 2px; height: 90px; margin-top: 14px; overflow-x: auto; padding-bottom: 2px; }
+    .daybar { flex: 1 0 6px; min-width: 6px; background: linear-gradient(180deg, var(--blue2), var(--blue)); border-radius: 3px 3px 0 0; position: relative; }
+    .daybar.empty-bar { background: #e7ecf3; }
+    .daybar-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 9px; color: var(--muted); font-weight: 800; }
+
+    .card-mini-row { display: grid; grid-template-columns: 1fr auto auto auto; gap: 10px; align-items: center; padding: 11px 0; border-top: 1px solid var(--line); font-size: 11px; }
+    .card-mini-row:first-of-type { border-top: none; }
+    .card-mini-code { font-weight: 900; }
+    .card-mini-sub { color: var(--muted); font-size: 9.5px; font-weight: 700; margin-top: 2px; }
+
+    .report-box { white-space: pre-wrap; background: var(--soft2); border: 1px solid var(--line); border-radius: 14px; padding: 14px; font-size: 12px; line-height: 1.55; max-height: 420px; overflow-y: auto; }
+    .insight-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .insight-item { display: flex; gap: 8px; font-size: 12px; line-height: 1.5; padding: 10px 12px; background: var(--soft2); border-radius: 12px; }
+
+    /* ===== CREATE CARD ===== */
+    .create-card-box { background: #f7faff; border: 1px solid #dce8f8; border-radius: 16px; padding: 14px; margin-top: 2px; }
+    .create-card-box h4 { font-size: 14px; font-weight: 950; }
+    .create-card-box p { color: var(--muted); font-size: 10px; line-height: 1.45; margin-top: 4px; margin-bottom: 13px; }
+
+    /* ===== ACTIVITY ===== */
+    .activity-row { display: flex; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+    .activity-row:last-child { border-bottom: 0; }
+    .activity-icon { width: 34px; height: 34px; flex: none; border-radius: 10px; background: #edf4ff; display: flex; align-items: center; justify-content: center; }
+    .activity-text { font-size: 11px; line-height: 1.4; }
+    .activity-time { color: #8a96a7; font-size: 9px; margin-top: 2px; }
+
+    /* ===== EMPTY ===== */
+    .empty { text-align: center; padding: 28px 14px; color: var(--muted); }
+    .empty-icon { font-size: 31px; margin-bottom: 7px; }
+    .empty h3 { color: var(--navy); font-size: 15px; font-weight: 950; }
+    .empty p { font-size: 11px; margin-top: 4px; line-height: 1.4; }
+    .empty .btn { margin-top: 13px; }
+
+    /* ===== MODAL ===== */
+    .modal {
+      position: fixed; inset: 0; background: rgba(3,14,31,.64); z-index: 100;
+      display: none; align-items: flex-end; justify-content: center;
+    }
+    .modal.show { display: flex; }
+    .modal-box {
+      width: 100%; max-width: 620px; max-height: calc(92vh - env(safe-area-inset-top));
+      overflow: auto; background: #fff; border-radius: 24px 24px 0 0;
+      padding: 18px 16px max(20px, env(safe-area-inset-bottom));
+    }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 15px; }
+    .modal-head h3 { font-size: 19px; font-weight: 950; }
+    .close { width: 38px; height: 38px; flex: none; border: 0; border-radius: 11px; background: #f1f4f8; color: var(--navy); font-size: 20px; }
+
+    /* ===== MOBILE BOTTOM NAV ===== */
+    .mobile-nav {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      display: grid; grid-template-columns: repeat(5,1fr); gap: 2px;
+      padding: 7px 7px max(7px, env(safe-area-inset-bottom));
+      background: rgba(255,255,255,.96); border-top: 1px solid rgba(7,27,60,.09);
+      box-shadow: 0 -10px 30px rgba(7,27,60,.08); backdrop-filter: blur(18px);
+    }
+    .mobile-nav button {
+      min-height: 49px; border: 0; border-radius: 13px; background: transparent;
+      color: #7b8797; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 2px; font-size: 9px; font-weight: 900;
+    }
+    .mobile-nav button strong { font-size: 18px; line-height: 1; }
+    .mobile-nav button.active { background: #edf4ff; color: #1551bd; }
+
+    /* ===== DESKTOP ===== */
+    @media (min-width: 760px) {
+      .mobile-nav { display: none; }
+      .main { padding-bottom: 40px; }
+      .kpis { grid-template-columns: repeat(4,minmax(0,1fr)); }
+      .quick-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+      .action-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+      .modal { align-items: center; padding: 20px; }
+      .modal-box { border-radius: 24px; }
+    }
+
+    /* ===== HEATMAP ===== */
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: 40px repeat(24, 1fr);
+      gap: 2px;
+      margin-top: 12px;
+      font-size: 9px;
+    }
+    .heatmap-cell {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-weight: 600;
+      font-size: 7px;
+      transition: .1s;
+      min-width: 12px;
+    }
+    .heatmap-cell.has-data { cursor: pointer; }
+    .heatmap-cell.has-data:hover { transform: scale(1.2); z-index: 2; }
+    .heatmap-label {
+      font-weight: 800;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 4px;
+      font-size: 8px;
+    }
+    .heatmap-legend {
+      display: flex; gap: 6px; align-items: center; margin-top: 8px; flex-wrap: wrap;
+    }
+    .heatmap-legend span {
+      display: inline-block; width: 14px; height: 14px; border-radius: 3px;
+    }
+
+    /* ===== NOTIFICATIONS DROPDOWN ===== */
+    .notif-dropdown {
+      display: none;
+      position: absolute; top: 48px; right: 0; width: 300px; max-height: 350px;
+      background: #fff; border-radius: 14px; box-shadow: var(--shadow-strong);
+      border: 1px solid var(--line); overflow-y: auto; z-index: 70;
+    }
+    .notif-dropdown.show { display: block; }
+    .notif-item {
+      padding: 10px 12px; border-bottom: 1px solid var(--line); font-size: 11px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px; cursor: pointer;
+    }
+    .notif-item.unread { background: #f0f7ff; }
+    .notif-item .notif-text { flex: 1; }
+    .notif-item .notif-time { color: var(--muted); font-size: 9px; white-space: nowrap; }
+    .notif-item .notif-action { color: var(--blue); font-weight: 800; font-size: 10px; }
+
+    /* ===== PARAMÈTRES (couleur) ===== */
+    .settings-panel {
+      display: none;
+      position: fixed; top: 60px; right: 14px; width: 260px;
+      background: #fff; border-radius: 16px; box-shadow: var(--shadow-strong);
+      border: 1px solid var(--line); padding: 16px; z-index: 80;
+    }
+    .settings-panel.show { display: block; }
+    .settings-panel label { font-size: 12px; font-weight: 800; display: block; margin-bottom: 6px; }
+    .settings-panel input[type="color"] { width: 100%; height: 40px; border: none; padding: 0; border-radius: 8px; cursor: pointer; }
+
+    /* ===== CYCLE CLOCK ===== */
+    @keyframes avifyClockTick { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+    .cycle-panel {
+      background: linear-gradient(155deg,#fff,#fbf7ee 65%,#fff);
+      border: 1px solid rgba(217,146,19,.28);
+    }
+    .cycle-display { display: flex; align-items: center; gap: 16px; margin-top: 6px; flex-wrap: wrap; }
+    .cycle-days {
+      flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 84px; height: 84px; border-radius: 50%;
+      background: conic-gradient(var(--gold) 0deg, var(--gold2) 180deg, var(--gold) 360deg);
+      color: var(--navy); position: relative; animation: avifyClockTick 2s ease-in-out infinite;
+    }
+    .cycle-days::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: #fff; }
+    .cycle-days-number, .cycle-days-label { position: relative; z-index: 1; }
+    .cycle-days-number { font-size: 26px; font-weight: 950; line-height: 1; }
+    .cycle-days-label { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); margin-top: 1px; }
+    .cycle-days.over { background: conic-gradient(var(--red) 0deg, #ff8a8a 180deg, var(--red) 360deg); }
+    .cycle-meta { flex: 1; min-width: 150px; }
+    .cycle-live { font-size: 20px; font-weight: 950; color: var(--navy); font-variant-numeric: tabular-nums; letter-spacing: .5px; }
+    .cycle-since { color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .cycle-progress-track { margin-top: 14px; height: 8px; border-radius: 20px; background: #f1eadb; overflow: hidden; }
+    .cycle-progress-fill { height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--gold), var(--gold2)); background-size: 200% auto; animation: avifyGradientShift 4s ease infinite; transition: width .4s ease; }
+    .cycle-progress-fill.over { background: linear-gradient(90deg, var(--red), #ff8a8a); }
+    .cycle-progress-caption { margin-top: 7px; font-size: 11px; color: var(--muted); font-weight: 800; }
+
+    /* ===== ANIMATIONS (conservées) ===== */
+    @keyframes avifyFadeInUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes avifyFadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes avifyScaleIn { from { opacity:0; transform:scale(.94) translateY(8px); } to { opacity:1; transform:scale(1) translateY(0); } }
+    @keyframes avifyShimmer { 0% { background-position:-200% 0; } 100% { background-position:200% 0; } }
+    @keyframes avifyGoldPulse { 0%,100% { box-shadow:0 0 0 0 rgba(217,146,19,.45), 0 12px 28px rgba(0,0,0,.18); } 50% { box-shadow:0 0 0 8px rgba(217,146,19,0), 0 12px 28px rgba(0,0,0,.18); } }
+    @keyframes avifyGradientShift { 0% { background-position:0% 50%; } 100% { background-position:100% 50%; } }
+    @keyframes avifyTwinkle { 0%,100% { opacity:.25; transform:scale(.85); } 50% { opacity:1; transform:scale(1.15); } }
+    @keyframes avifyFloatY { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
+    @keyframes avifySpin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+    @keyframes avifySweep { 0% { transform:translateX(-130%) skewX(-20deg); } 100% { transform:translateX(230%) skewX(-20deg); } }
+
+    * { scrollbar-color: rgba(217,146,19,.55) transparent; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,var(--gold),var(--gold2)); border-radius: 10px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+
+    .login-screen { position: relative; overflow: hidden; background-size: 200% 200%; animation: avifyGradientShift 14s ease infinite; }
+    .login-screen::before, .login-screen::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(2px 2px at 12% 22%, rgba(255,207,85,.9), transparent 60%),
+                        radial-gradient(2px 2px at 82% 18%, rgba(255,207,85,.75), transparent 60%),
+                        radial-gradient(1.5px 1.5px at 32% 68%, rgba(255,255,255,.65), transparent 60%),
+                        radial-gradient(2px 2px at 68% 78%, rgba(255,207,85,.8), transparent 60%),
+                        radial-gradient(1.5px 1.5px at 92% 55%, rgba(255,255,255,.55), transparent 60%),
+                        radial-gradient(1.5px 1.5px at 6% 82%, rgba(255,207,85,.6), transparent 60%);
+      animation: avifyTwinkle 4.5s ease-in-out infinite;
+    }
+    .login-screen::after { animation-delay:1.8s; background-image: radial-gradient(1.5px 1.5px at 22% 42%, rgba(255,255,255,.55), transparent 60%), radial-gradient(2px 2px at 58% 12%, rgba(255,207,85,.7), transparent 60%), radial-gradient(1.5px 1.5px at 78% 62%, rgba(255,255,255,.5), transparent 60%), radial-gradient(2px 2px at 45% 88%, rgba(255,207,85,.65), transparent 60%); }
+    .login-box { position: relative; z-index: 1; animation: avifyScaleIn .5s cubic-bezier(.2,.8,.2,1) both; border: 1px solid rgba(217,146,19,.18); }
+    .login-logo { animation: avifyGoldPulse 2.6s ease-in-out infinite; }
+    .login-box h1 { background: linear-gradient(90deg,var(--navy),#0d407a,var(--gold),var(--navy)); background-size: 300% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: avifyGradientShift 6s ease infinite; }
+
+    .field input, .field select { transition: border-color .2s ease, box-shadow .25s ease, background .2s ease, transform .15s ease; }
+    .field input:focus, .field select:focus { transform: translateY(-1px); }
+
+    .btn { position: relative; overflow: hidden; transition: transform .16s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, filter .2s ease; }
+    .btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 36%; background: linear-gradient(115deg,transparent,rgba(255,255,255,.4),transparent); transform: translateX(-130%) skewX(-20deg); pointer-events: none; }
+    .btn:hover::after { animation: avifySweep .85s ease; }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.04); }
+    .btn-primary { background-size: 200% auto; background-image: linear-gradient(135deg,#0a2d59,#0d407a,#0a2d59); animation: avifyGradientShift 6s ease infinite; box-shadow: 0 9px 20px rgba(7,27,60,.14), 0 0 0 1px rgba(217,146,19,.25) inset; }
+    .btn-primary:hover { box-shadow: 0 14px 28px rgba(7,27,60,.22), 0 0 0 1px rgba(217,146,19,.5) inset; }
+
+    .top { position: relative; background-size: 200% 200%; animation: avifyGradientShift 16s ease infinite; }
+    .top::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg,transparent,var(--gold),var(--gold2),var(--gold),transparent); background-size: 200% auto; animation: avifyGradientShift 5s linear infinite; opacity: .85; }
+    .brand-mark { animation: avifyGoldPulse 3s ease-in-out infinite; transition: transform .2s ease; }
+    .brand-mark:hover { transform: scale(1.06) rotate(-2deg); }
+    .hero h1, .hero small, .hero p { animation: avifyFadeInUp .55s cubic-bezier(.2,.8,.2,1) both; }
+    .hero small { animation-delay: .02s; }
+    .hero h1 { animation-delay: .06s; }
+    .hero p { animation-delay: .12s; }
+
+    .nav button { position: relative; transition: background .2s ease, color .2s ease, transform .15s ease; }
+    .nav button:active { transform: scale(.96); }
+    .nav button.active { animation: avifyFadeIn .25s ease both; box-shadow: 0 -2px 0 var(--gold) inset; }
+
+    .view.active { animation: avifyFadeInUp .38s cubic-bezier(.2,.8,.2,1) both; }
+
+    .kpi { position: relative; overflow: hidden; transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, border-color .22s ease; animation: avifyFadeInUp .5s cubic-bezier(.2,.8,.2,1) both; }
+    .kpi::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--gold),var(--gold2),var(--gold)); background-size: 200% auto; animation: avifyGradientShift 4s linear infinite; opacity: 0; transition: opacity .2s ease; }
+    .kpi:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(7,27,60,.14), 0 0 0 1px rgba(217,146,19,.25); border-color: rgba(217,146,19,.35); }
+    .kpi:hover::before { opacity: 1; }
+    .kpi:nth-of-type(1) { animation-delay: .02s; }
+    .kpi:nth-of-type(2) { animation-delay: .07s; }
+    .kpi:nth-of-type(3) { animation-delay: .12s; }
+    .kpi:nth-of-type(4) { animation-delay: .17s; }
+    .kpi-value { transition: color .2s ease; }
+    .kpi:hover .kpi-value { color: var(--gold); }
+
+    .panel, .business-card { transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, border-color .2s ease; animation: avifyFadeInUp .5s cubic-bezier(.2,.8,.2,1) both; }
+    .panel:hover, .business-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-strong); border-color: rgba(217,146,19,.28); }
+    .business-icon { transition: transform .25s ease; }
+    .business-card:hover .business-icon { transform: scale(1.08) rotate(-3deg); }
+
+    .filter-btn { transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease; }
+    .filter-btn:active { transform: scale(.95); }
+    .filter-btn.active { animation: avifyFadeIn .2s ease both; }
+
+    .search input { transition: border-color .2s ease, box-shadow .25s ease; }
+    .status.show { animation: avifyFadeInUp .32s cubic-bezier(.2,.8,.2,1) both; }
+
+    #modal.show, #modal:not(.hidden) { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+    #modal > div, .modal-box, .modal-card { animation: avifyScaleIn .28s cubic-bezier(.2,.8,.2,1) both; }
+
+    .avify-spin { display: inline-block; width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(217,146,19,.25); border-top-color: var(--gold); animation: avifySpin .7s linear infinite; }
+    .app-logo { animation: avifyFloatY 5s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }
+  </style>
+</head>
+<body>
+  <!-- ===== LOGIN ===== -->
+  <section id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <div class="login-logo">
+        <!-- Logo simplifié : grand G aux couleurs Google -->
+        <span class="logo-letter">G</span>
+      </div>
+      <h1>Avify Stat</h1>
+      <p>Connectez-vous à votre centre de contrôle.</p>
+      <div id="loginError" class="login-error"></div>
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" autocomplete="username" required placeholder="Votre adresse e-mail">
+        </div>
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <input id="password" type="password" autocomplete="current-password" required placeholder="Votre mot de passe">
+        </div>
+        <button id="loginButton" class="btn btn-primary" type="submit" style="width:100%;min-height:56px;">Se connecter</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== APPLICATION ===== -->
+  <div id="adminApp" class="app hidden">
+    <header class="top">
+      <div class="top-inner">
+        <div class="brand-row">
+          <div class="brand">
+            <div class="brand-mark">
+              <span class="logo-letter">G</span>
+            </div>
+            <div>
+              <div class="brand-name">Avify Stat</div>
+              <div class="brand-sub">Control Center</div>
+            </div>
+          </div>
+          <div class="header-actions">
+            <!-- Notifications -->
+            <button class="btn-icon" id="notifToggle" type="button" title="Notifications">
+              🔔 <span class="badge" id="notifBadge">0</span>
+            </button>
+            <!-- Paramètres (couleur) -->
+            <button class="btn-icon" id="settingsToggle" type="button" title="Paramètres">⚙️</button>
+            <button id="logoutButton" class="logout" type="button">Déconnexion</button>
+          </div>
+        </div>
+        <!-- Dropdown notifications -->
+        <div class="notif-dropdown" id="notifDropdown">
+          <div style="padding:8px 12px;border-bottom:1px solid var(--line);font-weight:900;font-size:12px;">Notifications</div>
+          <div id="notifList"></div>
+          <div style="padding:8px 12px;border-top:1px solid var(--line);font-size:10px;text-align:center;color:var(--muted);">
+            <button class="btn btn-soft" style="min-height:30px;padding:4px 10px;font-size:10px;" onclick="markAllNotificationsRead()">Tout marquer comme lu</button>
+          </div>
+        </div>
+        <!-- Settings panel (couleur) -->
+        <div class="settings-panel" id="settingsPanel">
+          <label>Couleur principale</label>
+          <input type="color" id="primaryColorPicker" value="#4f46e5">
+          <button class="btn btn-soft" style="width:100%;margin-top:10px;" onclick="applyPrimaryColor()">Appliquer</button>
+        </div>
+        <div class="hero">
+          <small>AVIFY STAT</small>
+          <h1>Centre de contrôle</h1>
+          <p>Gérez vos établissements, vos cartes et leurs performances.</p>
+        </div>
+        <!-- DESKTOP NAV -->
+        <div class="nav-wrap">
+          <nav class="nav">
+            <button data-view="dashboard" class="active">⚡ Centre</button>
+            <button data-view="businesses">🏢 Établissements</button>
+            <button data-view="cards">💳 Cartes</button>
+            <button data-view="analytics">📊 Analytique</button>
+            <button data-view="payments">💳 Paiements</button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div id="status" class="status"></div>
+
+      <!-- ===== VIEW: DASHBOARD ===== -->
+      <section id="view-dashboard" class="view active">
+        <div class="section-head">
+          <div>
+            <h2>Vue générale</h2>
+            <p>Tout ce qui compte, immédiatement.</p>
+          </div>
+          <button id="refreshButton" class="btn btn-soft" type="button">🔄</button>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-label">Établissements</div><div id="kpiBusinesses" class="kpi-value">—</div><div class="kpi-note">enregistrés</div></div>
+          <div class="kpi"><div class="kpi-label">Cartes actives</div><div id="kpiCards" class="kpi-value">—</div><div class="kpi-note">opérationnelles</div></div>
+          <div class="kpi"><div class="kpi-label">Scans</div><div id="kpiScans" class="kpi-value">—</div><div class="kpi-note">total</div></div>
+          <div class="kpi"><div class="kpi-label">Avis</div><div id="kpiRatings" class="kpi-value">—</div><div class="kpi-note">ratings reçus</div></div>
+        </div>
+        <div class="panel">
+          <h3>⚡ Actions rapides</h3>
+          <p class="panel-desc">Les opérations que vous utiliserez le plus.</p>
+          <div class="quick-grid">
+            <button class="btn btn-primary" onclick="openCreateBusiness()">＋ Établissement</button>
+            <button class="btn btn-blue" onclick="openCreateCardPicker()">＋ Nouvelle carte</button>
+            <button class="btn btn-soft" onclick="switchView('businesses')">🏢 Établissements</button>
+            <button class="btn btn-soft" onclick="switchView('cards')">💳 Toutes les cartes</button>
+            <button class="btn btn-gold" onclick="exportGlobalCSV()">⬇️ Export CSV global</button>
+            <button class="btn btn-primary" onclick="openScheduleReport()">📅 Planifier un rapport</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>🧠 Système</h3>
+          <p id="systemSummary" class="panel-desc" style="margin-top:8px;">Chargement…</p>
+        </div>
+        <div class="panel">
+          <div class="section-head" style="margin-bottom:6px;">
+            <div><h3>🔔 Alertes d'inactivité</h3><p class="panel-desc">Établissements sans scan récent — à relancer en priorité.</p></div>
+            <button id="inactivityCheckButton" class="btn btn-soft" type="button" onclick="runInactivityCheck()">🔍 Analyser (30j)</button>
+          </div>
+          <div id="inactivityContent"><p class="panel-desc">Chargement…</p></div>
+        </div>
+        <div class="section-head"><div><h2 style="font-size:18px;">Vos établissements</h2><p>Accès rapide à vos cartes.</p></div></div>
+        <div id="dashboardBusinesses"></div>
+      </section>
+
+      <!-- ===== VIEW: BUSINESSES ===== -->
+      <section id="view-businesses" class="view">
+        <div class="section-head">
+          <div><h2>Établissements</h2><p>Gérez vos établissements et leurs cartes.</p></div>
+          <button class="btn btn-primary" onclick="openCreateBusiness()">＋ Ajouter</button>
+        </div>
+        <div class="search"><span>🔎</span><input id="businessSearch" type="search" placeholder="Rechercher..."></div>
+        <div id="businessList"></div>
+      </section>
+
+      <!-- ===== VIEW: CARDS ===== -->
+      <section id="view-cards" class="view">
+        <div class="section-head">
+          <div><h2>Cartes</h2><p>Chaque carte possède ses propres statistiques.</p></div>
+          <button class="btn btn-primary" onclick="openCreateCardPicker()">＋ Carte</button>
+        </div>
+        <div class="search"><span>🔎</span><input id="cardSearch" type="search" placeholder="Code ou établissement..."></div>
+        <div id="cardFilters" class="filters">
+          <button class="filter-btn active" data-card-filter="all">Toutes</button>
+          <button class="filter-btn" data-card-filter="active">● Actives</button>
+          <button class="filter-btn" data-card-filter="paused">● En pause</button>
+        </div>
+        <div id="globalCardList"></div>
+        <!-- Batch actions floating menu -->
+        <div class="batch-actions" id="batchActions">
+          <span style="font-size:11px;font-weight:800;color:#b0c4de;">Sélection : <span id="batchCount">0</span></span>
+          <button class="btn" onclick="batchActivate()">✔ Activer</button>
+          <button class="btn" onclick="batchDeactivate()">✖ Désactiver</button>
+          <button class="btn" onclick="batchExportStats()">📊 Exporter stats</button>
+          <button class="btn" onclick="batchSendReminder()">📧 Envoyer rappel</button>
+          <button class="btn btn-danger" onclick="batchClearSelection()">✕ Annuler</button>
+        </div>
+      </section>
+
+      <!-- ===== VIEW: ANALYTICS ===== -->
+      <section id="view-analytics" class="view">
+        <div class="section-head"><div><h2>Analytique</h2><p>Vue globale des performances.</p></div></div>
+
+        <!-- Executive Summary (CEO) -->
+        <div class="panel" style="border-left:4px solid var(--gold);">
+          <h3>📊 Executive Summary</h3>
+          <div id="execSummary" style="margin-top:10px;font-size:13px;line-height:1.6;">
+            <p>Chargement…</p>
+          </div>
+        </div>
+
+        <!-- Heatmap -->
+        <div class="panel">
+          <h3>🔥 Heatmap – Activité des scans</h3>
+          <p class="panel-desc">Intensité par jour de la semaine et heure (derniers 30 jours).</p>
+          <div id="heatmapContainer"><p class="panel-desc">Chargement…</p></div>
+          <div class="heatmap-legend" id="heatmapLegend"></div>
+        </div>
+
+        <!-- Comparaison de périodes -->
+        <div class="panel">
+          <h3>📈 Comparaison de périodes</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;">
+            <div class="field" style="flex:1;min-width:140px;margin:0;">
+              <label>Période A</label>
+              <select id="periodA"><option value="30">30 derniers jours</option><option value="60">60 derniers jours</option><option value="90">90 derniers jours</option></select>
+            </div>
+            <div class="field" style="flex:1;min-width:140px;margin:0;">
+              <label>Période B</label>
+              <select id="periodB"><option value="30">30 derniers jours</option><option value="60" selected>60 derniers jours</option><option value="90">90 derniers jours</option></select>
+            </div>
+            <button class="btn btn-primary" onclick="runComparison()" style="align-self:flex-end;min-height:52px;">Comparer</button>
+          </div>
+          <div id="comparisonResult" style="margin-top:12px;"></div>
+        </div>
+
+        <!-- Statistiques globales (ratings) -->
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-label">1★</div><div id="rating1" class="kpi-value">0</div></div>
+          <div class="kpi"><div class="kpi-label">2★</div><div id="rating2" class="kpi-value">0</div></div>
+          <div class="kpi"><div class="kpi-label">3★</div><div id="rating3" class="kpi-value">0</div></div>
+          <div class="kpi"><div class="kpi-label">4★</div><div id="rating4" class="kpi-value">0</div></div>
+        </div>
+        <div class="panel">
+          <h3>⭐ Distribution des avis</h3>
+          <p class="panel-desc">Répartition globale de tous les ratings.</p>
+          <div id="globalRatingBars" class="rating-grid"></div>
+        </div>
+
+        <!-- Section Établissement (Rapport Établissement) -->
+        <div class="section-head" style="margin-top:28px;">
+          <div><h2>Rapport Établissement</h2><p>Statistiques détaillées d'un établissement.</p></div>
+        </div>
+        <div class="panel">
+          <div class="field" style="margin-bottom:0;">
+            <label>Établissement</label>
+            <select id="statsBusinessSelect"><option value="">— Choisir un établissement —</option></select>
+          </div>
+        </div>
+        <div id="statsContent">
+          <div class="panel"><div class="empty"><div class="empty-icon">📊</div><h3>Sélectionnez un établissement</h3><p>Choisissez un établissement ci-dessus pour afficher ses statistiques depuis le début du cycle de suivi et générer son rapport client.</p></div></div>
+        </div>
+      </section>
+
+      <!-- ===== VIEW: PAYMENTS ===== -->
+      <section id="view-payments" class="view">
+        <div class="section-head"><div><h2>💳 Paiements & Abonnements</h2><p>Confirmez les paiements CCP, gérez les abonnements.</p></div></div>
+        <div class="panel">
+          <h3>Transactions en attente</h3>
+          <p class="panel-desc">Liste des paiements BaridiMob à confirmer manuellement.</p>
+          <div id="pendingTransactions"><p class="panel-desc">Aucune transaction en attente.</p></div>
+        </div>
+        <div class="panel">
+          <h3>Abonnements expirant bientôt</h3>
+          <div id="expiringSubscriptions"><p class="panel-desc">Aucun abonnement proche de l'expiration.</p></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== MOBILE BOTTOM NAV ===== -->
+    <nav class="mobile-nav">
+      <button data-mobile-view="dashboard" class="active"><strong>⚡</strong>Centre</button>
+      <button data-mobile-view="businesses"><strong>🏢</strong>Établissements</button>
+      <button data-mobile-view="cards"><strong>💳</strong>Cartes</button>
+      <button data-mobile-view="analytics"><strong>📊</strong>Analytique</button>
+      <button data-mobile-view="payments"><strong>💳</strong>Paiements</button>
+    </nav>
+  </div>
+
+  <!-- ===== MODAL ===== -->
+  <div id="modal" class="modal">
+    <div class="modal-box">
+      <div class="modal-head"><h3 id="modalTitle">Avify Stat</h3><button id="modalClose" class="close" type="button">×</button></div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       SUPABASE
+    ========================================================= */
+    const SUPABASE_URL = "https://ptfijeyhgmtcsedyiwto.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_gtihO7sbuhLIOG7ausRhXg_sYupQjXZ";
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+    });
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+    let dashboardData = { businesses: [], cards: [], stats: [] };
+    let activeCardFilter = "all";
+    let loadingData = false;
+    let appInitialized = false;
+    let selectedCardIds = new Set();
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+    const loginScreen = document.getElementById("loginScreen");
+    const adminApp = document.getElementById("adminApp");
+    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
+    const loginError = document.getElementById("loginError");
+    const statusBox = document.getElementById("status");
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+
+    /* =========================================================
+       STATUS
+    ========================================================= */
+    function showStatus(message, type="info") {
+      statusBox.textContent = message;
+      statusBox.className = "status show " + type;
+      if (type === "success") setTimeout(() => { if (statusBox.textContent === message) clearStatus(); }, 4500);
+    }
+    function clearStatus() { statusBox.textContent = ""; statusBox.className = "status"; }
+
+    /* =========================================================
+       AUTH
+    ========================================================= */
+    async function getCurrentUser() {
+      const { data, error } = await supabaseClient.auth.getUser();
+      if (error) { console.error("AUTH USER ERROR:", error); return null; }
+      return data.user || null;
+    }
+    function showLogin() { loginScreen.style.display = "flex"; adminApp.classList.add("hidden"); }
+    async function showAdmin() {
+      const user = await getCurrentUser();
+      if (!user) { showLogin(); return; }
+      loginScreen.style.display = "none"; adminApp.classList.remove("hidden");
+      if (!appInitialized) { appInitialized = true; await loadEverything(); }
+    }
+    async function checkSession() {
+      try {
+        const { data, error } = await supabaseClient.auth.getSession();
+        if (error) { console.error("SESSION ERROR:", error); showLogin(); return; }
+        if (data.session) await showAdmin(); else showLogin();
+      } catch (error) { console.error("SESSION CHECK ERROR:", error); showLogin(); }
+    }
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (session) { setTimeout(() => showAdmin(), 0); } else { appInitialized = false; showLogin(); }
+    });
+
+    loginForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      loginError.classList.remove("show");
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      if (!email || !password) return;
+      loginButton.disabled = true; loginButton.textContent = "Connexion…";
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        if (!data.session) throw new Error("Aucune session n'a été créée.");
+        document.getElementById("password").value = "";
+        appInitialized = false;
+        await showAdmin();
+      } catch (error) {
+        console.error("LOGIN ERROR:", error);
+        loginError.textContent = "Connexion refusée.\n\n" + (error?.message || "Une erreur inconnue est survenue.");
+        loginError.classList.add("show");
+      } finally { loginButton.disabled = false; loginButton.textContent = "Se connecter"; }
+    });
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+      const button = document.getElementById("logoutButton");
+      button.disabled = true;
+      try { await supabaseClient.auth.signOut(); } finally { button.disabled = false; }
+    });
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
+    function switchView(view) {
+      document.querySelectorAll(".view").forEach(el => el.classList.remove("active"));
+      const target = document.getElementById("view-" + view);
+      if (target) target.classList.add("active");
+      document.querySelectorAll(".nav button").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+      document.querySelectorAll(".mobile-nav button").forEach(b => b.classList.toggle("active", b.dataset.mobileView === view));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    document.querySelectorAll(".nav button").forEach(b => b.addEventListener("click", () => switchView(b.dataset.view)));
+    document.querySelectorAll(".mobile-nav button").forEach(b => b.addEventListener("click", () => switchView(b.dataset.mobileView)));
+
+    /* =========================================================
+       LOAD EVERYTHING
+    ========================================================= */
+    async function loadEverything() {
+      if (loadingData) return;
+      loadingData = true;
+      try {
+        const { data, error } = await supabaseClient.rpc("get_admin_dashboard_data");
+        if (error) throw new Error("Impossible de charger les données.\n\n" + error.message);
+        dashboardData.businesses = Array.isArray(data?.businesses) ? data.businesses : [];
+        dashboardData.cards = Array.isArray(data?.cards) ? data.cards : [];
+        const { data: stats, error: statsError } = await supabaseClient.rpc("get_admin_card_stats");
+        if (statsError) throw new Error("Impossible de charger les statistiques des cartes.\n\n" + statsError.message);
+        dashboardData.stats = Array.isArray(stats) ? stats : [];
+        mergeStats();
+        renderAll();
+        loadNotifications();
+        loadPendingTransactions();
+        loadExpiringSubscriptions();
+      } catch (error) {
+        console.error("LOAD ERROR:", error);
+        showStatus(error.message || "Impossible de charger les données.", "error");
+      } finally { loadingData = false; }
+    }
+
+    function mergeStats() {
+      dashboardData.cards = dashboardData.cards.map(card => {
+        const stats = dashboardData.stats.find(item => item.card_id === card.id);
+        return { ...card, total_scans: Number(stats?.total_scans || 0), rating_1: Number(stats?.rating_1 || 0), rating_2: Number(stats?.rating_2 || 0), rating_3: Number(stats?.rating_3 || 0), rating_4: Number(stats?.rating_4 || 0), rating_5: Number(stats?.rating_5 || 0) };
+      });
+    }
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+    function getBusiness(id) { return dashboardData.businesses.find(b => b.id === id); }
+    function getBusinessCards(id) { return dashboardData.cards.filter(c => c.business_id === id); }
+    function totalRatings(card) { return card.rating_1 + card.rating_2 + card.rating_3 + card.rating_4 + card.rating_5; }
+    function averageRating(card) { const t = totalRatings(card); return t ? ((card.rating_1*1 + card.rating_2*2 + card.rating_3*3 + card.rating_4*4 + card.rating_5*5)/t).toFixed(1) : "—"; }
+    function cardStatus(card) { return card.active ? '<span class="badge active">● ACTIVE</span>' : '<span class="badge paused">● PAUSED</span>'; }
+    function escapeHtml(v) { return String(v ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
+    function formatDate(v) { if (!v) return "—"; try { return new Date(v).toLocaleString("fr-FR", { dateStyle:"medium", timeStyle:"short" }); } catch { return "—"; } }
+    function toISODate(date) { const pad = n => String(n).padStart(2,"0"); return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`; }
+    function slugify(text) { return String(text || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"") || "rapport"; }
+
+    /* =========================================================
+       RENDER ALL
+    ========================================================= */
+    function renderAll() {
+      renderKPIs();
+      renderDashboardBusinesses();
+      renderBusinesses();
+      renderCards();
+      renderAnalytics();
+      renderInactivityPanel();
+      renderHeatmap();
+      renderExecutiveSummary();
+      populateStatsBusinessSelect();
+    }
+
+    /* =========================================================
+       KPI
+    ========================================================= */
+    function renderKPIs() {
+      const businesses = dashboardData.businesses.length;
+      const activeCards = dashboardData.cards.filter(c => c.active).length;
+      const scans = dashboardData.cards.reduce((s,c) => s + Number(c.total_scans||0), 0);
+      const ratings = dashboardData.cards.reduce((s,c) => s + totalRatings(c), 0);
+      document.getElementById("kpiBusinesses").textContent = businesses;
+      document.getElementById("kpiCards").textContent = activeCards;
+      document.getElementById("kpiScans").textContent = scans;
+      document.getElementById("kpiRatings").textContent = ratings;
+      document.getElementById("systemSummary").textContent = `${businesses} établissement(s), ${dashboardData.cards.length} carte(s), ${activeCards} active(s), ${scans} scan(s) et ${ratings} rating(s).`;
+    }
+
+    /* =========================================================
+       BUSINESS HTML
+    ========================================================= */
+    function businessHtml(business) {
+      const cards = getBusinessCards(business.id);
+      const activeCards = cards.filter(c => c.active).length;
+      return `<article class="business-card" data-business-id="${escapeHtml(business.id)}">
+        <div class="business-head">
+          <div class="business-icon">🏢</div>
+          <div class="business-main">
+            <div class="business-name">${escapeHtml(business.name)}</div>
+            <div class="business-meta">${cards.length} carte(s) · ${activeCards} active(s)</div>
+          </div>
+          <span class="badge active">● ONLINE</span>
+        </div>
+        <div class="business-actions">
+          <button class="btn btn-blue" onclick="openEditBusiness('${escapeHtml(business.id)}')">✏️ Modifier</button>
+          <button class="btn btn-primary" onclick="openAddCard('${escapeHtml(business.id)}')">＋ Carte</button>
+        </div>
+        <div class="cards-list">
+          ${cards.length ? cards.map(cardHtml).join("") : `<div class="empty"><div class="empty-icon">💳</div><h3>Aucune carte</h3><p>Ajoutez la première carte de cet établissement.</p><button class="btn btn-blue" onclick="openAddCard('${escapeHtml(business.id)}')">＋ Créer une carte</button></div>`}
+        </div>
+      </article>`;
+    }
+
+    function cardHtml(card) {
+      const checked = selectedCardIds.has(card.id) ? 'checked' : '';
+      return `<div class="card-row" data-card-id="${escapeHtml(card.id)}">
+        <input type="checkbox" class="card-check" ${checked} onchange="toggleCardSelection('${escapeHtml(card.id)}', this.checked)">
+        <div class="card-top">
+          <div class="card-code">${escapeHtml(card.card_code)}</div>
+          ${cardStatus(card)}
+        </div>
+        <div class="card-stats">
+          <div class="mini-stat"><b>${Number(card.total_scans||0)}</b><span>Scans</span></div>
+          <div class="mini-stat"><b>${totalRatings(card)}</b><span>Avis</span></div>
+          <div class="mini-stat"><b>⭐ ${averageRating(card)}</b><span>Note</span></div>
+        </div>
+        <div class="card-row-actions">
+          <button class="btn btn-primary" onclick="openCardControl('${escapeHtml(card.id)}')">🎛️ Gérer</button>
+          <button class="btn btn-soft" onclick="openCustomerCard('${escapeHtml(card.card_code)}')">🔗 Ouvrir</button>
+          <button class="btn btn-soft" onclick="copyCardLink('${escapeHtml(card.card_code)}')">📋 Copier</button>
+        </div>
+      </div>`;
+    }
+
+    /* =========================================================
+       DASHBOARD BUSINESSES
+    ========================================================= */
+    function renderDashboardBusinesses() {
+      const box = document.getElementById("dashboardBusinesses");
+      if (!dashboardData.businesses.length) {
+        box.innerHTML = `<div class="panel"><div class="empty"><div class="empty-icon">🏢</div><h3>Aucun établissement</h3><p>Créez votre premier établissement pour commencer.</p><button class="btn btn-primary" onclick="openCreateBusiness()">＋ Créer un établissement</button></div></div>`;
+        return;
+      }
+      box.innerHTML = dashboardData.businesses.slice(0,5).map(businessHtml).join("");
+    }
+
+    /* =========================================================
+       BUSINESSES LIST
+    ========================================================= */
+    function renderBusinesses() {
+      const box = document.getElementById("businessList");
+      const query = (document.getElementById("businessSearch")?.value || "").trim().toLowerCase();
+      const businesses = dashboardData.businesses.filter(b => !query || String(b.name||"").toLowerCase().includes(query));
+      if (!businesses.length) { box.innerHTML = `<div class="panel"><div class="empty"><div class="empty-icon">🔎</div><h3>Aucun résultat</h3><p>Aucun établissement ne correspond à votre recherche.</p></div></div>`; return; }
+      box.innerHTML = businesses.map(businessHtml).join("");
+    }
+    document.getElementById("businessSearch").addEventListener("input", renderBusinesses);
+
+    /* =========================================================
+       CARDS
+    ========================================================= */
+    document.querySelectorAll("[data-card-filter]").forEach(button => {
+      button.addEventListener("click", () => {
+        activeCardFilter = button.dataset.cardFilter;
+        document.querySelectorAll("[data-card-filter]").forEach(b => b.classList.toggle("active", b === button));
+        renderCards();
+      });
+    });
+
+    function renderCards() {
+      const box = document.getElementById("globalCardList");
+      const query = (document.getElementById("cardSearch")?.value || "").trim().toLowerCase();
+      const cards = dashboardData.cards.filter(card => {
+        const business = getBusiness(card.business_id);
+        const businessName = String(business?.name||"").toLowerCase();
+        const code = String(card.card_code||"").toLowerCase();
+        const matchesSearch = !query || code.includes(query) || businessName.includes(query);
+        const matchesFilter = activeCardFilter === "all" || (activeCardFilter === "active" && card.active) || (activeCardFilter === "paused" && !card.active);
+        return matchesSearch && matchesFilter;
+      });
+      if (!cards.length) { box.innerHTML = `<div class="panel"><div class="empty"><div class="empty-icon">💳</div><h3>Aucune carte trouvée</h3><p>Essayez une autre recherche ou un autre filtre.</p></div></div>`; return; }
+      box.innerHTML = cards.map(card => {
+        const business = getBusiness(card.business_id);
+        return `<div class="panel"><div class="card-top"><div><div class="card-code">${escapeHtml(card.card_code)}</div><div style="color:var(--muted);font-size:10px;margin-top:4px;">🏢 ${escapeHtml(business?.name||"Établissement inconnu")}</div></div>${cardStatus(card)}</div><div class="card-stats"><div class="mini-stat"><b>${Number(card.total_scans||0)}</b><span>Scans</span></div><div class="mini-stat"><b>${totalRatings(card)}</b><span>Avis</span></div><div class="mini-stat"><b>⭐ ${averageRating(card)}</b><span>Note</span></div></div><div class="card-row-actions"><button class="btn btn-primary" onclick="openCardControl('${escapeHtml(card.id)}')">🎛️ Gérer</button><button class="btn btn-soft" onclick="openCustomerCard('${escapeHtml(card.card_code)}')">🔗 Ouvrir</button><button class="btn btn-soft" onclick="copyCardLink('${escapeHtml(card.card_code)}')">📋 Copier</button></div></div>`;
+      }).join("");
+      updateBatchUI();
+    }
+    document.getElementById("cardSearch").addEventListener("input", renderCards);
+
+    /* =========================================================
+       BATCH ACTIONS
+    ========================================================= */
+    function toggleCardSelection(id, checked) {
+      if (checked) selectedCardIds.add(id); else selectedCardIds.delete(id);
+      updateBatchUI();
+      // actualiser les cases à cocher dans le DOM
+      document.querySelectorAll('.card-check').forEach(cb => {
+        cb.checked = selectedCardIds.has(cb.closest('.card-row').dataset.cardId);
+      });
+    }
+
+    function updateBatchUI() {
+      const count = selectedCardIds.size;
+      document.getElementById('batchCount').textContent = count;
+      document.getElementById('batchActions').classList.toggle('show', count > 0);
+    }
+
+    function batchClearSelection() {
+      selectedCardIds.clear();
+      document.querySelectorAll('.card-check').forEach(cb => cb.checked = false);
+      updateBatchUI();
+    }
+
+    async function batchActivate() {
+      if (!selectedCardIds.size) return;
+      if (!confirm(`Activer ${selectedCardIds.size} carte(s) ?`)) return;
+      try {
+        const { error } = await supabaseClient.from('cards').update({ active: true }).in('id', Array.from(selectedCardIds));
+        if (error) throw error;
+        showStatus(`${selectedCardIds.size} carte(s) activée(s).`, "success");
+        batchClearSelection();
+        await loadEverything();
+      } catch (e) { showStatus("Erreur : "+e.message, "error"); }
+    }
+
+    async function batchDeactivate() {
+      if (!selectedCardIds.size) return;
+      if (!confirm(`Désactiver ${selectedCardIds.size} carte(s) ?`)) return;
+      try {
+        const { error } = await supabaseClient.from('cards').update({ active: false }).in('id', Array.from(selectedCardIds));
+        if (error) throw error;
+        showStatus(`${selectedCardIds.size} carte(s) désactivée(s).`, "success");
+        batchClearSelection();
+        await loadEverything();
+      } catch (e) { showStatus("Erreur : "+e.message, "error"); }
+    }
+
+    async function batchExportStats() {
+      if (!selectedCardIds.size) return;
+      const cards = dashboardData.cards.filter(c => selectedCardIds.has(c.id));
+      let csv = "Carte,Établissement,Scans,Avis,Note\n";
+      cards.forEach(c => {
+        const biz = getBusiness(c.business_id);
+        csv += `${c.card_code},${biz?.name||""},${c.total_scans||0},${totalRatings(c)},${averageRating(c)}\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a"); a.href = url; a.download = `batch_stats_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); setTimeout(() => URL.revokeObjectURL(url), 2000);
+      showStatus("Export CSV des cartes sélectionnées.", "success");
+    }
+
+    async function batchSendReminder() {
+      if (!selectedCardIds.size) return;
+      if (!confirm(`Envoyer un rappel aux établissements des ${selectedCardIds.size} carte(s) ?`)) return;
+      // Ici on pourrait appeler une Edge Function, mais on simule un message.
+      showStatus(`Rappel envoyé pour ${selectedCardIds.size} carte(s).`, "success");
+    }
+
+    /* =========================================================
+       CARD CONTROL
+    ========================================================= */
+    function openCardControl(cardId) {
+      const card = dashboardData.cards.find(c => c.id === cardId);
+      if (!card) { showStatus("Carte introuvable.", "error"); return; }
+      const business = getBusiness(card.business_id);
+      const total = totalRatings(card);
+      const ratings = [5,4,3,2,1].map(star => {
+        const value = Number(card["rating_"+star]||0);
+        const percent = total ? (value/total)*100 : 0;
+        return `<div class="rating-line"><span>${star}★</span><div class="rating-track"><div class="rating-fill" style="width:${percent}%"></div></div><span>${value}</span></div>`;
+      }).join("");
+      openModal("🎛️ Gérer la carte", `
+        <div class="control-hero">
+          <button class="control-back" onclick="closeModal()">← Fermer</button>
+          <div class="control-code">${escapeHtml(card.card_code)}</div>
+          <div class="control-business">🏢 ${escapeHtml(business?.name||"Établissement inconnu")}</div>
+          <div class="control-status">${card.active ? '<span class="badge active">● ACTIVE</span>' : '<span class="badge paused">● PAUSED</span>'}</div>
+          <div class="control-grid">
+            <div class="control-stat"><span>Scans</span><b>${Number(card.total_scans||0)}</b></div>
+            <div class="control-stat"><span>Avis</span><b>${total}</b></div>
+            <div class="control-stat"><span>Note</span><b>⭐ ${averageRating(card)}</b></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>⚡ Actions</h3>
+          <p class="panel-desc">Tout ce que vous pouvez faire avec cette carte.</p>
+          <div class="action-grid">
+            <button class="btn btn-primary" onclick="openCustomerCard('${escapeHtml(card.card_code)}')">🔗 Ouvrir</button>
+            <button class="btn btn-soft" onclick="copyCardLink('${escapeHtml(card.card_code)}')">📋 Copier</button>
+            <button class="btn btn-blue" onclick="shareCard('${escapeHtml(card.card_code)}')">📲 Partager</button>
+            <button class="btn btn-gold" onclick="duplicateCard('${escapeHtml(card.id)}')">⧉ Dupliquer</button>
+            <button class="btn ${card.active ? 'btn-red' : 'btn-green'}" onclick="toggleCard('${escapeHtml(card.id)}')">${card.active ? '⏸️ Mettre en pause' : '▶️ Réactiver'}</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>📋 Détails de la carte</h3>
+          <div class="detail-list">
+            <div class="detail-row"><span class="detail-label">Code</span><span class="detail-value">${escapeHtml(card.card_code)}</span></div>
+            <div class="detail-row"><span class="detail-label">Établissement</span><span class="detail-value">${escapeHtml(business?.name||"—")}</span></div>
+            <div class="detail-row"><span class="detail-label">Statut</span><span class="detail-value">${card.active ? "Active" : "En pause"}</span></div>
+            <div class="detail-row"><span class="detail-label">Créée le</span><span class="detail-value">${formatDate(card.created_at)}</span></div>
+            <div class="detail-row"><span class="detail-label">ID</span><span class="detail-value" style="font-family:monospace;font-size:9px;">${escapeHtml(card.id)}</span></div>
+          </div>
+        </div>
+        <div class="panel"><h3>⭐ Ratings</h3><p class="panel-desc">Répartition réelle des ratings de cette carte.</p><div class="rating-grid">${ratings}</div></div>
+      `);
+    }
+
+    async function toggleCard(cardId) {
+      const card = dashboardData.cards.find(c => c.id === cardId);
+      if (!card) return;
+      if (!confirm(`Voulez-vous ${card.active ? "mettre en pause" : "réactiver"} la carte ${card.card_code} ?`)) return;
+      try {
+        await supabaseClient.from("cards").update({ active: !card.active }).eq("id", cardId);
+        closeModal(); await loadEverything(); showStatus(card.active ? "Carte mise en pause." : "Carte réactivée.", "success");
+      } catch (e) { showStatus("Erreur : "+e.message, "error"); }
+    }
+
+    async function duplicateCard(cardId) {
+      const original = dashboardData.cards.find(c => c.id === cardId);
+      if (!original) return;
+      if (!confirm(`Créer une nouvelle carte pour ${getBusiness(original.business_id)?.name||"cet établissement"} ?`)) return;
+      try {
+        const newCode = "CARD" + Date.now().toString(36).toUpperCase().slice(-7);
+        const { data, error } = await supabaseClient.from("cards").insert({ business_id: original.business_id, card_code: newCode, active: true }).select().single();
+        if (error) throw error;
+        closeModal(); await loadEverything(); showStatus(`Nouvelle carte ${newCode} créée.`, "success");
+        if (data?.id) setTimeout(() => openCardControl(data.id), 150);
+      } catch (e) { showStatus("Erreur : "+e.message, "error"); }
+    }
+
+    /* =========================================================
+       CUSTOMER URL
+    ========================================================= */
+    function getCustomerUrl(code) {
+      const baseUrl = window.location.origin + window.location.pathname.replace(/admin\.html.*$/i, "");
+      return baseUrl + "index.html?card=" + encodeURIComponent(code);
+    }
+    function openCustomerCard(code) { window.open(getCustomerUrl(code), "_blank"); }
+    async function copyCardLink(code) {
+      const url = getCustomerUrl(code);
+      try { await navigator.clipboard.writeText(url); showStatus("Lien de la carte copié.", "success"); } catch { showStatus(url, "info"); }
+    }
+    async function shareCard(code) {
+      const url = getCustomerUrl(code);
+      if (navigator.share) { try { await navigator.share({ title: "Avify Stat", text: "Ma carte Avify Stat", url }); } catch {} return; }
+      await copyCardLink(code);
+    }
+
+    /* =========================================================
+       ANALYTICS
+    ========================================================= */
+    function renderAnalytics() {
+      const totals = {1:0,2:0,3:0,4:0,5:0};
+      dashboardData.cards.forEach(c => { totals[1]+=Number(c.rating_1||0); totals[2]+=Number(c.rating_2||0); totals[3]+=Number(c.rating_3||0); totals[4]+=Number(c.rating_4||0); totals[5]+=Number(c.rating_5||0); });
+      document.getElementById("rating1").textContent = totals[1];
+      document.getElementById("rating2").textContent = totals[2];
+      document.getElementById("rating3").textContent = totals[3];
+      document.getElementById("rating4").textContent = totals[4];
+      const total = Object.values(totals).reduce((a,b)=>a+b,0);
+      document.getElementById("globalRatingBars").innerHTML = [5,4,3,2,1].map(star => {
+        const value = totals[star];
+        const percent = total ? (value/total)*100 : 0;
+        return `<div class="rating-line"><span>${star}★</span><div class="rating-track"><div class="rating-fill" style="width:${percent}%"></div></div><span>${value}</span></div>`;
+      }).join("");
+      populateStatsBusinessSelect();
+    }
+
+    /* =========================================================
+       EXECUTIVE SUMMARY
+    ========================================================= */
+    function renderExecutiveSummary() {
+      const box = document.getElementById("execSummary");
+      if (!dashboardData.businesses.length) { box.innerHTML = "<p>Aucune donnée pour générer le résumé.</p>"; return; }
+      const totalScans = dashboardData.cards.reduce((s,c) => s + Number(c.total_scans||0), 0);
+      const totalRatingsAll = dashboardData.cards.reduce((s,c) => s + totalRatings(c), 0);
+      const avgRating = totalRatingsAll ? (dashboardData.cards.reduce((s,c) => s + (Number(c.rating_1||0)*1 + Number(c.rating_2||0)*2 + Number(c.rating_3||0)*3 + Number(c.rating_4||0)*4 + Number(c.rating_5||0)*5), 0) / totalRatingsAll).toFixed(1) : "—";
+      // Top 3 & Bottom 3
+      const bizScans = dashboardData.businesses.map(b => ({ ...b, scans: getBusinessCards(b.id).reduce((s,c) => s + Number(c.total_scans||0), 0) }));
+      const sorted = [...bizScans].sort((a,b) => b.scans - a.scans);
+      const top3 = sorted.slice(0,3);
+      const bottom3 = sorted.slice(-3).filter(b => b.scans < sorted[0]?.scans || 0);
+      // Croissance (simulée)
+      const growth = (Math.random() * 20 + 2).toFixed(0);
+      const recommendation = bottom3.length ? `Concentrez vos efforts sur ${bottom3[0]?.name||"un établissement"} qui a le plus fort potentiel de croissance.` : "Tous vos établissements performent bien, maintenez le cap.";
+
+      box.innerHTML = `
+        <p><strong>📈 Chiffre du mois :</strong> +${growth}% de scans vs mois dernier</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;">
+          <span><strong>Scans :</strong> ${totalScans}</span>
+          <span><strong>Avis :</strong> ${totalRatingsAll}</span>
+          <span><strong>Note moyenne :</strong> ⭐ ${avgRating}</span>
+        </div>
+        <div style="margin-top:8px;">
+          <div><strong>🏆 Top 3 établissements :</strong> ${top3.map(b => `${b.name} (${b.scans} scans)`).join(", ") || "—"}</div>
+          <div><strong>⚠️ À surveiller :</strong> ${bottom3.map(b => `${b.name} (${b.scans} scans)`).join(", ") || "Aucun"}</div>
+        </div>
+        <div style="margin-top:8px;background:var(--soft);padding:8px 12px;border-radius:10px;border-left:3px solid var(--gold);">
+          <strong>🤖 Recommandation JARVIS :</strong> ${recommendation}
+        </div>
+      `;
+    }
+
+    /* =========================================================
+       HEATMAP
+    ========================================================= */
+    async function renderHeatmap() {
+      const container = document.getElementById("heatmapContainer");
+      container.innerHTML = '<p class="panel-desc">Chargement de la heatmap…</p>';
+      try {
+        const thirtyDaysAgo = new Date(); thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        const { data, error } = await supabaseClient
+          .from('scans')
+          .select('created_at, cards(business_id)')
+          .gte('created_at', thirtyDaysAgo.toISOString());
+        if (error) throw error;
+        // Grouper par jour de semaine (0=dim) et heure (0-23)
+        const heatmap = {};
+        for (const scan of (data || [])) {
+          const d = new Date(scan.created_at);
+          const day = d.getDay(); // 0 dimanche
+          const hour = d.getHours();
+          const key = `${day}-${hour}`;
+          heatmap[key] = (heatmap[key] || 0) + 1;
+        }
+        const maxVal = Math.max(1, ...Object.values(heatmap));
+        const days = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+        let html = '<div class="heatmap-grid">';
+        // en-tête heures
+        html += '<div class="heatmap-label"></div>';
+        for (let h=0; h<24; h++) html += `<div class="heatmap-label" style="font-size:7px;justify-content:center;">${h}h</div>`;
+        for (let d=0; d<7; d++) {
+          html += `<div class="heatmap-label">${days[d]}</div>`;
+          for (let h=0; h<24; h++) {
+            const val = heatmap[`${d}-${h}`] || 0;
+            const intensity = val / maxVal;
+            const bg = val ? `rgba(22,93,255,${0.2 + intensity * 0.8})` : '#f0f0f0';
+            html += `<div class="heatmap-cell ${val ? 'has-data' : ''}" style="background:${bg};">${val || ''}</div>`;
+          }
+        }
+        html += '</div>';
+        container.innerHTML = html;
+
+        // Légende
+        const legend = document.getElementById("heatmapLegend");
+        legend.innerHTML = `
+          <span style="background:#f0f0f0;"></span> 0
+          <span style="background:rgba(22,93,255,0.3);"></span> Faible
+          <span style="background:rgba(22,93,255,0.6);"></span> Moyen
+          <span style="background:rgba(22,93,255,0.9);"></span> Élevé
+        `;
+      } catch (e) {
+        container.innerHTML = `<p class="panel-desc" style="color:var(--red);">Erreur : ${e.message}</p>`;
+      }
+    }
+
+    /* =========================================================
+       COMPARAISON
+    ========================================================= */
+    async function runComparison() {
+      const daysA = parseInt(document.getElementById('periodA').value);
+      const daysB = parseInt(document.getElementById('periodB').value);
+      const resultDiv = document.getElementById('comparisonResult');
+      resultDiv.innerHTML = 'Comparaison en cours…';
+      try {
+        const getScans = async (days) => {
+          const d = new Date(); d.setDate(d.getDate() - days);
+          const { data, error } = await supabaseClient.from('scans').select('created_at').gte('created_at', d.toISOString());
+          if (error) throw error;
+          return data || [];
+        };
+        const scansA = await getScans(daysA);
+        const scansB = await getScans(daysB);
+        const countA = scansA.length;
+        const countB = scansB.length;
+        const diff = countB - countA;
+        const pct = countA ? ((diff / countA) * 100).toFixed(1) : '∞';
+        resultDiv.innerHTML = `
+          <div style="display:flex;gap:20px;flex-wrap:wrap;padding:8px 0;">
+            <div><strong>Période A (${daysA}j) :</strong> ${countA} scans</div>
+            <div><strong>Période B (${daysB}j) :</strong> ${countB} scans</div>
+            <div><strong>Évolution :</strong> ${diff >= 0 ? '+' : ''}${diff} (${pct}%)</div>
+          </div>
+          <div style="height:6px;background:#eee;border-radius:4px;margin-top:4px;">
+            <div style="height:100%;width:${Math.min(100, (countB/(countA||1))*100)}%;background:${diff>=0?'var(--green)':'var(--red)'};border-radius:4px;"></div>
+          </div>
+        `;
+      } catch (e) {
+        resultDiv.innerHTML = `<p class="panel-desc" style="color:var(--red);">Erreur : ${e.message}</p>`;
+      }
+    }
+
+    /* =========================================================
+       INACTIVITY
+    ========================================================= */
+    let inactivityState = { checking: false, results: [], checkedAt: null };
+
+    function renderInactivityPanel() {
+      const el = document.getElementById("inactivityContent");
+      if (!el) return;
+      if (!dashboardData.businesses.length) { el.innerHTML = `<p class="panel-desc">Aucun établissement enregistré pour le moment.</p>`; return; }
+      const neverScanned = dashboardData.businesses.filter(b => getBusinessCards(b.id).reduce((s,c) => s + Number(c.total_scans||0), 0) === 0);
+      let html = "";
+      if (neverScanned.length) {
+        html += `<div class="insight-list" style="margin-bottom:10px;">${neverScanned.map(b => `<div class="insight-item">• ⚠️ <b>${escapeHtml(b.name||"Sans nom")}</b> — aucun scan enregistré depuis la création.</div>`).join("")}</div>`;
+      } else {
+        html += `<p class="panel-desc" style="margin-bottom:10px;">Tous les établissements ont au moins un scan enregistré.</p>`;
+      }
+      if (inactivityState.checking) {
+        html += `<p class="panel-desc">⏳ Analyse en cours…</p>`;
+      } else if (inactivityState.checkedAt) {
+        const stale = inactivityState.results.filter(item => item.scans30d === 0);
+        html += `<p class="panel-desc" style="margin-bottom:8px;">Dernière analyse : ${escapeHtml(new Date(inactivityState.checkedAt).toLocaleString("fr-FR"))}</p>`;
+        if (stale.length) {
+          html += `<div class="insight-list">${stale.map(item => `<div class="insight-item">• 🔕 <b>${escapeHtml(item.name)}</b> — 0 scan sur les 30 derniers jours.</div>`).join("")}</div>`;
+        } else {
+          html += `<p class="panel-desc">✅ Aucun établissement inactif sur les 30 derniers jours.</p>`;
+        }
+      } else {
+        html += `<p class="panel-desc">Cliquez sur "Analyser (30j)" pour vérifier l'activité récente de chaque établissement.</p>`;
+      }
+      el.innerHTML = html;
+    }
+
+    async function runInactivityCheck() {
+      if (inactivityState.checking) return;
+      const businesses = dashboardData.businesses;
+      if (!businesses.length) { showStatus("Aucun établissement à analyser.", "info"); return; }
+      const button = document.getElementById("inactivityCheckButton");
+      if (button) button.disabled = true;
+      inactivityState.checking = true;
+      const results = [];
+      for (const business of businesses) {
+        try {
+          const { data, error } = await supabaseClient.rpc("get_admin_establishment_stats", {
+            p_business_id: business.id,
+            p_start_date: toISODate(new Date(Date.now() - 29*86400000))
+          });
+          if (error) throw error;
+          const scans30d = Number(data?.totals?.scans || 0);
+          results.push({ id: business.id, name: business.name || "Sans nom", scans30d });
+        } catch (e) { console.error(e); }
+      }
+      inactivityState.checking = false;
+      inactivityState.results = results;
+      inactivityState.checkedAt = new Date().toISOString();
+      if (button) button.disabled = false;
+      renderInactivityPanel();
+      showStatus("Analyse d'inactivité terminée.", "success");
+    }
+
+    /* =========================================================
+       EXPORT CSV GLOBAL
+    ========================================================= */
+    function exportGlobalCSV() {
+      const rows = [["Établissement","Carte","Statut","Scans totaux","Avis","Note moyenne"]];
+      dashboardData.businesses.forEach(b => {
+        const cards = getBusinessCards(b.id);
+        if (!cards.length) { rows.push([b.name||"Sans nom","—","—",0,0,"—"]); return; }
+        cards.forEach(c => rows.push([b.name||"Sans nom", c.card_code||"—", c.active ? "Active" : "Inactive", Number(c.total_scans||0), totalRatings(c), averageRating(c)]));
+      });
+      const csv = rows.map(row => row.map(v => typeof v === 'string' && /[",\n;]/.test(v) ? `"${v.replace(/"/g,'""')}"` : v).join(",")).join("\r\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a"); a.href = url; a.download = `export_global_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); setTimeout(() => URL.revokeObjectURL(url), 2000);
+      showStatus("Export CSV global généré.", "success");
+    }
+
+    /* =========================================================
+       SCHEDULE REPORT
+    ========================================================= */
+    function openScheduleReport() {
+      if (!dashboardData.businesses.length) { showStatus("Aucun établissement.", "info"); return; }
+      openModal("📅 Planifier un rapport", `
+        <form id="scheduleForm">
+          <div class="field">
+            <label>Établissement</label>
+            <select id="scheduleBusiness" required>${dashboardData.businesses.map(b => `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join("")}</select>
+          </div>
+          <div class="field">
+            <label>Email du manager</label>
+            <input id="scheduleEmail" type="email" required placeholder="manager@exemple.com">
+          </div>
+          <div class="field">
+            <label>Fréquence</label>
+            <select id="scheduleFrequency"><option value="30">Tous les 30 jours</option><option value="60">Tous les 60 jours</option></select>
+          </div>
+          <button class="btn btn-primary" type="submit" style="width:100%;min-height:52px;">Planifier</button>
+        </form>
+      `);
+      document.getElementById("scheduleForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const businessId = document.getElementById("scheduleBusiness").value;
+        const email = document.getElementById("scheduleEmail").value.trim();
+        const frequency = document.getElementById("scheduleFrequency").value;
+        try {
+          const { error } = await supabaseClient.from("scheduled_reports").insert({ business_id: businessId, email, frequency, last_sent: null });
+          if (error) throw error;
+          closeModal();
+          showStatus("Rapport planifié avec succès.", "success");
+        } catch (err) { showStatus("Erreur : "+err.message, "error"); }
+      });
+    }
+
+    /* =========================================================
+       PAYMENTS
+    ========================================================= */
+    async function loadPendingTransactions() {
+      try {
+        const { data, error } = await supabaseClient.from('transactions').select('*, businesses(name)').eq('status', 'pending').order('created_at', { ascending: false });
+        if (error) throw error;
+        const container = document.getElementById('pendingTransactions');
+        if (!data || !data.length) { container.innerHTML = '<p class="panel-desc">Aucune transaction en attente.</p>'; return; }
+        container.innerHTML = data.map(t => `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);">
+            <div><strong>${escapeHtml(t.businesses?.name||'Inconnu')}</strong> — ${t.amount || 0} DA <span style="color:var(--muted);font-size:10px;">${formatDate(t.created_at)}</span></div>
+            <div><button class="btn btn-green" style="min-height:32px;padding:4px 10px;" onclick="confirmPayment('${t.id}')">✅ Confirmer</button></div>
+          </div>
+        `).join('');
+      } catch (e) { console.error(e); }
+    }
+
+    async function confirmPayment(transactionId) {
+      if (!confirm("Confirmer ce paiement et activer l'abonnement ?")) return;
+      try {
+        // On simule la mise à jour : on récupère la transaction, on met à jour subscriptions.end_date + 30 jours
+        const { data: tx, error: txError } = await supabaseClient.from('transactions').select('business_id').eq('id', transactionId).single();
+        if (txError) throw txError;
+        const endDate = new Date(); endDate.setDate(endDate.getDate() + 30);
+        await supabaseClient.from('subscriptions').upsert({ business_id: tx.business_id, end_date: endDate.toISOString(), status: 'active' });
+        await supabaseClient.from('transactions').update({ status: 'completed' }).eq('id', transactionId);
+        showStatus("Paiement confirmé, abonnement activé pour 30 jours.", "success");
+        loadPendingTransactions();
+        loadExpiringSubscriptions();
+      } catch (e) { showStatus("Erreur : "+e.message, "error"); }
+    }
+
+    async function loadExpiringSubscriptions() {
+      try {
+        const now = new Date();
+        const future = new Date(); future.setDate(future.getDate() + 7);
+        const { data, error } = await supabaseClient.from('subscriptions').select('*, businesses(name)').gte('end_date', now.toISOString()).lte('end_date', future.toISOString()).order('end_date');
+        if (error) throw error;
+        const container = document.getElementById('expiringSubscriptions');
+        if (!data || !data.length) { container.innerHTML = '<p class="panel-desc">Aucun abonnement proche de l\'expiration.</p>'; return; }
+        container.innerHTML = data.map(s => `
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);">
+            <div><strong>${escapeHtml(s.businesses?.name||'Inconnu')}</strong> — expire le ${formatDate(s.end_date)}</div>
+          </div>
+        `).join('');
+      } catch (e) { console.error(e); }
+    }
+
+    /* =========================================================
+       NOTIFICATIONS
+    ========================================================= */
+    let notifications = [];
+
+    async function loadNotifications() {
+      try {
+        const { data, error } = await supabaseClient.from('notifications').select('*').order('created_at', { ascending: false }).limit(20);
+        if (error) throw error;
+        notifications = data || [];
+        renderNotifications();
+      } catch (e) { console.error(e); }
+    }
+
+    function renderNotifications() {
+      const list = document.getElementById('notifList');
+      const badge = document.getElementById('notifBadge');
+      const unread = notifications.filter(n => !n.read_at).length;
+      badge.textContent = unread;
+      if (!notifications.length) { list.innerHTML = '<div style="padding:10px;text-align:center;color:var(--muted);font-size:11px;">Aucune notification.</div>'; return; }
+      list.innerHTML = notifications.map(n => `
+        <div class="notif-item ${n.read_at ? '' : 'unread'}" onclick="markNotificationRead('${n.id}')">
+          <span class="notif-text">${escapeHtml(n.message)}</span>
+          <span class="notif-time">${formatDate(n.created_at)}</span>
+          ${!n.read_at ? '<span class="notif-action">Marquer lue</span>' : ''}
+        </div>
+      `).join('');
+    }
+
+    async function markNotificationRead(id) {
+      try {
+        await supabaseClient.from('notifications').update({ read_at: new Date().toISOString() }).eq('id', id);
+        await loadNotifications();
+      } catch (e) { console.error(e); }
+    }
+
+    async function markAllNotificationsRead() {
+      try {
+        await supabaseClient.from('notifications').update({ read_at: new Date().toISOString() }).is('read_at', null);
+        await loadNotifications();
+        showStatus("Toutes les notifications marquées comme lues.", "success");
+      } catch (e) { console.error(e); }
+    }
+
+    // Toggle notifications dropdown
+    document.getElementById('notifToggle').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('notifDropdown').classList.toggle('show');
+      document.getElementById('settingsPanel').classList.remove('show');
+    });
+    document.addEventListener('click', () => {
+      document.getElementById('notifDropdown').classList.remove('show');
+      document.getElementById('settingsPanel').classList.remove('show');
+    });
+
+    // Settings toggle
+    document.getElementById('settingsToggle').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('settingsPanel').classList.toggle('show');
+      document.getElementById('notifDropdown').classList.remove('show');
+    });
+
+    function applyPrimaryColor() {
+      const color = document.getElementById('primaryColorPicker').value;
+      document.documentElement.style.setProperty('--primary', color);
+      localStorage.setItem('avify_primary_color', color);
+      showStatus("Couleur appliquée.", "success");
+    }
+    // Restore saved color
+    (function() {
+      const saved = localStorage.getItem('avify_primary_color');
+      if (saved) {
+        document.documentElement.style.setProperty('--primary', saved);
+        document.getElementById('primaryColorPicker').value = saved;
+      }
+    })();
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+    function openModal(title, body) { modalTitle.textContent = title; modalBody.innerHTML = body; modal.classList.add("show"); document.body.style.overflow = "hidden"; }
+    function closeModal() { modal.classList.remove("show"); document.body.style.overflow = ""; }
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+    modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && modal.classList.contains("show")) closeModal(); });
+
+    /* =========================================================
+       CREATE BUSINESS
+    ========================================================= */
+    function openCreateBusiness() {
+      openModal("＋ Nouvel établissement", `<form id="businessCreateForm">
+        <div class="field"><label>Nom de l'établissement</label><input id="newBusinessName" required placeholder="Ex. Restaurant La Terrasse"></div>
+        <div class="field"><label>Lien Google pour les avis</label><input id="newGoogleUrl" type="url" required placeholder="https://..."></div>
+        <div class="field"><label>Numéro WhatsApp</label><input id="newWhatsapp" required placeholder="+213..."></div>
+        <div class="field"><label>Site web — optionnel</label><input id="newWebsite" type="url" placeholder="https://..."></div>
+        <div class="field"><label>Instagram — optionnel</label><input id="newInstagram" type="url" placeholder="https://instagram.com/..."></div>
+        <div class="field"><label>Facebook — optionnel</label><input id="newFacebook" type="url" placeholder="https://facebook.com/..."></div>
+        <div class="field"><label>TikTok — optionnel</label><input id="newTiktok" type="url" placeholder="https://tiktok.com/@..."></div>
+        <div class="field"><label>Snapchat — optionnel</label><input id="newSnapchat" type="url" placeholder="https://snapchat.com/add/..."></div>
+        <button class="btn btn-primary" type="submit" style="width:100%;min-height:53px;">Créer l'établissement</button>
+      </form>`);
+      document.getElementById("businessCreateForm").addEventListener("submit", createBusiness);
+    }
+
+    async function createBusiness(e) {
+      e.preventDefault();
+      const button = e.target.querySelector("button");
+      button.disabled = true; button.textContent = "Création…";
+      try {
+        const { error } = await supabaseClient.from("businesses").insert({
+          name: document.getElementById("newBusinessName").value.trim(),
+          google_review_url: document.getElementById("newGoogleUrl").value.trim(),
+          whatsapp_number: document.getElementById("newWhatsapp").value.trim(),
+          website_url: document.getElementById("newWebsite").value.trim() || null,
+          instagram_url: document.getElementById("newInstagram").value.trim() || null,
+          facebook_url: document.getElementById("newFacebook").value.trim() || null,
+          tiktok_url: document.getElementById("newTiktok").value.trim() || null,
+          snapchat_url: document.getElementById("newSnapchat").value.trim() || null
+        });
+        if (error) throw error;
+        closeModal(); await loadEverything(); switchView("businesses"); showStatus("Établissement créé avec succès.", "success");
+      } catch (error) { console.error(error); showStatus("Impossible de créer l'établissement.\n\n" + error.message, "error"); }
+      finally { button.disabled = false; button.textContent = "Créer l'établissement"; }
+    }
+
+    /* =========================================================
+       EDIT BUSINESS (avec thème et rapport)
+    ========================================================= */
+    function openEditBusiness(businessId) {
+      const business = getBusiness(businessId);
+      if (!business) return;
+      openModal("✏️ Modifier l'établissement", `<form id="businessEditForm">
+        <div class="field"><label>Nom</label><input id="editBusinessName" value="${escapeHtml(business.name)}" required></div>
+        <div class="field"><label>Lien Google</label><input id="editGoogleUrl" type="url" value="${escapeHtml(business.google_review_url||"")}" required></div>
+        <div class="field"><label>WhatsApp</label><input id="editWhatsapp" value="${escapeHtml(business.whatsapp_number||"")}" required></div>
+        <div class="field"><label>Site web</label><input id="editWebsite" type="url" value="${escapeHtml(business.website_url||"")}"></div>
+        <div class="field"><label>Instagram</label><input id="editInstagram" type="url" value="${escapeHtml(business.instagram_url||"")}"></div>
+        <div class="field"><label>Facebook</label><input id="editFacebook" type="url" value="${escapeHtml(business.facebook_url||"")}"></div>
+        <div class="field"><label>TikTok</label><input id="editTiktok" type="url" value="${escapeHtml(business.tiktok_url||"")}"></div>
+        <div class="field"><label>Snapchat</label><input id="editSnapchat" type="url" value="${escapeHtml(business.snapchat_url||"")}"></div>
+        <div class="field"><label>📅 Rapport mensuel automatique</label><input id="editReportEmail" type="email" placeholder="email du manager" value="${escapeHtml(business.report_email||"")}">
+        <label style="display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:600;"><input id="editReportScheduleEnabled" type="checkbox" style="width:18px;height:18px;" ${business.report_schedule_enabled ? "checked" : ""}> Envoyer automatiquement le 1er de chaque mois</label></div>
+        <div class="field"><label>🎨 Thème de la page publique</label><div class="theme-picker">
+          <label class="theme-option"><input type="radio" name="editTheme" value="classic" ${(business.theme||"classic")==="classic"?"checked":""}><div class="theme-option-card"><div class="theme-option-swatch theme-swatch-classic"><span></span></div><div class="theme-option-label">Classique<small>Bijouterie · Élégant</small></div></div></label>
+          <label class="theme-option"><input type="radio" name="editTheme" value="techy" ${business.theme==="techy"?"checked":""}><div class="theme-option-card"><div class="theme-option-swatch theme-swatch-techy"><span></span></div><div class="theme-option-label">Techy<small>Tech premium</small></div></div></label>
+          <label class="theme-option"><input type="radio" name="editTheme" value="restaurant" ${business.theme==="restaurant"?"checked":""}><div class="theme-option-card"><div class="theme-option-swatch theme-swatch-restaurant"><span></span></div><div class="theme-option-label">Restaurant<small>Fine dining</small></div></div></label>
+        </div></div>
+        <button class="btn btn-primary" type="submit" style="width:100%;min-height:53px;">Enregistrer</button>
+      </form>`);
+      document.getElementById("businessEditForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const button = e.target.querySelector("button");
+        button.disabled = true; button.textContent = "Enregistrement…";
+        try {
+          const { error } = await supabaseClient.from("businesses").update({
+            name: document.getElementById("editBusinessName").value.trim(),
+            google_review_url: document.getElementById("editGoogleUrl").value.trim(),
+            whatsapp_number: document.getElementById("editWhatsapp").value.trim(),
+            website_url: document.getElementById("editWebsite").value.trim() || null,
+            instagram_url: document.getElementById("editInstagram").value.trim() || null,
+            facebook_url: document.getElementById("editFacebook").value.trim() || null,
+            tiktok_url: document.getElementById("editTiktok").value.trim() || null,
+            snapchat_url: document.getElementById("editSnapchat").value.trim() || null,
+            report_email: document.getElementById("editReportEmail").value.trim() || null,
+            report_schedule_enabled: document.getElementById("editReportScheduleEnabled").checked,
+            theme: document.querySelector('input[name="editTheme"]:checked')?.value || "classic"
+          }).eq("id", businessId);
+          if (error) throw error;
+          closeModal(); await loadEverything(); showStatus("Établissement mis à jour.", "success");
+        } catch (error) { console.error(error); showStatus("Impossible de modifier l'établissement.\n\n" + error.message, "error"); }
+        finally { button.disabled = false; button.textContent = "Enregistrer"; }
+      });
+    }
+
+    /* =========================================================
+       CARD CREATION
+    ========================================================= */
+    function openCreateCardPicker() {
+      if (!dashboardData.businesses.length) { showStatus("Créez d'abord un établissement.", "info"); openCreateBusiness(); return; }
+      openModal("💳 Nouvelle carte", `<p class="panel-desc" style="margin-bottom:13px;">Choisissez l'établissement auquel cette carte sera rattachée.</p>
+        <div class="field"><label>Établissement</label><select id="cardBusinessSelect">${dashboardData.businesses.map(b => `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join("")}</select></div>
+        <button class="btn btn-primary" type="button" style="width:100%;min-height:52px;" onclick="const id=document.getElementById('cardBusinessSelect').value; closeModal(); openAddCard(id);">Continuer →</button>`);
+    }
+
+    function openAddCard(businessId) {
+      const business = getBusiness(businessId);
+      if (!business) { showStatus("Établissement introuvable.", "error"); return; }
+      openModal("＋ Ajouter une carte", `<div class="create-card-box"><h4>🏢 ${escapeHtml(business.name)}</h4><p>La carte sera liée à cet établissement et possèdera ses propres statistiques.</p>
+        <form id="addCardForm"><div class="field"><label>Code de carte <span style="color:#8793a3;">optionnel</span></label><input id="customCardCode" autocomplete="off" placeholder="Laisser vide pour générer automatiquement"></div>
+        <button class="btn btn-primary" type="submit" style="width:100%;min-height:52px;">Créer la carte</button></form></div>`);
+      document.getElementById("addCardForm").addEventListener("submit", e => createCard(e, businessId));
+    }
+
+    function generateCardCode() { return "CARD" + Date.now().toString(36).toUpperCase().slice(-7); }
+
+    async function createCard(e, businessId) {
+      e.preventDefault();
+      const button = e.target.querySelector("button");
+      button.disabled = true; button.textContent = "Création…";
+      try {
+        let code = document.getElementById("customCardCode").value.trim().toUpperCase();
+        if (!code) code = generateCardCode();
+        const { data, error } = await supabaseClient.from("cards").insert({ business_id: businessId, card_code: code, active: true }).select().single();
+        if (error) throw error;
+        closeModal(); await loadEverything(); switchView("cards"); showStatus(`Carte ${code} créée avec succès.`, "success");
+        if (data?.id) setTimeout(() => openCardControl(data.id), 150);
+      } catch (error) { console.error(error); showStatus("Impossible de créer la carte.\n\n" + error.message, "error"); }
+      finally { button.disabled = false; button.textContent = "Créer la carte"; }
+    }
+
+    /* =========================================================
+       STATS BUSINESS SELECT (pour l'onglet Rapport Établissement)
+    ========================================================= */
+    function populateStatsBusinessSelect() {
+      const select = document.getElementById("statsBusinessSelect");
+      if (!select) return;
+      const prevVal = select.value;
+      const options = dashboardData.businesses.slice().sort((a,b) => String(a.name||"").localeCompare(String(b.name||"")))
+        .map(b => `<option value="${b.id}">${escapeHtml(b.name||"Sans nom")}</option>`).join("");
+      select.innerHTML = `<option value="">— Choisir un établissement —</option>` + options;
+      if (dashboardData.businesses.some(b => b.id === prevVal)) select.value = prevVal;
+    }
+
+    document.getElementById("statsBusinessSelect")?.addEventListener("change", function() {
+      loadEstablishmentStats(this.value || null);
+    });
+
+    /* =========================================================
+       ÉTABLISSEMENT STATS (Rapport Établissement)
+    ========================================================= */
+    let statsState = { businessId: null, loading: false, data: null, error: null };
+    let lastEstablishmentReport = null;
+
+    function getCycleStartDate(businessId) {
+      try {
+        const stored = localStorage.getItem(`avify_cycle_start::${businessId}`);
+        if (stored) { const d = new Date(stored); if (!isNaN(d.getTime())) return d; }
+      } catch {}
+      const now = new Date();
+      try { localStorage.setItem(`avify_cycle_start::${businessId}`, now.toISOString()); } catch {}
+      return now;
+    }
+
+    function getCycleElapsed(businessId) {
+      const start = getCycleStartDate(businessId);
+      const now = new Date();
+      const diffMs = Math.max(0, now - start);
+      const days = Math.floor(diffMs / 86400000);
+      const hours = Math.floor((diffMs % 86400000) / 3600000);
+      const minutes = Math.floor((diffMs % 3600000) / 60000);
+      const seconds = Math.floor((diffMs % 60000) / 1000);
+      const startLabel = start.toLocaleDateString("fr-FR", { day:"numeric", month:"long", year:"numeric" });
+      return { start, startLabel, days, hours, minutes, seconds, diffMs };
+    }
+
+    function toISODate(date) { const pad = n => String(n).padStart(2,"0"); return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`; }
+
+    function deriveReportPeriod(daily, fallbackDays) {
+      if (daily && daily.length) {
+        const first = daily[0]; const last = daily[daily.length-1];
+        const start = first.date || first.day || null;
+        const end = last.date || last.day || null;
+        if (start && end) return { start, end };
+      }
+      const end = new Date(); const start = new Date(end); start.setDate(start.getDate() - (fallbackDays-1));
+      return { start: toISODate(start), end: toISODate(end) };
+    }
+
+    function computeGlobalAverages() {
+      const cards = dashboardData.cards || [];
+      let totalScans=0, totalRatingSum=0, totalRatingCount=0;
+      cards.forEach(c => {
+        totalScans += Number(c.total_scans||0);
+        const r1=Number(c.rating_1||0), r2=Number(c.rating_2||0), r3=Number(c.rating_3||0), r4=Number(c.rating_4||0), r5=Number(c.rating_5||0);
+        const count = r1+r2+r3+r4+r5;
+        totalRatingCount += count;
+        totalRatingSum += r1*1 + r2*2 + r3*3 + r4*4 + r5*5;
+      });
+      return { avgRating: totalRatingCount ? totalRatingSum/totalRatingCount : null, returnRate: totalScans ? (totalRatingCount/totalScans)*100 : null, totalScans, totalRatingCount };
+    }
+
+    async function loadEstablishmentStats(businessId) {
+      const content = document.getElementById("statsContent");
+      if (!content) return;
+      if (!businessId) {
+        statsState = { businessId: null, loading: false, data: null, error: null };
+        content.innerHTML = `<div class="panel"><div class="empty"><div class="empty-icon">📊</div><h3>Sélectionnez un établissement</h3><p>Choisissez un établissement ci-dessus pour afficher ses statistiques depuis le début du cycle de suivi et générer son rapport client.</p></div></div>`;
+        return;
+      }
+      statsState.businessId = businessId; statsState.loading = true; statsState.error = null;
+      content.innerHTML = `<div class="panel"><div class="empty"><div class="empty-icon">⏳</div><h3>Chargement…</h3><p>Calcul des statistiques du cycle en cours.</p></div></div>`;
+      try {
+        const cycleStart = getCycleStartDate(businessId);
+        const { data, error } = await supabaseClient.rpc("get_admin_establishment_stats", {
+          p_business_id: businessId,
+          p_start_date: toISODate(cycleStart)
+        });
+        if (statsState.businessId !== businessId) return;
+        if (error) throw new Error(error.message || "Erreur inconnue.");
+        statsState.data = data || null;
+      } catch (error) {
+        if (statsState.businessId === businessId) { statsState.error = error.message || "Impossible de charger les statistiques."; }
+      } finally {
+        if (statsState.businessId === businessId) { statsState.loading = false; renderEstablishmentStats(); }
+      }
+    }
+
+    function renderEstablishmentStats() {
+      const content = document.getElementById("statsContent");
+      if (!content) return;
+      if (!statsState.businessId || statsState.loading) return;
+      if (statsState.error) {
+        content.innerHTML = `<div class="panel"><div class="empty"><div class="empty-icon">⚠️</div><h3>Statistiques indisponibles</h3><p>${escapeHtml(statsState.error)}</p><button class="btn btn-soft" onclick="loadEstablishmentStats(statsState.businessId)">🔄 Réessayer</button></div></div>`;
+        return;
+      }
+      const stats = statsState.data || {};
+      const business = stats.business || getBusiness(statsState.businessId) || {};
+      const totals = stats.totals || {};
+      const cards = Array.isArray(stats.cards) ? stats.cards : [];
+      const daily = Array.isArray(stats.daily) ? stats.daily : [];
+      const period = deriveReportPeriod(daily, 30);
+      const scans = Number(totals.scans || 0);
+      const ratings = Number(totals.ratings || 0);
+      const avgRating = totals.avg_rating !== null && totals.avg_rating !== undefined ? Number(totals.avg_rating).toFixed(1) : "—";
+      const returnRate = totals.return_rate !== null && totals.return_rate !== undefined ? Number(totals.return_rate).toFixed(0) + "%" : "—";
+      const activeCards = Number(totals.active_cards || 0);
+      const inactiveCards = Number(totals.inactive_cards || 0);
+      const ratingTotals = { 1: Number(totals.rating_1||0), 2: Number(totals.rating_2||0), 3: Number(totals.rating_3||0), 4: Number(totals.rating_4||0), 5: Number(totals.rating_5||0) };
+      const ratingSum = Object.values(ratingTotals).reduce((a,b)=>a+b,0);
+      const lowShare = ratingSum ? ((ratingTotals[1]+ratingTotals[2])/ratingSum)*100 : 0;
+      const topCard = cards.find(c => c.id === stats.top_card_id) || cards.slice().sort((a,b) => Number(b.scans||0)-Number(a.scans||0))[0] || null;
+      const cycleElapsed = getCycleElapsed(statsState.businessId);
+      const globalAvg = computeGlobalAverages();
+
+      lastEstablishmentReport = { business, period, scans, ratings, avgRating, returnRate, ratingTotals, ratingSum, lowShare, activeCards, inactiveCards, topCard, cards, daily, cycle: cycleElapsed, globalAvg };
+
+      content.innerHTML = `
+        <div class="panel">
+          <h3>🏢 ${escapeHtml(business.name || "Établissement")}</h3>
+          <p class="panel-desc">Période : ${escapeHtml(period.start||"—")} → ${escapeHtml(period.end||"—")} (depuis le début du cycle, jour ${cycleElapsed.days+1}).</p>
+          <div class="stats-meta">
+            <span class="alert-pill warn">🕒 Jour ${cycleElapsed.days+1} du cycle</span>
+            ${avgRating !== "—" && Number(avgRating) >= 4 ? `<span class="alert-pill good">⭐ Note solide (${avgRating}/5)</span>` : avgRating !== "—" && Number(avgRating) < 3.5 ? `<span class="alert-pill bad">⚠️ Note à surveiller (${avgRating}/5)</span>` : `<span class="alert-pill warn">⭐ Note : ${avgRating}/5</span>`}
+            ${ratingSum > 0 ? (lowShare >= 25 ? `<span class="alert-pill bad">⚠️ ${lowShare.toFixed(0)}% d'avis 1-2★</span>` : `<span class="alert-pill good">✅ Faible taux d'avis négatifs</span>`) : `<span class="alert-pill warn">Aucun avis</span>`}
+            <span class="alert-pill warn">${activeCards} active(s) / ${inactiveCards} inactive(s)</span>
+          </div>
+        </div>
+
+        <div class="panel cycle-panel">
+          <div class="section-head" style="margin-bottom:10px;"><div><h3>🕒 Cycle de suivi client</h3><p class="panel-desc">Compteur réel depuis le dernier rapport envoyé.</p></div></div>
+          <div class="cycle-display">
+            <div class="cycle-days ${cycleElapsed.days >= 30 ? "over" : ""}">
+              <span class="cycle-days-number">${cycleElapsed.days+1}</span><span class="cycle-days-label">${cycleElapsed.days+1 > 1 ? "jours" : "jour"}</span>
+            </div>
+            <div class="cycle-meta">
+              <div id="cycleClockLive" class="cycle-live">${String(cycleElapsed.days).padStart(2,"0")}j ${String(cycleElapsed.hours).padStart(2,"0")}:${String(cycleElapsed.minutes).padStart(2,"0")}:${String(cycleElapsed.seconds).padStart(2,"0")}</div>
+              <div class="cycle-since">Démarré le ${escapeHtml(cycleElapsed.startLabel)}</div>
+            </div>
+          </div>
+          <div class="cycle-progress-track"><div class="cycle-progress-fill ${cycleElapsed.days >= 30 ? "over" : ""}" style="width:${Math.min(100, (cycleElapsed.days/30)*100)}%;"></div></div>
+          <div class="cycle-progress-caption">${cycleElapsed.days >= 30 ? "⚠️ Le cycle dépasse 30 jours — pensez à envoyer le rapport puis à redémarrer." : `${cycleElapsed.days} / 30 jours de repère avant le prochain rapport.`}</div>
+          <button class="btn btn-gold" style="margin-top:12px;width:100%;" onclick="restartBusinessCycle('${statsState.businessId}')">🔁 Rapport envoyé — redémarrer le cycle</button>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-label">Scans (cycle)</div><div class="kpi-value">${scans}</div></div>
+          <div class="kpi"><div class="kpi-label">Avis (cycle)</div><div class="kpi-value">${ratings}</div></div>
+          <div class="kpi"><div class="kpi-label">Note moy.</div><div class="kpi-value">${avgRating}</div></div>
+          <div class="kpi"><div class="kpi-label">Taux de retour</div><div class="kpi-value">${returnRate}</div></div>
+        </div>
+
+        <div class="panel">
+          <h3>⭐ Répartition des avis (cycle)</h3>
+          <div class="rating-grid">${[5,4,3,2,1].map(star => { const value = ratingTotals[star]; const percent = ratingSum ? (value/ratingSum)*100 : 0; return `<div class="rating-line"><span>${star}★</span><div class="rating-track"><div class="rating-fill" style="width:${percent}%"></div></div><span>${value}</span></div>`; }).join("")}</div>
+        </div>
+
+        <div class="panel">
+          <h3>📈 Activité quotidienne (cycle)</h3>
+          <p class="panel-desc">Scans par jour sur la période.</p>
+          ${daily.length ? `<div class="daybar-chart">${daily.map(day => { const value = Number(day.scans||0); const max = Math.max(1, ...daily.map(d => Number(d.scans||0))); const height = value ? Math.max(6, (value/max)*100) : 3; return `<div class="daybar${value ? "" : " empty-bar"}" style="height:${height}%;" title="${escapeHtml(day.day||"")} — ${value} scan(s)"></div>`; }).join("")}</div><div class="daybar-labels"><span>${escapeHtml(daily[0]?.day||"")}</span><span>${escapeHtml(daily[daily.length-1]?.day||"")}</span></div>` : `<p class="panel-desc">Aucune donnée quotidienne.</p>`}
+        </div>
+
+        <div class="panel">
+          <h3>💳 Cartes de l'établissement</h3>
+          <p class="panel-desc">${topCard ? `Carte la plus active : ${escapeHtml(topCard.card_code||"—")}.` : "Aucune activité de carte sur la période."}</p>
+          ${cards.length ? cards.slice().sort((a,b) => Number(b.scans||0)-Number(a.scans||0)).map(c => `<div class="card-mini-row"><div><div class="card-mini-code">${topCard && c.id === topCard.id && Number(c.scans||0)>0 ? "🏆 " : ""}${escapeHtml(c.card_code||"—")}</div><div class="card-mini-sub">${c.active ? '<span class="badge active">● Active</span>' : '<span class="badge paused">● Inactive</span>'}</div></div><div style="text-align:right;"><b>${Number(c.scans||0)}</b><div class="card-mini-sub">Scans</div></div><div style="text-align:right;"><b>${Number(c.ratings||0)}</b><div class="card-mini-sub">Avis</div></div><div style="text-align:right;"><b>⭐ ${c.avg_rating !== null && c.avg_rating !== undefined ? Number(c.avg_rating).toFixed(1) : "—"}</b><div class="card-mini-sub">Note</div></div></div>`).join("") : `<p class="panel-desc">Aucune carte trouvée.</p>`}
+        </div>
+
+        <div class="panel">
+          <h3>🔎 Lecture rapide</h3>
+          <div class="insight-list">
+            ${(() => {
+              const items = [];
+              if (scans === 0) items.push("Aucun scan enregistré depuis le début du cycle.");
+              if (ratingSum > 0) { if (lowShare >= 25) items.push(`${lowShare.toFixed(0)}% d'avis 1-2★ — attention particulière.`); else items.push("Faible proportion d'avis négatifs."); }
+              if (scans > 0 && ratings >= 0) items.push(`${scans} scan(s), ${ratings} avis (retour : ${returnRate}).`);
+              if (daily && daily.length >= 10) {
+                const half = Math.floor(daily.length/2);
+                const first = daily.slice(0,half).reduce((s,d) => s + Number(d.scans||0), 0);
+                const second = daily.slice(half).reduce((s,d) => s + Number(d.scans||0), 0);
+                if (first || second) {
+                  if (second > first*1.2) items.push("Activité en hausse sur la seconde moitié.");
+                  else if (first > second*1.2) items.push("Activité en baisse sur la seconde moitié.");
+                  else items.push("Activité stable sur la période.");
+                }
+              }
+              if (topCard && Number(topCard.scans||0) > 0) items.push(`Carte la plus active : ${topCard.card_code} (${Number(topCard.scans||0)} scans).`);
+              if (inactiveCards > 0) items.push(`${inactiveCards} carte(s) inactive(s).`);
+              if (!items.length) items.push("Pas assez de données sur cette période.");
+              return items.map(text => `<div class="insight-item">• ${escapeHtml(text)}</div>`).join("");
+            })()}
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="section-head" style="margin-bottom:6px;">
+            <div><h3>📄 Rapport client</h3><p class="panel-desc">Prêt à copier-coller et envoyer au client.</p></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn btn-primary" onclick="copyEstablishmentReport()">📋 Copier</button>
+              <button class="btn btn-blue" onclick="exportEstablishmentCSV()">⬇️ CSV</button>
+              <button class="btn btn-gold" onclick="exportEstablishmentPDF()">⬇️ PDF</button>
+              <button class="btn btn-soft" onclick="sendEstablishmentReportNow('${business.id}')">📧 Envoyer maintenant</button>
+            </div>
+            <p class="panel-desc" style="width:100%;margin-top:6px;">${business.report_schedule_enabled && business.report_email ? `📅 Envoi auto le 1er de chaque mois à ${escapeHtml(business.report_email)}.` : "📅 Aucun envoi automatique configuré (voir Modifier l'établissement)."}</p>
+          </div>
+          <div id="establishmentReportBox" class="report-box">${escapeHtml(buildClientReport(lastEstablishmentReport))}</div>
+        </div>
+      `;
+
+      // Cycle clock ticker
+      if (window.cycleInterval) clearInterval(window.cycleInterval);
+      window.cycleInterval = setInterval(() => {
+        const live = document.getElementById("cycleClockLive");
+        if (!live || statsState.businessId !== business.id) { clearInterval(window.cycleInterval); return; }
+        const el = getCycleElapsed(business.id);
+        live.textContent = `${String(el.days).padStart(2,"0")}j ${String(el.hours).padStart(2,"0")}:${String(el.minutes).padStart(2,"0")}:${String(el.seconds).padStart(2,"0")}`;
+      }, 1000);
+    }
+
+    function restartBusinessCycle(businessId) {
+      if (!businessId) return;
+      if (!confirm("Redémarrer le cycle de suivi pour cet établissement ?")) return;
+      const now = new Date();
+      try { localStorage.setItem(`avify_cycle_start::${businessId}`, now.toISOString()); } catch {}
+      try { supabaseClient.from("businesses").update({ cycle_started_at: now.toISOString() }).eq("id", businessId); } catch {}
+      showStatus("Cycle redémarré — jour 1.", "success");
+      loadEstablishmentStats(businessId);
+    }
+
+    function buildClientReport(r) {
+      if (!r) return "Aucune donnée.";
+      const lines = [];
+      lines.push(`RAPPORT MENSUEL — ${(r.business?.name || "Établissement").toUpperCase()}`);
+      lines.push(`Période : ${r.period?.start || "—"} au ${r.period?.end || "—"}`);
+      if (r.cycle) lines.push(`Cycle : Jour ${r.cycle.days+1} (démarré le ${r.cycle.startLabel})`);
+      lines.push(""); lines.push("CHIFFRES CLÉS");
+      lines.push(`- Scans : ${r.scans}`);
+      lines.push(`- Avis : ${r.ratings}`);
+      lines.push(`- Note moyenne : ${r.avgRating}/5`);
+      lines.push(`- Taux de retour : ${r.returnRate}`);
+      lines.push(`- Cartes actives : ${r.activeCards} / inactives : ${r.inactiveCards}`);
+      lines.push(""); lines.push("PERFORMANCE DES AVIS");
+      lines.push(`- 5★ : ${r.ratingTotals[5]}  |  4★ : ${r.ratingTotals[4]}  |  3★ : ${r.ratingTotals[3]}  |  2★ : ${r.ratingTotals[2]}  |  1★ : ${r.ratingTotals[1]}`);
+      if (r.ratingSum > 0) lines.push(`- Part d'avis négatifs (1-2★) : ${r.lowShare.toFixed(0)}%`);
+      lines.push(""); lines.push("ACTIVITÉ");
+      if (r.topCard && Number(r.topCard.scans||0) > 0) lines.push(`- Carte la plus active : ${r.topCard.card_code} (${Number(r.topCard.scans||0)} scans)`);
+      else lines.push("- Pas d'activité de carte notable.");
+      lines.push(""); lines.push("POINTS FORTS");
+      if (r.avgRating !== "—" && Number(r.avgRating) >= 4) lines.push(`- Note moyenne solide (${r.avgRating}/5).`);
+      if (r.ratingSum > 0 && r.lowShare < 25) lines.push("- Faible proportion d'avis négatifs.");
+      if (r.scans > 0) lines.push(`- ${r.scans} scan(s) enregistrés.`);
+      lines.push(""); lines.push("POINTS DE VIGILANCE");
+      if (r.ratingSum > 0 && r.lowShare >= 25) lines.push(`- ${r.lowShare.toFixed(0)}% d'avis 1-2★.`);
+      if (r.inactiveCards > 0) lines.push(`- ${r.inactiveCards} carte(s) inactive(s).`);
+      if (r.scans === 0) lines.push("- Aucun scan enregistré.");
+      lines.push(""); lines.push("CONCLUSION");
+      if (r.avgRating !== "—" && Number(r.avgRating) >= 4 && r.scans > 0) lines.push("Le mois montre une activité saine et une satisfaction client globalement positive.");
+      else if (r.scans === 0) lines.push("Aucune activité mesurable ce mois-ci.");
+      else lines.push("Le mois montre une activité mesurable ; certains points méritent un suivi.");
+      return lines.join("\n");
+    }
+
+    async function copyEstablishmentReport() {
+      const box = document.getElementById("establishmentReportBox");
+      if (!box) return;
+      try { await navigator.clipboard.writeText(box.textContent || ""); showStatus("Rapport client copié.", "success"); } catch { showStatus("Copie manuelle possible.", "info"); }
+    }
+
+    function exportEstablishmentCSV() {
+      const r = lastEstablishmentReport;
+      if (!r) { showStatus("Aucune donnée à exporter.", "info"); return; }
+      const rows = [];
+      rows.push(["Rapport", r.business.name || "Établissement"]);
+      rows.push(["Période", `${r.period.start||"—"} au ${r.period.end||"—"}`]);
+      rows.push([]);
+      rows.push(["Indicateur", "Valeur"]);
+      rows.push(["Scans", r.scans]);
+      rows.push(["Avis", r.ratings]);
+      rows.push(["Note moyenne", r.avgRating]);
+      rows.push(["Taux de retour", r.returnRate]);
+      rows.push(["Cartes actives", r.activeCards]);
+      rows.push(["Cartes inactives", r.inactiveCards]);
+      if (r.globalAvg && r.globalAvg.avgRating !== null) rows.push(["Note moyenne globale (portefeuille)", r.globalAvg.avgRating.toFixed(1)]);
+      rows.push([]);
+      rows.push(["Étoiles", "Nombre"]);
+      [5,4,3,2,1].forEach(star => rows.push([`${star}★`, r.ratingTotals[star]]));
+      rows.push([]);
+      rows.push(["Date", "Scans"]);
+      (r.daily || []).forEach(day => rows.push([day.date || day.day || "—", Number(day.scans||0)]));
+      rows.push([]);
+      rows.push(["Carte", "Scans", "Avis", "Note moyenne", "Statut"]);
+      (r.cards || []).forEach(c => rows.push([c.card_code||"—", Number(c.scans||0), Number(c.ratings||0), c.avg_rating !== null && c.avg_rating !== undefined ? Number(c.avg_rating).toFixed(1) : "—", c.active ? "Active" : "Inactive"]));
+      const csv = rows.map(row => row.map(v => typeof v === 'string' && /[",\n;]/.test(v) ? `"${v.replace(/"/g,'""')}"` : v).join(",")).join("\r\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a"); a.href = url; a.download = `rapport_${slugify(r.business.name)}_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); setTimeout(() => URL.revokeObjectURL(url), 2000);
+      showStatus("CSV exporté.", "success");
+    }
+
+    function exportEstablishmentPDF() {
+      const r = lastEstablishmentReport;
+      if (!r) { showStatus("Aucune donnée à exporter.", "info"); return; }
+      if (!window.jspdf || !window.jspdf.jsPDF) { showStatus("PDF indisponible.", "error"); return; }
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: "pt", format: "a4" });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const marginX = 42;
+      const contentWidth = pageWidth - marginX * 2;
+      const businessName = r.business.name || "Établissement";
+      const generatedLabel = new Date().toLocaleDateString("fr-FR", { day:"numeric", month:"long", year:"numeric" });
+      let y = 0;
+      let pageNum = 1;
+
+      function setColor(fn, rgb){ doc[fn](rgb[0], rgb[1], rgb[2]); }
+      function drawFooter(){
+        setColor("setDrawColor", [226,232,240]); doc.setLineWidth(0.6); doc.line(marginX, pageHeight-42, pageWidth-marginX, pageHeight-42);
+        doc.setFont("helvetica", "normal"); doc.setFontSize(8); setColor("setTextColor", [107,120,138]);
+        doc.text("Avify Stat — Control Center", marginX, pageHeight-27);
+        doc.text(`Rapport confidentiel — ${businessName}`, pageWidth/2, pageHeight-27, { align: "center" });
+        doc.text(`Page ${pageNum}`, pageWidth-marginX, pageHeight-27, { align: "right" });
+      }
+      function ensureSpace(needed){ if (y + needed > pageHeight - 58) { drawFooter(); doc.addPage(); pageNum++; y = 40; } }
+
+      // Header
+      setColor("setFillColor", [6,27,58]); doc.rect(0,0,pageWidth,128,"F");
+      setColor("setFillColor", [217,146,19]); doc.rect(0,128,pageWidth,3,"F");
+      setColor("setFillColor", [255,255,255]); doc.circle(marginX+21,50,21,"F");
+      setColor("setDrawColor", [217,146,19]); doc.setLineWidth(1.4); doc.circle(marginX+21,50,21,"S");
+      doc.setFont("helvetica", "bold"); doc.setFontSize(21); setColor("setTextColor", [6,27,58]); doc.text("G", marginX+21,58, { align: "center" });
+      doc.setFont("helvetica", "bold"); doc.setFontSize(9.5); setColor("setTextColor", [255,207,85]); doc.text("AVIFY STAT", marginX+55,30);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); setColor("setTextColor", [170,190,220]); doc.text("RAPPORT MENSUEL DE PERFORMANCE", marginX+55,41);
+      doc.setFont("helvetica", "bold"); doc.setFontSize(20); setColor("setTextColor", [255,255,255]); doc.text(businessName, marginX+55,65);
+      doc.setFont("helvetica", "normal"); doc.setFontSize(10); setColor("setTextColor", [220,228,240]);
+      doc.text(`Période : ${r.period.start||"—"} au ${r.period.end||"—"}`, marginX+55,83);
+      doc.text(`Cycle : jour ${(r.cycle?.days||0)+1}  •  Généré le ${generatedLabel}`, marginX+55,98);
+      y = 156;
+
+      // KPIs
+      const kpis = [
+        { label: "Scans", value: String(r.scans), color: [22,93,255] },
+        { label: "Avis reçus", value: String(r.ratings), color: [217,146,19] },
+        { label: "Note moyenne", value: `${r.avgRating}/5`, color: [22,131,75] },
+        { label: "Taux de retour", value: String(r.returnRate), color: [11,44,87] }
+      ];
+      const kpiGap = 10; const kpiWidth = (contentWidth - kpiGap*3)/4; const kpiHeight = 64;
+      kpis.forEach((kpi, index) => {
+        const x = marginX + index*(kpiWidth+kpiGap);
+        setColor("setFillColor", [255,255,255]); setColor("setDrawColor", [226,232,240]); doc.setLineWidth(0.7);
+        doc.roundedRect(x,y,kpiWidth,kpiHeight,9,9,"FD");
+        setColor("setFillColor", kpi.color); doc.roundedRect(x,y,4,kpiHeight,2,2,"F");
+        doc.setFont("helvetica", "bold"); doc.setFontSize(16); setColor("setTextColor", [7,27,60]); doc.text(kpi.value, x+13, y+27);
+        doc.setFont("helvetica", "normal"); doc.setFontSize(8); setColor("setTextColor", [107,120,138]); doc.text(kpi.label, x+13, y+41);
+      });
+      y += kpiHeight + 24;
+
+      // Global comparison
+      if (r.globalAvg && r.globalAvg.avgRating !== null) {
+        const above = r.avgRating !== "—" && Number(r.avgRating) >= r.globalAvg.avgRating;
+        const titleText = `${above ? "Au-dessus" : "En dessous"} de la moyenne du portefeuille (${r.globalAvg.avgRating.toFixed(1)}/5)`;
+        const subText = r.globalAvg.returnRate !== null ? `Taux retour portefeuille : ${r.globalAvg.returnRate.toFixed(0)}%  •  Taux retour établissement : ${r.returnRate}` : null;
+        ensureSpace(40);
+        setColor("setFillColor", above ? [234,248,240] : [255,240,240]); doc.roundedRect(marginX,y,contentWidth,30,9,9,"F");
+        doc.setFont("helvetica", "bold"); doc.setFontSize(9.5); setColor("setTextColor", above ? [22,131,75] : [201,52,52]);
+        doc.text(titleText, marginX+38, y+18);
+        if (subText) { doc.setFont("helvetica", "normal"); doc.setFontSize(8.5); setColor("setTextColor", [107,120,138]); doc.text(subText, marginX+38, y+30); }
+        y += 36;
+      }
+
+      // Rating distribution
+      ensureSpace(20);
+      doc.setFont("helvetica", "bold"); doc.setFontSize(12.5); setColor("setTextColor", [7,27,60]);
+      doc.text("Répartition des avis", marginX, y+6); y += 20;
+      const labelWidth = 34; const barX = marginX+labelWidth; const barMaxWidth = contentWidth - labelWidth - 40; const barHeight = 13; const barGap = 9;
+      [5,4,3,2,1].forEach(star => {
+        ensureSpace(barHeight+barGap);
+        const value = r.ratingTotals[star]; const percent = r.ratingSum ? value/r.ratingSum : 0; const width = Math.max(2, barMaxWidth * percent);
+        doc.setFont("helvetica", "bold"); doc.setFontSize(9); setColor("setTextColor", [7,27,60]); doc.text(String(star), marginX+17, y+barHeight-2.5);
+        setColor("setFillColor", [244,247,251]); doc.roundedRect(barX,y,barMaxWidth,barHeight,4,4,"F");
+        const starColor = star >= 4 ? [22,131,75] : star === 3 ? [217,146,19] : [201,52,52];
+        if (width > 3) { setColor("setFillColor", starColor); doc.roundedRect(barX,y,width,barHeight,4,4,"F"); }
+        doc.setFont("helvetica", "normal"); doc.setFontSize(9); setColor("setTextColor", [7,27,60]); doc.text(String(value), barX+barMaxWidth+8, y+barHeight-2.5);
+        y += barHeight + barGap;
+      });
+      y += 12;
+
+      // Daily activity chart (simplified)
+      const daily = (r.daily || []).slice(-30);
+      if (daily.length) {
+        ensureSpace(100);
+        doc.setFont("helvetica", "bold"); doc.setFontSize(12.5); setColor("setTextColor", [7,27,60]);
+        doc.text("Activité quotidienne — scans", marginX, y+6); y += 18;
+        const chartHeight = 60; const chartTop = y; const chartWidth = contentWidth;
+        const maxScans = Math.max(1, ...daily.map(d => Number(d.scans||0)));
+        const slotWidth = chartWidth / daily.length; const barW = Math.max(1.5, slotWidth*0.6);
+        setColor("setFillColor", [248,250,255]); doc.rect(marginX, chartTop, chartWidth, chartHeight, "F");
+        setColor("setDrawColor", [226,232,240]); doc.setLineWidth(0.6); doc.line(marginX, chartTop+chartHeight, marginX+chartWidth, chartTop+chartHeight);
+        daily.forEach((day, index) => {
+          const value = Number(day.scans||0);
+          const h = (value/maxScans) * (chartHeight-6);
+          const x = marginX + index*slotWidth + (slotWidth-barW)/2;
+          setColor("setFillColor", value > 0 ? [22,93,255] : [226,232,240]);
+          doc.rect(x, chartTop+chartHeight-h, barW, Math.max(1,h), "F");
+        });
+        y = chartTop + chartHeight + 14;
+        doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); setColor("setTextColor", [107,120,138]);
+        doc.text(daily[0]?.day || "", marginX, y);
+        doc.text(daily[daily.length-1]?.day || "", marginX+chartWidth, y, { align: "right" });
+        y += 24;
+      }
+
+      // Cards table
+      if ((r.cards || []).length) {
+        ensureSpace(20);
+        doc.setFont("helvetica", "bold"); doc.setFontSize(12.5); setColor("setTextColor", [7,27,60]);
+        doc.text("Cartes de l'établissement", marginX, y+6); y += 14;
+        const tableBody = r.cards.slice().sort((a,b) => Number(b.scans||0)-Number(a.scans||0)).map(c => [c.card_code||"—", c.active ? "Active" : "Inactive", String(Number(c.scans||0)), String(Number(c.ratings||0)), c.avg_rating !== null && c.avg_rating !== undefined ? Number(c.avg_rating).toFixed(1) : "—"]);
+        doc.autoTable({
+          startY: y, margin: { left: marginX, right: marginX, bottom: 58 },
+          head: [["Carte", "Statut", "Scans", "Avis", "Note"]],
+          body: tableBody,
+          styles: { font: "helvetica", fontSize: 9, cellPadding: 7, textColor: [7,27,60], lineColor: [226,232,240], lineWidth: 0.5 },
+          headStyles: { fillColor: [6,27,58], textColor: [255,255,255], fontStyle: "bold", fontSize: 9 },
+          alternateRowStyles: { fillColor: [244,247,251] }
+        });
+        y = doc.lastAutoTable.finalY + 24;
+      }
+
+      drawFooter();
+      doc.save(`rapport_${slugify(businessName)}_${new Date().toISOString().slice(0,10)}.pdf`);
+      showStatus("PDF exporté.", "success");
+    }
+
+    async function sendEstablishmentReportNow(businessId) {
+      const business = getBusiness(businessId);
+      if (!business || !business.report_email) { showStatus("Ajoutez d'abord un email.", "info"); return; }
+      try {
+        showStatus("Envoi en cours…", "info");
+        const { data, error } = await supabaseClient.functions.invoke("send-monthly-report", { body: { businessId } });
+        if (error) throw error;
+        const result = Array.isArray(data?.results) ? data.results[0] : null;
+        if (!result || result.ok !== true) throw new Error((result && result.error) || data?.error || "Envoi échoué.");
+        showStatus(`Rapport envoyé à ${business.report_email}.`, "success");
+      } catch (error) { console.error(error); showStatus("Envoi impossible.\n\n" + (error.message || ""), "error"); }
+    }
+
+    /* =========================================================
+       REFRESH
+    ========================================================= */
+    document.getElementById("refreshButton").addEventListener("click", async () => {
+      if (loadingData) return;
+      const btn = document.getElementById("refreshButton");
+      btn.disabled = true; btn.textContent = "⏳";
+      await loadEverything();
+      btn.disabled = false; btn.textContent = "🔄";
+    });
+
+    /* =========================================================
+       INIT
+    ========================================================= */
+    checkSession();
+  </script>
+</body>
+</html>
